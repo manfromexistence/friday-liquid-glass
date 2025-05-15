@@ -20,6 +20,7 @@ import {
   Toaster as NewYorkToaster,
 } from "@/components/ui/toaster"
 import { CodeSidebarProvider } from "@/app/dashboard/sidebar"
+import { GoodSidebarProvider } from "../good-sidebar"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,6 +49,8 @@ export function RootProvider({ children }: RootProviderProps) {
           <AuthProvider>
             <SidebarProvider>
               <LeftSidebar />
+
+              <GoodSidebarProvider>
               <CategorySidebarProvider>
                 <SubCategorySidebarProvider>
                   <CodeSidebarProvider>
@@ -63,6 +66,9 @@ export function RootProvider({ children }: RootProviderProps) {
                   </CodeSidebarProvider>
                 </SubCategorySidebarProvider>
               </CategorySidebarProvider>
+              </GoodSidebarProvider>
+
+
             </SidebarProvider>
           </AuthProvider>
         </FirebaseProvider>

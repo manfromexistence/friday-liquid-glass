@@ -99,6 +99,8 @@ import {
 import { v4 as uuidv4 } from 'uuid' // Added uuid
 import { aiService } from "@/lib/services/ai-service" // Added aiService
 import { Separator } from './ui/separator'
+import GoodSidebarApp from './good-app-sidebar'
+import { useGoodSidebar } from './good-sidebar'
 
 type ChatVisibility = 'public' | 'private' | 'unlisted'
 
@@ -132,10 +134,11 @@ const visibilityConfig = {
 export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const { toggleGoodSidebar, state } = useGoodSidebar()
   const { categorySidebarState, categorySidebarToggleSidebar } = useCategorySidebar()
   const { subCategorySidebarState, subCategorySidebarToggleSidebar } = useSubCategorySidebar()
   const { user } = useAuth()
-  const { isMobile, state: leftSidebarState } = useSidebar() // Add leftSidebarState from useSidebar
+  const { isMobile, state: leftSidebarState } = useSidebar()
   const router = useRouter()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [isLoggingIn, setIsLoggingIn] = useState(false)
@@ -347,6 +350,16 @@ export function SiteHeader() {
 
   // Check if route is chat related
   const isChatRoute = pathname?.startsWith('/chat') ?? false
+
+  const handleGoodSidebarToggle = () => {
+    toggleGoodSidebar()
+    if (subCategorySidebarState === 'expanded') {
+      subCategorySidebarToggleSidebar()
+    }
+    else if (categorySidebarState === 'expanded') {
+      categorySidebarToggleSidebar()
+    }
+  }
 
   const handleCategorySidebarToggle = () => {
     categorySidebarToggleSidebar()
@@ -842,7 +855,7 @@ export function SiteHeader() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <div
-                  onClick={handleCategorySidebarToggle}
+                  onClick={handleGoodSidebarToggle}
                   className="hover:bg-secondary group flex size-6 items-center justify-center rounded-md"
                 >
                   <MessageCircle
@@ -857,6 +870,28 @@ export function SiteHeader() {
               </TooltipTrigger>
               <TooltipContent>
                 <p>Chat</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  onClick={handleCategorySidebarToggle}
+                  className="hover:bg-secondary group flex size-6 items-center justify-center rounded-md"
+                >
+                  <MessageCircle
+                    className={cn(
+                      categorySidebarState === 'expanded'
+                        ? 'text-primary'
+                        : 'text-muted-foreground',
+                      'hover:text-primary group-hover:text-primary size-4'
+                    )}
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Good Sidebar</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -885,9 +920,10 @@ export function SiteHeader() {
           </TooltipProvider>
         </div>
         
-        <div className="m-0 items-center gap-0 space-x-0 p-0">
-          <CategoryRightSidebar className="m-0 p-0" />
-          <SubCategoryRightSidebar className="m-0 p-0" />
+        <div className="!m-0 items-center gap-0 space-x-0 !p-0">
+          <CategoryRightSidebar className="!m-0 !p-0" />
+          <SubCategoryRightSidebar className="!m-0 !p-0" />
+          <GoodSidebarApp className="!m-0 !p-0" />
         </div>
         {/* <CategoryRightSidebar className="m-0 p-0" />
         <SubCategoryRightSidebar className="m-0 p-0" /> */}
