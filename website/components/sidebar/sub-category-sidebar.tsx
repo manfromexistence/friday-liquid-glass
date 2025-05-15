@@ -19,7 +19,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-
 const SIDEBAR_COOKIE_NAME = "sidebar:subCategorySidebarState"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const SIDEBAR_WIDTH = "16rem"
@@ -214,7 +213,7 @@ const SubCategorySidebar = React.forwardRef<
           <SheetContent
             data-sidebar="sidebar"
             data-mobile="true"
-            className="dark:bg-black bg-white border-background text-sidebar-foreground w-[--sidebar-width] p-0 [&>button]:hidden"
+            className="bg-sidebar text-sidebar-foreground w-[--sidebar-width] p-0 [&>button]:hidden"
             style={
               {
                 "--sidebar-width": SIDEBAR_WIDTH_MOBILE,

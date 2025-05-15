@@ -54,7 +54,6 @@ export function RootProvider({ children }: RootProviderProps) {
                     <div vaul-drawer-wrapper="" className="relative h-screen w-full overflow-hidden">
                       <SiteHeader />
                       <Main>{children}</Main>
-                      {/* <BottomBar /> */}
                       <NewYorkToaster />
                       <DefaultToaster />
                       <NewYorkSonner />
@@ -68,7 +67,6 @@ export function RootProvider({ children }: RootProviderProps) {
           </AuthProvider>
         </FirebaseProvider>
       </ThemeProvider>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   )
 }

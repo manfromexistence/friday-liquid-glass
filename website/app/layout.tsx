@@ -81,10 +81,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontSans.variable,
           fontMono.variable
         )}
+        suppressHydrationWarning={true}
       >
-        <RootProvider>
-          {children}
-        </RootProvider>
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
   )
