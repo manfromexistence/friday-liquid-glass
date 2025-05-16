@@ -4,12 +4,19 @@ import * as React from 'react'
 import Link from 'next/link'
 import {
   Blocks,
+  Box,
   CircleSlash2,
+  Computer,
   Frame,
   Home,
+  Image,
   LibraryBig,
+  Music,
   PanelLeft,
+  PenTool,
+  RectangleGoggles,
   Sparkles,
+  Video,
 } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
@@ -76,7 +83,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Home className="size-4" />
+                      <PenTool className="size-4" />
                       Text
                     </CategorySidebarMenuButton>
                   </Link>
@@ -90,7 +97,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/automations">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Sparkles className="size-4" />
+                      <Image className="size-4" />
                       Image
                     </CategorySidebarMenuButton>
                   </Link>
@@ -104,7 +111,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/variants">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <CircleSlash2 className="size-4" />
+                      <Music className="size-4" />
                       Audio
                     </CategorySidebarMenuButton>
                   </Link>
@@ -118,7 +125,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/library">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <LibraryBig className="size-4" />
+                      <Video className="size-4" />
                       Video
                     </CategorySidebarMenuButton>
                   </Link>
@@ -132,7 +139,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/projects">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Blocks className="size-4" />
+                      <Box className="size-4" />
                       3d
                     </CategorySidebarMenuButton>
                   </Link>
@@ -146,7 +153,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/spaces">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Frame className="size-4" />
+                      <RectangleGoggles className="size-4" />
                       Ar
                     </CategorySidebarMenuButton>
                   </Link>
@@ -160,7 +167,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
                 <TooltipTrigger asChild>
                   <Link href="/spaces">
                     <CategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Frame className="size-4" />
+                      <Computer className="size-4" />
                       Vr
                     </CategorySidebarMenuButton>
                   </Link>
