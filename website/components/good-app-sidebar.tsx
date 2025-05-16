@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import * as React from "react"
-import Link from "next/link"
+import * as React from 'react'
+import Link from 'next/link'
 import {
   AudioWaveform,
   Blocks,
@@ -26,8 +26,8 @@ import {
   Sparkles,
   SquareTerminal,
   Trash2,
-} from "lucide-react"
-import { ScrollArea } from "@/components/ui/scroll-area"
+} from 'lucide-react'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   GoodSidebar,
   GoodSidebarContent,
@@ -35,19 +35,41 @@ import {
   GoodSidebarHeader,
   GoodSidebarMenuButton,
   useGoodSidebar,
-} from "@/components/good-sidebar"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { History } from "@/components/sidebar/history"
-import { NavUser } from "@/components/sidebar/nav-user"
-import { TeamSwitcher } from "@/components/sidebar/team-switcher"
-import { useCallback } from "react"
+} from '@/components/good-sidebar'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { History } from '@/components/sidebar/history'
+import { NavUser } from '@/components/sidebar/nav-user'
+// import { TeamSwitcher } from "@/components/sidebar/team-switcher"
+import { useCallback } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { useRouter } from "next/navigation"
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase/config"
-import { useAuth } from "@/contexts/auth-context"
-import { toast } from "sonner"
-import { aiService } from "@/lib/services/ai-service"
+import { useRouter } from 'next/navigation'
+import { doc, setDoc } from 'firebase/firestore'
+import { db } from '@/lib/firebase/config'
+import { useAuth } from '@/contexts/auth-context'
+import { toast } from 'sonner'
+import { aiService } from '@/lib/services/ai-service'
+import type { SVGProps } from 'react'
+import { motion } from 'framer-motion'
+import { startOfWeek, addDays, isSameDay } from 'date-fns'
+import { SidebarMenu, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar'
+
+export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    height="1em"
+    xmlns="http://www.w3.org/2000/svg"
+    strokeLinejoin="round"
+    viewBox="0 0 16 16"
+    width="1em"
+    {...props}
+  >
+    <path
+      clipRule="evenodd"
+      d="M9.50321 5.5H13.2532C13.3123 5.5 13.3704 5.5041 13.4273 5.51203L9.51242 9.42692C9.50424 9.36912 9.5 9.31006 9.5 9.25L9.5 5.5L8 5.5L8 9.25C8 10.7688 9.23122 12 10.75 12H14.5V10.5L10.75 10.5C10.6899 10.5 10.6309 10.4958 10.5731 10.4876L14.4904 6.57028C14.4988 6.62897 14.5032 6.68897 14.5032 6.75V10.5H16.0032V6.75C16.0032 5.23122 14.772 4 13.2532 4H9.50321V5.5ZM0 5V5.00405L5.12525 11.5307C5.74119 12.3151 7.00106 11.8795 7.00106 10.8822V5H5.50106V9.58056L1.90404 5H0Z"
+      fill="white"
+      fillRule="evenodd"
+    />
+  </svg>
+)
 
 export interface ScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -56,322 +78,354 @@ export interface ScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: 'shadcn',
+    email: 'm@example.com',
+    avatar: '/avatars/shadcn.jpg',
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: 'Acme Inc',
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: 'Enterprise',
     },
     {
-      name: "Acme Corp.",
+      name: 'Acme Corp.',
       logo: AudioWaveform,
-      plan: "Startup",
+      plan: 'Startup',
     },
     {
-      name: "Evil Corp.",
+      name: 'Evil Corp.',
       logo: Command,
-      plan: "Free",
+      plan: 'Free',
     },
   ],
   navMain: [
     {
-      title: "Playground",
-      url: "#",
+      title: 'Playground',
+      url: '#',
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: 'History',
+          url: '#',
         },
         {
-          title: "Starred",
-          url: "#",
+          title: 'Starred',
+          url: '#',
         },
         {
-          title: "Settings",
-          url: "#",
+          title: 'Settings',
+          url: '#',
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
+      title: 'Models',
+      url: '#',
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: 'Genesis',
+          url: '#',
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: 'Explorer',
+          url: '#',
         },
         {
-          title: "Quantum",
-          url: "#",
+          title: 'Quantum',
+          url: '#',
         },
       ],
     },
     {
-      title: "Documentation",
-      url: "#",
+      title: 'Documentation',
+      url: '#',
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: 'Introduction',
+          url: '#',
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: 'Get Started',
+          url: '#',
         },
         {
-          title: "Tutorials",
-          url: "#",
+          title: 'Tutorials',
+          url: '#',
         },
         {
-          title: "Changelog",
-          url: "#",
+          title: 'Changelog',
+          url: '#',
         },
       ],
     },
     {
-      title: "Settings",
-      url: "#",
+      title: 'Settings',
+      url: '#',
       icon: Settings2,
       items: [
         {
-          title: "General",
-          url: "#",
+          title: 'General',
+          url: '#',
         },
         {
-          title: "Team",
-          url: "#",
+          title: 'Team',
+          url: '#',
         },
         {
-          title: "Billing",
-          url: "#",
+          title: 'Billing',
+          url: '#',
         },
         {
-          title: "Limits",
-          url: "#",
+          title: 'Limits',
+          url: '#',
         },
       ],
     },
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
+      name: 'Design Engineering',
+      url: '#',
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
+      name: 'Sales & Marketing',
+      url: '#',
       icon: PieChart,
     },
     {
-      name: "Travel",
-      url: "#",
+      name: 'Travel',
+      url: '#',
       icon: Map,
     },
   ],
   navSecondary: [
     {
-      title: "Calendar",
-      url: "#",
+      title: 'Calendar',
+      url: '#',
       icon: Calendar,
     },
     {
-      title: "Settings",
-      url: "#",
+      title: 'Settings',
+      url: '#',
       icon: Settings2,
     },
     {
-      title: "Templates",
-      url: "#",
+      title: 'Templates',
+      url: '#',
       icon: Blocks,
     },
     {
-      title: "Trash",
-      url: "#",
+      title: 'Trash',
+      url: '#',
       icon: Trash2,
     },
     {
-      title: "Help",
-      url: "#",
+      title: 'Help',
+      url: '#',
       icon: MessageCircleQuestion,
     },
   ],
   favorites: [
     {
-      name: "Project Management & Task Tracking",
-      url: "#",
-      emoji: "📊",
+      name: 'Project Management & Task Tracking',
+      url: '#',
+      emoji: '📊',
     },
     {
-      name: "Family Recipe Collection & Meal Planning",
-      url: "#",
-      emoji: "🍳",
+      name: 'Family Recipe Collection & Meal Planning',
+      url: '#',
+      emoji: '🍳',
     },
     {
-      name: "Fitness Tracker & Workout Routines",
-      url: "#",
-      emoji: "💪",
+      name: 'Fitness Tracker & Workout Routines',
+      url: '#',
+      emoji: '💪',
     },
     {
-      name: "Book Notes & Reading List",
-      url: "#",
-      emoji: "📚",
+      name: 'Book Notes & Reading List',
+      url: '#',
+      emoji: '📚',
     },
     {
-      name: "Sustainable Gardening Tips & Plant Care",
-      url: "#",
-      emoji: "🌱",
+      name: 'Sustainable Gardening Tips & Plant Care',
+      url: '#',
+      emoji: '🌱',
     },
     {
-      name: "Language Learning Progress & Resources",
-      url: "#",
-      emoji: "🗣️",
+      name: 'Language Learning Progress & Resources',
+      url: '#',
+      emoji: '🗣️',
     },
     {
-      name: "Home Renovation Ideas & Budget Tracker",
-      url: "#",
-      emoji: "🏠",
+      name: 'Home Renovation Ideas & Budget Tracker',
+      url: '#',
+      emoji: '🏠',
     },
     {
-      name: "Personal Finance & Investment Portfolio",
-      url: "#",
-      emoji: "💰",
+      name: 'Personal Finance & Investment Portfolio',
+      url: '#',
+      emoji: '💰',
     },
     {
-      name: "Movie & TV Show Watchlist with Reviews",
-      url: "#",
-      emoji: "🎬",
+      name: 'Movie & TV Show Watchlist with Reviews',
+      url: '#',
+      emoji: '🎬',
     },
     {
-      name: "Daily Habit Tracker & Goal Setting",
-      url: "#",
-      emoji: "✅",
+      name: 'Daily Habit Tracker & Goal Setting',
+      url: '#',
+      emoji: '✅',
     },
   ],
   workspaces: [
     {
-      name: "Personal Life Management",
-      emoji: "🏠",
+      name: 'Personal Life Management',
+      emoji: '🏠',
       pages: [
         {
-          name: "Daily Journal & Reflection",
-          url: "#",
-          emoji: "📔",
+          name: 'Daily Journal & Reflection',
+          url: '#',
+          emoji: '📔',
         },
         {
-          name: "Health & Wellness Tracker",
-          url: "#",
-          emoji: "🍏",
+          name: 'Health & Wellness Tracker',
+          url: '#',
+          emoji: '🍏',
         },
         {
-          name: "Personal Growth & Learning Goals",
-          url: "#",
-          emoji: "🌟",
+          name: 'Personal Growth & Learning Goals',
+          url: '#',
+          emoji: '🌟',
         },
       ],
     },
     {
-      name: "Professional Development",
-      emoji: "💼",
+      name: 'Professional Development',
+      emoji: '💼',
       pages: [
         {
-          name: "Career Objectives & Milestones",
-          url: "#",
-          emoji: "🎯",
+          name: 'Career Objectives & Milestones',
+          url: '#',
+          emoji: '🎯',
         },
         {
-          name: "Skill Acquisition & Training Log",
-          url: "#",
-          emoji: "🧠",
+          name: 'Skill Acquisition & Training Log',
+          url: '#',
+          emoji: '🧠',
         },
         {
-          name: "Networking Contacts & Events",
-          url: "#",
-          emoji: "🤝",
+          name: 'Networking Contacts & Events',
+          url: '#',
+          emoji: '🤝',
         },
       ],
     },
     {
-      name: "Creative Projects",
-      emoji: "🎨",
+      name: 'Creative Projects',
+      emoji: '🎨',
       pages: [
         {
-          name: "Writing Ideas & Story Outlines",
-          url: "#",
-          emoji: "✍️",
+          name: 'Writing Ideas & Story Outlines',
+          url: '#',
+          emoji: '✍️',
         },
         {
-          name: "Art & Design Portfolio",
-          url: "#",
-          emoji: "🖼️",
+          name: 'Art & Design Portfolio',
+          url: '#',
+          emoji: '🖼️',
         },
         {
-          name: "Music Composition & Practice Log",
-          url: "#",
-          emoji: "🎵",
+          name: 'Music Composition & Practice Log',
+          url: '#',
+          emoji: '🎵',
         },
       ],
     },
     {
-      name: "Home Management",
-      emoji: "🏡",
+      name: 'Home Management',
+      emoji: '🏡',
       pages: [
         {
-          name: "Household Budget & Expense Tracking",
-          url: "#",
-          emoji: "💰",
+          name: 'Household Budget & Expense Tracking',
+          url: '#',
+          emoji: '💰',
         },
         {
-          name: "Home Maintenance Schedule & Tasks",
-          url: "#",
-          emoji: "🔧",
+          name: 'Home Maintenance Schedule & Tasks',
+          url: '#',
+          emoji: '🔧',
         },
         {
-          name: "Family Calendar & Event Planning",
-          url: "#",
-          emoji: "📅",
+          name: 'Family Calendar & Event Planning',
+          url: '#',
+          emoji: '📅',
         },
       ],
     },
     {
-      name: "Travel & Adventure",
-      emoji: "🧳",
+      name: 'Travel & Adventure',
+      emoji: '🧳',
       pages: [
         {
-          name: "Trip Planning & Itineraries",
-          url: "#",
-          emoji: "🗺️",
+          name: 'Trip Planning & Itineraries',
+          url: '#',
+          emoji: '🗺️',
         },
         {
-          name: "Travel Bucket List & Inspiration",
-          url: "#",
-          emoji: "🌎",
+          name: 'Travel Bucket List & Inspiration',
+          url: '#',
+          emoji: '🌎',
         },
         {
-          name: "Travel Journal & Photo Gallery",
-          url: "#",
-          emoji: "📸",
+          name: 'Travel Journal & Photo Gallery',
+          url: '#',
+          emoji: '📸',
         },
       ],
     },
   ],
 }
 
-export default function GoodSidebarApp({
-  ...props
-}: React.ComponentProps<typeof GoodSidebar>) {
+export function TeamSwitcher({}: {
+  teams: {
+    name: string
+    logo: React.ElementType
+    plan: string
+  }[]
+}) {
+  const { toggleSidebar, state } = useSidebar()
+
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <div className="peer/menu-button ring-sidebar-ring data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 rounded-md p-2 !px-0 text-left text-sm outline-none transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0">
+          Category Sidebar
+          {/* <PanelRight
+            onClick={() => {
+              toggleSidebar()
+            }}
+            className="ml-auto"
+          />
+          {state === 'expanded' ? (
+            <PanelRight
+              onClick={() => {
+                toggleSidebar()
+              }}
+              className="ml-auto"
+            />
+          ) : null} */}
+        </div>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  )
+}
+
+export default function GoodSidebarApp({ ...props }: React.ComponentProps<typeof GoodSidebar>) {
   const { state, toggleGoodSidebar } = useGoodSidebar()
   const router = useRouter()
   const { user } = useAuth()
@@ -380,11 +434,11 @@ export default function GoodSidebarApp({
   const handleStartNew = useCallback(async () => {
     try {
       if (!user) {
-        toast.error("Authentication required", {
-          description: "Please sign in to start a new chat",
+        toast.error('Authentication required', {
+          description: 'Please sign in to start a new chat',
           duration: 3000,
-        });
-        return;
+        })
+        return
       }
 
       // Generate a new UUID for the chat
@@ -393,7 +447,7 @@ export default function GoodSidebarApp({
       // Create initial chat data with empty messages array
       const chatData = {
         id: chatId,
-        title: "New Conversation",
+        title: 'New Conversation',
         messages: [], // Start with empty messages array
         model: aiService.currentModel, // Default model
         visibility: 'public',
@@ -402,16 +456,16 @@ export default function GoodSidebarApp({
         creatorUid: user.uid,
         reactions: {
           likes: {},
-          dislikes: {}
+          dislikes: {},
         },
         participants: [user.uid],
         views: 0,
         uniqueViewers: [],
-        isPinned: false
+        isPinned: false,
       }
 
       // Store chat data in Firestore
-      await setDoc(doc(db, "chats", chatId), chatData)
+      await setDoc(doc(db, 'chats', chatId), chatData)
 
       // Store information in sessionStorage
       sessionStorage.setItem('selectedAI', aiService.currentModel)
@@ -420,12 +474,11 @@ export default function GoodSidebarApp({
 
       // Navigate to the new chat
       router.push(`/chat/${chatId}`)
-
     } catch (error) {
-      console.error("Error creating new chat:", error)
-      toast.error("Failed to create new chat", {
-        description: "Please try again"
-      });
+      console.error('Error creating new chat:', error)
+      toast.error('Failed to create new chat', {
+        description: 'Please try again',
+      })
     }
   }, [user, router])
 
@@ -444,11 +497,7 @@ export default function GoodSidebarApp({
                     onClick={handleStartNew}
                     className="hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm bg-background/40 dark:hover:bg-background hover:bg-primary-foreground hover:border-border dark:border-primary-foreground border"
                   >
-                    {state === "expanded" ? (
-                      "Start New"
-                    ) : (
-                      <Plus className="size-4" />
-                    )}
+                    {state === 'expanded' ? 'Start New' : <Plus className="size-4" />}
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="right">
@@ -461,12 +510,12 @@ export default function GoodSidebarApp({
                   <Link href="/">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                       <Home className="size-4" />
-                      Home
+                      Text
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>Home</p>
+                  <p>Text</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -475,12 +524,12 @@ export default function GoodSidebarApp({
                   <Link href="/automations">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                       <Sparkles className="size-4" />
-                      Automations
+                      Image
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>Automations</p>
+                  <p>Image</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -489,12 +538,12 @@ export default function GoodSidebarApp({
                   <Link href="/variants">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                       <CircleSlash2 className="size-4" />
-                      Varients
+                      Audio
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>Varients</p>
+                  <p>Audio</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -503,12 +552,12 @@ export default function GoodSidebarApp({
                   <Link href="/library">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                       <LibraryBig className="size-4" />
-                      Library
+                      Video
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>Library</p>
+                  <p>Video</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -517,12 +566,12 @@ export default function GoodSidebarApp({
                   <Link href="/projects">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                       <Blocks className="size-4" />
-                      Projects
+                      3d
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>Projects</p>
+                  <p>3d</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -531,32 +580,31 @@ export default function GoodSidebarApp({
                   <Link href="/spaces">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                       <Frame className="size-4" />
-                      Spaces
+                      Ar
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>Spaces</p>
+                  <p>Ar</p>
                 </TooltipContent>
               </Tooltip>
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href={{ pathname: "/more" }}>
+                  <Link href="/spaces">
                     <GoodSidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Ellipsis className="size-4" />
-                      More
+                      <Frame className="size-4" />
+                      Vr
                     </GoodSidebarMenuButton>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent side="right">
-                  <p>More Options</p>
+                  <p>Vr</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
-
           </div>
-          {state === "expanded" ? (
+          {state === 'expanded' ? (
             <div className="">
               <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
               <History />
@@ -565,27 +613,25 @@ export default function GoodSidebarApp({
         </ScrollArea>
       </GoodSidebarContent>
       <GoodSidebarFooter>
-        {state === "expanded" ?
-          null
-          : (
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div
-                    onClick={() => {
-                      toggleGoodSidebar()
-                    }}
-                    className="hover:bg-background hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md"
-                  >
-                    <PanelRight className="size-4" />
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  <p>Expand Sidebar</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          )}
+        {state === 'expanded' ? null : (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div
+                  onClick={() => {
+                    toggleGoodSidebar()
+                  }}
+                  className="hover:bg-background hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md"
+                >
+                  <PanelRight className="size-4" />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>Expand Sidebar</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
         <NavUser />
       </GoodSidebarFooter>
     </GoodSidebar>
