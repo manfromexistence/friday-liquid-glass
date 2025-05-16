@@ -5,14 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Menu, Search } from 'lucide-react'
 import Friday from './friday/friday'
 import * as React from 'react'
-import { useState, useCallback } from 'react' // Added useCallback
-import Link from 'next/link' // Added Link
+import { useState, useCallback } from 'react'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useCategorySidebar } from '@/components/sidebar/category-sidebar'
+import { useCategorySidebar } from '@/components/category-sidebar'
 import { NavActions } from '@/components/sidebar/nav-actions'
-import { useSubCategorySidebar } from '@/components/sidebar/sub-category-sidebar'
-import { CategoryRightSidebar, SubCategoryRightSidebar } from '@/components/sidebar/right-sidebar'
+import { useSubCategorySidebar } from '@/components/subcategory-sidebar'
+import CategorySidebar from '@/components/category-app-sidebar'
+import SubCategorySidebar from '@/components/subcategory-app-sidebar'
 import { usePathname } from 'next/navigation'
 import {
   User as FirebaseUser,
@@ -21,9 +22,9 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth'
-import { useAuth } from '@/contexts/auth-context' // Ensure useAuth is imported
-import { useRouter } from 'next/navigation' // Ensure useRouter is imported
-import { toast } from 'sonner' // Ensure toast is imported
+import { useAuth } from '@/contexts/auth-context'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -34,8 +35,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useSidebar } from '@/components/ui/sidebar' // Ensure useSidebar is imported
-import { SidebarMenuButton } from '@/components/ui/sidebar' // Added SidebarMenuButton
+import { useSidebar } from '@/components/ui/sidebar'
+import { SidebarMenuButton } from '@/components/ui/sidebar'
 import {
   BadgeCheck,
   Bell,
@@ -43,28 +44,28 @@ import {
   Type,
   CreditCard,
   LogOut,
-  Sparkles, // Keep Sparkles
+  Sparkles,
   Key,
-  Plus, // Added Plus
-  Home, // Added Home
-  CircleSlash2, // Added CircleSlash2
-  LibraryBig, // Added LibraryBig
-  Blocks, // Added Blocks
-  Frame, // Added Frame
-  Ellipsis, // Added Ellipsis
+  Plus,
+  Home,
+  CircleSlash2,
+  LibraryBig,
+  Blocks,
+  Frame,
+  Ellipsis,
 } from 'lucide-react'
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider, // Added TooltipProvider
+  TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { History } from '@/components/sidebar/history' // Ensure History is imported
+import { History } from '@/components/sidebar/history'
 import ThemeToggleButton from '@/components/ui/theme-toggle-button'
 import { useParams } from 'next/navigation'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { doc, getDoc, updateDoc, onSnapshot, setDoc } from 'firebase/firestore' // Added setDoc
-import { db } from '@/lib/firebase/config' // Ensure db is imported
+import { doc, getDoc, updateDoc, onSnapshot, setDoc } from 'firebase/firestore'
+import { db } from '@/lib/firebase/config'
 import { GlobeIcon, LockIcon, EyeOff, Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { SidebarProvider } from '@/components/sidebar/actions-sidebar'
@@ -96,8 +97,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command"
-import { v4 as uuidv4 } from 'uuid' // Added uuid
-import { aiService } from "@/lib/services/ai-service" // Added aiService
+import { v4 as uuidv4 } from 'uuid'
+import { aiService } from "@/lib/services/ai-service"
 import { Separator } from './ui/separator'
 import GoodSidebarApp from './good-app-sidebar'
 import { useGoodSidebar } from './good-sidebar'
@@ -135,8 +136,8 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const { toggleGoodSidebar, state } = useGoodSidebar()
-  const { categorySidebarState, categorySidebarToggleSidebar } = useCategorySidebar()
-  const { subCategorySidebarState, subCategorySidebarToggleSidebar } = useSubCategorySidebar()
+  const { stateCategorySidebar, toggleCategorySidebar } = useCategorySidebar()
+  const { stateSubCategorySidebar, toggleSubCategorySidebar } = useSubCategorySidebar()
   const { user } = useAuth()
   const { isMobile, state: leftSidebarState } = useSidebar()
   const router = useRouter()
@@ -163,7 +164,7 @@ export function SiteHeader() {
         }
 
         e.preventDefault()
-        setCommandOpen((open) => !open) // Changed to setCommandOpen
+        setCommandOpen((open) => !open)
       }
     }
 
@@ -172,7 +173,7 @@ export function SiteHeader() {
   }, [])
 
   const runCommand = React.useCallback((command: () => unknown) => {
-    setCommandOpen(false) // Changed to setCommandOpen
+    setCommandOpen(false)
     command()
   }, [])
 
@@ -242,10 +243,10 @@ export function SiteHeader() {
       return data
     },
     enabled: !!params?.slug,
-    staleTime: 1000 * 60 * 5, // Consider data fresh for 5 minutes
-    gcTime: 1000 * 60 * 30, // Keep unused data in garbage collection for 30 minutes
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
     refetchOnWindowFocus: false,
-    refetchOnMount: false, // Prevent refetch when component mounts
+    refetchOnMount: false,
   })
 
   // Add real-time updates with optimistic UI
@@ -353,25 +354,25 @@ export function SiteHeader() {
 
   const handleGoodSidebarToggle = () => {
     toggleGoodSidebar()
-    if (subCategorySidebarState === 'expanded') {
-      subCategorySidebarToggleSidebar()
+    if (stateSubCategorySidebar === 'expanded') {
+      toggleSubCategorySidebar()
     }
-    else if (categorySidebarState === 'expanded') {
-      categorySidebarToggleSidebar()
+    else if (stateCategorySidebar === 'expanded') {
+      toggleCategorySidebar()
     }
   }
 
   const handleCategorySidebarToggle = () => {
-    categorySidebarToggleSidebar()
-    if (subCategorySidebarState === 'expanded') {
-      subCategorySidebarToggleSidebar()
+    toggleCategorySidebar()
+    if (stateSubCategorySidebar === 'expanded') {
+      toggleSubCategorySidebar()
     }
   }
 
   const handleSubCategorySidebarToggle = () => {
-    subCategorySidebarToggleSidebar()
-    if (categorySidebarState === 'expanded') {
-      categorySidebarToggleSidebar()
+    toggleSubCategorySidebar()
+    if (stateCategorySidebar === 'expanded') {
+      toggleCategorySidebar()
     }
   }
 
@@ -513,27 +514,27 @@ export function SiteHeader() {
         // Width calculations based on sidebar states and viewport
         // When left sidebar is expanded
         leftSidebarState === 'expanded' &&
-          categorySidebarState !== 'expanded' &&
-          subCategorySidebarState !== 'expanded'
+          stateCategorySidebar !== 'expanded' &&
+          stateSubCategorySidebar !== 'expanded'
           ? 'md:w-[calc(100%-256px)]'
           : '',
 
         // When left sidebar is expanded + category sidebar
         leftSidebarState === 'expanded' &&
-          categorySidebarState === 'expanded' &&
-          subCategorySidebarState !== 'expanded'
+          stateCategorySidebar === 'expanded' &&
+          stateSubCategorySidebar !== 'expanded'
           ? 'md:w-[calc(100%-256px)]'
           : '',
 
         // When left sidebar is expanded + subCategory sidebar
         leftSidebarState === 'expanded' &&
-          categorySidebarState !== 'expanded' &&
-          subCategorySidebarState === 'expanded'
+          stateCategorySidebar !== 'expanded' &&
+          stateSubCategorySidebar === 'expanded'
           ? 'md:w-[calc(100%-256px)] '
           : '',
 
-        categorySidebarState === 'expanded' ? 'w-[calc(100%-256px)]' : '',
-        subCategorySidebarState === 'expanded' ? 'w-[calc(100%-256px)]' : ''
+        stateCategorySidebar === 'expanded' ? 'w-[calc(100%-256px)]' : '',
+        stateSubCategorySidebar === 'expanded' ? 'w-[calc(100%-256px)]' : ''
       )}
     >
       {/* Header content */}
@@ -860,7 +861,7 @@ export function SiteHeader() {
                 >
                   <MessageCircle
                     className={cn(
-                      categorySidebarState === 'expanded'
+                      stateCategorySidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground',
                       'hover:text-primary group-hover:text-primary size-4'
@@ -869,7 +870,7 @@ export function SiteHeader() {
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Chat</p>
+                <p>Good sidebar</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -882,7 +883,7 @@ export function SiteHeader() {
                 >
                   <MessageCircle
                     className={cn(
-                      categorySidebarState === 'expanded'
+                      stateCategorySidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground',
                       'hover:text-primary group-hover:text-primary size-4'
@@ -891,7 +892,7 @@ export function SiteHeader() {
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Good Sidebar</p>
+                <p>Category Sidebar</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -906,7 +907,7 @@ export function SiteHeader() {
                   <Type
                     className={cn(
                       'hover:text-primary group-hover:text-primary size-4',
-                      subCategorySidebarState === 'expanded'
+                      stateSubCategorySidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground'
                     )}
@@ -914,19 +915,17 @@ export function SiteHeader() {
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Text</p>
+                <p>Subcategory Sidebar</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
         </div>
         
         <div className="!m-0 items-center gap-0 space-x-0 !p-0">
-          <CategoryRightSidebar className="!m-0 !p-0" />
-          <SubCategoryRightSidebar className="!m-0 !p-0" />
+          <CategorySidebar className="!m-0 !p-0" />
+          <SubCategorySidebar className="!m-0 !p-0" />
           <GoodSidebarApp className="!m-0 !p-0" />
         </div>
-        {/* <CategoryRightSidebar className="m-0 p-0" />
-        <SubCategoryRightSidebar className="m-0 p-0" /> */}
       </div>
     </header>
   )
