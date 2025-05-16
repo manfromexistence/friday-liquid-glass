@@ -144,6 +144,7 @@ export function NavUser() {
       </SidebarMenu>
     )
   }
+  
 
   return (
     <SidebarMenu>

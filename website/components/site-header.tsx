@@ -53,13 +53,10 @@ import {
   Blocks,
   Frame,
   Ellipsis,
+  FileText,
+  Users,
 } from 'lucide-react'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { History } from '@/components/sidebar/history'
 import ThemeToggleButton from '@/components/ui/theme-toggle-button'
 import { useParams } from 'next/navigation'
@@ -72,22 +69,12 @@ import { SidebarProvider } from '@/components/sidebar/actions-sidebar'
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { AnimationStart, AnimationVariant, createAnimation } from '@/components/ui/theme-animations'
-import {
-  Calculator,
-  Calendar,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { Calculator, Calendar, Settings, Smile, User } from 'lucide-react'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { CommandMenu } from './command-menu'
-import { type DialogProps } from "@radix-ui/react-dialog"
-import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
-import { docsConfig } from "@/config/command-palettle"
+import { type DialogProps } from '@radix-ui/react-dialog'
+import { Circle, File, Laptop, Moon, Sun } from 'lucide-react'
+import { docsConfig } from '@/config/command-palettle'
 import {
   CommandDialog,
   CommandEmpty,
@@ -96,12 +83,13 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command"
+} from '@/components/ui/command'
 import { v4 as uuidv4 } from 'uuid'
-import { aiService } from "@/lib/services/ai-service"
+import { aiService } from '@/lib/services/ai-service'
 import { Separator } from './ui/separator'
 import GoodSidebarApp from './good-app-sidebar'
 import { useGoodSidebar } from './good-sidebar'
+import Profile from './profile'
 
 type ChatVisibility = 'public' | 'private' | 'unlisted'
 
@@ -133,6 +121,9 @@ const visibilityConfig = {
 } as const
 
 export function SiteHeader() {
+  const [language, setLanguage] = useState('English')
+  // const [theme, setTheme] = useState("dark")
+  // const [open, setOpen] = useState(false)
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const { toggleGoodSidebar, state } = useGoodSidebar()
@@ -148,12 +139,11 @@ export function SiteHeader() {
   const [isChangingVisibility, setIsChangingVisibility] = useState(false)
   const { theme, setTheme } = useTheme()
   const styleId = 'theme-transition-styles'
-
   const [commandOpen, setCommandOpen] = React.useState(false)
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
+      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
         if (
           (e.target instanceof HTMLElement && e.target.isContentEditable) ||
           e.target instanceof HTMLInputElement ||
@@ -168,8 +158,8 @@ export function SiteHeader() {
       }
     }
 
-    document.addEventListener("keydown", down)
-    return () => document.removeEventListener("keydown", down)
+    document.addEventListener('keydown', down)
+    return () => document.removeEventListener('keydown', down)
   }, [])
 
   const runCommand = React.useCallback((command: () => unknown) => {
@@ -356,8 +346,7 @@ export function SiteHeader() {
     toggleGoodSidebar()
     if (statesubcategorysidebar === 'expanded') {
       toggleSubCategorySidebar()
-    }
-    else if (statecategorysidebar === 'expanded') {
+    } else if (statecategorysidebar === 'expanded') {
       toggleCategorySidebar()
     }
   }
@@ -447,11 +436,11 @@ export function SiteHeader() {
   const handleStartNew = useCallback(async () => {
     try {
       if (!user) {
-        toast.error("Authentication required", {
-          description: "Please sign in to start a new chat",
+        toast.error('Authentication required', {
+          description: 'Please sign in to start a new chat',
           duration: 3000,
-        });
-        return;
+        })
+        return
       }
 
       // Generate a new UUID for the chat
@@ -460,7 +449,7 @@ export function SiteHeader() {
       // Create initial chat data with empty messages array
       const chatData = {
         id: chatId,
-        title: "New Conversation",
+        title: 'New Conversation',
         messages: [], // Start with empty messages array
         model: aiService.currentModel, // Default model
         visibility: 'public' as ChatVisibility, // Explicitly type visibility
@@ -469,16 +458,16 @@ export function SiteHeader() {
         creatorUid: user.uid,
         reactions: {
           likes: {},
-          dislikes: {}
+          dislikes: {},
         },
         participants: [user.uid],
         views: 0,
         uniqueViewers: [],
-        isPinned: false
+        isPinned: false,
       }
 
       // Store chat data in Firestore
-      await setDoc(doc(db, "chats", chatId), chatData)
+      await setDoc(doc(db, 'chats', chatId), chatData)
 
       // Store information in sessionStorage
       sessionStorage.setItem('selectedAI', aiService.currentModel)
@@ -488,12 +477,11 @@ export function SiteHeader() {
       // Navigate to the new chat
       router.push(`/chat/${chatId}`)
       setOpen(false) // Close the sheet after starting new chat
-
     } catch (error) {
-      console.error("Error creating new chat:", error)
-      toast.error("Failed to create new chat", {
-        description: "Please try again"
-      });
+      console.error('Error creating new chat:', error)
+      toast.error('Failed to create new chat', {
+        description: 'Please try again',
+      })
     }
   }, [user, router])
 
@@ -545,7 +533,10 @@ export function SiteHeader() {
               <Menu className="size-4" />
             </div>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[280px] p-0 dark:bg-black bg-white border-background border-r">
+          <SheetContent
+            side="left"
+            className="w-[280px] p-0 dark:bg-black bg-white border-background border-r"
+          >
             <ScrollArea className="h-full w-full p-0">
               {/* Header inside Sheet */}
               <SheetHeader className="p-2">
@@ -658,7 +649,7 @@ export function SiteHeader() {
 
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link href={{ pathname: "/more" }} onClick={() => setOpen(false)}>
+                      <Link href={{ pathname: '/more' }} onClick={() => setOpen(false)}>
                         <SidebarMenuButton className="w-full justify-start data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                           <Ellipsis className="mr-2 size-4" />
                           More
@@ -695,7 +686,7 @@ export function SiteHeader() {
           <div className="flex h-12 items-center gap-1">{renderChatHeader()}</div>
         )}
       </div>
-      <div className="flex max-h-12 items-center space-x-1">
+      <div className="flex max-h-12 items-center space-x-1.5">
         {isChatRoute && (
           <SidebarProvider>
             <NavActions />
@@ -706,11 +697,12 @@ export function SiteHeader() {
         </div>
         <div
           onClick={() => setCommandOpen(true)}
-          className='md:text-primary-foreground md:hover:text-primary md:hidden h-8 w-8 rounded-md border bg-background hover:bg-primary-foreground flex items-center justify-center cursor-pointer'>
-          <Search className='h-4 w-4' />
+          className="md:text-primary-foreground md:hover:text-primary md:hidden h-8 w-8 rounded-md border bg-background hover:bg-primary-foreground flex items-center justify-center cursor-pointer"
+        >
+          <Search className="h-4 w-4" />
         </div>
 
-        <div className='hidden'>
+        <div className="hidden">
           <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
             <CommandInput placeholder="Type a command or search..." />
             <CommandList>
@@ -723,7 +715,7 @@ export function SiteHeader() {
                       key={navItem.href}
                       value={navItem.title}
                       onSelect={() => {
-                        runCommand(() => navItem.href ? router.push(navItem.href as any) : null)
+                        runCommand(() => (navItem.href ? router.push(navItem.href as any) : null))
                       }}
                     >
                       <File className="mr-2 h-4 w-4" />
@@ -738,7 +730,7 @@ export function SiteHeader() {
                       key={navItem.href}
                       value={navItem.title}
                       onSelect={() => {
-                        runCommand(() => navItem.href ? router.push(navItem.href as any) : null)
+                        runCommand(() => (navItem.href ? router.push(navItem.href as any) : null))
                       }}
                     >
                       <div className="mr-2 flex h-4 w-4 items-center justify-center">
@@ -751,15 +743,15 @@ export function SiteHeader() {
               ))}
               <CommandSeparator />
               <CommandGroup heading="Theme">
-                <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
+                <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
                   <Sun className="mr-2 h-4 w-4" />
                   Light
                 </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
+                <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
                   <Moon className="mr-2 h-4 w-4" />
                   Dark
                 </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
+                <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
                   <Laptop className="mr-2 h-4 w-4" />
                   System
                 </CommandItem>
@@ -768,88 +760,156 @@ export function SiteHeader() {
           </CommandDialog>
         </div>
 
-
-        <div
-          onClick={toggleTheme}
-          className='h-8 w-8 bg-background rounded-md flex items-center justify-center border hover:bg-primary-foreground md:text-muted-foreground md:hover:text-primary text-primary'>
-          {theme === 'light' ? (
-            <MoonIcon className="size-4" />
-          ) : (
-            <SunIcon className="size-4" />
-          )}
-        </div>
-
         {user ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Avatar className="!ml-1 size-8 cursor-pointer rounded-lg md:hidden">
-                <AvatarImage src={userImage ?? undefined} alt={userName || 'User'} />
-                <AvatarFallback className="rounded-lg">{fallbackInitial}</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-              side={isMobile ? 'bottom' : 'right'}
-              align="end"
-              sideOffset={4}
-            >
-              <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                  <Avatar className="size-8 rounded-lg">
-                    <AvatarImage src={userImage ?? undefined} alt={userName || 'User'} />
-                    <AvatarFallback className="rounded-lg">{fallbackInitial}</AvatarFallback>
-                  </Avatar>
-                  <div className="grid flex-1 text-left text-sm leading-tight">
-                    <span className="truncate text-sm font-semibold">{userName}</span>
-                    <span className="truncate text-xs">{userEmail}</span>
+          <Popover open={open} onOpenChange={setOpen}>
+            <PopoverTrigger asChild>
+              <div className='rounded-md hover:bg-primary-foreground p-1'>
+                <Avatar className="size-6 cursor-pointer rounded-full">
+                  <AvatarImage src={userImage ?? undefined} alt={userName || 'User'} />
+                  <AvatarFallback className="rounded-full">{fallbackInitial}</AvatarFallback>
+                </Avatar>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="w-[280px] p-0" align="end">
+              <div className="flex flex-col">
+                {/* User Info */}
+                <div className="space-y-1 p-4 border-b">
+                  <p className="font-medium">manfromexistence</p>
+                  <p className="text-sm ">manfromexistence01@gmail.com</p>
+                </div>
+
+                {/* Usage Stats */}
+                <div className="space-y-1 p-4 border-b">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm">Messages Left</span>
+                    <span className="text-sm">9/10</span>
+                  </div>
+                  <p className="text-xs">Usage resets in 1 day</p>
+                </div>
+
+                {/* Navigation */}
+                <nav className="p-1">
+                  <Button variant="ghost" className="w-full justify-start px-3 py-2 h-9 text-sm">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start px-3 py-2 h-9 text-sm">
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Pricing
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start px-3 py-2 h-9 text-sm">
+                    <FileText className="mr-2 h-4 w-4" />
+                    Documentation
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start px-3 py-2 h-9 text-sm">
+                    <Users className="mr-2 h-4 w-4" />
+                    Community
+                  </Button>
+                </nav>
+
+                {/* Preferences */}
+                <div className="p-4 border-t ">
+                  <p className="text-sm mb-3">Preferences</p>
+
+                  <div className="space-y-3">
+                    {/* Theme Selector */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Theme</span>
+                      <div className="flex space-x-1 rounded-md p-1">
+                        <button
+                          onClick={() => toggleTheme}
+                          className={`p-1 rounded ${theme === 'light' ? '' : ''}`}
+                        >
+                          <Sun className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => toggleTheme}
+                          className={`p-1 rounded ${theme === 'dark' ? '' : ''}`}
+                        >
+                          <Moon className="h-4 w-4" />
+                        </button>
+                        <button
+                          onClick={() => toggleTheme}
+                          className={`p-1 rounded ${theme === 'system' ? '' : ''}`}
+                        >
+                          <Laptop className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Language Selector */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm">Language</span>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            className="h-8 px-2 text-sm bg-transparent border"
+                          >
+                            {language}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="ml-2 h-4 w-4"
+                            >
+                              <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="">
+                          <DropdownMenuItem onClick={() => setLanguage('English')}>
+                            English
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setLanguage('Spanish')}>
+                            Spanish
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setLanguage('French')}>
+                            French
+                          </DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => setLanguage('German')}>
+                            German
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
                   </div>
                 </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Sparkles className="mr-2 size-4" />
-                  Upgrade to Pro
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <BadgeCheck className="mr-2 size-4" />
-                  Account
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <CreditCard className="mr-2 size-4" />
-                  Billing
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Bell className="mr-2 size-4" />
-                  Notifications
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={toggleTheme}>
-                {theme === 'light' ? (
-                  <MoonIcon className="mr-2 size-4" />
-                ) : (
-                  <SunIcon className="mr-2 size-4" />
-                )}
-                {theme === 'light' ? 'Dark' : 'Light'} Mode
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={handleLogout} disabled={isLoggingOut}>
-                <LogOut className="mr-2 size-4" />
-                {isLoggingOut ? 'Logging out...' : 'Log out'}
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+                {/* <Button variant="ghost" className="justify-start px-3 py-2 h-9 text-sm rounded-none border-t">
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </Button>
+    
+              <div className="p-4 border-t ">
+                <Button className="w-full">Upgrade to Premium</Button>
+              </div> */}
+              </div>
+            </PopoverContent>
+          </Popover>
         ) : (
-          <div
-            className="md:text-primary-foreground md:hover:text-primary h-8 cursor-pointer rounded-md border bg-background px-2 text-xs hover:bg-primary-foreground flex items-center justify-center md:hidden" // Added cursor-pointer
-            onClick={handleLogin}
-          >
-            Sign in
-          </div>
+          <>
+            <div
+              onClick={toggleTheme}
+              className="h-8 w-8 bg-background rounded-md flex items-center justify-center border hover:bg-primary-foreground md:text-muted-foreground md:hover:text-primary text-primary"
+            >
+              {theme === 'light' ? <MoonIcon className="size-4" /> : <SunIcon className="size-4" />}
+            </div>
+            <div
+              className="hover:text-primary h-8 cursor-pointer rounded-md border bg-background px-2 text-xs hover:bg-primary-foreground flex items-center justify-center"
+              onClick={handleLogin}
+            >
+              Sign in
+            </div>
+          </>
         )}
+
+        {/* <Profile /> */}
 
         {/* <div className="xs:flex hover:bg-primary-foreground hidden h-8 items-center justify-center gap-1 rounded-md border px-1.5">
           <TooltipProvider>
@@ -920,7 +980,7 @@ export function SiteHeader() {
             </Tooltip>
           </TooltipProvider>
         </div> */}
-        
+
         <div className="!m-0 items-center gap-0 space-x-0 !p-0">
           <CategorySidebar className="!m-0 !p-0" />
           <SubCategorySidebar className="!m-0 !p-0" />
@@ -928,4 +988,67 @@ export function SiteHeader() {
       </div>
     </header>
   )
+}
+
+{
+  /* <DropdownMenu>
+<DropdownMenuTrigger asChild>
+  <Avatar className="!ml-1 size-8 cursor-pointer rounded-lg">
+    <AvatarImage src={userImage ?? undefined} alt={userName || 'User'} />
+    <AvatarFallback className="rounded-lg">{fallbackInitial}</AvatarFallback>
+  </Avatar>
+</DropdownMenuTrigger>
+<DropdownMenuContent
+  className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+  side={isMobile ? 'bottom' : 'right'}
+>
+  <DropdownMenuLabel className="p-0 font-normal">
+    <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+      <Avatar className="size-8 rounded-lg">
+        <AvatarImage src={userImage ?? undefined} alt={userName || 'User'} />
+        <AvatarFallback className="rounded-lg">{fallbackInitial}</AvatarFallback>
+      </Avatar>
+      <div className="grid flex-1 text-left text-sm leading-tight">
+        <span className="truncate text-sm font-semibold">{userName}</span>
+        <span className="truncate text-xs">{userEmail}</span>
+      </div>
+    </div>
+  </DropdownMenuLabel>
+  <DropdownMenuSeparator />
+  <DropdownMenuGroup>
+    <DropdownMenuItem>
+      <Sparkles className="mr-2 size-4" />
+      Upgrade to Pro
+    </DropdownMenuItem>
+  </DropdownMenuGroup>
+  <DropdownMenuSeparator />
+  <DropdownMenuGroup>
+    <DropdownMenuItem>
+      <BadgeCheck className="mr-2 size-4" />
+      Account
+    </DropdownMenuItem>
+    <DropdownMenuItem>
+      <CreditCard className="mr-2 size-4" />
+      Billing
+    </DropdownMenuItem>
+    <DropdownMenuItem>
+      <Bell className="mr-2 size-4" />
+      Notifications
+    </DropdownMenuItem>
+  </DropdownMenuGroup>
+  <DropdownMenuSeparator />
+  <DropdownMenuItem onClick={toggleTheme}>
+    {theme === 'light' ? (
+      <MoonIcon className="mr-2 size-4" />
+    ) : (
+      <SunIcon className="mr-2 size-4" />
+    )}
+    {theme === 'light' ? 'Dark' : 'Light'} Mode
+  </DropdownMenuItem>
+  <DropdownMenuItem onClick={handleLogout} disabled={isLoggingOut}>
+    <LogOut className="mr-2 size-4" />
+    {isLoggingOut ? 'Logging out...' : 'Log out'}
+  </DropdownMenuItem>
+</DropdownMenuContent>
+</DropdownMenu> */
 }

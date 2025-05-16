@@ -41,13 +41,7 @@ export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export function TeamSwitcher({ }: {
-  teams: {
-    name: string
-    logo: React.ElementType
-    plan: string
-  }[]
-}) {
+export function TeamSwitcher() {
   const { toggleSidebar, state } = useSidebar()
   const [currentPreset, setCurrentPreset] = React.useState(multiColorPreset)
 
