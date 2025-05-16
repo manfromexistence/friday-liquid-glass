@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from "react"
-import { useCategorySidebar } from "@/components/sidebar/category-sidebar"
-import { useSubCategorySidebar } from "@/components/sidebar/sub-category-sidebar"
+import { useCategorySidebar } from "@/components/category-sidebar"
+import { useSubCategorySidebar } from "@/components/subcategory-sidebar"
 import { useAutoResizeTextarea } from '@/hooks/use-auto-resize-textarea'
 import { ChatInput } from '@/components/chat/chat-input'
 import { useQueryClient } from "@tanstack/react-query"
@@ -42,8 +42,8 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   ref
 ) {
   const queryClient = useQueryClient()
-  const { categorySidebarState } = useCategorySidebar()
-  const { subCategorySidebarState } = useSubCategorySidebar()
+  const { statecategorysidebar } = useCategorySidebar()
+  const { statesubcategorysidebar } = useSubCategorySidebar()
   const router = useRouter()
   const { currentModel, setModel } = useAIModelStore()
   const { user } = useAuth()

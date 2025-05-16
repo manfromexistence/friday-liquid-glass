@@ -7,8 +7,8 @@ import LoadingAnimation from "@/components/chat/loading-animation";
 import { db } from "@/lib/firebase/config";
 import { doc, getDoc, setDoc, onSnapshot, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useCategorySidebar } from "@/components/sidebar/category-sidebar";
-import { useSubCategorySidebar } from "@/components/sidebar/sub-category-sidebar";
+import { useCategorySidebar } from "@/components/category-sidebar";
+import { useSubCategorySidebar } from "@/components/subcategory-sidebar";
 import { aiService } from "@/lib/services/ai-service";
 import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
 import {MessageList} from "@/components/chat/message-list";
@@ -117,8 +117,8 @@ export default function ChatPage() {
   const params = useParams<Params>() ?? { slug: "" };
   const [isValidating, setIsValidating] = useState(true);
   const queryClient = useQueryClient();
-  const { categorySidebarState } = useCategorySidebar();
-  const { subCategorySidebarState } = useSubCategorySidebar();
+  const { statecategorysidebar } = useCategorySidebar();
+  const { statesubcategorysidebar } = useSubCategorySidebar();
 
   // Use Zustand store directly
   const { currentModel, setModel } = useAIModelStore();

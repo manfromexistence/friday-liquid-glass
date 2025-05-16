@@ -136,8 +136,8 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   const { toggleGoodSidebar, state } = useGoodSidebar()
-  const { stateCategorySidebar, toggleCategorySidebar } = useCategorySidebar()
-  const { stateSubCategorySidebar, toggleSubCategorySidebar } = useSubCategorySidebar()
+  const { statecategorysidebar, toggleCategorySidebar } = useCategorySidebar()
+  const { statesubcategorysidebar, toggleSubCategorySidebar } = useSubCategorySidebar()
   const { user } = useAuth()
   const { isMobile, state: leftSidebarState } = useSidebar()
   const router = useRouter()
@@ -354,24 +354,24 @@ export function SiteHeader() {
 
   const handleGoodSidebarToggle = () => {
     toggleGoodSidebar()
-    if (stateSubCategorySidebar === 'expanded') {
+    if (statesubcategorysidebar === 'expanded') {
       toggleSubCategorySidebar()
     }
-    else if (stateCategorySidebar === 'expanded') {
+    else if (statecategorysidebar === 'expanded') {
       toggleCategorySidebar()
     }
   }
 
   const handleCategorySidebarToggle = () => {
     toggleCategorySidebar()
-    if (stateSubCategorySidebar === 'expanded') {
+    if (statesubcategorysidebar === 'expanded') {
       toggleSubCategorySidebar()
     }
   }
 
   const handleSubCategorySidebarToggle = () => {
     toggleSubCategorySidebar()
-    if (stateCategorySidebar === 'expanded') {
+    if (statecategorysidebar === 'expanded') {
       toggleCategorySidebar()
     }
   }
@@ -514,27 +514,27 @@ export function SiteHeader() {
         // Width calculations based on sidebar states and viewport
         // When left sidebar is expanded
         leftSidebarState === 'expanded' &&
-          stateCategorySidebar !== 'expanded' &&
-          stateSubCategorySidebar !== 'expanded'
+          statecategorysidebar !== 'expanded' &&
+          statesubcategorysidebar !== 'expanded'
           ? 'md:w-[calc(100%-256px)]'
           : '',
 
         // When left sidebar is expanded + category sidebar
         leftSidebarState === 'expanded' &&
-          stateCategorySidebar === 'expanded' &&
-          stateSubCategorySidebar !== 'expanded'
+          statecategorysidebar === 'expanded' &&
+          statesubcategorysidebar !== 'expanded'
           ? 'md:w-[calc(100%-256px)]'
           : '',
 
         // When left sidebar is expanded + subCategory sidebar
         leftSidebarState === 'expanded' &&
-          stateCategorySidebar !== 'expanded' &&
-          stateSubCategorySidebar === 'expanded'
+          statecategorysidebar !== 'expanded' &&
+          statesubcategorysidebar === 'expanded'
           ? 'md:w-[calc(100%-256px)] '
           : '',
 
-        stateCategorySidebar === 'expanded' ? 'w-[calc(100%-256px)]' : '',
-        stateSubCategorySidebar === 'expanded' ? 'w-[calc(100%-256px)]' : ''
+        statecategorysidebar === 'expanded' ? 'w-[calc(100%-256px)]' : '',
+        statesubcategorysidebar === 'expanded' ? 'w-[calc(100%-256px)]' : ''
       )}
     >
       {/* Header content */}
@@ -851,7 +851,7 @@ export function SiteHeader() {
           </div>
         )}
 
-        <div className="xs:flex hover:bg-primary-foreground hidden h-8 items-center justify-center gap-1 rounded-md border px-1.5">
+        {/* <div className="xs:flex hover:bg-primary-foreground hidden h-8 items-center justify-center gap-1 rounded-md border px-1.5">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -861,7 +861,7 @@ export function SiteHeader() {
                 >
                   <MessageCircle
                     className={cn(
-                      stateCategorySidebar === 'expanded'
+                      statecategorysidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground',
                       'hover:text-primary group-hover:text-primary size-4'
@@ -883,7 +883,7 @@ export function SiteHeader() {
                 >
                   <MessageCircle
                     className={cn(
-                      stateCategorySidebar === 'expanded'
+                      statecategorysidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground',
                       'hover:text-primary group-hover:text-primary size-4'
@@ -907,7 +907,7 @@ export function SiteHeader() {
                   <Type
                     className={cn(
                       'hover:text-primary group-hover:text-primary size-4',
-                      stateSubCategorySidebar === 'expanded'
+                      statesubcategorysidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground'
                     )}
@@ -919,12 +919,11 @@ export function SiteHeader() {
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-        </div>
+        </div> */}
         
         <div className="!m-0 items-center gap-0 space-x-0 !p-0">
           <CategorySidebar className="!m-0 !p-0" />
           <SubCategorySidebar className="!m-0 !p-0" />
-          <GoodSidebarApp className="!m-0 !p-0" />
         </div>
       </div>
     </header>

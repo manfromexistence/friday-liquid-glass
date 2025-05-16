@@ -16,9 +16,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "compon
 import { doc, updateDoc, collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
 import { Separator } from '@/components/ui/separator'
-import { useCategorySidebar } from '@/components/sidebar/category-sidebar'
-import { useSubCategorySidebar } from '@/components/sidebar/sub-category-sidebar'
-import { CategoryRightSidebar, SubCategoryRightSidebar } from '@/components/sidebar/right-sidebar'
+import { useCategorySidebar } from '@/components/category-sidebar'
+import { useSubCategorySidebar } from '@/components/subcategory-sidebar'
+import CategorySidebar from '@/components/category-app-sidebar'
+import SubCategorySidebar from '@/components/subcategory-app-sidebar'
 
 import {
   MessageCircle,
@@ -175,20 +176,20 @@ export function InputActions({
   const [projectDialogOpen, setProjectDialogOpen] = useState(false);
   const [isLoadingProjects, setIsLoadingProjects] = useState(false);
 
-  const { categorySidebarState, categorySidebarToggleSidebar } = useCategorySidebar()
-  const { subCategorySidebarState, subCategorySidebarToggleSidebar } = useSubCategorySidebar()
+  const { statecategorysidebar, toggleCategorySidebar } = useCategorySidebar()
+  const { statesubcategorysidebar, toggleSubCategorySidebar } = useSubCategorySidebar()
 
   const handleCategorySidebarToggle = () => {
-    categorySidebarToggleSidebar()
-    if (subCategorySidebarState === 'expanded') {
-      subCategorySidebarToggleSidebar()
+    toggleCategorySidebar()
+    if (statesubcategorysidebar === 'expanded') {
+      toggleSubCategorySidebar()
     }
   }
 
   const handleSubCategorySidebarToggle = () => {
-    subCategorySidebarToggleSidebar()
-    if (categorySidebarState === 'expanded') {
-      categorySidebarToggleSidebar()
+    toggleSubCategorySidebar()
+    if (statecategorysidebar === 'expanded') {
+      toggleCategorySidebar()
     }
   }
 
@@ -805,7 +806,7 @@ export function InputActions({
   return (
     <div className="flex h-12 flex-row justify-between rounded-b-xl border-t px-2.5">
       <div className="flex h-full flex-row items-center gap-1.5">
-        {/* <div className="xs:flex hover:bg-primary-foreground hidden h-8 items-center justify-center gap-1 rounded-md border px-1.5">
+        <div className="xs:flex hover:bg-primary-foreground hidden h-8 items-center justify-center gap-1 rounded-md border px-1.5">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -815,7 +816,7 @@ export function InputActions({
                 >
                   <MessageCircle
                     className={cn(
-                      categorySidebarState === 'expanded'
+                      statecategorysidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground',
                       'hover:text-primary group-hover:text-primary size-4'
@@ -839,7 +840,7 @@ export function InputActions({
                   <Type
                     className={cn(
                       'hover:text-primary group-hover:text-primary size-4',
-                      subCategorySidebarState === 'expanded'
+                      statesubcategorysidebar === 'expanded'
                         ? 'text-primary'
                         : 'text-muted-foreground'
                     )}
@@ -851,7 +852,7 @@ export function InputActions({
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
-        </div> */}
+        </div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild disabled={isLoading}>
@@ -1219,10 +1220,8 @@ export function InputActions({
           )}
         </motion.button>
 
-        {/* <div className="m-0 items-center gap-0 space-x-0 p-0 hidden">
-          <CategoryRightSidebar className="m-0 p-0" />
-          <SubCategoryRightSidebar className="m-0 p-0" />
-        </div> */}
+        {/* <CategorySidebar className="!m-0 !p-0" />
+        <SubCategorySidebar className="!m-0 !p-0" /> */}
       </div>
     </div>
   );

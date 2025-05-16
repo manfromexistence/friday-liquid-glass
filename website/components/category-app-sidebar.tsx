@@ -25,14 +25,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { History } from '@/components/sidebar/history'
 
 export function TeamSwitcher() {
-  const { toggleCategorySidebar, stateCategorySidebar } = useCategorySidebar()
+  const { toggleCategorySidebar, statecategorysidebar } = useCategorySidebar()
 
   return (
     <CategorySidebarMenu>
       <CategorySidebarMenuItem>
         <div className="peer/menu-button ring-sidebar-ring data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 rounded-md p-2 !px-0 text-left text-sm outline-none transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0">
           Category Sidebar
-          {stateCategorySidebar === 'expanded' ? (
+          {statecategorysidebar === 'expanded' ? (
             <PanelRight
               onClick={() => {
                 toggleCategorySidebar()
@@ -47,7 +47,7 @@ export function TeamSwitcher() {
 }
 
 export default function CategorySidebarApp({ ...props }: React.ComponentProps<typeof CategorySidebar>) {
-    const { toggleCategorySidebar, stateCategorySidebar } = useCategorySidebar()
+    const { toggleCategorySidebar, statecategorysidebar } = useCategorySidebar()
 
   return (
     <CategorySidebar side="right" {...props}>
@@ -171,7 +171,7 @@ export default function CategorySidebarApp({ ...props }: React.ComponentProps<ty
               </Tooltip>
             </TooltipProvider>
           </div>
-          {stateCategorySidebar === 'expanded' ? (
+          {statecategorysidebar === 'expanded' ? (
             <div className="">
               <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
               <History />

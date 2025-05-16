@@ -19,7 +19,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-const CATEGORY_SIDEBAR_COOKIE_NAME = "categorySidebar:stateSubCategorySidebar"
+const CATEGORY_SIDEBAR_COOKIE_NAME = "categorySidebar:statesubcategorysidebar"
 const CATEGORY_SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
 const CATEGORY_SIDEBAR_WIDTH = "16rem"
 const CATEGORY_SIDEBAR_WIDTH_MOBILE = "18rem"
@@ -27,7 +27,7 @@ const CATEGORY_SIDEBAR_WIDTH_ICON = "3rem"
 const CATEGORY_SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
 type SubCategorySidebarContextType = {
-  stateSubCategorySidebar: "expanded" | "collapsed"
+  statesubcategorysidebar: "expanded" | "collapsed"
   open: boolean
   setOpen: (open: boolean) => void
   openMobile: boolean
@@ -70,7 +70,7 @@ const SubCategorySidebarProvider = React.forwardRef<
     const isMobile = useIsMobile()
     const [openMobile, setOpenMobile] = React.useState(false)
 
-    // This is the internal stateSubCategorySidebar of the sidebar.
+    // This is the internal statesubcategorysidebar of the sidebar.
     // We use openProp and setOpenProp for control from outside the component.
     const [_open, _setOpen] = React.useState(defaultOpen)
     const open = openProp ?? _open
@@ -83,7 +83,7 @@ const SubCategorySidebarProvider = React.forwardRef<
           _setOpen(openState)
         }
 
-        // This sets the cookie to keep the sidebar stateSubCategorySidebar.
+        // This sets the cookie to keep the sidebar statesubcategorysidebar.
         document.cookie = `${CATEGORY_SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${CATEGORY_SIDEBAR_COOKIE_MAX_AGE}`
       },
       [setOpenProp, open]
@@ -112,13 +112,13 @@ const SubCategorySidebarProvider = React.forwardRef<
       return () => window.removeEventListener("keydown", handleKeyDown)
     }, [toggleSubCategorySidebar])
 
-    // We add a stateSubCategorySidebar so that we can do data-stateSubCategorySidebar="expanded" or "collapsed".
+    // We add a statesubcategorysidebar so that we can do data-statesubcategorysidebar="expanded" or "collapsed".
     // This makes it easier to style the sidebar with Tailwind classes.
-    const stateSubCategorySidebar = open ? "expanded" : "collapsed"
+    const statesubcategorysidebar = open ? "expanded" : "collapsed"
 
     const contextValue = React.useMemo<SubCategorySidebarContextType>(
       () => ({
-        stateSubCategorySidebar,
+        statesubcategorysidebar,
         open,
         setOpen,
         isMobile,
@@ -126,7 +126,7 @@ const SubCategorySidebarProvider = React.forwardRef<
         setOpenMobile,
         toggleSubCategorySidebar,
       }),
-      [stateSubCategorySidebar, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSubCategorySidebar]
+      [statesubcategorysidebar, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSubCategorySidebar]
     )
 
     return (
@@ -176,7 +176,7 @@ const SubCategorySidebar = React.forwardRef<
     },
     ref
   ) => {
-    const { isMobile, stateSubCategorySidebar, openMobile, setOpenMobile } = useSubCategorySidebar()
+    const { isMobile, statesubcategorysidebar, openMobile, setOpenMobile } = useSubCategorySidebar()
 
     if (collapsible === "none") {
       return (
@@ -217,8 +217,8 @@ const SubCategorySidebar = React.forwardRef<
       <div
         ref={ref}
         className="text-sidebar-foreground group peer z-50 hidden md:block"
-        data-stateSubCategorySidebar={stateSubCategorySidebar}
-        data-collapsible={stateSubCategorySidebar === "collapsed" ? collapsible : ""}
+        data-statesubcategorysidebar={statesubcategorysidebar}
+        data-collapsible={statesubcategorysidebar === "collapsed" ? collapsible : ""}
         data-variant={variant}
         data-side={side}
       >
@@ -303,7 +303,7 @@ const SubCategorySidebarRail = React.forwardRef<
       className={cn(
         "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] group-data-[side=left]:-right-4 group-data-[side=right]:left-0 sm:flex",
         "[[data-side=left]_&]:cursor-w-resize [[data-side=right]_&]:cursor-e-resize",
-        "[[data-side=left][data-stateSubCategorySidebar=collapsed]_&]:cursor-e-resize [[data-side=right][data-stateSubCategorySidebar=collapsed]_&]:cursor-w-resize",
+        "[[data-side=left][data-statesubcategorysidebar=collapsed]_&]:cursor-e-resize [[data-side=right][data-statesubcategorysidebar=collapsed]_&]:cursor-w-resize",
         "group-data-[collapsible=offcanvas]:hover:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
@@ -324,7 +324,7 @@ const SubCategorySidebarInset = React.forwardRef<
       ref={ref}
       className={cn(
         "relative flex min-h-svh flex-1 flex-col bg-[#080808]",
-        "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[stateSubCategorySidebar=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
+        "peer-data-[variant=inset]:min-h-[calc(100svh-theme(spacing.4))] md:peer-data-[variant=inset]:m-2 md:peer-data-[statesubcategorysidebar=collapsed]:peer-data-[variant=inset]:ml-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow",
         className
       )}
       {...props}
@@ -513,7 +513,7 @@ const SubCategorySidebarMenuItem = React.forwardRef<
 SubCategorySidebarMenuItem.displayName = "SubCategorySidebarMenuItem"
 
 const goodSidebarMenuButtonVariants = cva(
-  "peer/menu-button ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[stateSubCategorySidebar=open]:hover:bg-sidebar-accent data-[stateSubCategorySidebar=open]:hover:text-sidebar-accent-foreground flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-good-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
+  "peer/menu-button ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[statesubcategorysidebar=open]:hover:bg-sidebar-accent data-[statesubcategorysidebar=open]:hover:text-sidebar-accent-foreground flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-good-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-2 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -555,7 +555,7 @@ const SubCategorySidebarMenuButton = React.forwardRef<
     ref
   ) => {
     const Comp = asChild ? Slot : "button"
-    const { isMobile, stateSubCategorySidebar } = useSubCategorySidebar()
+    const { isMobile, statesubcategorysidebar } = useSubCategorySidebar()
 
     const button = (
       <Comp
@@ -584,7 +584,7 @@ const SubCategorySidebarMenuButton = React.forwardRef<
         <TooltipContent
           side="right"
           align="center"
-          hidden={stateSubCategorySidebar !== "collapsed" || isMobile}
+          hidden={statesubcategorysidebar !== "collapsed" || isMobile}
           {...tooltip}
         />
       </Tooltip>
@@ -615,7 +615,7 @@ const SubCategorySidebarMenuAction = React.forwardRef<
         "peer-data-[size=lg]/menu-button:top-2.5",
         "group-data-[collapsible=icon]:hidden",
         showOnHover &&
-          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[stateSubCategorySidebar=open]:opacity-100 md:opacity-0",
+          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[statesubcategorysidebar=open]:opacity-100 md:opacity-0",
         className
       )}
       {...props}

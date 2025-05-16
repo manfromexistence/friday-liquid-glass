@@ -9,15 +9,15 @@ interface MainProps {
 }
 
 export function Main({ children }: MainProps) {
-  const { stateCategorySidebar } = useCategorySidebar()
-  const { stateSubCategorySidebar } = useSubCategorySidebar()
+  const { statecategorysidebar } = useCategorySidebar()
+  const { statesubcategorysidebar } = useSubCategorySidebar()
 
   return (
     <div
       className={cn(
         'no-scrollbar flex h-screen w-full flex-col overflow-y-auto transition-all duration-200 ease-linear md:pb-0',
-        stateCategorySidebar === 'expanded' && 'pr-64',
-        stateSubCategorySidebar === 'expanded' && 'pr-64'
+        statecategorysidebar === 'expanded' && 'pr-64',
+        statesubcategorysidebar === 'expanded' && 'pr-64'
       )}
     >
       {children}

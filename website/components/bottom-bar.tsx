@@ -4,15 +4,15 @@ import Link from "next/link"
 import { Home, Sparkles, CircleSlash2, LibraryBig, Ellipsis } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useParams, usePathname } from "next/navigation"
-import { useCategorySidebar } from "@/components/sidebar/category-sidebar"
-import { useSubCategorySidebar } from "@/components/sidebar/sub-category-sidebar"
+import { useCategorySidebar } from "@/components/category-sidebar"
+import { useSubCategorySidebar } from "@/components/subcategory-sidebar"
 import { useEffect, useState } from "react"
 
 export function BottomBar() {
   const params = useParams()
   const pathname = usePathname()
-  const { categorySidebarState } = useCategorySidebar()
-  const { subCategorySidebarState } = useSubCategorySidebar()
+  const { statecategorysidebar } = useCategorySidebar()
+  const { statesubcategorysidebar } = useSubCategorySidebar()
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
   const [initialHeight, setInitialHeight] = useState(0)
 
