@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "components/ui/popover";
-import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search } from "lucide-react";
+import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "components/ui/tooltip";
 import { doc, updateDoc, collection, addDoc, getDocs } from "firebase/firestore";
@@ -814,7 +814,7 @@ export function InputActions({
                   onClick={handleCategorySidebarToggle}
                   className="hover:bg-secondary group flex size-6 items-center justify-center rounded-md"
                 >
-                  <MessageCircle
+                  <PenTool
                     className={cn(
                       statecategorysidebar === 'expanded'
                         ? 'text-primary'
@@ -825,7 +825,7 @@ export function InputActions({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Chat</p>
+                <p>Text</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -837,7 +837,7 @@ export function InputActions({
                   onClick={handleSubCategorySidebarToggle}
                   className="hover:bg-secondary group flex size-6 items-center justify-center rounded-md"
                 >
-                  <Type
+                  <MessageCircle
                     className={cn(
                       'hover:text-primary group-hover:text-primary size-4',
                       statesubcategorysidebar === 'expanded'
@@ -848,7 +848,7 @@ export function InputActions({
                 </div>
               </TooltipTrigger>
               <TooltipContent>
-                <p>Text</p>
+                <p>Chat</p>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
@@ -1033,13 +1033,17 @@ export function InputActions({
               <Search className={cn("mr-1 size-4", activeCommandMode === 'image-gen' && "text-primary")} />
               Search
             </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleThinkingSelect}>
+              <Lightbulb className={cn("mr-1 size-4", activeCommandMode === 'thinking-mode' && "text-primary")} />
+              Thinking Mode
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={handleResearchSelect}>
               <CircleDotDashed className={cn("mr-1 size-4", activeCommandMode === 'research-mode' && "text-primary")} />
               Research
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleThinkingSelect}>
-              <Lightbulb className={cn("mr-1 size-4", activeCommandMode === 'thinking-mode' && "text-primary")} />
-              Thinking Mode
+            <DropdownMenuItem onClick={handleResearchSelect}>
+              <Microscope className={cn("mr-1 size-4", activeCommandMode === 'research-mode' && "text-primary")} />
+              Deep Research
             </DropdownMenuItem>
             {/* <DropdownMenuItem onClick={handleCanvasSelect}>
               <NotebookPen className={cn("mr-2 size-4", activeCommandMode === 'canvas-mode' && "text-primary")} />

@@ -6,10 +6,16 @@ import {
   Blocks,
   CircleSlash2,
   Frame,
+  Globe,
   Home,
   LibraryBig,
+  Monitor,
+  MonitorSmartphone,
   PanelRight,
   Sparkles,
+  TabletSmartphone,
+  Tv,
+  Watch,
 } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import {
@@ -19,7 +25,8 @@ import {
   SubCategorySidebarHeader,
   SubCategorySidebarMenuButton,
   useSubCategorySidebar,
-  SubCategorySidebarMenu, SubCategorySidebarMenuItem,
+  SubCategorySidebarMenu,
+  SubCategorySidebarMenuItem,
 } from '@/components/subcategory-sidebar'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { History } from '@/components/sidebar/history'
@@ -46,8 +53,10 @@ export function TeamSwitcher() {
   )
 }
 
-export default function SubCategorySidebarApp({ ...props }: React.ComponentProps<typeof SubCategorySidebar>) {
-    const { toggleSubCategorySidebar, statesubcategorysidebar } = useSubCategorySidebar()
+export default function SubCategorySidebarApp({
+  ...props
+}: React.ComponentProps<typeof SubCategorySidebar>) {
+  const { toggleSubCategorySidebar, statesubcategorysidebar } = useSubCategorySidebar()
 
   return (
     <SubCategorySidebar side="right" {...props}>
@@ -58,21 +67,8 @@ export default function SubCategorySidebarApp({ ...props }: React.ComponentProps
         <ScrollArea className="w-full p-0 ">
           <div className="mb-2 flex flex-col gap-1 px-2">
             <TooltipProvider>
+              {/* Text */}
               {/* <Tooltip>
-                <TooltipTrigger asChild>
-                  <button
-                    onClick={handleStartNew}
-                    className="hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm bg-background/40 dark:hover:bg-background hover:bg-primary-foreground hover:border-border dark:border-primary-foreground border"
-                  >
-                    {state === 'expanded' ? 'Start New' : <Plus className="size-4" />}
-                  </button>
-                </TooltipTrigger>
-                <TooltipContent side="right">
-                  <p>Start New Conversation</p>
-                </TooltipContent>
-              </Tooltip> */}
-
-              <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/">
                     <SubCategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
@@ -83,6 +79,71 @@ export default function SubCategorySidebarApp({ ...props }: React.ComponentProps
                 </TooltipTrigger>
                 <TooltipContent side="right">
                   <p>Text</p>
+                </TooltipContent>
+              </Tooltip> */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <SubCategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
+                      <Globe className="size-4" />
+                      Website
+                    </SubCategorySidebarMenuButton>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>Website</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <SubCategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
+                      <TabletSmartphone className="size-4" />
+                      Mobile
+                    </SubCategorySidebarMenuButton>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>Mobile</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <SubCategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
+                      <Monitor className="size-4" />
+                      Desktop
+                    </SubCategorySidebarMenuButton>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>Desktop</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <SubCategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
+                      <Tv className="size-4" />
+                      Tv
+                    </SubCategorySidebarMenuButton>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>Tv</p>
+                </TooltipContent>
+              </Tooltip>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link href="/">
+                    <SubCategorySidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
+                      <Watch className="size-4" />
+                      Watch
+                    </SubCategorySidebarMenuButton>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">
+                  <p>Watch</p>
                 </TooltipContent>
               </Tooltip>
 
@@ -171,12 +232,12 @@ export default function SubCategorySidebarApp({ ...props }: React.ComponentProps
               </Tooltip>
             </TooltipProvider>
           </div>
-          {statesubcategorysidebar === 'expanded' ? (
+          {/* {statesubcategorysidebar === 'expanded' ? (
             <div className="">
               <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
               <History />
             </div>
-          ) : null}
+          ) : null} */}
         </ScrollArea>
       </SubCategorySidebarContent>
     </SubCategorySidebar>
