@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "lib": ["dom"],
+    "moduleResolution": "nodenext",
+    "paths": {
+      "@antv/g2": ["../src/index.ts"]
+    }
+  }
+}
