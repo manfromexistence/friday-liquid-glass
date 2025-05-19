@@ -60,20 +60,6 @@ export default function Home() {
         onInputChange={setCurrentInput}
         onSubmit={() => setHasSubmitted(true)}
       />
-      {/* <Chat /> */}
-
-      {/* <div className="flex items-center justify-center h-64 w-64 rounded-md border bg-gradient-to-b from-[#FF8C00] via-[#FF69B4] to-[#8A2BE2]">Gradient</div> */}
-      
-      {/* <div className="animate-content-height w-full transition-all duration-500 ease-in-out">
-        {currentInput.trim() ? (
-          <SearchSuggestions
-            inputValue={currentInput}
-            onSuggestionSelect={handleSuggestionSelect}
-          />
-        ) : (
-          <PersonaSelector />
-        )}
-      </div> */}
     </div>
   )
 }
