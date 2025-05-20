@@ -14,6 +14,9 @@ import {
 import { TAILWIND_PALETTE_V4 } from "@/lib/palettes";
 import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Slider } from "@/components/ui/slider"; // Import Slider
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; // Import Select components
+import { Label } from "@/components/ui/label"; // Import Label
 
 interface GradientPickerProps {
     value: string; 
@@ -49,9 +52,28 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
         { id: `stop-${Date.now()}-2`, color: TAILWIND_PALETTE_V4.pink[500] },
     ];
     const [colorStops, setColorStops] = React.useState<ColorStop[]>(initialColorStops);
-    const [gradientType, setGradientType] = React.useState<"linear" | "radial">("linear"); // Mesh removed for simplicity for now
+    const [gradientType, setGradientType] = React.useState<"linear" | "radial">("linear");
     const [gradientAngle, setGradientAngle] = React.useState<number>(90);
+    
+    // Radial gradient specific state
+    const [radialShape, setRadialShape] = React.useState<"circle" | "ellipse">("circle");
+    const [radialSize, setRadialSize] = React.useState<"farthest-corner" | "farthest-side" | "closest-corner" | "closest-side">("farthest-corner");
+    const [radialPositionX, setRadialPositionX] = React.useState<number>(50); // Percentage
+    const [radialPositionY, setRadialPositionY] = React.useState<number>(50); // Percentage
+
     const [editingColorStopId, setEditingColorStopId] = React.useState<string | null>(null);
+
+    // Helper function to find Tailwind color name from OKLCH value
+    const getTailwindColorName = (oklchValue: string): string => {
+        for (const [colorName, shades] of Object.entries(TAILWIND_PALETTE_V4)) {
+            for (const [shade, value] of Object.entries(shades)) {
+                if (value === oklchValue) {
+                    return `${colorName}-${shade}`;
+                }
+            }
+        }
+        return "Custom"; // Fallback if not found (e.g. if user could input arbitrary colors)
+    };
 
     // Generate CSS for the demo div and for applying
     const generateGradientCSS = React.useCallback(() => {
@@ -63,10 +85,12 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
             return `linear-gradient(${gradientAngle}deg, ${colors})`;
         }
         if (gradientType === "radial") {
-            return `radial-gradient(circle, ${colors})`; // Basic radial gradient
+            // More detailed radial gradient
+            const position = `at ${radialPositionX}% ${radialPositionY}%`;
+            return `radial-gradient(${radialShape} ${radialSize} ${position}, ${colors})`;
         }
-        return `linear-gradient(${gradientAngle}deg, ${colors})`; // Fallback, though should be covered
-    }, [colorStops, gradientType, gradientAngle]);
+        return `linear-gradient(${gradientAngle}deg, ${colors})`; // Fallback
+    }, [colorStops, gradientType, gradientAngle, radialShape, radialSize, radialPositionX, radialPositionY]);
 
     const livePreviewCss = generateGradientCSS();
 
@@ -114,7 +138,7 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
                 // onValueChange(currentCustomCss);
             }
         }
-    }, [colorStops, gradientAngle, gradientType, open, value, selectedPredefined, generateGradientCSS, onValueChange]);
+    }, [colorStops, gradientAngle, gradientType, radialShape, radialSize, radialPositionX, radialPositionY, open, value, selectedPredefined, generateGradientCSS, onValueChange]);
 
     return (
         <Popover open={open} onOpenChange={(isOpen) => {
@@ -169,8 +193,35 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
                                     <PopoverContent className="p-1 w-[280px]">
                                         <ScrollArea className="h-[200px]">
                                         <div className="grid grid-cols-7 gap-1 p-1">
-                                            {Object.entries(TAILWIND_PALETTE_V4).flatMap(([colorName, shades]) =>
-                                                Object.entries(shades).map(([shade, oklchValue]) => (
+                                            {Object.entries(TAILWIND_PALETTE_V4).flatMap(([colorName, shades]) => {
+                                                const allShadeEntries = Object.entries(shades) as [string, string][];
+
+                                                const shadesToRemove = ["50", "100", "200", "300", "950"];
+                                                
+                                                const filteredShades = allShadeEntries.filter(
+                                                    ([shade]) => !shadesToRemove.includes(shade)
+                                                );
+
+                                                let shade500Entry: [string, string] | undefined;
+                                                const otherShades: [string, string][] = [];
+
+                                                filteredShades.forEach(entry => {
+                                                    if (entry[0] === "500") {
+                                                        shade500Entry = entry;
+                                                    } else {
+                                                        otherShades.push(entry);
+                                                    }
+                                                });
+
+                                                otherShades.sort(([a], [b]) => parseInt(a) - parseInt(b));
+
+                                                const orderedShades: [string, string][] = [];
+                                                if (shade500Entry) {
+                                                    orderedShades.push(shade500Entry);
+                                                }
+                                                orderedShades.push(...otherShades);
+
+                                                return orderedShades.map(([shade, oklchValue]) => (
                                                     <Button
                                                         key={`${colorName}-${shade}`}
                                                         variant="outline"
@@ -180,13 +231,15 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
                                                         onClick={() => updateColorStop(stop.id, oklchValue)}
                                                         title={`${colorName}-${shade}`}
                                                     />
-                                                ))
-                                            )}
+                                                ));
+                                            })}
                                         </div>
                                         </ScrollArea>
                                     </PopoverContent>
                                 </Popover>
-                                <span className="text-xs text-muted-foreground">Color {index + 1}</span>
+                                <span className="text-xs text-muted-foreground truncate w-20" title={getTailwindColorName(stop.color)}>
+                                    {getTailwindColorName(stop.color)}
+                                </span>
                                 {colorStops.length > 2 && (
                                     <Button variant="ghost" size="icon" onClick={() => removeColorStop(stop.id)} className="h-6 w-6 ml-auto">
                                         <XCircle className="h-4 w-4 text-destructive" />
@@ -218,19 +271,77 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
                     <div>
                         <h4 className="mb-1 text-sm font-medium">Angle</h4>
                         <div className="flex items-center space-x-2">
-                            <input
-                                type="range"
-                                min="0"
-                                max="360"
-                                value={gradientAngle}
-                                onChange={(e) => setGradientAngle(Number(e.target.value))}
-                                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+                            <Slider
+                                defaultValue={[gradientAngle]}
+                                min={0}
+                                max={360}
+                                step={1}
+                                onValueChange={(value) => setGradientAngle(value[0])}
+                                className="w-full accent-primary"
                             />
                             <span className="text-sm w-10 text-right">{gradientAngle}°</span>
                         </div>
                     </div>
                 )}
-                {/* TODO: Add controls for Radial type (position, shape) */}
+                {/* TODO: Add controls for Radial type (position, shape) - Angle is not applicable here */}
+                {gradientType === 'radial' && (
+                    <div className="space-y-3">
+                        <div>
+                            <Label htmlFor="radial-shape" className="mb-1 text-sm font-medium block">Shape</Label>
+                            <Select value={radialShape} onValueChange={(val: "circle" | "ellipse") => setRadialShape(val)}>
+                                <SelectTrigger id="radial-shape">
+                                    <SelectValue placeholder="Select shape" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="circle">Circle</SelectItem>
+                                    <SelectItem value="ellipse">Ellipse</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <Label htmlFor="radial-size" className="mb-1 text-sm font-medium block">Size</Label>
+                            <Select value={radialSize} onValueChange={(val: "farthest-corner" | "farthest-side" | "closest-corner" | "closest-side") => setRadialSize(val)}>
+                                <SelectTrigger id="radial-size">
+                                    <SelectValue placeholder="Select size" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="farthest-corner">Farthest Corner</SelectItem>
+                                    <SelectItem value="farthest-side">Farthest Side</SelectItem>
+                                    <SelectItem value="closest-corner">Closest Corner</SelectItem>
+                                    <SelectItem value="closest-side">Closest Side</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div>
+                            <h4 className="mb-1 text-sm font-medium">Position X</h4>
+                            <div className="flex items-center space-x-2">
+                                <Slider
+                                    defaultValue={[radialPositionX]}
+                                    min={0}
+                                    max={100}
+                                    step={1}
+                                    onValueChange={(val) => setRadialPositionX(val[0])}
+                                    className="w-full accent-primary"
+                                />
+                                <span className="text-sm w-12 text-right">{radialPositionX}%</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 className="mb-1 text-sm font-medium">Position Y</h4>
+                            <div className="flex items-center space-x-2">
+                                <Slider
+                                    defaultValue={[radialPositionY]}
+                                    min={0}
+                                    max={100}
+                                    step={1}
+                                    onValueChange={(val) => setRadialPositionY(val[0])}
+                                    className="w-full accent-primary"
+                                />
+                                <span className="text-sm w-12 text-right">{radialPositionY}%</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <Button onClick={handleApplyCustomGradient} className="w-full mt-3">
                     Apply Gradient
