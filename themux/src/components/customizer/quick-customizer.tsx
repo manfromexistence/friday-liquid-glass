@@ -11,7 +11,7 @@ import {
   SquareRoundCorner,
   Palette, // Added Palette icon
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Label } from "../ui/label";
 import {
   Select,
@@ -31,6 +31,7 @@ import {
 import { MemoizedTailwindV4ColorPalette } from "./tailwind-v4-palette";
 import { GradientPicker } from "./gradient-picker"; // Import GradientPicker
 import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes"; // Import gradients
+import React from "react"; // Import React
 
 export function QuickCustomizer() {
   const [shade, setShade] = useState<TailwindShadeKey>("500");
@@ -39,6 +40,19 @@ export function QuickCustomizer() {
 
   const { getColorToken, setPrimaryColorTokens } = useTokens();
   const modesInSync = useModesInSync();
+
+  // Effect to update CSS variable when selectedGradient changes
+  useEffect(() => {
+    const currentGradient = PREDEFINED_GRADIENTS.find(g => g.id === selectedGradient);
+    if (currentGradient) {
+      // For now, directly setting the background CSS to the --primary variable.
+      document.documentElement.style.setProperty("--primary", currentGradient.css);
+
+      // If you have a mechanism to store the gradient itself as a token using your theming system:
+      // setPrimaryColorTokens({ light: currentGradient.css, dark: currentGradient.css }, modesInSync);
+      // Note: This would likely require adjustments to how primary colors vs. gradients are handled by useTokens.
+    }
+  }, [selectedGradient]);
 
   return (
     <div className="space-y-4">
@@ -133,7 +147,7 @@ export function QuickCustomizer() {
             {PREDEFINED_GRADIENTS.map((gradient) => (
               <button
                 key={gradient.id}
-                className="h-4 w-4 rounded-full border"
+                className={`h-4 w-4 rounded-full border ${selectedGradient === gradient.id ? 'ring-2 ring-offset-2 ring-ring' : ''}`}
                 style={{ background: gradient.css }}
                 onClick={() => setSelectedGradient(gradient.id)}
                 title={gradient.name}
