@@ -35,24 +35,35 @@ import React from "react"; // Import React
 
 export function QuickCustomizer() {
   const [shade, setShade] = useState<TailwindShadeKey>("500");
-  const [selectedGradient, setSelectedGradient] = useState<string>(PREDEFINED_GRADIENTS[0].id); // Added state for selected gradient
+  const [selectedGradient, setSelectedGradient] = useState<string>(PREDEFINED_GRADIENTS[0].id);
   const isMounted = useMounted();
 
   const { getColorToken, setPrimaryColorTokens } = useTokens();
   const modesInSync = useModesInSync();
 
-  // Effect to update CSS variable when selectedGradient changes
   useEffect(() => {
-    const currentGradient = PREDEFINED_GRADIENTS.find(g => g.id === selectedGradient);
-    if (currentGradient) {
-      // For now, directly setting the background CSS to the --primary variable.
-      document.documentElement.style.setProperty("--primary", currentGradient.css);
+    const currentGradientData = PREDEFINED_GRADIENTS.find(g => g.id === selectedGradient);
+    if (currentGradientData) {
+      document.documentElement.style.setProperty("--primary-background-image", currentGradientData.css);
 
-      // If you have a mechanism to store the gradient itself as a token using your theming system:
-      // setPrimaryColorTokens({ light: currentGradient.css, dark: currentGradient.css }, modesInSync);
-      // Note: This would likely require adjustments to how primary colors vs. gradients are handled by useTokens.
+      const gradientCss = currentGradientData.css;
+      let firstColor: string | null = null;
+      const colorMatch = gradientCss.match(/(#[0-9a-fA-F]{3,8}|rgba?\\([\\d\\s,.]+\\)|hsla?\\([\\d\\s%,.]+\\)|oklch\\([\\d\\s%.]+\\))/i);
+      
+      if (colorMatch && colorMatch[0]) {
+        firstColor = colorMatch[0];
+      }
+
+      if (firstColor) {
+        document.documentElement.style.setProperty("--primary", firstColor);
+        // If you also want to update your token system with this solid color:
+        // setPrimaryColorTokens({ light: firstColor, dark: firstColor }, modesInSync);
+      } else {
+        // Fallback for --primary if no color is extracted
+        // console.warn("Could not extract a solid color from gradient:", gradientCss);
+      }
     }
-  }, [selectedGradient]);
+  }, [selectedGradient, modesInSync, setPrimaryColorTokens]);
 
   return (
     <div className="space-y-4">
@@ -147,7 +158,7 @@ export function QuickCustomizer() {
             {PREDEFINED_GRADIENTS.map((gradient) => (
               <button
                 key={gradient.id}
-                className={`h-4 w-4 rounded-full border ${selectedGradient === gradient.id ? 'ring-2 ring-offset-2 ring-ring' : ''}`}
+                className={`h-4 w-4 rounded-full ${selectedGradient === gradient.id && 'ring-2'}`}
                 style={{ background: gradient.css }}
                 onClick={() => setSelectedGradient(gradient.id)}
                 title={gradient.name}
