@@ -67,7 +67,7 @@ export default async function RootLayout({
 
           <FontLoader />
           <Toaster />
-          <ScreenDevTools />
+          {/* <ScreenDevTools /> */}
         </Providers>
       </body>
     </html>
