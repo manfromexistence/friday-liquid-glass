@@ -154,7 +154,7 @@ export function QuickCustomizer() {
               onValueChange={setSelectedGradient}
             />
           </div>
-          <div className="grid grid-cols-1 gap-1.5">
+          <div className="grid grid-cols-11 gap-1.5">
             {PREDEFINED_GRADIENTS.map((gradient) => (
               <button
                 key={gradient.id}
