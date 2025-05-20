@@ -153,7 +153,7 @@ export type OtherPresets =
   | "mono"
   | "notebook"
   | "amethyst-haze"
-  | "ghibli-studio" // Added ghibli-studio as it was in the original OtherPresets
+  | "ghibli-studio"
   | (string & {});
 
 export type Preset = PresetV4 | ColorfulPreset | OtherPresets | (string & {});
