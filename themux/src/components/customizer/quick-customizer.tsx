@@ -9,6 +9,7 @@ import {
   Paintbrush,
   PaintBucket,
   SquareRoundCorner,
+  Palette, // Added Palette icon
 } from "lucide-react";
 import { useState } from "react";
 import { Label } from "../ui/label";
@@ -28,9 +29,12 @@ import {
   RadiusControls,
 } from "./customizer-controls";
 import { MemoizedTailwindV4ColorPalette } from "./tailwind-v4-palette";
+import { GradientPicker } from "./gradient-picker"; // Import GradientPicker
+import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes"; // Import gradients
 
 export function QuickCustomizer() {
   const [shade, setShade] = useState<TailwindShadeKey>("500");
+  const [selectedGradient, setSelectedGradient] = useState<string>(PREDEFINED_GRADIENTS[0].id); // Added state for selected gradient
   const isMounted = useMounted();
 
   const { getColorToken, setPrimaryColorTokens } = useTokens();
@@ -111,6 +115,33 @@ export function QuickCustomizer() {
           </div>
           <span className="text-muted-foreground truncate text-xs">
             Tailwind v4 color palette
+          </span>
+        </section>
+
+        {/* Primary gradient colors */}
+        <section className="max-w-80 min-w-72 flex-2 space-y-1.5 max-sm:w-full max-sm:max-w-full">
+          <div className="flex items-center justify-between gap-2 pb-1">
+            <Label className="flex items-center gap-1">
+              <Palette className="size-4" /> Gradient colors
+            </Label>
+            <GradientPicker
+              value={selectedGradient}
+              onValueChange={setSelectedGradient}
+            />
+          </div>
+          <div className="grid grid-cols-1 gap-1.5">
+            {PREDEFINED_GRADIENTS.map((gradient) => (
+              <button
+                key={gradient.id}
+                className="h-4 w-4 rounded-full border"
+                style={{ background: gradient.css }}
+                onClick={() => setSelectedGradient(gradient.id)}
+                title={gradient.name}
+              />
+            ))}
+          </div>
+          <span className="text-muted-foreground truncate text-xs">
+            Select a primary gradient
           </span>
         </section>
 
