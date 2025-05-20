@@ -165,9 +165,6 @@ export function QuickCustomizer() {
               />
             ))}
           </div>
-          <span className="text-muted-foreground truncate text-xs">
-            Select a primary gradient
-          </span>
         </section>
 
         {/* Radius */}
