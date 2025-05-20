@@ -44,26 +44,9 @@ export function QuickCustomizer() {
   useEffect(() => {
     const currentGradientData = PREDEFINED_GRADIENTS.find(g => g.id === selectedGradient);
     if (currentGradientData) {
-      document.documentElement.style.setProperty("--primary-background-image", currentGradientData.css);
-
-      const gradientCss = currentGradientData.css;
-      let firstColor: string | null = null;
-      const colorMatch = gradientCss.match(/(#[0-9a-fA-F]{3,8}|rgba?\\([\\d\\s,.]+\\)|hsla?\\([\\d\\s%,.]+\\)|oklch\\([\\d\\s%.]+\\))/i);
-      
-      if (colorMatch && colorMatch[0]) {
-        firstColor = colorMatch[0];
-      }
-
-      if (firstColor) {
-        document.documentElement.style.setProperty("--primary", firstColor);
-        // If you also want to update your token system with this solid color:
-        // setPrimaryColorTokens({ light: firstColor, dark: firstColor }, modesInSync);
-      } else {
-        // Fallback for --primary if no color is extracted
-        // console.warn("Could not extract a solid color from gradient:", gradientCss);
-      }
+      document.documentElement.style.setProperty("--primary", currentGradientData.css);
     }
-  }, [selectedGradient, modesInSync, setPrimaryColorTokens]);
+  }, [selectedGradient]); // Removed modesInSync and setPrimaryColorTokens from dependencies as they are not directly used for setting --primary with the full gradient string here.
 
   return (
     <div className="space-y-4">

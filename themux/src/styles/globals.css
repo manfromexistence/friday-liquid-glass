@@ -286,3 +286,22 @@
     --hue: 360deg;
   }
 }
+
+@utility bg-primary {
+  background-image: var(--primary);
+}
+@utility chart-1 {
+  background-image: var(--primary);
+}
+@utility chart-2 {
+  background-image: var(--primary);
+}
+@utility chart-3 {
+  background-image: var(--primary);
+}
+@utility chart-4 {
+  background-image: var(--primary);
+}
+@utility chart-5 {
+  background-image: var(--primary);
+}
