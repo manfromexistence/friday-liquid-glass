@@ -5,7 +5,6 @@ export default function Page() {
     <div className="h-screen w-full flex items-center justify-center">
       <span>Hello</span>
       {/* <QuickCustomizer /> */}
-
     </div>
   );
 }
