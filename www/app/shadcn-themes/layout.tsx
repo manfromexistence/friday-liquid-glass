@@ -55,6 +55,7 @@ export default async function ShadcnThemesLayout({
                 <TooltipWrapper label="Generate random theme" asChild>
                   <RandomizeButton />
                 </TooltipWrapper>
+                
                 <ModeSwitcher />
                 {/* <Button
                   asChild
