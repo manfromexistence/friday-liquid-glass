@@ -142,7 +142,7 @@ export function QuickCustomizer() {
         </section>
 
         {/* Primary gradient colors */}
-        <section className="max-w-80 min-w-72 flex-2 space-y-1.5 max-sm:w-full max-sm:max-w-full">
+        <section className="w-full flex-2 space-y-1.5 max-sm:w-full max-sm:max-w-full">
           <div className="flex items-center justify-between gap-2 pb-1">
             <Label className="flex items-center gap-1">
               <Palette className="size-4" /> Gradient colors
