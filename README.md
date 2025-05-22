@@ -2,6 +2,8 @@
 Your ai friend!
 
 ```
+bun create next-app@latest
+
 npm install -g npm@11.3.0
 npm install -g bun
 bunx create-next-app@latest www
