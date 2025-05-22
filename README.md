@@ -26,12 +26,11 @@ sudo apt install -y nodejs
 node --version
 npm --version
 
-npm install -g npm@11.4.0
-npm install -g bun
+npm install -g npm@11.4.0 bun
 
 bunx create-next-app@latest www
 cd www && bunx --bun shadcn@latest init
-bunx --bun shadcn@latest add && cd ..
+bunx --bun shadcn@latest add
 
 git add . && git commit -m "docs: update README.md with git commands" && git push
 ```

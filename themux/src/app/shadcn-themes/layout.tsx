@@ -56,7 +56,7 @@ export default async function ShadcnThemesLayout({
                   <RandomizeButton />
                 </TooltipWrapper>
                 <ModeSwitcher />
-                <Button
+                {/* <Button
                   asChild
                   variant="ghost"
                   size="icon"
@@ -65,7 +65,7 @@ export default async function ShadcnThemesLayout({
                   <ExternalLink href="https://github.com/llanesluis/themux">
                     <GitHub />
                   </ExternalLink>
-                </Button>
+                </Button> */}
 
                 <MobileNavigation />
               </div>

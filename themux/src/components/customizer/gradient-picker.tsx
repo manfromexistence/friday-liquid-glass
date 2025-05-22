@@ -10,7 +10,6 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
-// Tabs removed
 import { TAILWIND_PALETTE_V4 } from "@/lib/palettes";
 import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -126,16 +125,9 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
     // Effect to update custom gradient if already showing custom and colors change
     // This makes the main button preview update live for custom gradients
     React.useEffect(() => {
-        if (!selectedPredefined && open) { // activeTab removed from condition
-            // If a custom gradient is active (value is a CSS string) and picker is open,
-            // update the main value for live preview on the trigger button
+        if (!selectedPredefined && open) {
             const currentCustomCss = generateGradientCSS();
             if (value !== currentCustomCss && (currentCustomCss.startsWith("linear-gradient") || currentCustomCss.startsWith("radial-gradient"))) {
-                 // To avoid infinite loop, only call if it's a valid gradient and different
-                 // This part is tricky; might be better to just rely on the demo div for live preview
-                 // and only update onValueChange on apply.
-                 // For now, let's comment this out to prevent potential issues.
-                // onValueChange(currentCustomCss);
             }
         }
     }, [colorStops, gradientAngle, gradientType, radialShape, radialSize, radialPositionX, radialPositionY, open, value, selectedPredefined, generateGradientCSS, onValueChange]);
@@ -283,7 +275,6 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
                         </div>
                     </div>
                 )}
-                {/* TODO: Add controls for Radial type (position, shape) - Angle is not applicable here */}
                 {gradientType === 'radial' && (
                     <div className="space-y-3">
                         <div>
@@ -346,7 +337,6 @@ export function GradientPicker({ value, onValueChange }: GradientPickerProps) {
                 <Button onClick={handleApplyCustomGradient} className="w-full mt-3">
                     Apply Gradient
                 </Button>
-                {/* End of former TabsContent */}
             </PopoverContent>
         </Popover>
     );
