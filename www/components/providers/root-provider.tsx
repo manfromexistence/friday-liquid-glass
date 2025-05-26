@@ -59,7 +59,7 @@ export function RootProvider({ children }: RootProviderProps) {
                         <NewYorkToaster />
                         <DefaultToaster />
                         <NewYorkSonner />
-                        <Analytics />
+                        {/* <Analytics /> */}
                         <ThemeSwitcher />
                       </div>
                     </CodeSidebarProvider>
