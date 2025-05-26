@@ -56,12 +56,13 @@ export default function Home() {
       <h1 className="bold w-full text-center font-sans text-3xl">
         {greeting && `${greeting}, ${userName}.`}
       </h1>
-      <AiInput
+      {/* 
+            <AiInput
         ref={aiInputRef}
         onInputChange={setCurrentInput}
         onSubmit={() => setHasSubmitted(true)}
       />
-      {/* <div className="animated-mesh-glow">Animation</div> */}
+      <div className="animated-mesh-glow">Animation</div> */}
       <RainbowMeshAnimation />
     </div>
   )

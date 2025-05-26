@@ -120,7 +120,7 @@ const RainbowMeshAnimation: React.FC = () => {
       animation: hero-gradient-animation 10s linear infinite alternate;
       background-blend-mode: normal; /* Or other blend modes like \'lighten\', \'color-dodge\' for different effects */
     }
-  \`;
+  \` `;
 
   return (
     <>
@@ -135,8 +135,8 @@ const RainbowMeshAnimation: React.FC = () => {
         onTapCancel={handleTapEnd}
         onTap={handleTapEnd}
         style={{
-          width: `${containerWidth}px`,
-          height: `${containerHeight}px`,
+          width: "${containerWidth}px",
+          height: "${containerHeight}px",
           position: 'relative',
           overflow: 'hidden', // Changed from visible, as radial gradients might look better contained
           borderRadius: '20px',
