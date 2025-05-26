@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# themux
 
-## Getting Started
+**[themux](https://themux.vercel.app)** brings great UX to theming. A (yet another) theme customizer for shadcn/ui supporting Tailwind v4. Comes with default presets to get started and offers advanced customization options for every aspect of your UI. Just begin tweaking your theme, then copy-paste the generated CSS variables into your code. _Use this to make your shadcn components stand out._
 
-First, run the development server:
+Heavily inspired by shadcn/ui and Tailwind CSS website designs.
+
+![hero](public/opengraph-image.png)
+
+## Features
+
+- ✅ Compatible with Tailwind v4 and v3
+- ✅ Generate your theme in OKLCH, HSL, RGB or HEX color formats
+- ✅ Paste your primary color
+- ✅ Token color picker
+- ✅ Default shadcn/ui presets (neutral, zinc, stone, gray, slate)
+- ✅ Primary and surface presets (background, card, popover, etc.)
+- ✅ Components dump with the whole collection of shadcn components to see the results up-front
+
+## Coming Features
+
+- ⌚ More presets
+- ⌚ Typography customizer and typography dump
+- ⌚ Blocks showcase
+
+## Fun Fact
+
+The name "themux" blends "theming" and "UX" to highlight its focus on both aesthetic design and user experience.
+
+## Run Locally
+
+### Prerequisites
+
+- Node.js 20+
+- npm / yarn / pnpm
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/llanesluis/themux.git
+cd themux
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Start the dev server:
 
-## Learn More
+```bash
+pnpm dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Licensed under the MIT license.

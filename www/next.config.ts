@@ -1,40 +1,55 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+interface NextConfigExperimental {
+  serverActions?: {
+    bodySizeLimit?: number;
+    allowedOrigins?: string[];
+  };
+  optimizePackageImports?: string[];
+  typedRoutes?: boolean;
+}
 
-const nextConfig: NextConfig = {
-  /* config options here */
+interface NextConfigWithWebpack {
+  reactStrictMode: boolean;
+  experimental: NextConfigExperimental;
+  webpack: (config: any) => any;
+  images?: {
+    remotePatterns?: Array<{
+      protocol: string;
+      hostname: string;
+      port?: string;
+      pathname?: string;
+    }>;
+  };
+  devIndicators?: boolean | {
+    buildActivity?: boolean;
+    buildActivityPosition?: string;
+  };
+}
+
+const nextConfig: NextConfigWithWebpack = {
+  reactStrictMode: true,
   experimental: {
-    reactCompiler: true,
+    serverActions: {
+      bodySizeLimit: 10 * 1024 * 1024, // 10MB
+      allowedOrigins: ['localhost:3000'],
+    },
+    optimizePackageImports: ['lucide-react'],
+    typedRoutes: true,
+  },
+  webpack: (config: any) => {
+    config.externals = [...config.externals, 'canvas', 'jsdom'];
+    return config;
   },
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+        pathname: '**',
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/ingest/static/:path*",
-        destination: "https://us-assets.i.posthog.com/static/:path*",
-      },
-      {
-        source: "/ingest/:path*",
-        destination: "https://us.i.posthog.com/:path*",
-      },
-      {
-        source: "/ingest/decide",
-        destination: "https://us.i.posthog.com/decide",
-      },
-    ];
-  },
-  // This is required to support PostHog trailing slash API requests
-  skipTrailingSlashRedirect: true,
+  devIndicators: false,
 };
 
 export default nextConfig;

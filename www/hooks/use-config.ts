@@ -1,14 +1,23 @@
-import { initialThemeConfig } from "@/lib/themes";
-import { ThemeConfig } from "@/types/theme";
-import { LOCAL_STORAGE_KEYS } from "@/utils/constants";
-import { useAtom } from "jotai/react";
-import { atomWithStorage } from "jotai/utils";
+import { useAtom } from "jotai"
+import { atomWithStorage } from "jotai/utils"
 
-const initialConfigAtom = atomWithStorage<ThemeConfig>(
-  LOCAL_STORAGE_KEYS.themeConfig,
-  initialThemeConfig,
-);
+import { BaseColor } from "@/registry/registry-base-colors"
+import { Style } from "@/registry/registry-styles"
+
+type Config = {
+  style: Style["name"]
+  theme: BaseColor["name"]
+  radius: number
+  packageManager: "npm" | "yarn" | "pnpm" | "bun"
+}
+
+const configAtom = atomWithStorage<Config>("config", {
+  style: "new-york",
+  theme: "zinc",
+  radius: 0.5,
+  packageManager: "pnpm",
+})
 
 export function useConfig() {
-  return useAtom(initialConfigAtom);
+  return useAtom(configAtom)
 }

@@ -1,75 +1,90 @@
-import { ReactScan } from "@/components/devtools/react-scan";
-
-import { ScreenDevTools } from "@/components/devtools/screen-devtools";
-import { FontLoader } from "@/components/font-loader";
-import { LoadTheme } from "@/components/load-theme";
-import { ThemeSync } from "@/components/theme-sync";
-import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
-import "@/styles/globals.css";
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import { Providers } from "./providers";
+import { RootProvider } from "@/components/providers/root-provider"
+import { META_THEME_COLORS, siteConfig } from "@/config/site"
+import { fontMono, fontSans } from "@/lib/fonts"
+import { Metadata, Viewport } from "next"
+import { cn } from "@/lib/utils"
+import "@/styles/globals.css"
 
 export const metadata: Metadata = {
   title: {
-    default: "themux | shadcn/ui theme generator",
-    template: "%s | themux",
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
   },
-  description:
-    "A shadcn/ui theme generator, but fully customizable. Supports Tailwind v4 and v3.",
-  keywords: [
-    "themux",
-    "themux shadcn",
-    "shadcn",
-    "shadcn/ui",
-    "Tailwind",
-    "Tailwind v4",
-    "TailwindCSS",
-    "theme generator",
-    "theme customizer",
-    "theme editor",
-    "Next.js",
-    "llanesluis",
-  ],
+  metadataBase: new URL(siteConfig.url),
+  description: siteConfig.description,
+  keywords: ["Friday", "Multiverse", "Hello", "Aladdin", "Dx"],
   authors: [
     {
-      name: "llanesluis",
-      url: "https://www.llanesluis.xyz/",
+      name: "manfromexistence",
+      url: "https://manfromexistence.com",
     },
   ],
-  creator: "llanesluis",
-  metadataBase: new URL("https://themux.vercel.app"),
+  creator: "manfromexistence",
   openGraph: {
-    title: "themux | Not your regular shadcn/ui theme generator",
-    description:
-      "A shadcn/ui theme generator, but fully customizable. Supports Tailwind v4 and v3 and different color formats.",
+    type: "website",
+    locale: "en_US",
+    url: siteConfig.url,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: siteConfig.name,
+      },
+    ],
   },
-  generator: "Next.js",
-};
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+    creator: "@manfromexistence",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-16x16.png",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`,
+}
 
-export default async function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export const viewport: Viewport = {
+  themeColor: META_THEME_COLORS.light,
+}
+
+interface RootLayoutProps {
+  children: React.ReactNode
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <LoadTheme />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            try {
+              if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
+              }
+            } catch (_) {}
+          `,
+          }}
+        />
       </head>
-      {/* <ReactScan options={{ enabled: true }} /> */}
-
-      <body className={cn(`antialiased`)}>
-        <Providers>
-          <Suspense>
-            {children}
-            <ThemeSync />
-          </Suspense>
-
-          <FontLoader />
-          <Toaster />
-          {/* <ScreenDevTools /> */}
-        </Providers>
+      <body
+        className={cn(
+          "bg-background relative flex h-screen w-full flex-col font-sans antialiased",
+          fontSans.variable,
+          fontMono.variable
+        )}
+        suppressHydrationWarning={true}
+      >
+        <RootProvider>{children}</RootProvider>
       </body>
     </html>
-  );
+  )
 }
