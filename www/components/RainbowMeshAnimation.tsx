@@ -28,8 +28,9 @@ const RainbowMeshAnimation: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Set canvas size to match container, not window
+    canvas.width = containerWidth; 
+    canvas.height = containerHeight;
     
     const particles: Array<{
       x: number;
@@ -69,6 +70,7 @@ const RainbowMeshAnimation: React.FC = () => {
           p.opacityChange = -p.opacityChange;
         }
         
+        // Reset particle within canvas bounds
         if (p.x < 0 || p.x > canvas.width || p.y < 0 || p.y > canvas.height) {
           particles[index] = {
             x: Math.random() * canvas.width,
@@ -92,20 +94,10 @@ const RainbowMeshAnimation: React.FC = () => {
     
     const animationId = requestAnimationFrame(animate);
     
-    const handleResize = () => {
-      if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-    };
-    
-    window.addEventListener('resize', handleResize);
-    
     return () => {
-      window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [containerWidth, containerHeight]); // Add dependencies
 
   const handleHoverStart = () => {
     if (isHolding) return;
@@ -186,34 +178,19 @@ const RainbowMeshAnimation: React.FC = () => {
           width: containerWidth,
           height: containerHeight,
           position: 'relative',
-          overflow: 'hidden',
+          overflow: 'hidden', // Important for keeping canvas and overlays contained
           borderRadius: '20px',
           cursor: 'pointer',
-          background: gradientStyles[gradientStyle],
+          background: gradientStyles[gradientStyle], // Dynamic gradient
+          // Glassmorphism base styles (applied to the main div)
           boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-          backdropFilter: 'blur(4px)',
-          WebkitBackdropFilter: 'blur(4px)',
           border: '1px solid rgba(255, 255, 255, 0.18)',
         }}
         initial={{
           scale: 1,
         }}
       >
-        {/* Canvas overlay for sparkle effect */}
-        <canvas 
-          ref={canvasRef} 
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            pointerEvents: 'none',
-            borderRadius: '20px',
-          }}
-        />
-        
-        {/* Glassmorphism overlay */}
+        {/* Glassmorphism overlay - creates the blurred background effect */}
         <div
           style={{
             position: 'absolute',
@@ -221,12 +198,27 @@ const RainbowMeshAnimation: React.FC = () => {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(10px)',
-            WebkitBackdropFilter: 'blur(10px)',
-            borderRadius: '20px',
-            opacity: 0.3,
+            // backgroundColor: 'rgba(255, 255, 255, 0.1)', // Lighten for glass effect
+            backdropFilter: 'blur(5px)', // Adjust blur amount as needed
+            WebkitBackdropFilter: 'blur(5px)', // Safari support
+            borderRadius: '20px', // Match parent
+            pointerEvents: 'none', // Allow interaction with elements below
+            zIndex: 1, // Ensure it's above the background but below content
+          }}
+        />
+
+        {/* Canvas overlay for sparkle effect */}
+        <canvas 
+          ref={canvasRef} 
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%', // Make canvas fill the container
+            height: '100%',// Make canvas fill the container
             pointerEvents: 'none',
+            borderRadius: '20px', // Match parent
+            zIndex: 2, // Sparkles on top of glassmorphism
           }}
         />
         
@@ -241,7 +233,7 @@ const RainbowMeshAnimation: React.FC = () => {
             fontSize: '24px',
             pointerEvents: 'none',
             textShadow: '0 0 8px rgba(0,0,0,0.7), 0 0 12px rgba(0,0,0,0.5)',
-            zIndex: 2,
+            zIndex: 3, // Text on top of everything
           }}
         >
           Animation
