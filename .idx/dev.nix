@@ -37,7 +37,7 @@
       enable = true;
       previews = {
         web = {
-          command = [ "sh" "-c" "cd www && bun run dev --port 3000 --hostname 0.0.0.0" ];
+          command = [ "sh" "-c" "cd www && bun run dev --port $PORT --hostname 0.0.0.0" ];
           manager = "web";
         };
       };
