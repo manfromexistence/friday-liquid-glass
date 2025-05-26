@@ -45,7 +45,7 @@ export default function Home() {
   // Handle suggestion selection
   const handleSuggestionSelect = (suggestion: string) => {
     // Update the input with the suggestion
-    if aiInputRef.current) {
+    if (aiInputRef.current) {
       aiInputRef.current.setValue(suggestion);
     }
   };
