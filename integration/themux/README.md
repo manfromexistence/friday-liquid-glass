@@ -1,61 +1,23 @@
-# themux
+# Friday
+Your Ai Friend.
 
-**[themux](https://themux.vercel.app)** brings great UX to theming. A (yet another) theme customizer for shadcn/ui supporting Tailwind v4. Comes with default presets to get started and offers advanced customization options for every aspect of your UI. Just begin tweaking your theme, then copy-paste the generated CSS variables into your code. _Use this to make your shadcn components stand out._
+### Googole
+https://console.cloud.google.com/auth/clients/142218192401-vq62ev8gnpq04la513su8upbgdfqa1b6.apps.googleusercontent.com?authuser=3&hl=en&inv=1&invt=AbyOvQ&project=gen-lang-client-0422130770
 
-Heavily inspired by shadcn/ui and Tailwind CSS website designs.
+### Github
+https://github.com/settings/applications/3013958
 
-![hero](public/opengraph-image.png)
+### Twitter
+https://developer.x.com/en/portal/projects/1907737925238009857/apps/30504102/settings
 
-## Features
+### Spotify
+https://developer.spotify.com/dashboard
 
-- ✅ Compatible with Tailwind v4 and v3
-- ✅ Generate your theme in OKLCH, HSL, RGB or HEX color formats
-- ✅ Paste your primary color
-- ✅ Token color picker
-- ✅ Default shadcn/ui presets (neutral, zinc, stone, gray, slate)
-- ✅ Primary and surface presets (background, card, popover, etc.)
-- ✅ Components dump with the whole collection of shadcn components to see the results up-front
+### Discord
+https://discord.com/developers/applications
 
-## Coming Features
+### Reddit
+https://www.reddit.com/prefs/apps
 
-- ⌚ More presets
-- ⌚ Typography customizer and typography dump
-- ⌚ Blocks showcase
-
-## Fun Fact
-
-The name "themux" blends "theming" and "UX" to highlight its focus on both aesthetic design and user experience.
-
-## Run Locally
-
-### Prerequisites
-
-- Node.js 20+
-- npm / yarn / pnpm
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/llanesluis/themux.git
-cd themux
-```
-
-2. Install dependencies:
-
-```bash
-pnpm install
-```
-
-3. Start the dev server:
-
-```bash
-pnpm dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## License
-
-Licensed under the MIT license.
+### Zoom
+https://marketplace.zoom.us/

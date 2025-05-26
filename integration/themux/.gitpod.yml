@@ -1,0 +1,3 @@
+tasks:
+  - init: echo "init script" # runs during prebuild
+    command: npm install -g npm@11.4.1 bun && bun install && bun dev
