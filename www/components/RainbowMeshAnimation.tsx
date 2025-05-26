@@ -63,7 +63,7 @@ const RainbowMeshAnimation: React.FC = () => {
   return (
     <>
       <motion.div
-        className="animated-mesh-glow" // Changed class name
+        className="animated-mesh-glow"
         animate={controls}
         onHoverStart={handleHoverStart}
         onHoverEnd={handleHoverEnd}
@@ -76,8 +76,14 @@ const RainbowMeshAnimation: React.FC = () => {
           height: containerHeight,
           position: 'relative',
           overflow: 'hidden',
-          borderRadius: '20px', // Adjusted to match animated-mesh-glow
+          borderRadius: '20px',
           cursor: 'pointer',
+          background: `radial-gradient(circle at 20% 30%, #ff00cc 0%, transparent 60%),
+                      radial-gradient(circle at 80% 20%, #ffcc00 0%, transparent 60%),
+                      radial-gradient(circle at 60% 80%, #00ff99 0%, transparent 60%),
+                      radial-gradient(circle at 30% 70%, #00ccff 0%, transparent 60%),
+                      radial-gradient(circle at 70% 60%, #ff0066 0%, transparent 60%)`,
+          backgroundColor: '#222',
         }}
         initial={{
           scale: 1,
