@@ -9,6 +9,10 @@ const RainbowMeshAnimation: React.FC = () => {
   const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gradientStyle, setGradientStyle] = useState<number>(0);
+
+  // Moved declarations here
+  const containerWidth = 264;
+  const containerHeight = 264;
   
   // Handle gradient cycling
   useEffect(() => {
@@ -147,9 +151,6 @@ const RainbowMeshAnimation: React.FC = () => {
       });
     }
   };
-
-  const containerWidth = 264;
-  const containerHeight = 264;
 
   // Define gradient styles based on the images you provided
   const gradientStyles = [
