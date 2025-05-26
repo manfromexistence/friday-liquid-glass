@@ -1,6 +1,6 @@
 # To learn more about how to use Nix to configure your environment
 # see: https://firebase.google.com/docs/studio/customize-workspace
-{pkgs}: {
+{ pkgs }: {
   # Which nixpkgs channel to use.
   channel = "stable-24.05"; # or "unstable"
   # Use https://search.nixos.org/packages to find packages
@@ -11,7 +11,7 @@
     pkgs.bun
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = { };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
@@ -20,13 +20,14 @@
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
-        install = "cd www && bun install";
+        install = "cd www && bun install && bun pm trust --all";
         # Open editors for the following files by default, if they exist:
         default.openFiles = [
           # Cover all the variations of language, src-dir, router (app/pages)
-          "www/app/(app)/page.tsx" "www/app/(app)/page.js"
-          "www/app/(app)/layout.tsx" "www/app/(app)/layout.js"
-          "www/app/(app)/[id].tsx" "www/app/(app)/[id].js"
+          "www/app/(app)/page.tsx"
+          "www/app/(app)/page.js"
+          "www/app/(app)/layout.tsx"
+          "www/app/(app)/layout.js"
         ];
       };
       # To run something each time the workspace is (re)started, use the `onStart` hook
@@ -36,7 +37,7 @@
       enable = true;
       previews = {
         web = {
-          command = ["bun" "run" "dev" "--port" "3000" "--hostname" "0.0.0.0"];
+          command = [ "sh" "-c" "cd www && bun run dev --port 3000 --hostname 0.0.0.0" ];
           manager = "web";
         };
       };
