@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/auth-context"
 import PersonaSelector from "@/components/persona-suggestion"
 import SearchSuggestions from "@/components/search-suggestions"
 import Chat from "@/components/chat"
+import RainbowMeshAnimation from '@/components/RainbowMeshAnimation';
 
 export default function Home() {
   const { user } = useAuth()
@@ -44,7 +45,7 @@ export default function Home() {
   // Handle suggestion selection
   const handleSuggestionSelect = (suggestion: string) => {
     // Update the input with the suggestion
-    if (aiInputRef.current) {
+    if aiInputRef.current) {
       aiInputRef.current.setValue(suggestion);
     }
   };
@@ -60,7 +61,8 @@ export default function Home() {
         onInputChange={setCurrentInput}
         onSubmit={() => setHasSubmitted(true)}
       />
-      <div className="animated-mesh-glow">Animation</div>
+      {/* <div className="animated-mesh-glow">Animation</div> */}
+      <RainbowMeshAnimation />
     </div>
   )
 }
