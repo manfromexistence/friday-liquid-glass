@@ -60,6 +60,7 @@ export default function Home() {
         onInputChange={setCurrentInput}
         onSubmit={() => setHasSubmitted(true)}
       />
+      <div className="animated-mesh-glow">Animation</div>
     </div>
   )
 }
