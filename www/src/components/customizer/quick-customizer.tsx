@@ -114,13 +114,13 @@ export function QuickCustomizer() {
               </Select>
             </Label>
           </div>
-          <div className="grid grid-cols-11 gap-2">
+          <div className="grid grid-cols-11 place-items-center-safe gap-2">
             <MemoizedTailwindV4ColorPalette
               currentColor={getColorToken({
                 property: "primary",
               })}
               shade={shade}
-              className="contents"
+              className="flex-1 contents"
               modesInSync={modesInSync}
             />
           </div>

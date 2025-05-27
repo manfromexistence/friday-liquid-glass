@@ -32,7 +32,7 @@ function TailwindV4ColorPalette({
   return (
     <div
       className={cn(
-        "flex flex-wrap content-start items-start gap-2",
+        "",
         className,
       )}
       {...props}
