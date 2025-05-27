@@ -20,7 +20,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/sidebar/actions-sidebar"
+} from "@/components/layout/sidebar/actions-sidebar"
 
 export function MoreActions({ content }: { content: string }) {
   const [open, setOpen] = React.useState(false)

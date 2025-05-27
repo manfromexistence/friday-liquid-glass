@@ -2,7 +2,7 @@ import * as React from "react"
 import { Copy, Volume2, Edit, Download, Play, Pause, Loader } from 'lucide-react'
 import { useState, useEffect, useRef, useCallback } from "react"
 import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/theme/utils'
 import { toast } from "sonner"
 
 interface UserMessageProps {

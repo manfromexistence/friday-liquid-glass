@@ -1,90 +1,56 @@
-import { RootProvider } from "@/components/providers/root-provider"
-import { META_THEME_COLORS, siteConfig } from "@/config/site"
-import { fontMono, fontSans } from "@/lib/fonts"
-import { Metadata, Viewport } from "next"
-import { cn } from "@/lib/utils"
-import "@/styles/globals.css"
+import { LoadTheme } from "@/components/abstract/load-theme";
+import { Providers } from "@/components/providers";
+import { cn } from "@/lib/theme/utils";
+import type { Metadata } from "next";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: "Friday",
+    template: "%s | friday",
   },
-  metadataBase: new URL(siteConfig.url),
-  description: siteConfig.description,
-  keywords: ["Friday", "Multiverse", "Hello", "Aladdin", "Dx"],
+  description:
+    "Your Ai Friend.",
+  keywords: [
+    "friday",
+    "manfromexistence",
+    "multiverse",
+    "aladdin",
+    "better",
+    "dx",
+    "manfromexistence-auth",
+    "manfromexistence-ui",
+    "manfromexistence-ux",
+  ],
   authors: [
     {
       name: "manfromexistence",
-      url: "https://manfromexistence.com",
+      url: "https://manfromexistence.vercel.app",
     },
   ],
   creator: "manfromexistence",
+  metadataBase: new URL("https://themux.vercel.app"),
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: siteConfig.url,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    siteName: siteConfig.name,
-    images: [
-      {
-        url: siteConfig.ogImage,
-        width: 1200,
-        height: 630,
-        alt: siteConfig.name,
-      },
-    ],
+    title: "friday | More than just your ai assisstance",
+    description:
+      "Your Ai Friend.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage],
-    creator: "@manfromexistence",
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
-  manifest: `${siteConfig.url}/site.webmanifest`,
-}
+  generator: "Next.js",
+};
 
-export const viewport: Viewport = {
-  themeColor: META_THEME_COLORS.light,
-}
-
-interface RootLayoutProps {
-  children: React.ReactNode
-}
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            try {
-              if (localStorage.theme === 'dark' || ((!('theme' in localStorage) || localStorage.theme === 'system') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.querySelector('meta[name="theme-color"]').setAttribute('content', '${META_THEME_COLORS.dark}')
-              }
-            } catch (_) {}
-          `,
-          }}
-        />
+        <LoadTheme />
       </head>
-      <body
-        className={cn(
-          "bg-background relative flex h-screen w-full flex-col font-sans antialiased",
-          fontSans.variable,
-          fontMono.variable
-        )}
-        suppressHydrationWarning={true}
-      >
-        <RootProvider>{children}</RootProvider>
+      <body className={cn(`antialiased`)}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
-  )
+  );
 }

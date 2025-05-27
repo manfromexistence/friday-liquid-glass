@@ -1,4 +1,4 @@
-import { useAIModelStore } from '@/lib/store/ai-model-store'
+import { useAIModelStore } from '@/store/ai-model-store'
 
 const API_URL = 'https://friday-backend.vercel.app'
 

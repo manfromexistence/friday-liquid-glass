@@ -14,7 +14,7 @@ import {
   goldenGlowPreset,
   volcanicPreset
 } from "@/components/friday/index"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/theme/utils"
 
 interface FridayProps {
   className?: string

@@ -1,5 +1,5 @@
 import { Message } from '@/types/chat';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/theme/utils';
 import { Sparkles, Play, Pause, Volume2, ImageIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/auth-context';

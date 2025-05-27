@@ -15,7 +15,7 @@ import {
   defaultSize,
 } from "../../constants";
 import { ReactAIOrbProps } from "../../types";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/theme/utils";
 
 export const Orb = ({
   className,

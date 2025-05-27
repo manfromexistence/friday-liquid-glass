@@ -8,7 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/theme/utils";
 
 // Fallback image (replace with a local placeholder image or a default URL)
 const FALLBACK_IMAGE = "/placeholder-image.png"; // Add a placeholder image in your public folder

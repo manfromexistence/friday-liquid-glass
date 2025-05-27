@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useState, useCallback, useEffect } from
 import { Message } from "@/types/chat";
 import { ChatMessage } from "@/components/chat/chat-message";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/theme/utils";
 import { Button } from "@/components/ui/button";
 
 interface MessageListProps {

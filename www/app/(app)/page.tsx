@@ -1,81 +1,18 @@
-// "use client"
+"use client"
 
-// import * as React from "react"
-// import AiInput from '@/components/ai-input'
-// import Friday from "@/components/friday/friday"
-// import { useAuth } from "@/contexts/auth-context"
-// import PersonaSelector from "@/components/persona-suggestion"
-// import SearchSuggestions from "@/components/search-suggestions"
-// import Chat from "@/components/chat"
-// import RainbowMeshAnimation from '@/components/RainbowMeshAnimation';
-// import MeshGenerator from '@/components/MeshGenerator';
-
-// export default function Home() {
-//   const { user } = useAuth()
-//   const userName = user?.displayName || "friend"
-
-//   // Using useState and useEffect to ensure client-side only rendering of time-based content
-//   const [greeting, setGreeting] = React.useState("")
-//   // Add state to track if input has been submitted
-//   const [hasSubmitted, setHasSubmitted] = React.useState(false)
-//   // Keep track of current input for search suggestions
-//   const [currentInput, setCurrentInput] = React.useState("")
-
-//   // Reference to the AiInput component
-//   const aiInputRef = React.useRef<{ setValue: (value: string) => void } | null>(null)
-
-//   React.useEffect(() => {
-//     const hour = new Date().getHours()
-
-//     if (hour >= 5 && hour < 12) {
-//       setGreeting("Good morning")
-//     } else if (hour >= 12 && hour < 18) {
-//       setGreeting("Good afternoon")
-//     } else {
-//       setGreeting("Good evening")
-//     }
-//   }, [])
-
-//   // Reset hasSubmitted when input is cleared
-//   React.useEffect(() => {
-//     if (!currentInput.trim()) {
-//       setHasSubmitted(false);
-//     }
-//   }, [currentInput]);
-
-//   // Handle suggestion selection
-//   const handleSuggestionSelect = (suggestion: string) => {
-//     // Update the input with the suggestion
-//     if (aiInputRef.current) {
-//       aiInputRef.current.setValue(suggestion);
-//     }
-//   };
-
-//   return (
-//     <div className="flex h-svh w-full flex-col items-center justify-center gap-4 py-4 pt-16">
-//       <h1 className="bold w-full text-center font-sans text-3xl">
-//         {greeting && `${greeting}, ${userName}.`}
-//       </h1>
-//       {/* <div className="w-full max-w-lg p-4">
-//         <MeshGenerator />
-//       </div> */}
-
-//     </div>
-//   )
-// }
-
-"use client";
-
+import AiInput from '@/components/chat/ai-input'
+import Friday from "@/components/friday/friday"
+import SearchSuggestions from "@/components/search-suggestions"
 import SignIn from "@/components/auth/sign-in";
 import SignUp from "@/components/auth/sign-up";
-// import { QuickCustomizer } from "@/components/theme/quick-customizer";
+import { QuickCustomizer } from "@/components/theme/quick-customizer";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import Image from "next/image"
 
-export default function Page() {
+export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [betterauth, setBetterAuth] = useState<any>(null);
 
@@ -92,9 +29,54 @@ export default function Page() {
     fetchBetterAuth();
   }, []);
 
+  // Using useState and useEffect to ensure client-side only rendering of time-based content
+  const [greeting, setGreeting] = React.useState("")
+  // Add state to track if input has been submitted
+  const [hasSubmitted, setHasSubmitted] = React.useState(false)
+  // Keep track of current input for search suggestions
+  const [currentInput, setCurrentInput] = React.useState("")
+
+  // Reference to the AiInput component
+  const aiInputRef = React.useRef<{ setValue: (value: string) => void } | null>(null)
+
+  React.useEffect(() => {
+    const hour = new Date().getHours()
+
+    if (hour >= 5 && hour < 12) {
+      setGreeting("Good morning")
+    } else if (hour >= 12 && hour < 18) {
+      setGreeting("Good afternoon")
+    } else {
+      setGreeting("Good evening")
+    }
+  }, [])
+
+  // Reset hasSubmitted when input is cleared
+  React.useEffect(() => {
+    if (!currentInput.trim()) {
+      setHasSubmitted(false);
+    }
+  }, [currentInput]);
+
+  // Handle suggestion selection
+  const handleSuggestionSelect = (suggestion: string) => {
+    // Update the input with the suggestion
+    if (aiInputRef.current) {
+      aiInputRef.current.setValue(suggestion);
+    }
+  };
+
   return (
-    <div className="min-h-screen w-full flex items-center justify-center flex-col gap-4 p-4">
-      Hello
+    <div className="flex h-svh w-full flex-col items-center justify-start gap-4 py-4 pt-16">
+      {/* <Friday orbSize={100} shapeSize={90} />  */}
+      {/* <h1 className="bold w-full text-center font-sans text-3xl">
+        {greeting && `${greeting}, Sumon.`}
+      </h1>
+      <AiInput
+        ref={aiInputRef}
+        onInputChange={setCurrentInput}
+        onSubmit={() => setHasSubmitted(true)}
+      /> */}
       <div className="flex flex-col gap-4 w-full max-w-md">
         {user ? (
           <>
@@ -258,7 +240,18 @@ export default function Page() {
         </Button>
       </div>
       <SignUp />
-      <SignIn />
+      {/* <SignIn /> */}
+
+      {/* <div className="animate-content-height w-full transition-all duration-500 ease-in-out">
+        {currentInput.trim() ? (
+          <SearchSuggestions
+            inputValue={currentInput}
+            onSuggestionSelect={handleSuggestionSelect}
+          />
+        ) : (
+          <PersonaSelector />
+        )}
+      </div> */}
     </div>
-  );
+  )
 }

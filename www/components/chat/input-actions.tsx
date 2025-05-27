@@ -1,25 +1,25 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
-import { Input } from "components/ui/input";
+import { cn } from "@/lib/theme/utils";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Button } from "components/ui/button";
+import { Button } from "@/components/ui/button";
 import { aiService } from "@/lib/services/ai-service";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "components/ui/dropdown-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "components/ui/popover";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { doc, updateDoc, collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
-import { Separator } from '@/components/ui/separator'
-import { useCategorySidebar } from '@/components/category-sidebar'
-import { useSubCategorySidebar } from '@/components/subcategory-sidebar'
-import CategorySidebar from '@/components/category-app-sidebar'
-import SubCategorySidebar from '@/components/subcategory-app-sidebar'
+import { Separator } from "@/components/ui/separator"
+import { useCategorySidebar } from '@/components/layout/sidebar/category-sidebar'
+import { useSubCategorySidebar } from '@/components/layout/sidebar/subcategory-sidebar'
+import CategorySidebar from '@/components/layout/sidebar/category-app-sidebar'
+import SubCategorySidebar from '@/components/layout/sidebar/subcategory-app-sidebar'
 
 import {
   MessageCircle,

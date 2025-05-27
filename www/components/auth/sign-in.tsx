@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Loader2, Key, CircleDotDashed } from "lucide-react";
 import { signIn } from "@/lib/auth/auth-client";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/theme/utils";
 import { Separator } from "@/components/ui/separator";
 import * as React from "react";
 import type { SVGProps } from "react";

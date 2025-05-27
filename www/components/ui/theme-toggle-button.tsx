@@ -8,7 +8,7 @@ import {
   AnimationVariant,
   createAnimation,
 } from "@/components/ui/theme-animations"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/utils"
 
 interface ThemeToggleAnimationProps {
   variant?: AnimationVariant

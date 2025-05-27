@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { signIn } from "@/lib/auth/auth-client";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/theme/utils";
 import { Separator } from "@/components/ui/separator";
 import * as React from "react";
 import type { SVGProps } from "react";
@@ -318,6 +318,54 @@ export default function SignUp() {
             >
               <XformerlyTwitter className="invert-0 dark:invert" />
             </Button>
+            {/* <Button
+              variant="outline"
+              className={cn(
+                "w-full gap-2"
+              )}
+              disabled={loading}
+              onClick={async () => {
+                await signIn.social(
+                  {
+                    provider: "tiktok",
+                  },
+                  {
+                    onRequest: (ctx) => {
+                      setLoading(true);
+                    },
+                    onResponse: (ctx) => {
+                      setLoading(false);
+                    },
+                  },
+                );
+              }}
+            >
+              <TikTok />
+            </Button>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full gap-2"
+              )}
+              disabled={loading}
+              onClick={async () => {
+                await signIn.social(
+                  {
+                    provider: "gitlab",
+                  },
+                  {
+                    onRequest: (ctx) => {
+                      setLoading(true);
+                    },
+                    onResponse: (ctx) => {
+                      setLoading(false);
+                    },
+                  },
+                );
+              }}
+            >
+              <GitLab />
+            </Button> */}
             <Button
               variant="outline"
               className={cn(
@@ -412,9 +460,9 @@ export default function SignUp() {
                 );
               }}
             >
-              {/* <CircleDotDashed className="w-4 h-4" /> */}
               <Reddit />
             </Button>
+            {/* <CircleDotDashed className="w-4 h-4" /> */}
           </div>
         </div>
       </CardContent>

@@ -1,8 +1,8 @@
 'use client'
 
-import { useCategorySidebar } from '@/components/category-sidebar'
-import { useSubCategorySidebar } from '@/components/subcategory-sidebar'
-import { cn } from '@/lib/utils'
+import { useCategorySidebar } from '@/components/layout/sidebar/category-sidebar'
+import { useSubCategorySidebar } from '@/components/layout/sidebar/subcategory-sidebar'
+import { cn } from '@/lib/theme/utils'
 
 interface MainProps {
   children: React.ReactNode

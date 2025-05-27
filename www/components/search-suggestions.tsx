@@ -9,7 +9,7 @@ import { db } from "@/lib/firebase/config"
 import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
 import { useAIModelStore } from "@/lib/store/ai-model-store"
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/theme/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface SearchSuggestionProps {

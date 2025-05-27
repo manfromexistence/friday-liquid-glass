@@ -7,7 +7,7 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import { InlineMath, BlockMath } from 'react-katex'
 import { Check, Copy, ChevronDown, ChevronUp } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/theme/utils'
 import {
     Table,
     TableBody,

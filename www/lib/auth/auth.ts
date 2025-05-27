@@ -1,13 +1,13 @@
 import { betterAuth } from "manfromexistence-auth";
 import { drizzleAdapter } from "manfromexistence-auth/adapters/drizzle";
-import { db } from "@/db/drizzle";
+import { db } from "../../db/drizzle";
 import { schema } from "@/db/schema";
 
 export const auth = betterAuth({
   account: {
     accountLinking: {
       enabled: true,
-      trustedProviders: ["google", "github", "twitter", "tiktok", "discord,", "zoom", "reddit", "spotify", "kick"],
+      trustedProviders: ["google", "github", "twitter", "tiktok", "gitlab", "facebook", "discord,", "zoom", "reddit", "spotify", "kick"],
     }
   },
 
