@@ -14,8 +14,8 @@ export type NavLink = {
 };
 
 export const NAV_LINKS: NavLink[] = [
-  { href: "/shadcn-themes", title: "Theme customizer", icon: Palette },
-  { href: "/shadcn-themes/components", title: "Components", icon: Component },
+  { href: "/themes", title: "Theme customizer", icon: Palette },
+  { href: "/themes/components", title: "Components", icon: Component },
   // {
   //   href: "/shadcn-themes/fonts",
   //   title: "Fonts",
