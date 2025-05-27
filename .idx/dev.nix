@@ -20,14 +20,12 @@
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file
       onCreate = {
-        install = "cd themux && bun install && bun pm trust --all";
+        install = "cd www && bun install && bun pm trust --all";
         # Open editors for the following files by default, if they exist:
         default.openFiles = [
           # Cover all the variations of language, src-dir, router (app/pages)
           "www/app/(app)/page.tsx"
-          "www/app/(app)/page.js"
           "www/app/(app)/layout.tsx"
-          "www/app/(app)/layout.js"
         ];
       };
       # To run something each time the workspace is (re)started, use the `onStart` hook
@@ -37,7 +35,7 @@
       enable = true;
       previews = {
         web = {
-          command = [ "sh" "-c" "cd themux && bun run dev --port $PORT --hostname 0.0.0.0" ];
+          command = [ "sh" "-c" "cd www && bun run dev --port $PORT --hostname 0.0.0.0" ];
           manager = "web";
         };
       };
