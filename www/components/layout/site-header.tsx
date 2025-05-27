@@ -504,7 +504,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-40 flex h-12 items-center justify-between border-b bg-white px-2 dark:bg-black',
+        'fixed top-0 z-40 flex h-12 items-center justify-between border-b px-2',
         // Add transition for smooth changes
         'transition-all duration-200 ease-linear',
         // Base width and position - full width on mobile, default md width with 48px offset
@@ -551,7 +551,7 @@ export function SiteHeader() {
           </SheetTrigger>
           <SheetContent
             side="left"
-            className="w-[280px] p-0 dark:bg-black bg-white border-background border-r"
+            className="w-[280px] p-0 border-background border-r"
           >
             <ScrollArea className="h-full w-full p-0">
               {/* Header inside Sheet */}
