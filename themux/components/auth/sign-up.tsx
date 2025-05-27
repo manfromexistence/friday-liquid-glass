@@ -327,6 +327,54 @@ export default function SignUp() {
               onClick={async () => {
                 await signIn.social(
                   {
+                    provider: "tiktok",
+                  },
+                  {
+                    onRequest: (ctx) => {
+                      setLoading(true);
+                    },
+                    onResponse: (ctx) => {
+                      setLoading(false);
+                    },
+                  },
+                );
+              }}
+            >
+              <TikTok />
+            </Button>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full gap-2"
+              )}
+              disabled={loading}
+              onClick={async () => {
+                await signIn.social(
+                  {
+                    provider: "gitlab",
+                  },
+                  {
+                    onRequest: (ctx) => {
+                      setLoading(true);
+                    },
+                    onResponse: (ctx) => {
+                      setLoading(false);
+                    },
+                  },
+                );
+              }}
+            >
+              <GitLab />
+            </Button>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full gap-2"
+              )}
+              disabled={loading}
+              onClick={async () => {
+                await signIn.social(
+                  {
                     provider: "spotify",
                   },
                   {
@@ -366,7 +414,7 @@ export default function SignUp() {
             >
               <Discord />
             </Button>
-            <Button
+            {/* <Button
               variant="outline"
               className={cn(
                 "w-full gap-2"
@@ -412,9 +460,9 @@ export default function SignUp() {
                 );
               }}
             >
-              {/* <CircleDotDashed className="w-4 h-4" /> */}
               <Reddit />
-            </Button>
+            </Button> */}
+            {/* <CircleDotDashed className="w-4 h-4" /> */}
           </div>
         </div>
       </CardContent>

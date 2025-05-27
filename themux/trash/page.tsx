@@ -29,7 +29,7 @@ export default function Page() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center flex-col gap-4 p-4">
       Hello
-      {/* <div className="flex flex-col gap-4 w-full max-w-md">
+      <div className="flex flex-col gap-4 w-full max-w-md">
         {user ? (
           <>
             {user.user.image && (
@@ -192,7 +192,7 @@ export default function Page() {
         </Button>
       </div>
       <SignUp />
-      <SignIn /> */}
+      <SignIn />
     </div>
   );
 }
