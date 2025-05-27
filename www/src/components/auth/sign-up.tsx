@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { signIn } from "@/lib/auth/auth-client";
-import { cn } from "@/lib/theme/utils";
+import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import * as React from "react";
 import type { SVGProps } from "react";
@@ -98,7 +98,7 @@ export default function SignUp() {
           Enter your information to create an account
         </CardDescription>
       </CardHeader>
-      <CardContent className="py-0 pb-4">
+      <CardContent className="py-0">
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
@@ -236,9 +236,9 @@ export default function SignUp() {
           </Button>
 
           <div className="w-full flex flex-row space-x-2 items-center">
-            <Separator className="w-1/3" />
+            <Separator className="max-w-1/3" />
             <span className="w-1/3 text-center text-sm text-muted-foreground">Or continue with</span>
-            <Separator className="w-1/3" />
+            <Separator className="max-w-1/3" />
           </div>
 
           <div className={cn(
@@ -248,7 +248,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -272,7 +272,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -297,7 +297,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -321,7 +321,7 @@ export default function SignUp() {
             {/* <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -345,7 +345,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -369,7 +369,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -393,7 +393,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -417,7 +417,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -441,7 +441,7 @@ export default function SignUp() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {

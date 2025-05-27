@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Loader2, Key, CircleDotDashed } from "lucide-react";
 import { signIn } from "@/lib/auth/auth-client";
 import Link from "next/link";
-import { cn } from "@/lib/theme/utils";
+import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import * as React from "react";
 import type { SVGProps } from "react";
@@ -53,7 +53,7 @@ export default function SignIn() {
           Enter your email below to login to your account
         </CardDescription>
       </CardHeader>
-      <CardContent className="py-0 pb-4">
+      <CardContent className="py-0">
         <div className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
@@ -123,9 +123,9 @@ export default function SignIn() {
           </Button>
 
           <div className="w-full flex flex-row space-x-2 items-center">
-            <Separator className="w-1/3" />
+            <Separator className="max-w-1/3" />
             <span className="w-1/3 text-center text-sm text-muted-foreground">Or continue with</span>
-            <Separator className="w-1/3" />
+            <Separator className="max-w-1/3" />
           </div>
 
           <div className={cn(
@@ -135,7 +135,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -159,7 +159,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -184,7 +184,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -208,7 +208,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -232,7 +232,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -256,7 +256,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -280,7 +280,7 @@ export default function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "w-full gap-2"
+                "max-w-10 gap-2"
               )}
               disabled={loading}
               onClick={async () => {
