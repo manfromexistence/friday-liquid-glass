@@ -40,8 +40,8 @@ export default async function ShadcnThemesLayout({
       >
         <CustomizerSidebar variant="inset" />
 
-        <SidebarInset className="relative isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-1rem)] mt-32">
-          <header className="isolate z-20 flex shrink-0 items-center gap-2 border-b md:z-10">
+        <SidebarInset className="relative isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-1rem)]">
+          <header className="isolate z-20 flex shrink-0 items-center gap-2 border-b md:z-10 mt-32">
             <ContainerWrapper className="flex items-center justify-between">
               <div className="flex h-14 w-full items-center gap-2">
                 <div className="inline-flex">
