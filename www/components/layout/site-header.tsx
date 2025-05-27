@@ -504,7 +504,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-40 flex h-12 items-center justify-between border-b px-2',
+        'fixed top-0 z-40 flex h-12 items-center justify-between border-b px-2 bg-background',
         // Add transition for smooth changes
         'transition-all duration-200 ease-linear',
         // Base width and position - full width on mobile, default md width with 48px offset
