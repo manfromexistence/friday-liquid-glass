@@ -43,7 +43,7 @@ export function ComponentWrapper({
               {getComponentName(name)}
             </span>
 
-            <Alert className="border-primary/30 bg-primary/10 flex w-full items-center border px-4 py-1 shadow-sm @lg:max-w-1/3">
+            {/* <Alert className="border-primary/30 bg-primary/10 flex w-full items-center border px-4 py-1 shadow-sm @lg:max-w-1/3">
               <div className="pr-2">
                 <Terminal className="size-4" />
               </div>
@@ -98,7 +98,7 @@ export function ComponentWrapper({
                   </TooltipWrapper>
                 )}
               </div>
-            </Alert>
+            </Alert> */}
           </div>
         </div>
         <div

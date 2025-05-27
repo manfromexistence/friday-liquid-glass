@@ -8,6 +8,7 @@ import { MailDemo } from "@/components/demos/mail-demo";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContainerWrapper } from "@/components/wrappers";
+import { ComponentsDemo } from "@/components/demos/components-demo";
 
 export const metadata: Metadata = {
   title: "Theme Customizer",
@@ -34,7 +35,10 @@ export default function ShadcnThemesPage() {
             <TabsTrigger value="cards-demo" className="px-4">
               Cards
             </TabsTrigger>
-            <TabsTrigger value="dashboard-demo" className="px-4">
+            <TabsTrigger value="components-demo" className="px-4">
+              Components
+            </TabsTrigger>
+            {/* <TabsTrigger value="dashboard-demo" className="px-4">
               Dashboard
             </TabsTrigger>
             <TabsTrigger
@@ -42,7 +46,7 @@ export default function ShadcnThemesPage() {
               className="hidden px-4 lg:inline-flex"
             >
               Mail
-            </TabsTrigger>
+            </TabsTrigger> */}
           </TabsList>
         </ContainerWrapper>
 
@@ -56,13 +60,17 @@ export default function ShadcnThemesPage() {
             <CardsDemo />
           </TabsContent>
 
-          <TabsContent value="dashboard-demo">
+          <TabsContent value="components-demo">
+            <ComponentsDemo />
+          </TabsContent>
+
+          {/* <TabsContent value="dashboard-demo">
             <DashboardDemo />
           </TabsContent>
 
           <TabsContent value="mail-demo">
             <MailDemo />
-          </TabsContent>
+          </TabsContent> */}
         </ContainerWrapper>
       </Tabs>
     </>
