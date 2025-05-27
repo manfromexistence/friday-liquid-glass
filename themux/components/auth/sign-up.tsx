@@ -318,7 +318,7 @@ export default function SignUp() {
             >
               <XformerlyTwitter className="invert-0 dark:invert" />
             </Button>
-            <Button
+            {/* <Button
               variant="outline"
               className={cn(
                 "w-full gap-2"
@@ -365,7 +365,7 @@ export default function SignUp() {
               }}
             >
               <GitLab />
-            </Button>
+            </Button> */}
             <Button
               variant="outline"
               className={cn(
@@ -414,7 +414,7 @@ export default function SignUp() {
             >
               <Discord />
             </Button>
-            {/* <Button
+            <Button
               variant="outline"
               className={cn(
                 "w-full gap-2"
@@ -461,7 +461,7 @@ export default function SignUp() {
               }}
             >
               <Reddit />
-            </Button> */}
+            </Button>
             {/* <CircleDotDashed className="w-4 h-4" /> */}
           </div>
         </div>
