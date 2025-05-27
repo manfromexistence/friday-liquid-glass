@@ -15,14 +15,6 @@ import { useSubCategorySidebar } from '@/components/layout/sidebar/subcategory-s
 import CategorySidebar from '@/components/layout/sidebar/category-app-sidebar'
 import SubCategorySidebar from '@/components/layout/sidebar/subcategory-app-sidebar'
 import { usePathname } from 'next/navigation'
-// import {
-//   User as FirebaseUser,
-//   getAuth,
-//   signOut,
-//   signInWithPopup,
-//   GoogleAuthProvider,
-// } from 'firebase/auth'
-// import { useAuth } from '@/contexts/auth-context'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -61,8 +53,6 @@ import { History } from '@/components/layout/sidebar/history'
 import ThemeToggleButton from '@/components/ui/theme-toggle-button'
 import { useParams } from 'next/navigation'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-// import { doc, getDoc, updateDoc, onSnapshot, setDoc } from 'firebase/firestore'
-// import { db } from '@/lib/firebase/config'
 import { GlobeIcon, LockIcon, EyeOff, Loader2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { SidebarProvider } from '@/components/layout/sidebar/actions-sidebar'
@@ -85,11 +75,8 @@ import {
   CommandSeparator,
 } from '@/components/ui/command'
 import { v4 as uuidv4 } from 'uuid'
-// import { aiService } from '@/lib/services/ai-service'
 import { Separator } from '@/components/ui/separator'
-// import GoodSidebarApp from './good-app-sidebar'
-// import { useGoodSidebar } from './good-sidebar'
-// import Profile from './profile'
+import Profile from '@/components/layout/profile'
 
 type ChatVisibility = 'public' | 'private' | 'unlisted'
 
@@ -790,8 +777,7 @@ export function SiteHeader() {
         </div>
 
         {user ? (
-          // <Profile />
-          null
+          <Profile />
         ) : (
           <>
             <div
