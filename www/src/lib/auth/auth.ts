@@ -2,8 +2,50 @@ import { betterAuth } from "manfromexistence-auth";
 import { drizzleAdapter } from "manfromexistence-auth/adapters/drizzle";
 import { db } from "../../db/drizzle";
 import { schema } from "@/db/schema";
+import {
+  username,
+  anonymous,
+  phoneNumber,
+  magicLink,
+  emailOTP,
+  oneTap,
+  haveIBeenPwned,
+  multiSession,
+  oAuthProxy,
+  openAPI,
+} from "manfromexistence-auth/plugins"
+import { passkey } from "manfromexistence-auth/plugins/passkey";
 
 export const auth = betterAuth({
+
+  plugins: [
+    oAuthProxy(),
+    openAPI(),
+    username(),
+    anonymous(),
+    passkey(),
+    oneTap(),
+    haveIBeenPwned(),
+    multiSession({
+      maximumSessions: 10
+    }),
+    phoneNumber({
+      sendOTP: ({ phoneNumber, code }, request) => {
+        // Implement sending OTP code via SMS
+      }
+    }),
+    magicLink({
+      sendMagicLink: async ({ email, token, url }, request) => {
+        // send email to user
+      }
+    }),
+    emailOTP({
+      async sendVerificationOTP({ email, otp, type }) {
+        // Implement the sendVerificationOTP method to send the OTP to the user's email address
+      },
+    }),
+  ],
+
   account: {
     accountLinking: {
       enabled: true,
@@ -21,7 +63,8 @@ export const auth = betterAuth({
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      redirectURI: "https://9000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev/api/auth/callback/google"
     },
     github: {
       clientId: process.env.GITHUB_CLIENT_ID as string,
