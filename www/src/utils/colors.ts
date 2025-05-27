@@ -1,4 +1,6 @@
 import { basePresetsV4 } from "@/lib/colors";
+import { otherPresets } from "@/lib/presets";
+
 import Color from "color";
 import { parse } from "culori";
 import { colorFormatter } from "./color-converter";
@@ -12,8 +14,8 @@ export function getOptimalForegroundColor(baseColor: string) {
   const color = Color(colorInHex);
 
   const foregroundColor = color.isDark()
-    ? basePresetsV4.neutral.dark.foreground
-    : basePresetsV4.neutral.light.foreground;
+    ? otherPresets.vercel.dark.foreground
+    : otherPresets.vercel.light.foreground;
 
   return foregroundColor;
 }

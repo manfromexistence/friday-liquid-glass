@@ -471,7 +471,7 @@ export function AllPresetsControl({ className }: AllPresetsControlProps) {
 
       <PopoverContent className="p-0" align="start">
         <Command className={cn(className)}>
-          <CommandInput className="text-base" />
+          <CommandInput className="text-sm" placeholder="Type a theme or search..." />
 
           <ScrollArea className="flex max-h-81 flex-col">
             <CommandEmpty>

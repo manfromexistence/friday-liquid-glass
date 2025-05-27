@@ -117,7 +117,7 @@ export function RandomizeButton({ className, ...props }: RandomizeButtonProps) {
 
   return (
     <Button
-      size="sm"
+      size="icon"
       variant="ghost"
       className={className}
       {...props}

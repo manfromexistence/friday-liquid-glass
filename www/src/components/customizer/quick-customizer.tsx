@@ -28,6 +28,13 @@ import {
   RadiusControls,
 } from "./customizer-controls";
 import { MemoizedTailwindV4ColorPalette } from "./tailwind-v4-palette";
+import { ModeSwitcher } from "@/components/mode-switcher";
+import { TooltipWrapper } from "@/components/tooltip-wrapper";
+import { RandomizeButton } from "@/components/customizer/randomize-button";
+import {
+  CustomizerSidebar,
+  CustomizerSidebarToggle,
+} from "@/components/customizer/customizer-sidebar";
 
 export function QuickCustomizer() {
   const [shade, setShade] = useState<TailwindShadeKey>("500");
@@ -41,16 +48,24 @@ export function QuickCustomizer() {
       <div className="@container flex flex-wrap items-start gap-x-6 gap-y-4 sm:flex-row">
         <section className="max-w-80 min-w-72 flex-1 space-y-1.5 max-sm:w-full max-sm:max-w-full">
           <Label className="flex items-center gap-1 pb-2">
-            <PaintBucket className="size-4" /> Theme presets
+            <PaintBucket className="size-4" /> Themes
           </Label>
-          <AllPresetsControl />
-          <span className="text-muted-foreground truncate text-xs">
+          <div className="w-full flex items-center justify-start gap-2 md:gap-0.5">
+            <AllPresetsControl />
+            <ModeSwitcher />
+            <TooltipWrapper label="Generate random theme" asChild>
+              <RandomizeButton  />
+            </TooltipWrapper>
+            <CustomizerSidebarToggle />
+          </div>
+
+          {/* <span className="text-muted-foreground truncate text-xs">
             {`Complete theme presets`}
-          </span>
+          </span> */}
         </section>
 
         {/* Paste your primary color */}
-        <section className="max-w-66 min-w-62 space-y-1.5 max-sm:w-full max-sm:max-w-full sm:flex-1">
+        {/* <section className="max-w-66 min-w-62 space-y-1.5 max-sm:w-full max-sm:max-w-full sm:flex-1">
           <Label className="flex items-center gap-1 pb-2">
             <ClipboardPaste className="size-4" /> Paste your primary color
           </Label>
@@ -62,7 +77,7 @@ export function QuickCustomizer() {
           <span className="text-muted-foreground text-xs">
             {`oklch(), hsl(), rbg() and #hex`}
           </span>
-        </section>
+        </section> */}
 
         {/* Primary color */}
         <section className="max-w-80 min-w-72 flex-2 space-y-1.5 max-sm:w-full max-sm:max-w-full">
@@ -99,7 +114,7 @@ export function QuickCustomizer() {
               </Select>
             </Label>
           </div>
-          <div className="grid grid-cols-11 gap-1.5">
+          <div className="grid grid-cols-11 gap-2">
             <MemoizedTailwindV4ColorPalette
               currentColor={getColorToken({
                 property: "primary",

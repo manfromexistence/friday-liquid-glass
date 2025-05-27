@@ -52,10 +52,10 @@ export default async function ShadcnThemesLayout({
               </div>
 
               <div className="flex items-center justify-center">
-                <TooltipWrapper label="Generate random theme" asChild>
+                {/* <TooltipWrapper label="Generate random theme" asChild>
                   <RandomizeButton />
                 </TooltipWrapper>
-                <ModeSwitcher />
+                <ModeSwitcher /> */}
                 <Button
                   asChild
                   variant="ghost"
