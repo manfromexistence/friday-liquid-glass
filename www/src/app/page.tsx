@@ -199,20 +199,15 @@ export default function Home() {
       {/* <SignUp />
       <SignIn /> */}
       <motion.div
-        className="hello mt-64 flex flex-wrap justify-center" // Added flex-wrap and justify-center for better layout if spans wrap
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        className="hello mt-64 flex flex-wrap justify-center transition-all duration-500 ease-in-out"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
       >
         {[...Array(20)].map((_, i) => (
           <motion.span
             key={i}
             className={i === 0 ? "start" : i === 19 ? "end" : ""}
             style={{ "--i": i + 1 } as React.CSSProperties}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05, duration: 0.3 }}
-            whileHover={{ scale: 1.2, rotate: 5 }}
-            whileTap={{ scale: 0.8, rotate: -5 }}
           />
         ))}
       </motion.div>
