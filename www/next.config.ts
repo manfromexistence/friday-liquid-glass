@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  allowedDevOrigins: ["9000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"],
+  allowedDevOrigins: ["3000-manfmexistence-friday-lldj5udrgaw.ws-us119.gitpod.io"],
   devIndicators: false,
   experimental: {
     reactCompiler: true,

@@ -1,15 +1,14 @@
 import { ReactScan } from "@/components/devtools/react-scan";
-
 import { ScreenDevTools } from "@/components/devtools/screen-devtools";
 import { FontLoader } from "@/components/font-loader";
 import { LoadTheme } from "@/components/load-theme";
 import { ThemeSync } from "@/components/theme-sync";
 import { Toaster } from "@/components/ui/sonner";
-import { cn } from "@/lib/utils";
-import "@/styles/globals.css";
+import { Providers } from "./providers";
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Providers } from "./providers";
+import { cn } from "@/lib/utils";
+import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {

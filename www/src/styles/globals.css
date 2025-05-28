@@ -137,6 +137,53 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.hello {
+  position: relative;
+  display: flex;
+  gap: 15px;
+}
+
+.hello span {
+  position: relative;
+  height: 20px;
+  width: 5px;
+}
+
+.hello span::after,
+.hello span::before {
+  content: "";
+  position: absolute;
+  animation: hello-glow 13s linear infinite;
+  animation-delay: calc(var(--i) * 0.1s);
+  transform: all 0.5s ease-in-out;
+  rotate: 90deg;
+  top: -0px;
+  bottom: -0px;
+  left: -5px;
+  right: -5px;
+}
+
+.hello span.start::after,
+.hello span.end::after,
+.hello span.start::before,
+.hello span.end::before {
+  border-radius: var(--radius);
+}
+
+@keyframes hello-glow {
+  0% {
+    background: #0f0;
+    box-shadow: 0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0, 0 0 50px #0f0;
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    background: #0f0;
+    box-shadow: 0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0, 0 0 50px #0f0;
+    filter: hue-rotate(360deg);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
