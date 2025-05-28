@@ -7,6 +7,7 @@ import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 import React, { useState, useEffect } from "react";
 import Image from "next/image"
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [user, setUser] = useState<any>(null);
@@ -197,28 +198,24 @@ export default function Home() {
       </div>
       {/* <SignUp />
       <SignIn /> */}
-      <div className="hello mt-64">
-        <span className="start" style={{ "--i": 1 } as React.CSSProperties}></span>
-        <span style={{ "--i": 2 } as React.CSSProperties}></span>
-        <span style={{ "--i": 3 } as React.CSSProperties}></span>
-        <span style={{ "--i": 4 } as React.CSSProperties}></span>
-        <span style={{ "--i": 5 } as React.CSSProperties}></span>
-        <span style={{ "--i": 6 } as React.CSSProperties}></span>
-        <span style={{ "--i": 7 } as React.CSSProperties}></span>
-        <span style={{ "--i": 8 } as React.CSSProperties}></span>
-        <span style={{ "--i": 9 } as React.CSSProperties}></span>
-        <span style={{ "--i": 10 } as React.CSSProperties}></span>
-        <span style={{ "--i": 11 } as React.CSSProperties}></span>
-        <span style={{ "--i": 12 } as React.CSSProperties}></span>
-        <span style={{ "--i": 13 } as React.CSSProperties}></span>
-        <span style={{ "--i": 14 } as React.CSSProperties}></span>
-        <span style={{ "--i": 15 } as React.CSSProperties}></span>
-        <span style={{ "--i": 16 } as React.CSSProperties}></span>
-        <span style={{ "--i": 17 } as React.CSSProperties}></span>
-        <span style={{ "--i": 18 } as React.CSSProperties}></span>
-        <span style={{ "--i": 19 } as React.CSSProperties}></span>
-        <span className="end" style={{ "--i": 20 } as React.CSSProperties}></span>
-      </div>
+      <motion.div
+        className="hello mt-64 flex flex-wrap justify-center" // Added flex-wrap and justify-center for better layout if spans wrap
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {[...Array(20)].map((_, i) => (
+          <motion.span
+            key={i}
+            className={i === 0 ? "start" : i === 19 ? "end" : ""}
+            style={{ "--i": i + 1 } as React.CSSProperties}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.05, duration: 0.3 }}
+            whileHover={{ scale: 1.2, rotate: 5 }}
+            whileTap={{ scale: 0.8, rotate: -5 }}
+          />
+        ))}
+      </motion.div>
     </div>
   )
 }
