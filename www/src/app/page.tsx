@@ -73,6 +73,12 @@ export default function Home() {
                 <strong>User ID:</strong> {user.user.id || "Not available"}
               </span>
               <span>
+                <strong>User NAME:</strong> {user.user.username || "Not available"}
+              </span>
+              <span>
+                <strong>User ID:</strong> {user.user.id || "Not available"}
+              </span>
+              <span>
                 <strong>Account Created:</strong>{" "}
                 {new Date(user.user.createdAt).toLocaleString() || "Not available"}
               </span>

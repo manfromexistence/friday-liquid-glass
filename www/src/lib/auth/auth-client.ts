@@ -159,5 +159,6 @@ export const {
     signIn,
     signUp,
     signOut,
-    useSession
+    useSession,
+    
 } = createAuthClient()
