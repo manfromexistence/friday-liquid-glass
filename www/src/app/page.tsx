@@ -199,12 +199,38 @@ export default function Home() {
       {/* <SignUp />
       <SignIn /> */}
       <motion.div
-        className="hello mt-64 flex flex-wrap justify-center transition-all duration-500 ease-in-out"
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
+        className="hello mt-64 flex flex-wrap justify-center"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onDoubleClick={async (event, info) => {
+          // Shake animation sequence
+          await new Promise(resolve => setTimeout(resolve, 0)); // Ensure re-render for animation
+          const controls = motion.div.animate // This is a placeholder, you might need to use useAnimation hook for more control
+          // This is a simplified shake, for a more robust shake, consider using animation variants
+          // or the useAnimation hook from framer-motion for imperative control.
+          // Example of a sequence for shake:
+          // animate={{ rotate: [0, -5, 5, -5, 5, 0], transition: { duration: 0.3 } }}
+          // For onDoubleClick, it's often better to trigger an animation sequence
+          // defined in `variants` or by using `useAnimation()` for more control.
+          // The direct style change here is more of a toggle.
+          // A proper shake would involve a sequence of rotations.
+          // For simplicity, let's make it rotate quickly back and forth once.
+          // This is a conceptual example. For a true shake, you'd use variants or animate controls.
+          const target = event.target as HTMLDivElement;
+          target.style.transform = 'rotate(-5deg)';
+          await new Promise(resolve => setTimeout(resolve, 50));
+          target.style.transform = 'rotate(5deg)';
+          await new Promise(resolve => setTimeout(resolve, 50));
+          target.style.transform = 'rotate(-5deg)';
+          await new Promise(resolve => setTimeout(resolve, 50));
+          target.style.transform = 'rotate(5deg)';
+          await new Promise(resolve => setTimeout(resolve, 50));
+          target.style.transform = 'rotate(0deg)';
+        }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         {[...Array(20)].map((_, i) => (
-          <motion.span
+          <span
             key={i}
             className={i === 0 ? "start" : i === 19 ? "end" : ""}
             style={{ "--i": i + 1 } as React.CSSProperties}
