@@ -197,7 +197,7 @@ export default function Home() {
       </div>
       {/* <SignUp />
       <SignIn /> */}
-      <div className="hello">
+      <div className="hello mt-64">
         <span className="start" style={{ "--i": 1 } as React.CSSProperties}></span>
         <span style={{ "--i": 2 } as React.CSSProperties}></span>
         <span style={{ "--i": 3 } as React.CSSProperties}></span>
