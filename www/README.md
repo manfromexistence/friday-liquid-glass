@@ -3,6 +3,9 @@ npx drizzle-kit generate
 npx drizzle-kit push
 
 ```
+
+
+
 {/* <Friday orbSize={100} shapeSize={90} />  */ }
 {/* <h1 className="bold w-full text-center font-sans text-3xl">
         {greeting && `${greeting}, Sumon.`}
@@ -22,5 +25,4 @@ npx drizzle-kit push
           <PersonaSelector />
         )}
       </div> */}
-
 ```

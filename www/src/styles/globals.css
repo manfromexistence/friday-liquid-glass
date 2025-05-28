@@ -167,7 +167,7 @@
 .hello span.end::after,
 .hello span.start::before,
 .hello span.end::before {
-  border-radius: 10px;
+  border-radius: var(--radius);
 }
 
 @keyframes hello-glow {
@@ -333,4 +333,3 @@
     --hue: 360deg;
   }
 }
-
