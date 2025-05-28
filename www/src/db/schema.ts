@@ -7,7 +7,17 @@ export const user = pgTable("user", {
     emailVerified: boolean('email_verified').$defaultFn(() => false).notNull(),
     image: text('image'),
     createdAt: timestamp('created_at').$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
-    updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date()).notNull()
+    updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
+    username: text('username').unique(),
+    displayUsername: text('display_username'),
+    isAnonymous: boolean('is_anonymous'),
+    role: text('role'),
+    banned: boolean('banned'),
+    banReason: text('ban_reason'),
+    banExpires: timestamp('ban_expires'),
+    phoneNumber: text('phone_number').unique(),
+    phoneNumberVerified: boolean('phone_number_verified'),
+    twoFactorEnabled: boolean('two_factor_enabled')
 });
 
 export const session = pgTable("session", {
@@ -18,7 +28,9 @@ export const session = pgTable("session", {
     updatedAt: timestamp('updated_at').notNull(),
     ipAddress: text('ip_address'),
     userAgent: text('user_agent'),
-    userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' })
+    userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
+    impersonatedBy: text('impersonated_by'),
+    activeOrganizationId: text('active_organization_id')
 });
 
 export const account = pgTable("account", {
@@ -46,4 +58,51 @@ export const verification = pgTable("verification", {
     updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date())
 });
 
-export const schema = { user, session, account, verification };
+export const passkey = pgTable("passkey", {
+    id: text('id').primaryKey(),
+    name: text('name'),
+    publicKey: text('public_key').notNull(),
+    userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
+    credentialID: text('credential_i_d').notNull(),
+    counter: integer('counter').notNull(),
+    deviceType: text('device_type').notNull(),
+    backedUp: boolean('backed_up').notNull(),
+    transports: text('transports'),
+    createdAt: timestamp('created_at')
+});
+
+export const organization = pgTable("organization", {
+    id: text('id').primaryKey(),
+    name: text('name').notNull(),
+    slug: text('slug').unique(),
+    logo: text('logo'),
+    createdAt: timestamp('created_at').notNull(),
+    metadata: text('metadata')
+});
+
+export const member:any = pgTable("member", {
+    id: text('id').primaryKey(),
+    organizationId: text('organization_id').notNull().references(() => organization.id, { onDelete: 'cascade' }),
+    userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' }),
+    role: text('role').default('member').notNull(),
+    createdAt: timestamp('created_at').notNull()
+});
+
+export const invitation = pgTable("invitation", {
+    id: text('id').primaryKey(),
+    organizationId: text('organization_id').notNull().references(() => organization.id, { onDelete: 'cascade' }),
+    email: text('email').notNull(),
+    role: text('role'),
+    status: text('status').default('pending').notNull(),
+    expiresAt: timestamp('expires_at').notNull(),
+    inviterId: text('inviter_id').notNull().references(() => user.id, { onDelete: 'cascade' })
+});
+
+export const twoFactor = pgTable("two_factor", {
+    id: text('id').primaryKey(),
+    secret: text('secret').notNull(),
+    backupCodes: text('backup_codes').notNull(),
+    userId: text('user_id').notNull().references(() => user.id, { onDelete: 'cascade' })
+});
+
+export const schema = { user, session, account, verification, passkey, organization, member, invitation, twoFactor };
