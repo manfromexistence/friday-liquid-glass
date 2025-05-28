@@ -27,15 +27,6 @@ export default function Home() {
 
   return (
     <div className="flex min-h-svh w-full flex-col items-center justify-start gap-4 py-4 pt-16">
-      {/* <Friday orbSize={100} shapeSize={90} />  */}
-      {/* <h1 className="bold w-full text-center font-sans text-3xl">
-        {greeting && `${greeting}, Sumon.`}
-      </h1>
-      <AiInput
-        ref={aiInputRef}
-        onInputChange={setCurrentInput}
-        onSubmit={() => setHasSubmitted(true)}
-      /> */}
       <div className="flex flex-col gap-4 w-full max-w-md">
         {user ? (
           <>
@@ -204,9 +195,43 @@ export default function Home() {
           Sign Out
         </Button>
       </div>
-      <SignUp />
-      <SignIn />
+      {/* <SignUp />
+      <SignIn /> */}
+          <div className="hello">
+        <span className="start" style="--i:1;"></span>
+        <span style="--i:2;"></span>
+        <span style="--i:3;"></span>
+        <span style="--i:4;"></span>
+        <span style="--i:5;"></span>
+        <span style="--i:6;"></span>
+        <span style="--i:7;"></span>
+        <span style="--i:8;"></span>
+        <span style="--i:9;"></span>
+        <span style="--i:10;"></span>
+        <span style="--i:11;"></span>
+        <span style="--i:12;"></span>
+        <span style="--i:13;"></span>
+        <span style="--i:14;"></span>
+        <span style="--i:15;"></span>
+        <span style="--i:16;"></span>
+        <span style="--i:17;"></span>
+        <span style="--i:18;"></span>
+        <span style="--i:19;"></span>
+        <span className="end" style="--i:20;"></span>
+    </div>
+    </div>
+  )
+}
 
+      {/* <Friday orbSize={100} shapeSize={90} />  */}
+      {/* <h1 className="bold w-full text-center font-sans text-3xl">
+        {greeting && `${greeting}, Sumon.`}
+      </h1>
+      <AiInput
+        ref={aiInputRef}
+        onInputChange={setCurrentInput}
+        onSubmit={() => setHasSubmitted(true)}
+      /> */}
       {/* <div className="animate-content-height w-full transition-all duration-500 ease-in-out">
         {currentInput.trim() ? (
           <SearchSuggestions
@@ -217,44 +242,3 @@ export default function Home() {
           <PersonaSelector />
         )}
       </div> */}
-    </div>
-  )
-}
-
-
-// import { FrameHighlight } from "@/components/frame-highlight";
-// import {
-//   PageHeader,
-//   PageHeaderDescription,
-//   PageHeaderHeading,
-// } from "@/components/page-header";
-// import { ContainerWrapper, SectionWrapper } from "@/components/wrappers";
-
-// export default function Page() {
-//   return (
-//     <ContainerWrapper withCane>
-//       <SectionWrapper className="@container">
-//         <PageHeader className="grow">
-//           <PageHeaderHeading>
-//             shadcn/ui customizer supporting
-//             <FrameHighlight>Tailwind v4</FrameHighlight>
-//           </PageHeaderHeading>
-//           <PageHeaderDescription>
-//             Generate a theme for your app and copy-paste the css variables.
-//             Compatible with
-//             <FrameHighlight className="font-semibold">
-//               Tailwind v3
-//             </FrameHighlight>
-//             and supports <code className="font-mono font-semibold">oklch</code>
-//             {", "}
-//             <code className="font-mono font-semibold">hsl</code>
-//             {", "}
-//             <code className="font-mono font-semibold">rbg</code>
-//             {" and "}
-//             <code className="font-mono font-semibold">hex</code>.
-//           </PageHeaderDescription>
-//         </PageHeader>
-//       </SectionWrapper>
-//     </ContainerWrapper>
-//   );
-// }
