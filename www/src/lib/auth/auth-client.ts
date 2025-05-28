@@ -129,7 +129,8 @@ export const authClient = createAuthClient({
 
 
     ],
-    baseURL: `https://${process.env.BETTER_AUTH_URL}`,
+    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    // baseURL: `https://3000-manfmexistence-friday-lldj5udrgaw.ws-us119.gitpod.io/`,
     // baseURL: "https://9000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
     // baseURL: "https://3000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
     // baseURL: "https://9000-firebase-friday-1748157360105.cluster-ys234awlzbhwoxmkkse6qo3fz6.cloudworkstations.dev"

@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  allowedDevOrigins: ["3000-manfmexistence-friday-lldj5udrgaw.ws-us119.gitpod.io"],
+  // allowedDevOrigins: ["3000-manfmexistence-friday-lldj5udrgaw.ws-us119.gitpod.io"],
+  allowedDevOrigins: [process.env.NEXTJS || "http://localhost:3000"],
   devIndicators: false,
   experimental: {
     reactCompiler: true,
