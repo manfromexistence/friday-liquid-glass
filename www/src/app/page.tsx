@@ -200,33 +200,8 @@ export default function Home() {
       <SignIn /> */}
       <motion.div
         className="hello mt-64 flex flex-wrap justify-center"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        onDoubleClick={async (event, info) => {
-          // Shake animation sequence
-          await new Promise(resolve => setTimeout(resolve, 0)); // Ensure re-render for animation
-          const controls = motion.div.animate // This is a placeholder, you might need to use useAnimation hook for more control
-          // This is a simplified shake, for a more robust shake, consider using animation variants
-          // or the useAnimation hook from framer-motion for imperative control.
-          // Example of a sequence for shake:
-          // animate={{ rotate: [0, -5, 5, -5, 5, 0], transition: { duration: 0.3 } }}
-          // For onDoubleClick, it's often better to trigger an animation sequence
-          // defined in `variants` or by using `useAnimation()` for more control.
-          // The direct style change here is more of a toggle.
-          // A proper shake would involve a sequence of rotations.
-          // For simplicity, let's make it rotate quickly back and forth once.
-          // This is a conceptual example. For a true shake, you'd use variants or animate controls.
-          const target = event.target as HTMLDivElement;
-          target.style.transform = 'rotate(-5deg)';
-          await new Promise(resolve => setTimeout(resolve, 50));
-          target.style.transform = 'rotate(5deg)';
-          await new Promise(resolve => setTimeout(resolve, 50));
-          target.style.transform = 'rotate(-5deg)';
-          await new Promise(resolve => setTimeout(resolve, 50));
-          target.style.transform = 'rotate(5deg)';
-          await new Promise(resolve => setTimeout(resolve, 50));
-          target.style.transform = 'rotate(0deg)';
-        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         {[...Array(20)].map((_, i) => (
@@ -240,23 +215,3 @@ export default function Home() {
     </div>
   )
 }
-
-{/* <Friday orbSize={100} shapeSize={90} />  */ }
-{/* <h1 className="bold w-full text-center font-sans text-3xl">
-        {greeting && `${greeting}, Sumon.`}
-      </h1>
-      <AiInput
-        ref={aiInputRef}
-        onInputChange={setCurrentInput}
-        onSubmit={() => setHasSubmitted(true)}
-      /> */}
-{/* <div className="animate-content-height w-full transition-all duration-500 ease-in-out">
-        {currentInput.trim() ? (
-          <SearchSuggestions
-            inputValue={currentInput}
-            onSuggestionSelect={handleSuggestionSelect}
-          />
-        ) : (
-          <PersonaSelector />
-        )}
-      </div> */}
