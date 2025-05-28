@@ -1,5 +1,21 @@
 import { createAuthClient } from "manfromexistence-auth/client"
-import { oneTapClient, anonymousClient, emailOTPClient, magicLinkClient, passkeyClient, phoneNumberClient, usernameClient, multiSessionClient } from "manfromexistence-auth/client/plugins"
+import { 
+    oneTapClient, 
+    anonymousClient, 
+    emailOTPClient, 
+    magicLinkClient, 
+    passkeyClient, 
+    phoneNumberClient, 
+    usernameClient, 
+    multiSessionClient,
+
+    organizationClient,
+	twoFactorClient,
+	adminClient,
+	oidcClient,
+	genericOAuthClient,
+
+ } from "manfromexistence-auth/client/plugins"
 
 // const requestGoogleDriveAccess = async () => {
 //     await authClient.linkSocial({
@@ -76,9 +92,6 @@ import { oneTapClient, anonymousClient, emailOTPClient, magicLinkClient, passkey
 //     sessionToken: "session-token"
 // })
 
-
-
-
 export const authClient = createAuthClient({
     plugins: [
         anonymousClient(),
@@ -88,8 +101,17 @@ export const authClient = createAuthClient({
         emailOTPClient(),
         passkeyClient(),
         multiSessionClient(),
+        organizationClient(),
+		adminClient(),
+		oidcClient(),
+		genericOAuthClient(),
+        twoFactorClient({
+			onTwoFactorRedirect() {
+				window.location.href = "/two-factor";
+			},
+		}),
         oneTapClient({
-            clientId: "YOUR_CLIENT_ID",
+            clientId: process.env.GOOGLE_CLIENT_ID!,
             // Optional client configuration:
             autoSelect: false,
             cancelOnTapOutside: true,
@@ -107,7 +129,8 @@ export const authClient = createAuthClient({
 
 
     ],
-    baseURL: "https://9000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
+    baseURL: process.env.BETTER_AUTH_URL,
+    // baseURL: "https://9000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
     // baseURL: "https://3000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
     // baseURL: "https://9000-firebase-friday-1748157360105.cluster-ys234awlzbhwoxmkkse6qo3fz6.cloudworkstations.dev"
     // baseURL: "https://3000-manfmexistence-fridayv2-76wpl3hmf9d.ws-us119.gitpod.io"
