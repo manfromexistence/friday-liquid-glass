@@ -196,7 +196,7 @@ export default function Fluids() {
                     }
                 </Script>
                 <Script src="https://unpkg.com/color-convert" strategy="lazyOnload" />
-                <Script src="/script.js" strategy="lazyOnload" />
+                <Script src="/fluid.js" strategy="lazyOnload" />
                 <canvas className="h-full w-full rounded-md border"></canvas>
                 <div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md border hover:bg-primary-foreground">
                     <Cog className="h-4 w-4 animate-spin" />
@@ -216,7 +216,7 @@ export default function Fluids() {
                   ga('send', 'pageview');`
                 }
             </Script>
-            <Script src="/script.js" strategy="lazyOnload" onReady={() => {
+            <Script src="/fluid.js" strategy="lazyOnload" onReady={() => {
                 // This ensures that the fluidSim object is available before we try to use it.
                 // The useEffect for initialization will then pick it up.
                 const initialConfig = window.fluidSim?.config;
@@ -298,10 +298,10 @@ export default function Fluids() {
                                     <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Transparent BG" checked={simConfig.TRANSPARENT} onChange={(val) => {
                                         handleSwitchChange("TRANSPARENT", val);
                                         // If turning transparency on, ensure back_color alpha is 0, otherwise restore it or set to opaque
-                                        // This part of script.js might need adjustment to respect an alpha channel if it doesn't already
+                                        // This part of fluid.js might need adjustment to respect an alpha channel if it doesn't already
                                         if (window.fluidSim && window.fluidSim.config) {
-                                            // The current script.js BACK_COLOR is {r,g,b}, it doesn't have alpha.
-                                            // Transparency is a separate flag. If it's set to true, the script.js
+                                            // The current fluid.js BACK_COLOR is {r,g,b}, it doesn't have alpha.
+                                            // Transparency is a separate flag. If it's set to true, the fluid.js
                                             // should handle making the canvas background transparent.
                                             // We might need to call initFramebuffers if transparency changes how buffers are set up.
                                             if (window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
