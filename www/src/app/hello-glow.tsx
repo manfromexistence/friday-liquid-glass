@@ -17,5 +17,6 @@ export function HelloGlow() {
                     />
                 ))}
             </motion.div>
-        </>);
+        </>
+    );
 }
