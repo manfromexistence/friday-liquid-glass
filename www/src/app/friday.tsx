@@ -21,7 +21,6 @@ export function Friday() {
         <>
             <Button
                 onClick={() => setIsFridayActive(!isFridayActive)}
-                className="fixed bottom-5 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-md z-[10000] transition-colors shadow-[0_0_10px_var(--primary),0_0_20px_var(--primary)]"
                 aria-label={isFridayActive ? "Deactivate Friday Effect" : "Activate Friday Effect"}
             >
                 {isFridayActive ? "Deactivate" : "Activate"} Friday Effect

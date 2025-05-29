@@ -154,7 +154,7 @@
   content: "";
   position: absolute;
   animation: hello-glow 13s linear infinite;
-  animation-delay: calc(var(--i) * 0.1s);
+  animation-delay: calc(var(--i)*0.1s);
   transform: all 0.5s ease-in-out;
   rotate: 90deg;
   top: -0px;
@@ -172,14 +172,14 @@
 
 @keyframes hello-glow {
   0% {
-    background: #0f0;
-    box-shadow: 0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0, 0 0 50px #0f0;
+    background: #48ff00;
+    box-shadow: 0 0 5px #48ff00, 0 0 15px #48ff00, 0 0 30px #48ff00, 0 0 50px #48ff00;
     filter: hue-rotate(0deg);
   }
 
   100% {
-    background: #0f0;
-    box-shadow: 0 0 5px #0f0, 0 0 15px #0f0, 0 0 30px #0f0, 0 0 50px #0f0;
+    background: #48ff00;
+    box-shadow: 0 0 5px #48ff00, 0 0 15px #48ff00, 0 0 30px #48ff00, 0 0 50px #48ff00;
     filter: hue-rotate(360deg);
   }
 }
@@ -195,12 +195,12 @@
 }
 
 .friday-top {
-  top: -6.85rem;
+  top: -8.5rem;
   left: 0;
 }
 
 .friday-bottom {
-  bottom: -6.85rem;
+  bottom: -8.5rem;
   left: 0;
 }
 
@@ -240,16 +240,16 @@
   position: absolute;
   animation: animate-top-bottom 10s linear infinite;
   animation-delay: calc(var(--i)*0.1s);
-  background: var(--color-primary);
+  background: #48ff00;
   top: -9px;
   bottom: -9px;
   left: -5px;
   right: -5px;
   box-shadow:
-    0 0 4px var(--color-primary),
-    0 0 12px var(--color-primary),
-    0 0 25px var(--color-primary),
-    0 0 40px var(--color-primary);
+    0 0 4px #48ff00,
+    0 0 12px #48ff00,
+    0 0 25px #48ff00,
+    0 0 40px #48ff00;
 }
 
 .friday-left span::before,
@@ -258,16 +258,16 @@
   position: absolute;
   animation: animate-sides 10s linear infinite;
   animation-delay: calc(var(--i)*0.1s);
-  background: var(--color-primary);
+  background: #48ff00;
   top: -9px;
   bottom: -9px;
   left: -5px;
   right: -5px;
   box-shadow:
-    0 0 4px var(--color-primary),
-    0 0 12px var(--color-primary),
-    0 0 25px var(--color-primary),
-    0 0 40px var(--color-primary);
+    0 0 4px #48ff00,
+    0 0 12px #48ff00,
+    0 0 25px #48ff00,
+    0 0 40px #48ff00;
 }
 
 @keyframes animate-top-bottom {

@@ -8,14 +8,15 @@ import { Friday } from "@/app/friday";
 
 export default function Home() {
   return (
-    <div className="flex min-h-svh w-full flex-col items-center justify-start gap-4 p-4">
+    <div className="flex min-h-svh w-full flex-col items-center justify-center gap-4 p-4">
       <Friday />
 
-      <HelloGlow />
+      {/* <HelloGlow />
       <SignUp />
       <SignIn />
       
-      <User />
+      <User /> */}
     </div>
   )
 }
+
