@@ -117,5 +117,117 @@
     <span style="--i:24;"></span>
     <span style="--i:25;"></span>
   </div>
+
+  <!-- Added Button -->
+  <button id="fridayButton">Activate Friday Effect</button>
+
+  <!-- Dummy content for scrolling demonstration -->
+  <div style="height: 200vh; background: #080808; padding: 20px; color: #ccc;">
+    <h1 style="padding-top: 50px;">Page Content</h1>
+    <p>This is some placeholder content to make the page scrollable.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Scroll down to see more...</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+
+  <script>
+    const fridayButton = document.getElementById('fridayButton');
+    const slideAnimationDuration = 1000; // Faster: 1 second (in milliseconds) for the div to slide up
+    const littleScrollAmount = window.innerHeight * 0.1; // Scroll by 10% of viewport height
+    let initialScrollY = 0;
+    let glassDivElement = null;
+
+    // Spring scroll parameters
+    const stiffness = 0.04;
+    const damping = 0.15;
+    const mass = 1;
+    let scrollVelocity = 0;
+
+    function springScrollTo(targetY, onComplete) {
+        let currentY = window.scrollY;
+        scrollVelocity = 0; 
+
+        function animateSpringFrame() {
+            const displacement = targetY - currentY;
+            const springForce = displacement * stiffness;
+            const dampingForce = -scrollVelocity * damping;
+            const acceleration = (springForce + dampingForce) / mass;
+
+            scrollVelocity += acceleration;
+            currentY += scrollVelocity;
+
+            window.scrollTo(0, currentY);
+
+            const isSettled = Math.abs(currentY - targetY) < 0.5 && Math.abs(scrollVelocity) < 0.5;
+            if (!isSettled) {
+                requestAnimationFrame(animateSpringFrame);
+            } else {
+                window.scrollTo(0, targetY); 
+                scrollVelocity = 0;
+                if (onComplete) onComplete();
+            }
+        }
+        requestAnimationFrame(animateSpringFrame);
+    }
+
+    function animatedScroll(to, duration, onComplete) {
+        const start = window.scrollY;
+        const change = to - start;
+        let startTime = null;
+
+        function animateScrollFrame(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            let progress = Math.min(timeElapsed / duration, 1);
+
+            const easeInOutQuad = t => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            window.scrollTo(0, start + change * easeInOutQuad(progress));
+
+            if (progress < 1) {
+                requestAnimationFrame(animateScrollFrame);
+            } else {
+                window.scrollTo(0, to);
+                if (onComplete) onComplete();
+            }
+        }
+        requestAnimationFrame(animateScrollFrame);
+    }
+
+    fridayButton.addEventListener('click', () => {
+        if (document.querySelector('.glass-effect-div')) {
+            return; 
+        }
+
+        initialScrollY = window.scrollY;
+
+        glassDivElement = document.createElement('div');
+        glassDivElement.className = 'glass-effect-div';
+        
+        // Set combined animation property for the glass div
+        glassDivElement.style.animation = 
+            `slideUp ${slideAnimationDuration / 1000}s ease-out forwards, ` +
+            `animate 10s linear infinite, ` + 
+            `animateBoxShadow 2s ease-in-out infinite alternate`;
+
+        document.body.appendChild(glassDivElement);
+        void glassDivElement.offsetWidth;
+
+
+        const targetScrollDown = initialScrollY + littleScrollAmount;
+        // Ensure we don't scroll beyond the document height
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        animatedScroll(Math.min(targetScrollDown, maxScroll), slideAnimationDuration * 0.8); // Scroll a bit faster than div animates
+
+        glassDivElement.addEventListener('animationend', function handleAnimationEnd(event) {
+            if (event.animationName === 'slideUp') {
+                if (glassDivElement && glassDivElement.parentNode) {
+                    glassDivElement.remove();
+                }
+                glassDivElement = null;
+                springScrollTo(initialScrollY);
+            }
+        });
+    });
+  </script>
 </body>
 </html>
