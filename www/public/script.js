@@ -21,7 +21,7 @@ let config = {
     PAUSED: false,
     BACK_COLOR: { r: 0, g: 0, b: 0 },
     TRANSPARENT: false,
-    BLOOM: true,
+    BLOOM: false,
     BLOOM_ITERATIONS: 8,
     BLOOM_RESOLUTION: 256,
     BLOOM_INTENSITY: 0.8,
@@ -153,44 +153,44 @@ function supportRenderTextureFormat (gl, internalFormat, format, type) {
     return status == gl.FRAMEBUFFER_COMPLETE;
 }
 
-function startGUI () {
-    var gui = new dat.GUI({ width: 300 });
-    gui.add(config, "DYE_RESOLUTION", { "high": 1024, "medium": 512, "low": 256, "very low": 128 }).name("quality").onFinishChange(initFramebuffers);
-    gui.add(config, "SIM_RESOLUTION", { "32": 32, "64": 64, "128": 128, "256": 256 }).name("sim resolution").onFinishChange(initFramebuffers);
-    gui.add(config, "DENSITY_DISSIPATION", 0, 4.0).name("density diffusion");
-    gui.add(config, "VELOCITY_DISSIPATION", 0, 4.0).name("velocity diffusion");
-    gui.add(config, "PRESSURE", 0.0, 1.0).name("pressure");
-    gui.add(config, "CURL", 0, 50).name("vorticity").step(1);
-    gui.add(config, "SPLAT_RADIUS", 0.01, 1.0).name("splat radius");
-    gui.add(config, "SHADING").name("shading").onFinishChange(updateKeywords);
-    gui.add(config, "COLORFUL").name("colorful");
-    gui.add(config, "PAUSED").name("paused").listen();
+// function startGUI () {
+//     var gui = new dat.GUI({ width: 300 });
+//     gui.add(config, "DYE_RESOLUTION", { "high": 1024, "medium": 512, "low": 256, "very low": 128 }).name("quality").onFinishChange(initFramebuffers);
+//     gui.add(config, "SIM_RESOLUTION", { "32": 32, "64": 64, "128": 128, "256": 256 }).name("sim resolution").onFinishChange(initFramebuffers);
+//     gui.add(config, "DENSITY_DISSIPATION", 0, 4.0).name("density diffusion");
+//     gui.add(config, "VELOCITY_DISSIPATION", 0, 4.0).name("velocity diffusion");
+//     gui.add(config, "PRESSURE", 0.0, 1.0).name("pressure");
+//     gui.add(config, "CURL", 0, 50).name("vorticity").step(1);
+//     gui.add(config, "SPLAT_RADIUS", 0.01, 1.0).name("splat radius");
+//     gui.add(config, "SHADING").name("shading").onFinishChange(updateKeywords);
+//     gui.add(config, "COLORFUL").name("colorful");
+//     gui.add(config, "PAUSED").name("paused").listen();
 
-    gui.add({ fun: () => {
-        splatStack.push(parseInt(Math.random() * 20) + 5);
-    } }, "fun").name("Random splats");
+//     gui.add({ fun: () => {
+//         splatStack.push(parseInt(Math.random() * 20) + 5);
+//     } }, "fun").name("Random splats");
 
-    let bloomFolder = gui.addFolder("Bloom");
-    bloomFolder.add(config, "BLOOM").name("enabled").onFinishChange(updateKeywords);
-    bloomFolder.add(config, "BLOOM_INTENSITY", 0.1, 2.0).name("intensity");
-    bloomFolder.add(config, "BLOOM_THRESHOLD", 0.0, 1.0).name("threshold");
+//     let bloomFolder = gui.addFolder("Bloom");
+//     bloomFolder.add(config, "BLOOM").name("enabled").onFinishChange(updateKeywords);
+//     bloomFolder.add(config, "BLOOM_INTENSITY", 0.1, 2.0).name("intensity");
+//     bloomFolder.add(config, "BLOOM_THRESHOLD", 0.0, 1.0).name("threshold");
 
-    let sunraysFolder = gui.addFolder("Sunrays");
-    sunraysFolder.add(config, "SUNRAYS").name("enabled").onFinishChange(updateKeywords);
-    sunraysFolder.add(config, "SUNRAYS_WEIGHT", 0.3, 1.0).name("weight");
+//     let sunraysFolder = gui.addFolder("Sunrays");
+//     sunraysFolder.add(config, "SUNRAYS").name("enabled").onFinishChange(updateKeywords);
+//     sunraysFolder.add(config, "SUNRAYS_WEIGHT", 0.3, 1.0).name("weight");
 
-    let captureFolder = gui.addFolder("Capture");
-    captureFolder.addColor(config, "BACK_COLOR").name("background color");
-    captureFolder.add(config, "TRANSPARENT").name("transparent");
-    captureFolder.add({ fun: captureScreenshot }, "fun").name("take screenshot");
+//     let captureFolder = gui.addFolder("Capture");
+//     captureFolder.addColor(config, "BACK_COLOR").name("background color");
+//     captureFolder.add(config, "TRANSPARENT").name("transparent");
+//     captureFolder.add({ fun: captureScreenshot }, "fun").name("take screenshot");
 
-    if (isMobile())
-        gui.close();
-}
+//     if (isMobile())
+//         gui.close();
+// }
 
-function isMobile () {
-    return /Mobi|Android/i.test(navigator.userAgent);
-}
+// function isMobile () {
+//     return /Mobi|Android/i.test(navigator.userAgent);
+// }
 
 function captureScreenshot () {
     let res = getResolution(config.CAPTURE_RESOLUTION);
@@ -454,439 +454,61 @@ const checkerboardShader = compileShader(gl.FRAGMENT_SHADER, `
     }
 `);
 
-const displayShaderSource = `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    varying vec2 vL;
-    varying vec2 vR;
-    varying vec2 vT;
-    varying vec2 vB;
-    uniform sampler2D uTexture;
-    uniform sampler2D uBloom;
-    uniform sampler2D uSunrays;
-    uniform sampler2D uDithering;
-    uniform vec2 ditherScale;
-    uniform vec2 texelSize;
-
-    vec3 linearToGamma (vec3 color) {
-        color = max(color, vec3(0));
-        return max(1.055 * pow(color, vec3(0.416666667)) - 0.055, vec3(0));
-    }
-
-    void main () {
-        vec3 c = texture2D(uTexture, vUv).rgb;
-
-    #ifdef SHADING
-        vec3 lc = texture2D(uTexture, vL).rgb;
-        vec3 rc = texture2D(uTexture, vR).rgb;
-        vec3 tc = texture2D(uTexture, vT).rgb;
-        vec3 bc = texture2D(uTexture, vB).rgb;
-
-        float dx = length(rc) - length(lc);
-        float dy = length(tc) - length(bc);
-
-        vec3 n = normalize(vec3(dx, dy, length(texelSize)));
-        vec3 l = vec3(0.0, 0.0, 1.0);
-
-        float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
-        c *= diffuse;
-    #endif
-
-    #ifdef BLOOM
-        vec3 bloom = texture2D(uBloom, vUv).rgb;
-    #endif
-
-    #ifdef SUNRAYS
-        float sunrays = texture2D(uSunrays, vUv).r;
-        c *= sunrays;
-    #ifdef BLOOM
-        bloom *= sunrays;
-    #endif
-    #endif
-
-    #ifdef BLOOM
-        float noise = texture2D(uDithering, vUv * ditherScale).r;
-        noise = noise * 2.0 - 1.0;
-        bloom += noise / 255.0;
-        bloom = linearToGamma(bloom);
-        c += bloom;
-    #endif
-
-        float a = max(c.r, max(c.g, c.b));
-        gl_FragColor = vec4(c, a);
-    }
-`;
-
-const bloomPrefilterShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uTexture;
-    uniform vec3 curve;
-    uniform float threshold;
-
-    void main () {
-        vec3 c = texture2D(uTexture, vUv).rgb;
-        float br = max(c.r, max(c.g, c.b));
-        float rq = clamp(br - curve.x, 0.0, curve.y);
-        rq = curve.z * rq * rq;
-        c *= max(rq, br - threshold) / max(br, 0.0001);
-        gl_FragColor = vec4(c, 0.0);
-    }
-`);
-
-const bloomBlurShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying vec2 vL;
-    varying vec2 vR;
-    varying vec2 vT;
-    varying vec2 vB;
-    uniform sampler2D uTexture;
-
-    void main () {
-        vec4 sum = vec4(0.0);
-        sum += texture2D(uTexture, vL);
-        sum += texture2D(uTexture, vR);
-        sum += texture2D(uTexture, vT);
-        sum += texture2D(uTexture, vB);
-        sum *= 0.25;
-        gl_FragColor = sum;
-    }
-`);
-
-const bloomFinalShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying vec2 vL;
-    varying vec2 vR;
-    varying vec2 vT;
-    varying vec2 vB;
-    uniform sampler2D uTexture;
-    uniform float intensity;
-
-    void main () {
-        vec4 sum = vec4(0.0);
-        sum += texture2D(uTexture, vL);
-        sum += texture2D(uTexture, vR);
-        sum += texture2D(uTexture, vT);
-        sum += texture2D(uTexture, vB);
-        sum *= 0.25;
-        gl_FragColor = sum * intensity;
-    }
-`);
-
-const sunraysMaskShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uTexture;
-
-    void main () {
-        vec4 c = texture2D(uTexture, vUv);
-        float br = max(c.r, max(c.g, c.b));
-        c.a = 1.0 - min(max(br * 20.0, 0.0), 0.8);
-        gl_FragColor = c;
-    }
-`);
-
-const sunraysShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uTexture;
-    uniform float weight;
-
-    #define ITERATIONS 16
-
-    void main () {
-        float Density = 0.3;
-        float Decay = 0.95;
-        float Exposure = 0.7;
-
-        vec2 coord = vUv;
-        vec2 dir = vUv - 0.5;
-
-        dir *= 1.0 / float(ITERATIONS) * Density;
-        float illuminationDecay = 1.0;
-
-        float color = texture2D(uTexture, vUv).a;
-
-        for (int i = 0; i < ITERATIONS; i++)
-        {
-            coord -= dir;
-            float col = texture2D(uTexture, coord).a;
-            color += col * illuminationDecay * weight;
-            illuminationDecay *= Decay;
-        }
-
-        gl_FragColor = vec4(color * Exposure, 0.0, 0.0, 1.0);
-    }
-`);
-
-const splatShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uTarget;
-    uniform float aspectRatio;
-    uniform vec3 color;
-    uniform vec2 point;
-    uniform float radius;
-
-    void main () {
-        vec2 p = vUv - point.xy;
-        p.x *= aspectRatio;
-        vec3 splat = exp(-dot(p, p) / radius) * color;
-        vec3 base = texture2D(uTarget, vUv).xyz;
-        gl_FragColor = vec4(base + splat, 1.0);
-    }
-`);
-
-const advectionShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uVelocity;
-    uniform sampler2D uSource;
-    uniform vec2 texelSize;
-    uniform vec2 dyeTexelSize;
-    uniform float dt;
-    uniform float dissipation;
-
-    vec4 bilerp (sampler2D sam, vec2 uv, vec2 tsize) {
-        vec2 st = uv / tsize - 0.5;
-
-        vec2 iuv = floor(st);
-        vec2 fuv = fract(st);
-
-        vec4 a = texture2D(sam, (iuv + vec2(0.5, 0.5)) * tsize);
-        vec4 b = texture2D(sam, (iuv + vec2(1.5, 0.5)) * tsize);
-        vec4 c = texture2D(sam, (iuv + vec2(0.5, 1.5)) * tsize);
-        vec4 d = texture2D(sam, (iuv + vec2(1.5, 1.5)) * tsize);
-
-        return mix(mix(a, b, fuv.x), mix(c, d, fuv.x), fuv.y);
-    }
-
-    void main () {
-    #ifdef MANUAL_FILTERING
-        vec2 coord = vUv - dt * bilerp(uVelocity, vUv, texelSize).xy * texelSize;
-        vec4 result = bilerp(uSource, coord, dyeTexelSize);
-    #else
-        vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize;
-        vec4 result = texture2D(uSource, coord);
-    #endif
-        float decay = 1.0 + dissipation * dt;
-        gl_FragColor = result / decay;
-    }`,
-    ext.supportLinearFiltering ? null : ["MANUAL_FILTERING"]
-);
-
-const divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying highp vec2 vUv;
-    varying highp vec2 vL;
-    varying highp vec2 vR;
-    varying highp vec2 vT;
-    varying highp vec2 vB;
-    uniform sampler2D uVelocity;
-
-    void main () {
-        float L = texture2D(uVelocity, vL).x;
-        float R = texture2D(uVelocity, vR).x;
-        float T = texture2D(uVelocity, vT).y;
-        float B = texture2D(uVelocity, vB).y;
-
-        vec2 C = texture2D(uVelocity, vUv).xy;
-        if (vL.x < 0.0) { L = -C.x; }
-        if (vR.x > 1.0) { R = -C.x; }
-        if (vT.y > 1.0) { T = -C.y; }
-        if (vB.y < 0.0) { B = -C.y; }
-
-        float div = 0.5 * (R - L + T - B);
-        gl_FragColor = vec4(div, 0.0, 0.0, 1.0);
-    }
-`);
-
-const curlShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying highp vec2 vUv;
-    varying highp vec2 vL;
-    varying highp vec2 vR;
-    varying highp vec2 vT;
-    varying highp vec2 vB;
-    uniform sampler2D uVelocity;
-
-    void main () {
-        float L = texture2D(uVelocity, vL).y;
-        float R = texture2D(uVelocity, vR).y;
-        float T = texture2D(uVelocity, vT).x;
-        float B = texture2D(uVelocity, vB).x;
-        float vorticity = R - L - T + B;
-        gl_FragColor = vec4(0.5 * vorticity, 0.0, 0.0, 1.0);
-    }
-`);
-
-const vorticityShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    varying vec2 vL;
-    varying vec2 vR;
-    varying vec2 vT;
-    varying vec2 vB;
-    uniform sampler2D uVelocity;
-    uniform sampler2D uCurl;
-    uniform float curl;
-    uniform float dt;
-
-    void main () {
-        float L = texture2D(uCurl, vL).x;
-        float R = texture2D(uCurl, vR).x;
-        float T = texture2D(uCurl, vT).x;
-        float B = texture2D(uCurl, vB).x;
-        float C = texture2D(uCurl, vUv).x;
-
-        vec2 force = 0.5 * vec2(abs(T) - abs(B), abs(R) - abs(L));
-        force /= length(force) + 0.0001;
-        force *= curl * C;
-        force.y *= -1.0;
-
-        vec2 velocity = texture2D(uVelocity, vUv).xy;
-        velocity += force * dt;
-        velocity = min(max(velocity, -1000.0), 1000.0);
-        gl_FragColor = vec4(velocity, 0.0, 1.0);
-    }
-`);
-
-const pressureShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying highp vec2 vUv;
-    varying highp vec2 vL;
-    varying highp vec2 vR;
-    varying highp vec2 vT;
-    varying highp vec2 vB;
-    uniform sampler2D uPressure;
-    uniform sampler2D uDivergence;
-
-    void main () {
-        float L = texture2D(uPressure, vL).x;
-        float R = texture2D(uPressure, vR).x;
-        float T = texture2D(uPressure, vT).x;
-        float B = texture2D(uPressure, vB).x;
-        float C = texture2D(uPressure, vUv).x;
-        float divergence = texture2D(uDivergence, vUv).x;
-        float pressure = (L + R + B + T - divergence) * 0.25;
-        gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0);
-    }
-`);
-
-const gradientSubtractShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying highp vec2 vUv;
-    varying highp vec2 vL;
-    varying highp vec2 vR;
-    varying highp vec2 vT;
-    varying highp vec2 vB;
-    uniform sampler2D uPressure;
-    uniform sampler2D uVelocity;
-
-    void main () {
-        float L = texture2D(uPressure, vL).x;
-        float R = texture2D(uPressure, vR).x;
-        float T = texture2D(uPressure, vT).x;
-        float B = texture2D(uPressure, vB).x;
-        vec2 velocity = texture2D(uVelocity, vUv).xy;
-        velocity.xy -= vec2(R - L, T - B);
-        gl_FragColor = vec4(velocity, 0.0, 1.0);
-    }
-`);
-
-const blit = (() => {
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
-    gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-    gl.enableVertexAttribArray(0);
-
-    return (target, clear = false) => {
-        if (target == null)
-        {
-            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        }
-        else
-        {
-            gl.viewport(0, 0, target.width, target.height);
-            gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
-        }
-        if (clear)
-        {
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
-            gl.clear(gl.COLOR_BUFFER_BIT);
-        }
-        // CHECK_FRAMEBUFFER_STATUS();
-        gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
-    }
-})();
-
-function CHECK_FRAMEBUFFER_STATUS () {
-    let status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-    if (status != gl.FRAMEBUFFER_COMPLETE)
-        console.trace("Framebuffer error: " + status);
+// --- GUI (Commented out as it\'s replaced by React UI) ---
+// function startGUI () {
+//     var gui = new dat.GUI({ width: 300 });
+//     gui.add(config, "DYE_RESOLUTION", { "high": 1024, "medium": 512, "low": 256, "very low": 128 }).name("quality").onFinishChange(initFramebuffers);
+//     gui.add(config, "SIM_RESOLUTION", { "32": 32, "64": 64, "128": 128, "256": 256 }).name("sim resolution").onFinishChange(initFramebuffers);
+//     gui.add(config, "DENSITY_DISSIPATION", 0, 4.0).name("density diffusion");
+//     gui.add(config, "VELOCITY_DISSIPATION", 0, 4.0).name("velocity diffusion");
+//     gui.add(config, "PRESSURE", 0.0, 1.0).name("pressure");
+//     gui.add(config, "CURL", 0, 50).name("vorticity").step(1);
+//     gui.add(config, "SPLAT_RADIUS", 0.01, 1.0).name("splat radius");
+//     gui.add(config, "SHADING").name("shading").onFinishChange(updateKeywords);
+//     gui.add(config, "COLORFUL").name("colorful");
+//     gui.add(config, "PAUSED").name("paused").listen();
+
+//     gui.add({ fun: () => {
+//         splatStack.push(parseInt(Math.random() * 20) + 5);
+//     } }, "fun").name("Random splats");
+
+//     let bloomFolder = gui.addFolder("Bloom");
+//     bloomFolder.add(config, "BLOOM").name("enabled").onFinishChange(updateKeywords);
+//     bloomFolder.add(config, "BLOOM_INTENSITY", 0.1, 2.0).name("intensity");
+//     bloomFolder.add(config, "BLOOM_THRESHOLD", 0.0, 1.0).name("threshold");
+
+//     let sunraysFolder = gui.addFolder("Sunrays");
+//     sunraysFolder.add(config, "SUNRAYS").name("enabled").onFinishChange(updateKeywords);
+//     sunraysFolder.add(config, "SUNRAYS_WEIGHT", 0.3, 1.0).name("weight");
+
+//     let captureFolder = gui.addFolder("Capture");
+//     captureFolder.addColor(config, "BACK_COLOR").name("background color");
+//     captureFolder.add(config, "TRANSPARENT").name("transparent");
+//     captureFolder.add({ fun: captureScreenshot }, "fun").name("take screenshot");
+
+//     // if (isMobile()) // isMobile might be needed by other parts of the script
+//     //     gui.close();
+// }
+
+// function isMobile () { // Keep isMobile if other parts of the script use it, otherwise it can be removed if only startGUI used it.
+//     return /Mobi|Android/i.test(navigator.userAgent);
+// }
+
+// Expose controls for external use by React component
+if (typeof window !== 'undefined') {
+    window.fluidSim = {
+        config: config,
+        initFramebuffers: typeof initFramebuffers !== 'undefined' ? initFramebuffers : () => console.warn('initFramebuffers function not found on window.fluidSim. Ensure it is defined globally or passed correctly.'),
+        updateKeywords: typeof updateKeywords !== 'undefined' ? updateKeywords : () => console.warn('updateKeywords function not found on window.fluidSim. Ensure it is defined globally or passed correctly.'),
+        splatStack: splatStack,
+        captureScreenshot: typeof captureScreenshot !== 'undefined' ? captureScreenshot : () => console.warn('captureScreenshot function not found on window.fluidSim. Ensure it is defined globally or passed correctly.'),
+        gl: gl, // Exposing gl context might be useful for advanced direct manipulation or info
+        // Example of how to add another function if it exists globally in script.js
+        // randomSplats: typeof randomSplatsGlobal === 'function' ? randomSplatsGlobal : () => { splatStack.push(parseInt(Math.random() * 20) + 5); },
+    };
 }
 
-let dye;
-let velocity;
-let divergence;
-let curl;
-let pressure;
-let bloom;
-let bloomFramebuffers = [];
-let sunrays;
-let sunraysTemp;
-
-let ditheringTexture = createTextureAsync("LDR_LLL1_0.png");
-
-const blurProgram            = new Program(blurVertexShader, blurShader);
-const copyProgram            = new Program(baseVertexShader, copyShader);
-const clearProgram           = new Program(baseVertexShader, clearShader);
-const colorProgram           = new Program(baseVertexShader, colorShader);
-const checkerboardProgram    = new Program(baseVertexShader, checkerboardShader);
-const bloomPrefilterProgram  = new Program(baseVertexShader, bloomPrefilterShader);
-const bloomBlurProgram       = new Program(baseVertexShader, bloomBlurShader);
-const bloomFinalProgram      = new Program(baseVertexShader, bloomFinalShader);
-const sunraysMaskProgram     = new Program(baseVertexShader, sunraysMaskShader);
-const sunraysProgram         = new Program(baseVertexShader, sunraysShader);
-const splatProgram           = new Program(baseVertexShader, splatShader);
-const advectionProgram       = new Program(baseVertexShader, advectionShader);
-const divergenceProgram      = new Program(baseVertexShader, divergenceShader);
-const curlProgram            = new Program(baseVertexShader, curlShader);
-const vorticityProgram       = new Program(baseVertexShader, vorticityShader);
-const pressureProgram        = new Program(baseVertexShader, pressureShader);
-const gradienSubtractProgram = new Program(baseVertexShader, gradientSubtractShader);
-
-const displayMaterial = new Material(baseVertexShader, displayShaderSource);
-
+// The rest of script.js (definitions for initFramebuffers, updateKeywords, render loop, etc.) should follow
 function initFramebuffers () {
     let simRes = getResolution(config.SIM_RESOLUTION);
     let dyeRes = getResolution(config.DYE_RESOLUTION);
@@ -1552,3 +1174,55 @@ function hashCode (s) {
     }
     return hash;
 };
+
+// --- dat.GUI related functions (commented out as UI is now handled by React) ---
+// function startGUI () {
+//     var gui = new dat.GUI({ width: 300 });
+//     gui.add(config, \"DYE_RESOLUTION\", { \"high\": 1024, \"medium\": 512, \"low\": 256, \"very low\": 128 }).name(\"quality\").onFinishChange(initFramebuffers);
+//     gui.add(config, \"SIM_RESOLUTION\", { \"32\": 32, \"64\": 64, \"128\": 128, \"256\": 256 }).name(\"sim resolution\").onFinishChange(initFramebuffers);
+//     gui.add(config, \"DENSITY_DISSIPATION\", 0, 4.0).name(\"density diffusion\");
+//     gui.add(config, \"VELOCITY_DISSIPATION\", 0, 4.0).name(\"velocity diffusion\");
+//     gui.add(config, \"PRESSURE\", 0.0, 1.0).name(\"pressure\");
+//     gui.add(config, \"CURL\", 0, 50).name(\"vorticity\").step(1);
+//     gui.add(config, \"SPLAT_RADIUS\", 0.01, 1.0).name(\"splat radius\");
+//     gui.add(config, \"SHADING\").name(\"shading\").onFinishChange(updateKeywords);
+//     gui.add(config, \"COLORFUL\").name(\"colorful\");
+//     gui.add(config, \"PAUSED\").name(\"paused\").listen();
+//     gui.add({ fun: () => { splatStack.push(parseInt(Math.random() * 20) + 5); } }, \"fun\").name(\"Random splats\");
+//     let bloomFolder = gui.addFolder(\"Bloom\");
+//     bloomFolder.add(config, \"BLOOM\").name(\"enabled\").onFinishChange(updateKeywords);
+//     bloomFolder.add(config, \"BLOOM_INTENSITY\", 0.1, 2.0).name(\"intensity\");
+//     bloomFolder.add(config, \"BLOOM_THRESHOLD\", 0.0, 1.0).name(\"threshold\");
+//     let sunraysFolder = gui.addFolder(\"Sunrays\");
+//     sunraysFolder.add(config, \"SUNRAYS\").name(\"enabled\").onFinishChange(updateKeywords);
+//     sunraysFolder.add(config, \"SUNRAYS_WEIGHT\", 0.3, 1.0).name(\"weight\");
+//     let captureFolder = gui.addFolder(\"Capture\");
+//     captureFolder.addColor(config, \"BACK_COLOR\").name(\"background color\");
+//     captureFolder.add(config, \"TRANSPARENT\").name(\"transparent\");
+//     captureFolder.add({ fun: captureScreenshot }, \"fun\").name(\"take screenshot\");
+//     // The original script had an if (isMobile()) gui.close(); here.
+//     // isMobile() is still defined below if needed elsewhere.
+// }
+
+// isMobile function might still be used by other parts of the script (e.g. initial DYE_RESOLUTION setup)
+// If not, it can be removed.
+function isMobile () {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+// Expose controls for external use by React component
+if (typeof window !== 'undefined') {
+    // Ensure all functions are defined before exposing them.
+    // initFramebuffers, updateKeywords, captureScreenshot, etc., are defined above this block in the original script.
+    window.fluidSim = {
+        config: config,
+        initFramebuffers: typeof initFramebuffers === 'function' ? initFramebuffers : () => console.warn('initFramebuffers function not found on window.fluidSim.'),
+        updateKeywords: typeof updateKeywords === 'function' ? updateKeywords : () => console.warn('updateKeywords function not found on window.fluidSim.'),
+        splatStack: splatStack, // This is an array, already defined
+        captureScreenshot: typeof captureScreenshot === 'function' ? captureScreenshot : () => console.warn('captureScreenshot function not found on window.fluidSim.'),
+        gl: gl, // WebGL context, already defined
+        // If a global function for random splats exists (e.g., the one inside the dat.GUI setup), expose it or a new one.
+        // For now, React will push to splatStack directly as per previous implementation.
+        // randomSplats: () => { if (splatStack) splatStack.push(parseInt(Math.random() * 20) + 5); }
+    };
+}
