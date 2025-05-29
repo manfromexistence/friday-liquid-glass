@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, ChangeEvent, useRef } from "react";
+import React, { useState, useRef } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import {
     Select,
@@ -9,7 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { 
+import {
     atomExplosion1,
     atomExplosion2,
     atomExplosion3,
@@ -20,29 +20,20 @@ import {
     atomExplosion8,
     atomExplosion9,
     atomExplosion10,
-
     magic,
-
     verticalRift,
     horizontalRift,
-    space1, space2,
-
+    space1,
+    space2,
     flame,
-
     sparkles,
     threeColorfulFireworks,
     threeColorfulFireworks2,
-
     clippy
- } from "./data";
+} from "./data";
 
 const effectOptions = [
     { value: "none", label: "None" },
-    { value: "particles", label: "Particles" },
-    { value: "fireworks", label: "Fireworks" },
-    { value: "flames", label: "Flames" },
-    { value: "magic", label: "Magic (CSS)" },
-    { value: "rift", label: "Rift (CSS)" },
     { value: "atom_explosion", label: "Atom Explosion (GIF)" },
     { value: "magic_gif", label: "Magic (GIF)" },
     { value: "vertical_rift", label: "Vertical Rift (GIF)" },
@@ -53,24 +44,6 @@ const effectOptions = [
     { value: "fireworks_colorful_gif", label: "Colorful Fireworks (GIF)" },
     { value: "clippy_gif", label: "Clippy (GIF)" },
 ];
-
-const effectColorPalettes: Record<string, string[]> = {
-    particles: ["#FF6B6B", "#FFD166", "#06D6A0", "#118AB2", "#073B4C"],
-    fireworks: ["#FF0000", "#FFA500", "#FFFF00", "#FFFFFF", "#FF4500", "#FFD700"],
-    flames: ["#FF4500", "#FFA500", "#FF8C00", "#FFD700", "#DC143C"],
-    magic: ["#9B59B6", "#3498DB", "#E74C3C", "#F1C40F", "#2ECC71", "#FFFFFF", "#C0C0C0"],
-    rift: ["#2c3e50", "#34495e", "#7f8c8d", "#95a5a6", "#000000"],
-    atom_explosion: [], // GIF based
-    magic_gif: [], // GIF based
-    vertical_rift: [], // GIF based
-    horizontal_rift: [], // GIF based
-    space_effect: [], // GIF based
-    flame_gif: [], // GIF based
-    sparkles_gif: [], // GIF based
-    fireworks_colorful_gif: [], // GIF based
-    clippy_gif: [], // GIF based
-    none: [],
-};
 
 interface Particle {
     id: number;
@@ -86,12 +59,8 @@ export function Cursor() {
     const [animations, setAnimations] = useState<Particle[]>([]);
     const animationIdCounter = useRef(0);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-    const getRandomColorFromPalette = (effectType: string): string => {
-        const palette = effectColorPalettes[effectType];
-        if (!palette || palette.length === 0) return "hsl(var(--primary))";
-        return palette[Math.floor(Math.random() * palette.length)];
-    };
+    const lastKeypressTime = useRef<number>(0);
+    const typingTimeout = useRef<NodeJS.Timeout | null>(null);
 
     const calculateCursorPosition = () => {
         if (textareaRef.current) {
@@ -102,9 +71,8 @@ export function Cursor() {
             const row = Math.floor(selectionStart / Math.floor(textareaRef.current.cols));
             const col = selectionStart % Math.floor(textareaRef.current.cols);
 
-            // Calculate cursor position based on column and row
-            const cursorX = textareaRect.left + col * 10 + 5; // Adjust as needed
-            const cursorY = textareaRect.top + row * lineHeight + 5; // Adjust as needed
+            const cursorX = textareaRect.left + col * 10; // Exact cursor position
+            const cursorY = textareaRect.top + row * lineHeight; // Exact cursor position
 
             return { x: cursorX, y: cursorY };
         }
@@ -113,7 +81,7 @@ export function Cursor() {
 
     const createParticle = (cursorX: number, cursorY: number): Particle | null => {
         const newParticleId = animationIdCounter.current++;
-        
+
         let particleStyle: React.CSSProperties = {
             position: "absolute",
             left: `${cursorX}px`,
@@ -121,79 +89,19 @@ export function Cursor() {
             opacity: 1,
         };
         let particleType = selectedEffect;
-        let color = getRandomColorFromPalette(selectedEffect);
 
         switch (selectedEffect) {
-            case "particles":
-                color = getRandomColorFromPalette("particles");
-                particleStyle = {
-                    ...particleStyle,
-                    width: `${Math.random() * 10 + 5}px`,
-                    height: `${Math.random() * 10 + 5}px`,
-                    backgroundColor: color,
-                    borderRadius: "50%",
-                    animation: `particle-effect 1s ease-out forwards`,
-                };
-                break;
-            case "fireworks":
-                color = getRandomColorFromPalette("fireworks");
-                particleStyle = {
-                    ...particleStyle,
-                    width: "4px",
-                    height: `${Math.random() * 12 + 10}px`,
-                    backgroundColor: color,
-                    animation: `firework-particle-effect 0.8s ease-out forwards`,
-                };
-                break;
-            case "flames":
-                color = getRandomColorFromPalette("flames");
-                particleStyle = {
-                    ...particleStyle,
-                    width: `${Math.random() * 10 + 10}px`,
-                    height: `${Math.random() * 20 + 15}px`,
-                    backgroundColor: color,
-                    borderRadius: "50% 50% 50% 50% / 70% 70% 30% 30%",
-                    transformOrigin: "bottom center",
-                    animation: `flame-effect 0.7s ease-out forwards`,
-                };
-                break;
-            case "magic":
-                const magicColor = getRandomColorFromPalette("magic");
-                particleStyle = {
-                    ...particleStyle,
-                    width: `${Math.random() * 8 + 5}px`,
-                    height: `${Math.random() * 8 + 5}px`,
-                    backgroundColor: magicColor,
-                    boxShadow: `0 0 5px ${magicColor}, 0 0 10px ${magicColor}`,
-                    borderRadius: "50%",
-                    animation: `magic-effect 0.7s ease-out forwards`,
-                };
-                particleType = "magic";
-                break;
-            case "rift":
-                color = getRandomColorFromPalette("rift");
-                particleStyle = {
-                    ...particleStyle,
-                    width: "2px",
-                    height: `${Math.random() * 30 + 20}px`,
-                    backgroundColor: color,
-                    animation: `rift-effect 0.5s ease-in-out forwards`,
-                    transform: `rotate(${Math.random() * 90 - 45}deg)`,
-                };
-                particleType = "rift";
-                break;
             case "atom_explosion":
                 const atomExplosions = [atomExplosion1, atomExplosion2, atomExplosion3, atomExplosion4, atomExplosion5, atomExplosion6, atomExplosion7, atomExplosion8, atomExplosion9, atomExplosion10];
                 const randomAtomExplosion = atomExplosions[Math.floor(Math.random() * atomExplosions.length)];
                 particleStyle = {
                     ...particleStyle,
-                    width: "50px", 
-                    height: "50px", 
+                    width: "50px",
+                    height: "50px",
                     backgroundImage: `url("${randomAtomExplosion}")`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `particle-effect 1s ease-out forwards`, 
                 };
                 particleType = "atom_explosion";
                 break;
@@ -206,33 +114,30 @@ export function Cursor() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `particle-effect 1s ease-out forwards`,
                 };
                 particleType = "magic_gif";
                 break;
             case "vertical_rift":
                 particleStyle = {
                     ...particleStyle,
-                    width: "30px", 
-                    height: "100px", 
+                    width: "30px",
+                    height: "100px",
                     backgroundImage: `url("${verticalRift}")`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `rift-effect 0.7s ease-in-out forwards`,
                 };
                 particleType = "vertical_rift";
                 break;
             case "horizontal_rift":
                 particleStyle = {
                     ...particleStyle,
-                    width: "100px", 
-                    height: "30px", 
+                    width: "100px",
+                    height: "30px",
                     backgroundImage: `url("${horizontalRift}")`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `rift-effect 0.7s ease-in-out forwards`,
                 };
                 particleType = "horizontal_rift";
                 break;
@@ -247,7 +152,6 @@ export function Cursor() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `particle-effect 1.2s ease-out forwards`,
                 };
                 particleType = "space_effect";
                 break;
@@ -260,7 +164,6 @@ export function Cursor() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `flame-effect 0.8s ease-out forwards`,
                 };
                 particleType = "flame_gif";
                 break;
@@ -273,7 +176,6 @@ export function Cursor() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `particle-effect 1s ease-out forwards`,
                 };
                 particleType = "sparkles_gif";
                 break;
@@ -288,20 +190,18 @@ export function Cursor() {
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `firework-particle-effect 1.5s ease-out forwards`,
                 };
                 particleType = "fireworks_colorful_gif";
                 break;
             case "clippy_gif":
                 particleStyle = {
                     ...particleStyle,
-                    width: "80px", 
+                    width: "80px",
                     height: "80px",
                     backgroundImage: `url("${clippy}")`,
                     backgroundSize: "contain",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    animation: `particle-effect 1.5s ease-out forwards`, // Longer animation for Clippy to stay a bit
                 };
                 particleType = "clippy_gif";
                 break;
@@ -318,16 +218,50 @@ export function Cursor() {
         };
     };
 
-    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        setInputValue(event.target.value);
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (selectedEffect === "none") return;
+
+        // Only process printable characters
+        if (event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
+            const currentTime = Date.now();
+            const { x, y } = calculateCursorPosition();
+
+            if (currentTime - lastKeypressTime.current > 500 || animations.length === 0) {
+                // Create a new particle if enough time has passed or no particles exist
+                const newParticle = createParticle(x, y);
+                if (newParticle) {
+                    setAnimations([newParticle]); // Replace any existing particles
+                    // Remove the particle after 1 second
+                    setTimeout(() => {
+                        setAnimations(prev => prev.filter(p => p.id !== newParticle.id));
+                    }, 1000);
+                }
+            } else {
+                // Update the position of the existing particle
+                setAnimations(prev =>
+                    prev.map(p => ({
+                        ...p,
+                        x,
+                        y,
+                        style: { ...p.style, left: `${x}px`, top: `${y}px` },
+                    }))
+                );
+            }
+
+            lastKeypressTime.current = currentTime;
+
+            // Reset the timeout to extend particle lifetime during rapid typing
+            if (typingTimeout.current) {
+                clearTimeout(typingTimeout.current);
+            }
+            typingTimeout.current = setTimeout(() => {
+                setAnimations([]);
+            }, 1000);
+        }
     };
 
-    const handleSelect = () => {
-        const { x, y } = calculateCursorPosition();
-        const newParticles = createParticle(x, y);
-        if (newParticles) {
-            setAnimations(prev => [...prev, newParticles]);
-        }
+    const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInputValue(event.target.value);
     };
 
     return (
@@ -352,9 +286,9 @@ export function Cursor() {
                 ref={textareaRef}
                 value={inputValue}
                 onChange={handleInputChange}
-                onSelect={handleSelect}
+                onKeyDown={handleKeyDown}
                 placeholder="Type here to unleash the power..."
-                className="w-full max-w-md bg-input border-border text-foreground placeholder:text-muted-foreground text-lg p-3 rounded-md shadow-lg focus-visible:ring-2 focus-visible:ring-ring min-h-[100px]"
+                className="w-full max-w-md bg-background text-sm border text-foreground placeholder:text-muted-foreground p-3 rounded-md shadow-lg focus-visible:ring-2 focus-visible:ring-ring min-h-[100px]"
                 minRows={3}
             />
 
@@ -364,75 +298,6 @@ export function Cursor() {
                     <div key={anim.id} style={anim.style} />
                 ))}
             </div>
-
-            {/* Global styles for animations */}
-            <style jsx global>{`
-                @keyframes particle-effect {
-                    0% {
-                        transform: scale(1);
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: translateY(-70px) scale(0);
-                        opacity: 0;
-                    }
-                }
-                @keyframes firework-particle-effect {
-                    0% {
-                        transform: translateY(0) scale(1);
-                        opacity: 1;
-                    }
-                    20% {
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: translateY(-100px) scale(0.3);
-                        opacity: 0;
-                    }
-                }
-                @keyframes flame-effect {
-                    0% {
-                        transform: translateY(0) scaleY(1) scaleX(1) skewX(0deg);
-                        opacity: 0.8;
-                    }
-                    50% {
-                        transform: translateY(-35px) scaleY(1.3) scaleX(0.7) skewX(-8deg);
-                        opacity: 0.5;
-                    }
-                    100% {
-                        transform: translateY(-80px) scaleY(0.4) scaleX(0.2) skewX(8deg);
-                        opacity: 0;
-                    }
-                }
-                @keyframes magic-effect {
-                    0% {
-                        transform: scale(0.3) rotate(0deg);
-                        opacity: 0;
-                    }
-                    50% {
-                        transform: scale(1.2) rotate(180deg);
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: scale(0.3) rotate(360deg);
-                        opacity: 0;
-                    }
-                }
-                @keyframes rift-effect {
-                    0% {
-                        transform: scaleX(0.1); 
-                        opacity: 0.5;
-                    }
-                    50% {
-                        transform: scaleX(1);
-                        opacity: 1;
-                    }
-                    100% {
-                        transform: scaleX(0.1);
-                        opacity: 0;
-                    }
-                }
-            `}</style>
         </div>
     );
 }
