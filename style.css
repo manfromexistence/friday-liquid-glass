@@ -28,11 +28,11 @@ body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
-  /* visibility hidden after 0.5s */
+  /* visibility hidden after 0.5s when opacity becomes 0 */
   z-index: 9998;
-  /* Ensure they are behind the glass effect but above content */
 }
 
+/* REMOVE THE FOLLOWING BLOCK 
 body.friday-effect-enabled .friday-top,
 body.friday-effect-enabled .friday-bottom,
 body.friday-effect-enabled .friday-left,
@@ -41,14 +41,25 @@ body.friday-effect-enabled .friday-right {
   visibility: visible;
   transition: opacity 0.5s ease-in-out, visibility 0s linear 0s;
 }
+*/
+
+/* ADD THIS BLOCK for individual visibility control */
+.friday-top.visible,
+.friday-bottom.visible,
+.friday-left.visible,
+.friday-right.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0s; /* visibility visible immediately when opacity starts transitioning to 1 */
+}
 
 .friday-top {
-  top: -90px;
+  top: -85px;
   left: 0;
 }
 
 .friday-bottom {
-  bottom: -90px;
+  bottom: -85px;
   left: 0;
 }
 
