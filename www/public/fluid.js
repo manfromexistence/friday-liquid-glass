@@ -1,19 +1,57 @@
+/*
+MIT License
+
+Copyright (c) 2017 Pavel Dobryakov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 'use strict';
 
-function scaleByPixelRatio (input) {
-    let pixelRatio = window.devicePixelRatio || 1;
-    return Math.floor(input * pixelRatio);
-}
+// Mobile promo section
 
-function hashCode (s) {
-    if (s.length == 0) return 0;
-    let hash = 0;
-    for (let i = 0; i < s.length; i++) {
-        hash = (hash << 5) - hash + s.charCodeAt(i);
-        hash |= 0; // Convert to 32bit integer
-    }
-    return hash;
-};
+// const promoPopup = document.getElementsByClassName('promo')[0];
+// const promoPopupClose = document.getElementsByClassName('promo-close')[0];
+
+// if (isMobile()) {
+//     setTimeout(() => {
+//         promoPopup.style.display = 'table';
+//     }, 20000);
+// }
+
+// promoPopupClose.addEventListener('click', e => {
+//     promoPopup.style.display = 'none';
+// });
+
+// const appleLink = document.getElementById('apple_link');
+// appleLink.addEventListener('click', e => {
+//     ga('send', 'event', 'link promo', 'app');
+//     window.open('https://apps.apple.com/us/app/fluid-simulation/id1443124993');
+// });
+
+// const googleLink = document.getElementById('google_link');
+// googleLink.addEventListener('click', e => {
+//     ga('send', 'event', 'link promo', 'app');
+//     window.open('https://play.google.com/store/apps/details?id=games.paveldogreat.fluidsimfree');
+// });
+
+// Simulation section
 
 const canvas = document.getElementsByTagName('canvas')[0];
 resizeCanvas();
@@ -33,7 +71,7 @@ let config = {
     COLORFUL: true,
     COLOR_UPDATE_SPEED: 10,
     PAUSED: false,
-    BACK_COLOR: { r: 0, g: 0, b: 0 }, // Default to black
+    BACK_COLOR: { r: 0, g: 0, b: 0 },
     TRANSPARENT: false,
     BLOOM: true,
     BLOOM_ITERATIONS: 8,
@@ -75,57 +113,7 @@ if (!ext.supportLinearFiltering) {
     config.SUNRAYS = false;
 }
 
-// Get the computed style of the root element
-const rootStyles = getComputedStyle(document.documentElement);
-// Get the value of the --bg-background CSS variable
-const bgBackground = rootStyles.getPropertyValue('--bg-background').trim();
-
-// Parse the background color string (e.g., "222 47 11" or "rgb(222,47,11)") into RGB components
-let r = 0, g = 0, b = 0;
-if (bgBackground) {
-    const rgbMatch = bgBackground.match(/(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
-    if (rgbMatch && rgbMatch.length === 4) {
-        r = parseInt(rgbMatch[1]);
-        g = parseInt(rgbMatch[2]);
-        b = parseInt(rgbMatch[3]);
-        config.BACK_COLOR = { r: r, g: g, b: b };
-    } else {
-        // Fallback for hex or other formats if needed, or keep default black
-        // For now, if it's not in "R G B" or "rgb(R,G,B)" format, it defaults to black as set in config
-        console.warn('Could not parse --bg-background. Defaulting to black. Value was:', bgBackground);
-    }
-}
-
 // startGUI();
-
-// Add this interop object
-window.fluidInterop = {
-    getConfig: () => config,
-    setConfigValue: (key, value) => {
-        config[key] = value;
-
-        // Call relevant update functions based on key
-        if (key === 'DYE_RESOLUTION' || key === 'SIM_RESOLUTION') {
-            if (typeof initFramebuffers === 'function') initFramebuffers();
-        } else if (key === 'SHADING' || key === 'BLOOM' || key === 'SUNRAYS') {
-            if (typeof updateKeywords === 'function') updateKeywords();
-        }
-        // For other keys, the change is applied directly to the config object.
-        // fluid.js animation loop will pick them up.
-    },
-    triggerAction: (actionName) => {
-        if (actionName === 'randomSplat') {
-            if (typeof splatStack !== 'undefined' && splatStack.push) {
-                splatStack.push(parseInt(Math.random() * 20) + 5);
-            }
-        } else if (actionName === 'captureScreenshot') {
-            if (typeof captureScreenshot === 'function') captureScreenshot();
-        }
-    },
-    // Expose specific functions if direct calls are ever needed, though setConfigValue should handle most.
-    // initFramebuffersFunction: initFramebuffers,
-    // updateKeywordsFunction: updateKeywords,
-};
 
 function getWebGLContext (canvas) {
     const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
@@ -216,6 +204,81 @@ function supportRenderTextureFormat (gl, internalFormat, format, type) {
     let status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
     return status == gl.FRAMEBUFFER_COMPLETE;
 }
+
+// function startGUI () {
+//     var gui = new dat.GUI({ width: 300 });
+//     gui.add(config, 'DYE_RESOLUTION', { 'high': 1024, 'medium': 512, 'low': 256, 'very low': 128 }).name('quality').onFinishChange(initFramebuffers);
+//     gui.add(config, 'SIM_RESOLUTION', { '32': 32, '64': 64, '128': 128, '256': 256 }).name('sim resolution').onFinishChange(initFramebuffers);
+//     gui.add(config, 'DENSITY_DISSIPATION', 0, 4.0).name('density diffusion');
+//     gui.add(config, 'VELOCITY_DISSIPATION', 0, 4.0).name('velocity diffusion');
+//     gui.add(config, 'PRESSURE', 0.0, 1.0).name('pressure');
+//     gui.add(config, 'CURL', 0, 50).name('vorticity').step(1);
+//     gui.add(config, 'SPLAT_RADIUS', 0.01, 1.0).name('splat radius');
+//     gui.add(config, 'SHADING').name('shading').onFinishChange(updateKeywords);
+//     gui.add(config, 'COLORFUL').name('colorful');
+//     gui.add(config, 'PAUSED').name('paused').listen();
+
+//     gui.add({ fun: () => {
+//         splatStack.push(parseInt(Math.random() * 20) + 5);
+//     } }, 'fun').name('Random splats');
+
+//     let bloomFolder = gui.addFolder('Bloom');
+//     bloomFolder.add(config, 'BLOOM').name('enabled').onFinishChange(updateKeywords);
+//     bloomFolder.add(config, 'BLOOM_INTENSITY', 0.1, 2.0).name('intensity');
+//     bloomFolder.add(config, 'BLOOM_THRESHOLD', 0.0, 1.0).name('threshold');
+
+//     let sunraysFolder = gui.addFolder('Sunrays');
+//     sunraysFolder.add(config, 'SUNRAYS').name('enabled').onFinishChange(updateKeywords);
+//     sunraysFolder.add(config, 'SUNRAYS_WEIGHT', 0.3, 1.0).name('weight');
+
+//     let captureFolder = gui.addFolder('Capture');
+//     captureFolder.addColor(config, 'BACK_COLOR').name('background color');
+//     captureFolder.add(config, 'TRANSPARENT').name('transparent');
+//     captureFolder.add({ fun: captureScreenshot }, 'fun').name('take screenshot');
+
+//     // let github = gui.add({ fun : () => {
+//     //     window.open('https://github.com/PavelDoGreat/WebGL-Fluid-Simulation');
+//     //     ga('send', 'event', 'link button', 'github');
+//     // } }, 'fun').name('Github');
+//     // github.__li.className = 'cr function bigFont';
+//     // github.__li.style.borderLeft = '3px solid #8C8C8C';
+//     // let githubIcon = document.createElement('span');
+//     // github.domElement.parentElement.appendChild(githubIcon);
+//     // githubIcon.className = 'icon github';
+
+//     // let twitter = gui.add({ fun : () => {
+//     //     ga('send', 'event', 'link button', 'twitter');
+//     //     window.open('https://twitter.com/PavelDoGreat');
+//     // } }, 'fun').name('Twitter');
+//     // twitter.__li.className = 'cr function bigFont';
+//     // twitter.__li.style.borderLeft = '3px solid #8C8C8C';
+//     // let twitterIcon = document.createElement('span');
+//     // twitter.domElement.parentElement.appendChild(twitterIcon);
+//     // twitterIcon.className = 'icon twitter';
+
+//     // let discord = gui.add({ fun : () => {
+//     //     ga('send', 'event', 'link button', 'discord');
+//     //     window.open('https://discordapp.com/invite/CeqZDDE');
+//     // } }, 'fun').name('Discord');
+//     // discord.__li.className = 'cr function bigFont';
+//     // discord.__li.style.borderLeft = '3px solid #8C8C8C';
+//     // let discordIcon = document.createElement('span');
+//     // discord.domElement.parentElement.appendChild(discordIcon);
+//     // discordIcon.className = 'icon discord';
+
+//     // let app = gui.add({ fun : () => {
+//     //     ga('send', 'event', 'link button', 'app');
+//     //     window.open('http://onelink.to/5b58bn');
+//     // } }, 'fun').name('Check out mobile app');
+//     // app.__li.className = 'cr function appBigFont';
+//     // app.__li.style.borderLeft = '3px solid #00FF7F';
+//     // let appIcon = document.createElement('span');
+//     // app.domElement.parentElement.appendChild(appIcon);
+//     // appIcon.className = 'icon app';
+
+//     // if (isMobile())
+//     //     gui.close();
+// }
 
 function isMobile () {
     return /Mobi|Android/i.test(navigator.userAgent);
@@ -1402,80 +1465,182 @@ canvas.addEventListener('mousedown', e => {
     let posX = scaleByPixelRatio(e.offsetX);
     let posY = scaleByPixelRatio(e.offsetY);
     let pointer = pointers.find(p => p.id == -1);
-    if (pointer) {
-        pointer.texcoordX = posX;
-        pointer.texcoordY = posY;
-        pointer.prevTexcoordX = posX;
-        pointer.prevTexcoordY = posY;
-        pointer.down = true;
-        pointer.moved = false;
-        pointer.color = generateColor();
-    }
+    if (pointer == null)
+        pointer = new pointerPrototype();
+    updatePointerDownData(pointer, -1, posX, posY);
+});
+
+canvas.addEventListener('mousemove', e => {
+    let pointer = pointers[0];
+    if (!pointer.down) return;
+    let posX = scaleByPixelRatio(e.offsetX);
+    let posY = scaleByPixelRatio(e.offsetY);
+    updatePointerMoveData(pointer, posX, posY);
+});
+
+window.addEventListener('mouseup', () => {
+    updatePointerUpData(pointers[0]);
 });
 
 canvas.addEventListener('touchstart', e => {
     e.preventDefault();
-    let rect = canvas.getBoundingClientRect();
-    let posX = scaleByPixelRatio(e.touches[0].clientX - rect.left);
-    let posY = scaleByPixelRatio(e.touches[0].clientY - rect.top);
-    let pointer = pointers.find(p => p.id == -1);
-    if (pointer) {
-        pointer.texcoordX = posX;
-        pointer.texcoordY = posY;
-        pointer.prevTexcoordX = posX;
-        pointer.prevTexcoordY = posY;
-        pointer.down = true;
-        pointer.moved = false;
-        pointer.color = generateColor();
+    const touches = e.targetTouches;
+    while (touches.length >= pointers.length)
+        pointers.push(new pointerPrototype());
+    for (let i = 0; i < touches.length; i++) {
+        let posX = scaleByPixelRatio(touches[i].pageX);
+        let posY = scaleByPixelRatio(touches[i].pageY);
+        updatePointerDownData(pointers[i + 1], touches[i].identifier, posX, posY);
     }
-});
-
-canvas.addEventListener('mousemove', e => {
-    let posX = scaleByPixelRatio(e.offsetX);
-    let posY = scaleByPixelRatio(e.offsetY);
-    pointers.forEach(p => {
-        if (p.down) {
-            p.moved = true;
-            p.deltaX = (posX - p.prevTexcoordX) * 0.5;
-            p.deltaY = (posY - p.prevTexcoordY) * 0.5;
-            p.prevTexcoordX = posX;
-            p.prevTexcoordY = posY;
-        }
-    });
 });
 
 canvas.addEventListener('touchmove', e => {
     e.preventDefault();
-    let rect = canvas.getBoundingClientRect();
-    let posX = scaleByPixelRatio(e.touches[0].clientX - rect.left);
-    let posY = scaleByPixelRatio(e.touches[0].clientY - rect.top);
-    pointers.forEach(p => {
-        if (p.down) {
-            p.moved = true;
-            p.deltaX = (posX - p.prevTexcoordX) * 0.5;
-            p.deltaY = (posY - p.prevTexcoordY) * 0.5;
-            p.prevTexcoordX = posX;
-            p.prevTexcoordY = posY;
-        }
-    });
-});
+    const touches = e.targetTouches;
+    for (let i = 0; i < touches.length; i++) {
+        let pointer = pointers[i + 1];
+        if (!pointer.down) continue;
+        let posX = scaleByPixelRatio(touches[i].pageX);
+        let posY = scaleByPixelRatio(touches[i].pageY);
+        updatePointerMoveData(pointer, posX, posY);
+    }
+}, false);
 
-canvas.addEventListener('mouseup', e => {
-    pointers.forEach(p => {
-        p.down = false;
-    });
-});
-
-canvas.addEventListener('touchend', e => {
-    pointers.forEach(p => {
-        p.down = false;
-    });
-});
-
-document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden') {
-        config.PAUSED = true;
-    } else {
-        config.PAUSED = false;
+window.addEventListener('touchend', e => {
+    const touches = e.changedTouches;
+    for (let i = 0; i < touches.length; i++)
+    {
+        let pointer = pointers.find(p => p.id == touches[i].identifier);
+        if (pointer == null) continue;
+        updatePointerUpData(pointer);
     }
 });
+
+window.addEventListener('keydown', e => {
+    if (e.code === 'KeyP')
+        config.PAUSED = !config.PAUSED;
+    if (e.key === ' ')
+        splatStack.push(parseInt(Math.random() * 20) + 5);
+});
+
+function updatePointerDownData (pointer, id, posX, posY) {
+    pointer.id = id;
+    pointer.down = true;
+    pointer.moved = false;
+    pointer.texcoordX = posX / canvas.width;
+    pointer.texcoordY = 1.0 - posY / canvas.height;
+    pointer.prevTexcoordX = pointer.texcoordX;
+    pointer.prevTexcoordY = pointer.texcoordY;
+    pointer.deltaX = 0;
+    pointer.deltaY = 0;
+    pointer.color = generateColor();
+}
+
+function updatePointerMoveData (pointer, posX, posY) {
+    pointer.prevTexcoordX = pointer.texcoordX;
+    pointer.prevTexcoordY = pointer.texcoordY;
+    pointer.texcoordX = posX / canvas.width;
+    pointer.texcoordY = 1.0 - posY / canvas.height;
+    pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
+    pointer.deltaY = correctDeltaY(pointer.texcoordY - pointer.prevTexcoordY);
+    pointer.moved = Math.abs(pointer.deltaX) > 0 || Math.abs(pointer.deltaY) > 0;
+}
+
+function updatePointerUpData (pointer) {
+    pointer.down = false;
+}
+
+function correctDeltaX (delta) {
+    let aspectRatio = canvas.width / canvas.height;
+    if (aspectRatio < 1) delta *= aspectRatio;
+    return delta;
+}
+
+function correctDeltaY (delta) {
+    let aspectRatio = canvas.width / canvas.height;
+    if (aspectRatio > 1) delta /= aspectRatio;
+    return delta;
+}
+
+function generateColor () {
+    let c = HSVtoRGB(Math.random(), 1.0, 1.0);
+    c.r *= 0.15;
+    c.g *= 0.15;
+    c.b *= 0.15;
+    return c;
+}
+
+function HSVtoRGB (h, s, v) {
+    let r, g, b, i, f, p, q, t;
+    i = Math.floor(h * 6);
+    f = h * 6 - i;
+    p = v * (1 - s);
+    q = v * (1 - f * s);
+    t = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+
+    return {
+        r,
+        g,
+        b
+    };
+}
+
+function normalizeColor (input) {
+    let output = {
+        r: input.r / 255,
+        g: input.g / 255,
+        b: input.b / 255
+    };
+    return output;
+}
+
+function wrap (value, min, max) {
+    let range = max - min;
+    if (range == 0) return min;
+    return (value - min) % range + min;
+}
+
+function getResolution (resolution) {
+    let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+    if (aspectRatio < 1)
+        aspectRatio = 1.0 / aspectRatio;
+
+    let min = Math.round(resolution);
+    let max = Math.round(resolution * aspectRatio);
+
+    if (gl.drawingBufferWidth > gl.drawingBufferHeight)
+        return { width: max, height: min };
+    else
+        return { width: min, height: max };
+}
+
+function getTextureScale (texture, width, height) {
+    return {
+        x: width / texture.width,
+        y: height / texture.height
+    };
+}
+
+function scaleByPixelRatio (input) {
+    let pixelRatio = window.devicePixelRatio || 1;
+    return Math.floor(input * pixelRatio);
+}
+
+function hashCode (s) {
+    if (s.length == 0) return 0;
+    let hash = 0;
+    for (let i = 0; i < s.length; i++) {
+        hash = (hash << 5) - hash + s.charCodeAt(i);
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
