@@ -122,17 +122,26 @@
   <button id="fridayButton">Activate Friday Effect</button>
 
   <!-- Dummy content for scrolling demonstration -->
-  <div style="height: 200vh; background: #080808; padding: 20px; color: #ccc;">
+  <div style="height: 200vh; background: #080808; padding: 20px; color: #ccc; padding-top: 200px;">
+    <h1>Welcome to the Friday Effect Page</h1>
     <h1 style="padding-top: 50px;">Page Content</h1>
+    <p>This is some placeholder content to make the page scrollable.</p>
+    <p>This is some placeholder content to make the page scrollable.</p>
+    <p>This is some placeholder content to make the page scrollable.</p>
+    <p>This is some placeholder content to make the page scrollable.</p>
+    <p>This is some placeholder content to make the page scrollable.</p>
     <p>This is some placeholder content to make the page scrollable.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     <p>Scroll down to see more...</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Even more content to ensure scrolling is very noticeable. This helps test the spring-back effect after the animation completes. We need enough content to make the page significantly taller than the viewport.</p>
+    <p>Phasellus lectus. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+    <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
   </div>
 
   <script>
     const fridayButton = document.getElementById('fridayButton');
-    const slideAnimationDuration = 1000; // Faster: 1 second (in milliseconds) for the div to slide up
+    const slideAnimationDuration = 750; // Faster: 1 second (in milliseconds) for the div to slide up
     const littleScrollAmount = window.innerHeight * 0.1; // Scroll by 10% of viewport height
     let initialScrollY = 0;
     let glassDivElement = null;

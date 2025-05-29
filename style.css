@@ -109,15 +109,17 @@ body {
 
 .glass-effect-div {
   position: fixed;
+  /* Changed from absolute to fixed */
   left: 0;
   bottom: 0;
   width: 100%;
   height: 0;
-  background: rgba(255, 255, 255, 0.05);
+
+  background: rgba(0, 0, 0, 0.05);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  border-radius: 10px;
+  backdrop-filter: blur(0.5px);
+  -webkit-backdrop-filter: blur(0.5px);
+
   z-index: 9999;
 }
 
@@ -126,13 +128,14 @@ body {
     height: 0;
     bottom: 0;
   }
+
   100% {
     height: 100vh;
     bottom: 0;
   }
 }
 
-@keyframes animateBoxShadow {
+/* @keyframes animateBoxShadow {
   0% {
     box-shadow:
       0 8px 32px 0 rgba(31, 38, 135, 0.37),
@@ -145,4 +148,4 @@ body {
       0 0 10px #00f,
       0 0 25px #00f;
   }
-}
+} */
