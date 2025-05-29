@@ -18,7 +18,7 @@ let config = {
     COLORFUL: true,
     COLOR_UPDATE_SPEED: 10,
     PAUSED: false,
-    BACK_COLOR: { r: 0, g: 0, b: 0 }, // This will be updated by the code below
+    BACK_COLOR: { r: 0, g: 0, b: 0 },
     TRANSPARENT: false,
     BLOOM: false,
     BLOOM_ITERATIONS: 8,
@@ -59,8 +59,6 @@ if (typeof localStorage !== 'undefined') {
         console.log('FLUID_BACKGROUND not found in localStorage, using default.');
     }
 }
-
-alert(`Current config.BACK_COLOR: r: ${config.BACK_COLOR.r}, g: ${config.BACK_COLOR.g}, b: ${config.BACK_COLOR.b}`);
 
 function pointerPrototype () {
     this.id = -1;
