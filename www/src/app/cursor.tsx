@@ -49,7 +49,7 @@ export function Cursor() {
     const [selectedEffect, setSelectedEffect] = useState("none");
     const [animations, setAnimations] = useState<Particle[]>([]);
     const animationIdCounter = useRef(0);
-    const textareaRef = useRef<HTMLTextAreaElement>(null); // Changed from inputRef and HTMLInputElement
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
     const getRandomColorFromPalette = (effectType: string): string => {
         const palette = effectColorPalettes[effectType];
@@ -60,10 +60,11 @@ export function Cursor() {
     const createParticle = (): Particle | null => {
         const newParticleId = animationIdCounter.current++;
         const textareaRect = textareaRef.current?.getBoundingClientRect();
-        // Adjust particle origin for textarea - this is an approximation.
-        // Precise caret position is complex to get for dynamic effects.
+        
+        // Adjusted Y to be closer to the first line of text in the textarea.
+        // Precise cursor tracking is complex; this remains an approximation.
         const startX = textareaRect ? textareaRect.left + (textareaRect.width / 2) + window.scrollX - 10 : window.innerWidth / 2;
-        const startY = textareaRect ? textareaRect.top + window.scrollY + 10 : window.innerHeight / 2; // Start a bit lower for textarea
+        const startY = textareaRect ? textareaRect.top + window.scrollY + 15 : window.innerHeight / 2; // Adjusted from +10 to +15
 
         let particleStyle: React.CSSProperties = {
             position: 'absolute',
@@ -72,20 +73,21 @@ export function Cursor() {
             opacity: 1,
         };
         let particleType = selectedEffect;
-        const color = getRandomColorFromPalette(selectedEffect);
+        let color = getRandomColorFromPalette(selectedEffect);
 
         switch (selectedEffect) {
-            case "particles":
+            case "particles": // Debugging this effect
                 particleStyle = {
                     ...particleStyle,
-                    width: `${Math.random() * 3 + 2}px`,
-                    height: `${Math.random() * 3 + 2}px`,
-                    backgroundColor: color,
+                    width: `8px`, // Larger for debugging
+                    height: `8px`,// Larger for debugging
+                    backgroundColor: 'red', // Hardcoded bright color for debugging
                     borderRadius: '50%',
-                    animation: `particle-effect 0.6s ease-out forwards`,
+                    animation: `particle-debug-effect 1s ease-out forwards`, // Using debug animation
                 };
                 break;
             case "fireworks":
+                color = getRandomColorFromPalette("fireworks");
                 particleStyle = {
                     ...particleStyle,
                     width: '2px',
@@ -95,6 +97,7 @@ export function Cursor() {
                 };
                 break;
             case "flames":
+                color = getRandomColorFromPalette("flames");
                 particleStyle = {
                     ...particleStyle,
                     width: `${Math.random() * 5 + 5}px`,
@@ -119,6 +122,7 @@ export function Cursor() {
                 particleType = "magic";
                 break;
             case "rift":
+                color = getRandomColorFromPalette("rift");
                 particleStyle = {
                     ...particleStyle,
                     width: '1px',
@@ -142,10 +146,10 @@ export function Cursor() {
         };
     };
 
-    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => { // Changed event type
+    const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setInputValue(event.target.value);
         if (selectedEffect !== "none") {
-            const numParticles = selectedEffect === "fireworks" ? 5 : (selectedEffect === "flames" ? 2 : (selectedEffect === "rift" ? 1 : 3));
+            const numParticles = selectedEffect === "fireworks" ? 5 : (selectedEffect === "flames" ? 2 : (selectedEffect === "rift" ? 1 : (selectedEffect === "particles" ? 2 : 3))); // Adjusted for particles debug
             const newParticles = Array.from({ length: numParticles })
                 .map(() => createParticle())
                 .filter(p => p !== null) as Particle[];
@@ -154,11 +158,11 @@ export function Cursor() {
 
             newParticles.forEach(p => {
                 let duration = 700;
-                if (p.type === "fireworks") duration = 800;
-                if (p.type === "flames") duration = 700;
-                if (p.type === "particles") duration = 600;
-                if (p.type === "magic") duration = 700;
-                if (p.type === "rift") duration = 500;
+                if (p.type === "particles") duration = 1000; // Debug duration for particles
+                else if (p.type === "fireworks") duration = 800;
+                else if (p.type === "flames") duration = 700;
+                else if (p.type === "magic") duration = 700;
+                else if (p.type === "rift") duration = 500;
 
                 setTimeout(() => {
                     setAnimations(currentAnims => currentAnims.filter(anim => anim.id !== p.id));
@@ -202,6 +206,20 @@ export function Cursor() {
 
             {/* Global styles for animations */}
             <style jsx global>{`
+                @keyframes particle-debug-effect { /* Debug animation for particles */
+                    0% {
+                        transform: translate(0, 0) scale(1);
+                        opacity: 1;
+                    }
+                    50% {
+                        transform: translate(0, 20px) scale(1.2); /* Move down 20px */
+                        opacity: 0.5;
+                    }
+                    100% {
+                        transform: translate(0, 40px) scale(0); /* Move further down */
+                        opacity: 0;
+                    }
+                }
                 @keyframes particle-effect {
                     0% {
                         transform: translate(0, 0) scale(1);
