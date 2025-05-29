@@ -1,59 +1,7 @@
-/*
-MIT License
-
-Copyright (c) 2017 Pavel Dobryakov
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
-
-'use strict';
-
-// Mobile promo section
-
-const promoPopup = document.getElementsByClassName('promo')[0];
-const promoPopupClose = document.getElementsByClassName('promo-close')[0];
-
-if (isMobile()) {
-    setTimeout(() => {
-        promoPopup.style.display = 'table';
-    }, 20000);
-}
-
-promoPopupClose.addEventListener('click', e => {
-    promoPopup.style.display = 'none';
-});
-
-const appleLink = document.getElementById('apple_link');
-appleLink.addEventListener('click', e => {
-    ga('send', 'event', 'link promo', 'app');
-    window.open('https://apps.apple.com/us/app/fluid-simulation/id1443124993');
-});
-
-const googleLink = document.getElementById('google_link');
-googleLink.addEventListener('click', e => {
-    ga('send', 'event', 'link promo', 'app');
-    window.open('https://play.google.com/store/apps/details?id=games.paveldogreat.fluidsimfree');
-});
+"use strict";
 
 // Simulation section
-
-const canvas = document.getElementsByTagName('canvas')[0];
+const canvas = document.getElementsByTagName("canvas")[0];
 resizeCanvas();
 
 let config = {
@@ -118,19 +66,19 @@ startGUI();
 function getWebGLContext (canvas) {
     const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
 
-    let gl = canvas.getContext('webgl2', params);
+    let gl = canvas.getContext("webgl2", params);
     const isWebGL2 = !!gl;
     if (!isWebGL2)
-        gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
+        gl = canvas.getContext("webgl", params) || canvas.getContext("experimental-webgl", params);
 
     let halfFloat;
     let supportLinearFiltering;
     if (isWebGL2) {
-        gl.getExtension('EXT_color_buffer_float');
-        supportLinearFiltering = gl.getExtension('OES_texture_float_linear');
+        gl.getExtension("EXT_color_buffer_float");
+        supportLinearFiltering = gl.getExtension("OES_texture_float_linear");
     } else {
-        halfFloat = gl.getExtension('OES_texture_half_float');
-        supportLinearFiltering = gl.getExtension('OES_texture_half_float_linear');
+        halfFloat = gl.getExtension("OES_texture_half_float");
+        supportLinearFiltering = gl.getExtension("OES_texture_half_float_linear");
     }
 
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -153,7 +101,7 @@ function getWebGLContext (canvas) {
         formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
     }
 
-    ga('send', 'event', isWebGL2 ? 'webgl2' : 'webgl', formatRGBA == null ? 'not supported' : 'supported');
+    ga("send", "event", isWebGL2 ? "webgl2" : "webgl", formatRGBA == null ? "not supported" : "supported");
 
     return {
         gl,
@@ -207,74 +155,34 @@ function supportRenderTextureFormat (gl, internalFormat, format, type) {
 
 function startGUI () {
     var gui = new dat.GUI({ width: 300 });
-    gui.add(config, 'DYE_RESOLUTION', { 'high': 1024, 'medium': 512, 'low': 256, 'very low': 128 }).name('quality').onFinishChange(initFramebuffers);
-    gui.add(config, 'SIM_RESOLUTION', { '32': 32, '64': 64, '128': 128, '256': 256 }).name('sim resolution').onFinishChange(initFramebuffers);
-    gui.add(config, 'DENSITY_DISSIPATION', 0, 4.0).name('density diffusion');
-    gui.add(config, 'VELOCITY_DISSIPATION', 0, 4.0).name('velocity diffusion');
-    gui.add(config, 'PRESSURE', 0.0, 1.0).name('pressure');
-    gui.add(config, 'CURL', 0, 50).name('vorticity').step(1);
-    gui.add(config, 'SPLAT_RADIUS', 0.01, 1.0).name('splat radius');
-    gui.add(config, 'SHADING').name('shading').onFinishChange(updateKeywords);
-    gui.add(config, 'COLORFUL').name('colorful');
-    gui.add(config, 'PAUSED').name('paused').listen();
+    gui.add(config, "DYE_RESOLUTION", { "high": 1024, "medium": 512, "low": 256, "very low": 128 }).name("quality").onFinishChange(initFramebuffers);
+    gui.add(config, "SIM_RESOLUTION", { "32": 32, "64": 64, "128": 128, "256": 256 }).name("sim resolution").onFinishChange(initFramebuffers);
+    gui.add(config, "DENSITY_DISSIPATION", 0, 4.0).name("density diffusion");
+    gui.add(config, "VELOCITY_DISSIPATION", 0, 4.0).name("velocity diffusion");
+    gui.add(config, "PRESSURE", 0.0, 1.0).name("pressure");
+    gui.add(config, "CURL", 0, 50).name("vorticity").step(1);
+    gui.add(config, "SPLAT_RADIUS", 0.01, 1.0).name("splat radius");
+    gui.add(config, "SHADING").name("shading").onFinishChange(updateKeywords);
+    gui.add(config, "COLORFUL").name("colorful");
+    gui.add(config, "PAUSED").name("paused").listen();
 
     gui.add({ fun: () => {
         splatStack.push(parseInt(Math.random() * 20) + 5);
-    } }, 'fun').name('Random splats');
+    } }, "fun").name("Random splats");
 
-    let bloomFolder = gui.addFolder('Bloom');
-    bloomFolder.add(config, 'BLOOM').name('enabled').onFinishChange(updateKeywords);
-    bloomFolder.add(config, 'BLOOM_INTENSITY', 0.1, 2.0).name('intensity');
-    bloomFolder.add(config, 'BLOOM_THRESHOLD', 0.0, 1.0).name('threshold');
+    let bloomFolder = gui.addFolder("Bloom");
+    bloomFolder.add(config, "BLOOM").name("enabled").onFinishChange(updateKeywords);
+    bloomFolder.add(config, "BLOOM_INTENSITY", 0.1, 2.0).name("intensity");
+    bloomFolder.add(config, "BLOOM_THRESHOLD", 0.0, 1.0).name("threshold");
 
-    let sunraysFolder = gui.addFolder('Sunrays');
-    sunraysFolder.add(config, 'SUNRAYS').name('enabled').onFinishChange(updateKeywords);
-    sunraysFolder.add(config, 'SUNRAYS_WEIGHT', 0.3, 1.0).name('weight');
+    let sunraysFolder = gui.addFolder("Sunrays");
+    sunraysFolder.add(config, "SUNRAYS").name("enabled").onFinishChange(updateKeywords);
+    sunraysFolder.add(config, "SUNRAYS_WEIGHT", 0.3, 1.0).name("weight");
 
-    let captureFolder = gui.addFolder('Capture');
-    captureFolder.addColor(config, 'BACK_COLOR').name('background color');
-    captureFolder.add(config, 'TRANSPARENT').name('transparent');
-    captureFolder.add({ fun: captureScreenshot }, 'fun').name('take screenshot');
-
-    let github = gui.add({ fun : () => {
-        window.open('https://github.com/PavelDoGreat/WebGL-Fluid-Simulation');
-        ga('send', 'event', 'link button', 'github');
-    } }, 'fun').name('Github');
-    github.__li.className = 'cr function bigFont';
-    github.__li.style.borderLeft = '3px solid #8C8C8C';
-    let githubIcon = document.createElement('span');
-    github.domElement.parentElement.appendChild(githubIcon);
-    githubIcon.className = 'icon github';
-
-    let twitter = gui.add({ fun : () => {
-        ga('send', 'event', 'link button', 'twitter');
-        window.open('https://twitter.com/PavelDoGreat');
-    } }, 'fun').name('Twitter');
-    twitter.__li.className = 'cr function bigFont';
-    twitter.__li.style.borderLeft = '3px solid #8C8C8C';
-    let twitterIcon = document.createElement('span');
-    twitter.domElement.parentElement.appendChild(twitterIcon);
-    twitterIcon.className = 'icon twitter';
-
-    let discord = gui.add({ fun : () => {
-        ga('send', 'event', 'link button', 'discord');
-        window.open('https://discordapp.com/invite/CeqZDDE');
-    } }, 'fun').name('Discord');
-    discord.__li.className = 'cr function bigFont';
-    discord.__li.style.borderLeft = '3px solid #8C8C8C';
-    let discordIcon = document.createElement('span');
-    discord.domElement.parentElement.appendChild(discordIcon);
-    discordIcon.className = 'icon discord';
-
-    let app = gui.add({ fun : () => {
-        ga('send', 'event', 'link button', 'app');
-        window.open('http://onelink.to/5b58bn');
-    } }, 'fun').name('Check out mobile app');
-    app.__li.className = 'cr function appBigFont';
-    app.__li.style.borderLeft = '3px solid #00FF7F';
-    let appIcon = document.createElement('span');
-    app.domElement.parentElement.appendChild(appIcon);
-    appIcon.className = 'icon app';
+    let captureFolder = gui.addFolder("Capture");
+    captureFolder.addColor(config, "BACK_COLOR").name("background color");
+    captureFolder.add(config, "TRANSPARENT").name("transparent");
+    captureFolder.add({ fun: captureScreenshot }, "fun").name("take screenshot");
 
     if (isMobile())
         gui.close();
@@ -294,7 +202,7 @@ function captureScreenshot () {
 
     let captureCanvas = textureToCanvas(texture, target.width, target.height);
     let datauri = captureCanvas.toDataURL();
-    downloadURI('fluid.png', datauri);
+    downloadURI("fluid.png", datauri);
     URL.revokeObjectURL(datauri);
 }
 
@@ -327,8 +235,8 @@ function clamp01 (input) {
 }
 
 function textureToCanvas (texture, width, height) {
-    let captureCanvas = document.createElement('canvas');
-    let ctx = captureCanvas.getContext('2d');
+    let captureCanvas = document.createElement("canvas");
+    let ctx = captureCanvas.getContext("2d");
     captureCanvas.width = width;
     captureCanvas.height = height;
 
@@ -340,7 +248,7 @@ function textureToCanvas (texture, width, height) {
 }
 
 function downloadURI (filename, uri) {
-    let link = document.createElement('a');
+    let link = document.createElement("a");
     link.download = filename;
     link.href = uri;
     document.body.appendChild(link);
@@ -430,9 +338,9 @@ function compileShader (type, source, keywords) {
 
 function addKeywords (source, keywords) {
     if (keywords == null) return source;
-    let keywordsString = '';
+    let keywordsString = "";
     keywords.forEach(keyword => {
-        keywordsString += '#define ' + keyword + '\n';
+        keywordsString += "#define " + keyword + "\n";
     });
     return keywordsString + source;
 }
@@ -780,7 +688,7 @@ const advectionShader = compileShader(gl.FRAGMENT_SHADER, `
         float decay = 1.0 + dissipation * dt;
         gl_FragColor = result / decay;
     }`,
-    ext.supportLinearFiltering ? null : ['MANUAL_FILTERING']
+    ext.supportLinearFiltering ? null : ["MANUAL_FILTERING"]
 );
 
 const divergenceShader = compileShader(gl.FRAGMENT_SHADER, `
@@ -957,7 +865,7 @@ let bloomFramebuffers = [];
 let sunrays;
 let sunraysTemp;
 
-let ditheringTexture = createTextureAsync('LDR_LLL1_0.png');
+let ditheringTexture = createTextureAsync("LDR_LLL1_0.png");
 
 const blurProgram            = new Program(blurVertexShader, blurShader);
 const copyProgram            = new Program(baseVertexShader, copyShader);
@@ -1461,7 +1369,7 @@ function correctRadius (radius) {
     return radius;
 }
 
-canvas.addEventListener('mousedown', e => {
+canvas.addEventListener("mousedown", e => {
     let posX = scaleByPixelRatio(e.offsetX);
     let posY = scaleByPixelRatio(e.offsetY);
     let pointer = pointers.find(p => p.id == -1);
@@ -1470,7 +1378,7 @@ canvas.addEventListener('mousedown', e => {
     updatePointerDownData(pointer, -1, posX, posY);
 });
 
-canvas.addEventListener('mousemove', e => {
+canvas.addEventListener("mousemove", e => {
     let pointer = pointers[0];
     if (!pointer.down) return;
     let posX = scaleByPixelRatio(e.offsetX);
@@ -1478,11 +1386,11 @@ canvas.addEventListener('mousemove', e => {
     updatePointerMoveData(pointer, posX, posY);
 });
 
-window.addEventListener('mouseup', () => {
+window.addEventListener("mouseup", () => {
     updatePointerUpData(pointers[0]);
 });
 
-canvas.addEventListener('touchstart', e => {
+canvas.addEventListener("touchstart", e => {
     e.preventDefault();
     const touches = e.targetTouches;
     while (touches.length >= pointers.length)
@@ -1494,7 +1402,7 @@ canvas.addEventListener('touchstart', e => {
     }
 });
 
-canvas.addEventListener('touchmove', e => {
+canvas.addEventListener("touchmove", e => {
     e.preventDefault();
     const touches = e.targetTouches;
     for (let i = 0; i < touches.length; i++) {
@@ -1506,7 +1414,7 @@ canvas.addEventListener('touchmove', e => {
     }
 }, false);
 
-window.addEventListener('touchend', e => {
+window.addEventListener("touchend", e => {
     const touches = e.changedTouches;
     for (let i = 0; i < touches.length; i++)
     {
@@ -1516,10 +1424,10 @@ window.addEventListener('touchend', e => {
     }
 });
 
-window.addEventListener('keydown', e => {
-    if (e.code === 'KeyP')
+window.addEventListener("keydown", e => {
+    if (e.code === "KeyP")
         config.PAUSED = !config.PAUSED;
-    if (e.key === ' ')
+    if (e.key === " ")
         splatStack.push(parseInt(Math.random() * 20) + 5);
 });
 
