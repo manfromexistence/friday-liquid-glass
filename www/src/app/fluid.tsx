@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { parse, formatRgb } from 'culori'; // Import from culori npm package
 
-export function Fluids() {
+export function Fluid() {
     useEffect(() => {
         try {
             if (typeof window !== 'undefined' && typeof document !== 'undefined') {
