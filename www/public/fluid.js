@@ -1,11 +1,9 @@
 "use strict";
 
-const FLUID_CONFIG_KEY = 'fluidSimulationConfig';
-const FLUID_ACTION_SPLAT_KEY = 'fluidActionSplat';
-const FLUID_ACTION_SCREENSHOT_KEY = 'fluidActionScreenshot';
+const canvas = document.getElementsByTagName("canvas")[0];
+resizeCanvas();
 
-// Default config (original config object is moved here)
-const defaultConfig = {
+let config = {
     SIM_RESOLUTION: 128,
     DYE_RESOLUTION: 1024,
     CAPTURE_RESOLUTION: 512,
@@ -22,7 +20,7 @@ const defaultConfig = {
     PAUSED: false,
     BACK_COLOR: { r: 0, g: 0, b: 0 },
     TRANSPARENT: false,
-    BLOOM: false,
+    BLOOM: true,
     BLOOM_ITERATIONS: 8,
     BLOOM_RESOLUTION: 256,
     BLOOM_INTENSITY: 0.8,
@@ -31,41 +29,7 @@ const defaultConfig = {
     SUNRAYS: true,
     SUNRAYS_RESOLUTION: 196,
     SUNRAYS_WEIGHT: 1.0,
-};
-
-let config; // This will be our runtime config object, populated from localStorage or defaults
-
-function loadConfigFromLocalStorage() {
-    let loadedConfig = null;
-    try {
-        const storedConfig = localStorage.getItem(FLUID_CONFIG_KEY);
-        if (storedConfig) {
-            loadedConfig = JSON.parse(storedConfig);
-        }
-    } catch (error) {
-        console.error("Error parsing fluid config from localStorage:", error);
-    }
-    // Merge with defaults: defaults provide structure, loadedConfig overrides values.
-    // This ensures 'config' always has all keys from 'defaultConfig'.
-    config = { ...defaultConfig, ...loadedConfig };
-
-    // Save back to ensure localStorage has the full, potentially updated/merged config.
-    // This is important if localStorage was empty or had a partial/old config.
-    saveConfigToLocalStorage();
 }
-
-function saveConfigToLocalStorage() {
-    try {
-        localStorage.setItem(FLUID_CONFIG_KEY, JSON.stringify(config));
-    } catch (error) {
-        console.error("Error saving fluid config to localStorage:", error);
-    }
-}
-
-loadConfigFromLocalStorage(); // Load initial config
-
-const canvas = document.getElementsByTagName("canvas")[0];
-resizeCanvas();
 
 function pointerPrototype () {
     this.id = -1;
@@ -1056,65 +1020,77 @@ function createTextureAsync (url) {
     return obj;
 }
 
-// Event listener for storage changes (e.g., from fluid.tsx)
-window.addEventListener('storage', function(event) {
-    if (event.key === FLUID_CONFIG_KEY) {
-        console.log('fluid.js: Detected config change in localStorage.');
-        try {
-            const newStoredConfig = event.newValue;
-            if (newStoredConfig) {
-                const newParsedConfig = JSON.parse(newStoredConfig);
+function updateKeywords () {
+    let displayKeywords = [];
+    if (config.SHADING) displayKeywords.push("SHADING");
+    if (config.BLOOM) displayKeywords.push("BLOOM");
+    if (config.SUNRAYS) displayKeywords.push("SUNRAYS");
+    displayMaterial.setKeywords(displayKeywords);
+}
 
-                const oldSimRes = config.SIM_RESOLUTION;
-                const oldDyeRes = config.DYE_RESOLUTION;
-                const oldShading = config.SHADING;
-                const oldBloom = config.BLOOM;
-                const oldSunrays = config.SUNRAYS;
-                const oldTransparent = config.TRANSPARENT;
+updateKeywords();
+initFramebuffers();
+multipleSplats(parseInt(Math.random() * 20) + 5);
 
-                // Update the global config object in fluid.js
-                // We merge with current config to be safe, though newParsedConfig should be complete.
-                config = { ...config, ...newParsedConfig };
+let lastUpdateTime = Date.now();
+let colorUpdateTimer = 0.0;
+update();
 
-                let needsInitFramebuffers = false;
-                if (config.SIM_RESOLUTION !== oldSimRes || 
-                    config.DYE_RESOLUTION !== oldDyeRes ||
-                    config.TRANSPARENT !== oldTransparent) { // TRANSPARENT might affect framebuffer alpha
-                    needsInitFramebuffers = true;
-                }
+function update () {
+    const dt = calcDeltaTime();
+    if (resizeCanvas())
+        initFramebuffers();
+    updateColors(dt);
+    applyInputs();
+    if (!config.PAUSED)
+        step(dt);
+    render(null);
+    requestAnimationFrame(update);
+}
 
-                let needsUpdateKeywords = false;
-                if (config.SHADING !== oldShading || 
-                    config.BLOOM !== oldBloom || 
-                    config.SUNRAYS !== oldSunrays) {
-                    needsUpdateKeywords = true;
-                }
+function calcDeltaTime () {
+    let now = Date.now();
+    let dt = (now - lastUpdateTime) / 1000;
+    dt = Math.min(dt, 0.016666);
+    lastUpdateTime = now;
+    return dt;
+}
 
-                if (needsInitFramebuffers && typeof initFramebuffers === 'function') {
-                    console.log('fluid.js: Re-initializing framebuffers due to config change.');
-                    initFramebuffers();
-                }
-                if (needsUpdateKeywords && typeof displayMaterial !== 'undefined' && typeof displayMaterial.setKeywords === 'function') {
-                    console.log('fluid.js: Updating keywords due to config change.');
-                    let keywords = [];
-                    if (config.SHADING) keywords.push("SHADING");
-                    if (config.BLOOM) keywords.push("BLOOM");
-                    if (config.SUNRAYS) keywords.push("SUNRAYS");
-                    displayMaterial.setKeywords(keywords);
-                }
-                 // If BACK_COLOR changed, the next render will pick it up.
-                 // If PAUSED changed, the animation loop will respect it.
-            }
-        } catch (error) {
-            console.error('fluid.js: Error processing storage event for config:', error);
-        }
+function resizeCanvas () {
+    let width = scaleByPixelRatio(canvas.clientWidth);
+    let height = scaleByPixelRatio(canvas.clientHeight);
+    if (canvas.width != width || canvas.height != height) {
+        canvas.width = width;
+        canvas.height = height;
+        return true;
     }
-});
+    return false;
+}
 
-// The rest of fluid.js will use the global 'config' variable as before.
-// Make sure there are no other 'let config = {...}' declarations later in the file.
+function updateColors (dt) {
+    if (!config.COLORFUL) return;
 
-// Modify the 'step' function (or your main animation loop function)
+    colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
+    if (colorUpdateTimer >= 1) {
+        colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
+        pointers.forEach(p => {
+            p.color = generateColor();
+        });
+    }
+}
+
+function applyInputs () {
+    if (splatStack.length > 0)
+        multipleSplats(splatStack.pop());
+
+    pointers.forEach(p => {
+        if (p.moved) {
+            p.moved = false;
+            splatPointer(p);
+        }
+    });
+}
+
 function step (dt) {
     gl.disable(gl.BLEND);
 
@@ -1531,79 +1507,3 @@ function hashCode (s) {
     }
     return hash;
 };
-
-// The following block should be deleted if it exists from previous attempts:
-/*
-window.fluidSim = window.fluidSim || {};
-
-// Assign existing config
-if (typeof config !== 'undefined') {
-    window.fluidSim.config = config;
-} else {
-    console.error('fluid.js: global "config" object not found for fluidSim.');
-    window.fluidSim.config = {}; // Fallback
-}
-
-// Assign existing splatStack
-if (typeof splatStack !== 'undefined') {
-    window.fluidSim.splatStack = splatStack;
-} else {
-    console.error('fluid.js: global "splatStack" array not found for fluidSim.');
-    window.fluidSim.splatStack = []; // Fallback
-}
-
-// Assign existing captureScreenshot function
-if (typeof captureScreenshot === 'function') {
-    window.fluidSim.captureScreenshot = captureScreenshot;
-} else {
-    console.error('fluid.js: global "captureScreenshot" function not found.');
-    window.fluidSim.captureScreenshot = function() { console.warn("fluidSim.captureScreenshot is not defined in fluid.js"); };
-}
-
-// Assign GL context (should be available from 'const { gl, ext } = getWebGLContext(canvas);')
-if (typeof gl !== 'undefined') {
-    window.fluidSim.gl = gl;
-} else {
-    console.warn('fluid.js: global "gl" context not found for fluidSim. This might affect direct GL access from React if intended.');
-    window.fluidSim.gl = undefined;
-}
-
-// Assign initFramebuffers (should be globally available in fluid.js, as seen in its full content)
-if (typeof initFramebuffers === 'function') {
-    window.fluidSim.initFramebuffers = initFramebuffers;
-} else {
-    console.error('fluid.js: global "initFramebuffers" function not found. This is critical for React control.');
-    window.fluidSim.initFramebuffers = function() {
-        console.warn('fluidSim.initFramebuffers() called but "initFramebuffers" is not defined globally in fluid.js.');
-    };
-}
-
-// Assign updateKeywords
-// This function will update shader keywords based on the config.
-window.fluidSim.updateKeywords = function() {
-    // This relies on 'displayMaterial' and 'config' being globally accessible in fluid.js
-    if (typeof displayMaterial !== 'undefined' && typeof displayMaterial.setKeywords === 'function' && typeof config !== 'undefined') {
-        let keywords = [];
-        if (config.SHADING) keywords.push("SHADING");
-        if (config.BLOOM) keywords.push("BLOOM");
-        if (config.SUNRAYS) keywords.push("SUNRAYS");
-        displayMaterial.setKeywords(keywords);
-    } else {
-        console.warn('fluid.js: Cannot update keywords. "displayMaterial.setKeywords" or "config" not available for updateKeywords.');
-    }
-};
-
-// Assign randomSplats
-if (typeof randomSplats === 'function') { // Check if fluid.js has its own randomSplats
-    window.fluidSim.randomSplats = randomSplats;
-} else {
-    // Provide the default implementation used in fluid.tsx if not defined in fluid.js
-    window.fluidSim.randomSplats = function() {
-        if (window.fluidSim && window.fluidSim.splatStack && Array.isArray(window.fluidSim.splatStack)) {
-            window.fluidSim.splatStack.push(parseInt((Math.random() * 20).toString()) + 5);
-        } else {
-            console.error('fluidSim.randomSplats: splatStack is not available on window.fluidSim.');
-        }
-    };
-}
-*/
