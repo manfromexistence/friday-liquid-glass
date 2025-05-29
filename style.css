@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: #000000;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.friday-top,
+.friday-bottom,
+.friday-left,
+.friday-right
+{
+  position: fixed;
+  width: 100%;
+  display: flex;
+  
+  /* gap: 15px; */
+}
+
+.friday-top{
+  top: 0;
+  left: 0;
+}
+
+.friday-bottom{
+  bottom: 0;
+  left: 0;
+}
+
+.friday-left{
+  top: 50vh;
+  right: 0;
+  height: 10px;
+  width: 100vh;
+  rotate: 90deg;
+}
+
+.friday-right {
+  top: 50vh;
+  left: 0;
+  height: 10px;
+  width: 100vh;
+  rotate: 90deg;
+}
+
+.friday-top span,
+.friday-bottom span
+{
+  position: relative;
+  height: 20px;
+  width: 4%;
+}
+
+.friday-left span,
+.friday-right span
+{
+  position: relative;
+  height: 2vh;
+  width: 4%;
+}
+
+.friday-top span::before,
+.friday-bottom span::before,
+.friday-left span::before,
+.friday-right span::before
+{
+  content: "";
+  position: absolute;
+  animation: animate 10s linear infinite;
+  animation-delay: calc(var(--i)*0.1s);
+  rotate: 90deg;
+  background: #0f0;
+  top: -9px;
+  bottom: -9px;
+  left: -5px;
+  right: -5px;
+  box-shadow:
+    0 0 5px #0f0,
+    0 0 15px #0f0,
+    0 0 30px #0f0,
+    0 0 50px #0f0;
+}
+
+@keyframes animate {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
