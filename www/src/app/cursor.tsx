@@ -44,7 +44,7 @@ const effectOptions = [
     { value: "rift", label: "Rift" },
 ];
 
-export default function Cursor() {
+export function Cursor() {
     const [inputValue, setInputValue] = useState("");
     const [selectedEffect, setSelectedEffect] = useState("none");
     const [animations, setAnimations] = useState<Particle[]>([]);
