@@ -10,7 +10,7 @@ body {
   position: relative;
 }
 
-.content{
+.content {
   height: 200vh;
   background: #080808;
   padding: 20px;
@@ -27,8 +27,10 @@ body {
   display: flex;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s; /* visibility hidden after 0.5s */
-  z-index: 9998; /* Ensure they are behind the glass effect but above content */
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
+  /* visibility hidden after 0.5s */
+  z-index: 9998;
+  /* Ensure they are behind the glass effect but above content */
 }
 
 body.friday-effect-enabled .friday-top,
@@ -37,16 +39,16 @@ body.friday-effect-enabled .friday-left,
 body.friday-effect-enabled .friday-right {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease-in-out, visibility 0s linear 0s; /* visibility visible immediately */
+  transition: opacity 0.5s ease-in-out, visibility 0s linear 0s;
 }
 
 .friday-top {
-  top: -100px;
+  top: -85px;
   left: 0;
 }
 
 .friday-bottom {
-  bottom: -100px;
+  bottom: -85px;
   left: 0;
 }
 
@@ -97,16 +99,51 @@ body.friday-effect-enabled .friday-right {
   box-shadow:
     0 0 5px #0f0,
     0 0 15px #0f0,
-    0 0 30px #0f0,
-    0 0 50px #0f0;
+    0 0 30px #0f0;
 }
 
 @keyframes animate {
   0% {
     filter: hue-rotate(0deg);
+    box-shadow:
+      0 0 2px #0f0,
+      0 0 8px #0f0,
+      0 0 15px #0f0;
   }
+
+  25% {
+    filter: hue-rotate(90deg);
+    box-shadow:
+      0 0 4px #0f0,
+      0 0 12px #0f0,
+      0 0 25px #0f0,
+      0 0 40px #0f0;
+  }
+
+  50% {
+    filter: hue-rotate(180deg);
+    box-shadow:
+      0 0 6px #0f0,
+      0 0 18px #0f0,
+      0 0 35px #0f0,
+      0 0 55px #0f0;
+  }
+
+  75% {
+    filter: hue-rotate(270deg);
+    box-shadow:
+      0 0 4px #0f0,
+      0 0 12px #0f0,
+      0 0 25px #0f0,
+      0 0 40px #0f0;
+  }
+
   100% {
     filter: hue-rotate(360deg);
+    box-shadow:
+      0 0 2px #0f0,
+      0 0 8px #0f0,
+      0 0 15px #0f0;
   }
 }
 
@@ -137,7 +174,7 @@ body.friday-effect-enabled .friday-right {
   background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(2.5px);
   -webkit-backdrop-filter: blur(2.5px);
-  animation: animate 10s linear infinite;
+  /* animation: animate 10s linear infinite; */
 
   z-index: 9999;
 }
@@ -180,6 +217,7 @@ body.friday-effect-enabled .friday-right {
   height: 10px;
   width: 10px;
 }
+
 *::-webkit-scrollbar-track {
   background-color: #000000;
 }
