@@ -18,7 +18,7 @@ let config = {
     COLORFUL: true,
     COLOR_UPDATE_SPEED: 10,
     PAUSED: false,
-    BACK_COLOR: { r: 0, g: 0, b: 0 },
+    BACK_COLOR: { r: 0, g: 0, b: 0 }, // This will be updated by the code below
     TRANSPARENT: false,
     BLOOM: false,
     BLOOM_ITERATIONS: 8,
@@ -30,6 +30,37 @@ let config = {
     SUNRAYS_RESOLUTION: 196,
     SUNRAYS_WEIGHT: 1.0,
 }
+
+// Function to parse rgb string like "rgb(r, g, b)" into an object {r, g, b}
+function parseRgb(rgbString) {
+    const match = rgbString.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+    if (match) {
+        return {
+            r: parseInt(match[1], 10),
+            g: parseInt(match[2], 10),
+            b: parseInt(match[3], 10)
+        };
+    }
+    return null; // Return null if parsing fails
+}
+
+// Attempt to load FLUID_BACKGROUND from localStorage
+if (typeof localStorage !== 'undefined') {
+    const storedFluidBackground = localStorage.getItem('FLUID_BACKGROUND');
+    if (storedFluidBackground) {
+        const parsedColor = parseRgb(storedFluidBackground);
+        if (parsedColor) {
+            config.BACK_COLOR = parsedColor;
+            console.log('Loaded FLUID_BACKGROUND from localStorage:', config.BACK_COLOR);
+        } else {
+            console.warn('FLUID_BACKGROUND in localStorage was not in expected rgb format:', storedFluidBackground, 'Using default.');
+        }
+    } else {
+        console.log('FLUID_BACKGROUND not found in localStorage, using default.');
+    }
+}
+
+alert(`Current config.BACK_COLOR: r: ${config.BACK_COLOR.r}, g: ${config.BACK_COLOR.g}, b: ${config.BACK_COLOR.b}`);
 
 function pointerPrototype () {
     this.id = -1;
