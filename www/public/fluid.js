@@ -1507,3 +1507,76 @@ function hashCode (s) {
     }
     return hash;
 };
+
+// Expose functionalities to fluid.tsx via window.fluidSim
+// Ensure fluidSim object exists
+window.fluidSim = window.fluidSim || {};
+
+// Assign existing config
+if (typeof config !== 'undefined') {
+    window.fluidSim.config = config;
+} else {
+    console.error('fluid.js: global "config" object not found for fluidSim.');
+    window.fluidSim.config = {}; // Fallback
+}
+
+// Assign existing splatStack
+if (typeof splatStack !== 'undefined') {
+    window.fluidSim.splatStack = splatStack;
+} else {
+    console.error('fluid.js: global "splatStack" array not found for fluidSim.');
+    window.fluidSim.splatStack = []; // Fallback
+}
+
+// Assign existing captureScreenshot function
+if (typeof captureScreenshot === 'function') {
+    window.fluidSim.captureScreenshot = captureScreenshot;
+} else {
+    console.error('fluid.js: global "captureScreenshot" function not found.');
+    window.fluidSim.captureScreenshot = function() { console.warn("fluidSim.captureScreenshot is not defined in fluid.js"); };
+}
+
+// Assign GL context (should be available from 'const { gl, ext } = getWebGLContext(canvas);')
+if (typeof gl !== 'undefined') {
+    window.fluidSim.gl = gl;
+} else {
+    console.warn('fluid.js: global "gl" context not found for fluidSim. This might affect direct GL access from React if intended.');
+    window.fluidSim.gl = undefined;
+}
+
+// Assign initFramebuffers (should be globally available in fluid.js)
+if (typeof initFramebuffers === 'function') {
+    window.fluidSim.initFramebuffers = initFramebuffers;
+} else {
+    console.error('fluid.js: global "initFramebuffers" function not found. This is critical for React control.');
+    window.fluidSim.initFramebuffers = function() {
+        console.warn('fluidSim.initFramebuffers() called but "initFramebuffers" is not defined globally in fluid.js.');
+    };
+}
+
+// Assign updateKeywords
+// This function will update shader keywords based on the config.
+window.fluidSim.updateKeywords = function() {
+    if (typeof displayMaterial !== 'undefined' && typeof displayMaterial.setKeywords === 'function' && typeof config !== 'undefined') {
+        let keywords = [];
+        if (config.SHADING) keywords.push("SHADING");
+        if (config.BLOOM) keywords.push("BLOOM");
+        if (config.SUNRAYS) keywords.push("SUNRAYS");
+        displayMaterial.setKeywords(keywords);
+    } else {
+        console.warn('fluid.js: Cannot update keywords. "displayMaterial.setKeywords" or "config" not available.');
+    }
+};
+
+// Assign randomSplats
+if (typeof randomSplats === 'function') {
+    window.fluidSim.randomSplats = randomSplats;
+} else {
+    window.fluidSim.randomSplats = function() {
+        if (window.fluidSim.splatStack && Array.isArray(window.fluidSim.splatStack)) {
+            window.fluidSim.splatStack.push(parseInt((Math.random() * 20).toString()) + 5);
+        } else {
+            console.error('fluidSim.randomSplats: splatStack is not available on window.fluidSim.');
+        }
+    };
+}
