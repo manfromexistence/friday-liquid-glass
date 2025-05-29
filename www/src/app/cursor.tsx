@@ -9,31 +9,32 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { 
+    atomExplosion1,
+    atomExplosion2,
+    atomExplosion3,
+    atomExplosion4,
+    atomExplosion5,
+    atomExplosion6,
+    atomExplosion7,
+    atomExplosion8,
+    atomExplosion9,
+    atomExplosion10,
 
-interface Particle {
-    id: number;
-    x: number;
-    y: number;
-    style: React.CSSProperties;
-    type: string;
-}
+    magic,
 
-const effectColorPalettes: Record<string, string[]> = {
-    particles: ["#FF0000", "#00FF00", "#0000FF", "#FFFF00", "#FF00FF", "#00FFFF"],
-    fireworks: ["#FFD700", "#FFA500", "#FF4500", "#FF69B4", "#ADD8E6", "#FFFFFF"],
-    flames: ["#FF4500", "#FFA500", "#FFD700", "#DC143C"],
-    magic: ["#8A2BE2", "#4B0082", "#9400D3", "#00FA9A", "#AFEEEE"],
-    rift: ["#483D8B", "#000080", "#E0FFFF", "#FF00FF"]
-};
+    verticalRift,
+    horizontalRift,
+    space1, space2,
 
-const effectOptions = [
-    { value: "none", label: "None" },
-    { value: "particles", label: "Particles" },
-    { value: "fireworks", label: "Fireworks" },
-    { value: "flames", label: "Flames" },
-    { value: "magic", label: "Magic" },
-    { value: "rift", label: "Rift" },
-];
+    flame,
+
+    sparkles,
+    threeColorfulFireworks,
+    threeColorfulFireworks2,
+
+    clippy
+ } from "./data";
 
 export function Cursor() {
     const [inputValue, setInputValue] = useState("");
@@ -83,8 +84,8 @@ export function Cursor() {
                 color = getRandomColorFromPalette("particles");
                 particleStyle = {
                     ...particleStyle,
-                    width: `${Math.random() * 10 + 5}px`, // Increased size for particles
-                    height: `${Math.random() * 10 + 5}px`, // Increased size for particles
+                    width: `${Math.random() * 10 + 5}px`,
+                    height: `${Math.random() * 10 + 5}px`,
                     backgroundColor: color,
                     borderRadius: "50%",
                     animation: `particle-effect 1s ease-out forwards`,
@@ -137,6 +138,129 @@ export function Cursor() {
                 };
                 particleType = "rift";
                 break;
+            case "atom_explosion":
+                const atomExplosions = [atomExplosion1, atomExplosion2, atomExplosion3, atomExplosion4, atomExplosion5, atomExplosion6, atomExplosion7, atomExplosion8, atomExplosion9, atomExplosion10];
+                const randomAtomExplosion = atomExplosions[Math.floor(Math.random() * atomExplosions.length)];
+                particleStyle = {
+                    ...particleStyle,
+                    width: "50px", 
+                    height: "50px", 
+                    backgroundImage: `url("${randomAtomExplosion}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `particle-effect 1s ease-out forwards`, 
+                };
+                particleType = "atom_explosion";
+                break;
+            case "magic_gif":
+                particleStyle = {
+                    ...particleStyle,
+                    width: "60px",
+                    height: "60px",
+                    backgroundImage: `url("${magic}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `particle-effect 1s ease-out forwards`,
+                };
+                particleType = "magic_gif";
+                break;
+            case "vertical_rift":
+                particleStyle = {
+                    ...particleStyle,
+                    width: "30px", 
+                    height: "100px", 
+                    backgroundImage: `url("${verticalRift}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `rift-effect 0.7s ease-in-out forwards`,
+                };
+                particleType = "vertical_rift";
+                break;
+            case "horizontal_rift":
+                particleStyle = {
+                    ...particleStyle,
+                    width: "100px", 
+                    height: "30px", 
+                    backgroundImage: `url("${horizontalRift}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `rift-effect 0.7s ease-in-out forwards`,
+                };
+                particleType = "horizontal_rift";
+                break;
+            case "space_effect":
+                const spaceGifs = [space1, space2];
+                const randomSpaceGif = spaceGifs[Math.floor(Math.random() * spaceGifs.length)];
+                particleStyle = {
+                    ...particleStyle,
+                    width: "70px",
+                    height: "70px",
+                    backgroundImage: `url("${randomSpaceGif}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `particle-effect 1.2s ease-out forwards`,
+                };
+                particleType = "space_effect";
+                break;
+            case "flame_gif":
+                particleStyle = {
+                    ...particleStyle,
+                    width: "50px",
+                    height: "70px",
+                    backgroundImage: `url("${flame}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `flame-effect 0.8s ease-out forwards`,
+                };
+                particleType = "flame_gif";
+                break;
+            case "sparkles_gif":
+                particleStyle = {
+                    ...particleStyle,
+                    width: "80px",
+                    height: "80px",
+                    backgroundImage: `url("${sparkles}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `particle-effect 1s ease-out forwards`,
+                };
+                particleType = "sparkles_gif";
+                break;
+            case "fireworks_colorful_gif":
+                const fireworksGifs = [threeColorfulFireworks, threeColorfulFireworks2];
+                const randomFireworksGif = fireworksGifs[Math.floor(Math.random() * fireworksGifs.length)];
+                particleStyle = {
+                    ...particleStyle,
+                    width: "100px",
+                    height: "100px",
+                    backgroundImage: `url("${randomFireworksGif}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `firework-particle-effect 1.5s ease-out forwards`,
+                };
+                particleType = "fireworks_colorful_gif";
+                break;
+            case "clippy_gif":
+                particleStyle = {
+                    ...particleStyle,
+                    width: "80px", 
+                    height: "80px",
+                    backgroundImage: `url("${clippy}")`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    animation: `particle-effect 1.5s ease-out forwards`, // Longer animation for Clippy to stay a bit
+                };
+                particleType = "clippy_gif";
+                break;
             default:
                 return null;
         }
@@ -176,6 +300,15 @@ export function Cursor() {
                                 {option.label}
                             </SelectItem>
                         ))}
+                        <SelectItem value="atom_explosion" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Atom Explosion</SelectItem>
+                        <SelectItem value="magic_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Magic GIF</SelectItem>
+                        <SelectItem value="vertical_rift" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Vertical Rift</SelectItem>
+                        <SelectItem value="horizontal_rift" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Horizontal Rift</SelectItem>
+                        <SelectItem value="space_effect" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Space Effect</SelectItem>
+                        <SelectItem value="flame_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Flame GIF</SelectItem>
+                        <SelectItem value="sparkles_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Sparkles GIF</SelectItem>
+                        <SelectItem value="fireworks_colorful_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Colorful Fireworks GIF</SelectItem>
+                        <SelectItem value="clippy_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Clippy GIF</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
