@@ -225,11 +225,14 @@
             // Show friday-bottom immediately
             if (fridayBottom) fridayBottom.classList.add('visible');
 
-            // Show friday-left and friday-right after a short delay
+            // Show friday-right when glass-div is in the middle
             setTimeout(() => {
-                if (fridayLeft) fridayLeft.classList.add('visible');
                 if (fridayRight) fridayRight.classList.add('visible');
-            }, 200); // 200ms delay
+                // Then show friday-left shortly after friday-right
+                setTimeout(() => {
+                    if (fridayLeft) fridayLeft.classList.add('visible');
+                }, 150); // 150ms delay after friday-right appears
+            }, slideAnimationDuration / 2); // Half of the slide animation duration
 
             glassDivElement = document.createElement('div');
             glassDivElement.className = 'glass-effect-div';
