@@ -24,36 +24,36 @@ body{
 }
 
 .friday-top{
-  top: 0;
+  top: -60px;
   left: 0;
 }
 
 .friday-bottom{
-  bottom: 0;
+  bottom: -60px;
   left: 0;
 }
 
 .friday-left{
   top: 50vh;
-  right: 0;
+  right: -60px;
   height: 10px;
   width: 100vh;
-  rotate: 90deg;
+  /* rotate: 90deg; */
 }
 
 .friday-right {
   top: 50vh;
-  left: 0;
+  left: -25%;
   height: 10px;
   width: 100vh;
-  rotate: 90deg;
+  /* rotate: 90deg; */
 }
 
 .friday-top span,
 .friday-bottom span
 {
   position: relative;
-  height: 20px;
+  height: 5vh;
   width: 4%;
 }
 
@@ -84,7 +84,8 @@ body{
     0 0 5px #0f0,
     0 0 15px #0f0,
     0 0 30px #0f0,
-    0 0 50px #0f0;
+    0 0 50px #0f0
+    ;
 }
 
 @keyframes animate {
