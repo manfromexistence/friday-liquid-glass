@@ -8,7 +8,14 @@ body {
   background: #000000;
   min-height: 100vh;
   position: relative;
-  overflow: hidden;
+}
+
+.content{
+  height: 200vh;
+  background: #080808;
+  padding: 20px;
+  color: #ccc;
+  padding-top: 100px;
 }
 
 .friday-top,
@@ -116,9 +123,8 @@ body {
   height: 0;
 
   background: rgba(0, 0, 0, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(0.5px);
-  -webkit-backdrop-filter: blur(0.5px);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
 
   z-index: 9999;
 }
