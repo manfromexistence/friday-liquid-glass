@@ -19,7 +19,7 @@ let config = {
     COLORFUL: true,
     COLOR_UPDATE_SPEED: 10,
     PAUSED: false,
-    BACK_COLOR: { r: 0, g: 0, b: 0 },
+    BACK_COLOR: { r: 0, g: 0, b: 0 }, // This will be updated
     TRANSPARENT: false,
     BLOOM: false,
     BLOOM_ITERATIONS: 8,
@@ -30,6 +30,73 @@ let config = {
     SUNRAYS: true,
     SUNRAYS_RESOLUTION: 196,
     SUNRAYS_WEIGHT: 1.0,
+}
+
+// Function to parse Oklch CSS string e.g., "oklch(0.7 0.15 20)" or "oklch(70% 0.15 20deg)"
+function parseOklchCssString(oklchStr) {
+    if (!oklchStr || typeof oklchStr !== 'string' || !oklchStr.toLowerCase().startsWith('oklch(')) {
+        // console.warn('Invalid or non-string Oklch value for parsing:', oklchStr);
+        return null;
+    }
+    // Matches: oklch( L C H ) - L can have %, H can have deg. Ignores alpha for now.
+    const match = oklchStr.match(/oklch\(\s*([0-9.]+)(%?)\s+([0-9.]+)\s+([0-9.]+)(deg)?\s*(?:\/\s*[\d.%]+)?\s*\)/i);
+
+    if (match) {
+        let l = parseFloat(match[1]);
+        if (match[2] === '%') l /= 100; // Convert L from percentage to 0-1 range
+        l = Math.max(0, Math.min(1, l)); // Clamp L to 0-1 for color-convert
+
+        const c = parseFloat(match[3]);
+        let h = parseFloat(match[4]);
+        // const hUnitIsDeg = match[5] === 'deg'; // 'deg' is optional, hue is assumed to be in degrees
+
+        h = ((h % 360) + 360) % 360; // Normalize H to 0-360 range
+
+        // color-convert expects [L, C, H] with L (0-1), C (chroma), H (degrees 0-360)
+        return [l, c, h];
+    }
+    // console.warn('Could not parse Oklch string with regex:', oklchStr);
+    return null;
+}
+
+function updateBackColorFromCssVariable() {
+    try {
+        // Ensure color-convert is loaded
+        if (typeof convert === 'undefined' || !convert.oklch || !convert.oklch.rgb) {
+            console.warn('color-convert library or oklch module not available. BACK_COLOR not updated from CSS.');
+            return;
+        }
+
+        const oklchCssVar = getComputedStyle(document.documentElement).getPropertyValue('--background').trim();
+
+        if (oklchCssVar) {
+            const oklchValues = parseOklchCssString(oklchCssVar);
+            if (oklchValues) {
+                const rgbArray = convert.oklch.rgb(oklchValues); // Returns [R, G, B] (0-255)
+                config.BACK_COLOR = {
+                    r: Math.round(rgbArray[0]),
+                    g: Math.round(rgbArray[1]),
+                    b: Math.round(rgbArray[2])
+                };
+                console.log('Updated config.BACK_COLOR from CSS --background:', config.BACK_COLOR);
+            } else {
+                console.warn('Failed to parse --background CSS variable as Oklch. Using default BACK_COLOR.');
+            }
+        } else {
+            // console.log('CSS variable --background not found. Using default BACK_COLOR.');
+        }
+    } catch (error) {
+        console.error('Error updating BACK_COLOR from CSS --background variable:', error);
+    }
+}
+
+// Attempt to update BACK_COLOR from CSS custom property --background
+// This should run after the DOM is ready to ensure CSS variables are available.
+if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', updateBackColorFromCssVariable);
+} else {
+    // DOMContentLoaded has already fired
+    updateBackColorFromCssVariable();
 }
 
 function pointerPrototype () {
