@@ -3,5 +3,7 @@ git clone https://github.com/sadmann7/shadcn-table.git table && cd table && rm -
 git clone https://github.com/gantoreno/vscode-vercel.git vscode-vercel && cd vscode-vercel && rm -rf .git && cd ..
 git clone https://github.com/hoovercj/vscode-power-mode power-mode && cd power-mode && rm -rf .git && cd ..
 git clone https://github.com/PavelDoGreat/WebGL-Fluid-Simulation fluid && cd fluid && rm -rf .git && cd ..
+git clone https://github.com/Qix-/color-convert colors && cd colors && rm -rf .git && cd ..
+git clone https://github.com/Evercoder/culori color && cd color && rm -rf .git && cd ..
 
 
