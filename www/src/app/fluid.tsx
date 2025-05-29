@@ -182,7 +182,7 @@ export default function Fluid() {
                  if (window.fluidInterop && !fluidConfig) { // Initialize if not already set
                     setFluidConfig(window.fluidInterop.getConfig());
                 }
-            }/>
+            }}/>
             <canvas className="h-full w-full rounded-md"></canvas>
 
             <Sheet open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
