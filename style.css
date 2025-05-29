@@ -18,31 +18,29 @@ body {
   position: fixed;
   width: 100%;
   display: flex;
-
-  /* gap: 15px; */
 }
 
 .friday-top {
-  top: -60px;
+  top: -100px;
   left: 0;
 }
 
 .friday-bottom {
-  bottom: -60px;
+  bottom: -100px;
   left: 0;
 }
 
 .friday-left {
-  top: 50vh;
-  right: 110px;
+  top: calc(50vh - 5px);
+  right: calc(-30px - 50vh);
   height: 10px;
   width: 100vh;
   rotate: 90deg;
 }
 
 .friday-right {
-  top: 50vh;
-  left: 110px;
+  top: calc(50vh - 5px);
+  left: calc(-20px - 50vh);
   height: 10px;
   width: 100vh;
   rotate: 90deg;
@@ -51,8 +49,8 @@ body {
 .friday-top span,
 .friday-bottom span {
   position: relative;
-  height: 5vh;
-  width: 4%;
+  height: 13vh;
+  width: 40%;
 }
 
 .friday-left span,
