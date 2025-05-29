@@ -28,22 +28,9 @@ body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease-in-out, visibility 0s linear 0.5s;
-  /* visibility hidden after 0.5s when opacity becomes 0 */
   z-index: 9998;
 }
 
-/* REMOVE THE FOLLOWING BLOCK 
-body.friday-effect-enabled .friday-top,
-body.friday-effect-enabled .friday-bottom,
-body.friday-effect-enabled .friday-left,
-body.friday-effect-enabled .friday-right {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.5s ease-in-out, visibility 0s linear 0s;
-}
-*/
-
-/* ADD THIS BLOCK for individual visibility control */
 .friday-top.visible,
 .friday-bottom.visible,
 .friday-left.visible,
@@ -98,7 +85,6 @@ body.friday-effect-enabled .friday-right {
   content: "";
   position: absolute;
   animation: animate-top-bottom 10s linear infinite;
-  /* Changed animation name */
   animation-delay: calc(var(--i)*0.1s);
   rotate: 90deg;
   background: #0f0;
@@ -118,7 +104,6 @@ body.friday-effect-enabled .friday-right {
   content: "";
   position: absolute;
   animation: animate-sides 10s linear infinite;
-  /* Changed animation name */
   animation-delay: calc(var(--i)*0.1s);
   rotate: 90deg;
   background: #0f0;
@@ -135,7 +120,6 @@ body.friday-effect-enabled .friday-right {
 
 @keyframes animate-top-bottom {
 
-  /* New keyframe for top/bottom */
   0% {
     filter: hue-rotate(0deg);
   }
@@ -158,8 +142,6 @@ body.friday-effect-enabled .friday-right {
 }
 
 @keyframes animate-sides {
-
-  /* Renamed original keyframe for left/right */
   0% {
     filter: hue-rotate(0deg);
   }
@@ -199,7 +181,6 @@ body.friday-effect-enabled .friday-right {
 
 .glass-effect-div {
   position: fixed;
-  /* Changed from absolute to fixed */
   left: 0;
   bottom: 0;
   width: 100%;
@@ -208,7 +189,6 @@ body.friday-effect-enabled .friday-right {
   background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(2.5px);
   -webkit-backdrop-filter: blur(2.5px);
-  /* animation: animate 10s linear infinite; */
 
   z-index: 9999;
 }
@@ -223,55 +203,4 @@ body.friday-effect-enabled .friday-right {
     height: 100vh;
     bottom: 0;
   }
-}
-
-/* @keyframes animateBoxShadow {
-  0% {
-    box-shadow:
-      0 8px 32px 0 rgba(31, 38, 135, 0.37),
-      0 0 5px #0f0,
-      0 0 15px #0f0;
-  }
-  100% {
-    box-shadow:
-      0 8px 32px 0 rgba(31, 38, 135, 0.37),
-      0 0 10px #00f,
-      0 0 25px #00f;
-  }
-} */
-
-/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
-/** {
-  scrollbar-width: thin;
-  scrollbar-color: #020501 #616566;
-}*/
-
-/* Chrome, Edge and Safari */
-*::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
-}
-
-*::-webkit-scrollbar-track {
-  background-color: #000000;
-}
-
-*::-webkit-scrollbar-track:hover {
-  background-color: #0e0e0e;
-}
-
-*::-webkit-scrollbar-track:active {
-  background-color: #222222;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #252525;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background-color: #222222;
-}
-
-*::-webkit-scrollbar-thumb:active {
-  background-color: #2c2c2c;
 }

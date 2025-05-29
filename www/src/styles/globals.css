@@ -184,6 +184,147 @@
   }
 }
 
+.friday-top,
+.friday-bottom,
+.friday-left,
+.friday-right {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  z-index: 9998;
+}
+
+.friday-top {
+  top: -6.85rem;
+  left: 0;
+}
+
+.friday-bottom {
+  bottom: -6.85rem;
+  left: 0;
+}
+
+.friday-left {
+  top: calc(50vh - 5px);
+  right: calc(-30px - 50vh);
+  height: 10px;
+  width: 100vh;
+  transform: rotate(90deg);
+}
+
+.friday-right {
+  top: calc(50vh - 5px);
+  left: calc(-20px - 50vh);
+  height: 10px;
+  width: 100vh;
+  transform: rotate(90deg);
+}
+
+.friday-top span,
+.friday-bottom span {
+  position: relative;
+  height: 15vh;
+  width: 40vh;
+}
+
+.friday-left span,
+.friday-right span {
+  position: relative;
+  height: 2vh;
+  width: 4%;
+}
+
+.friday-top span::before,
+.friday-bottom span::before {
+  content: "";
+  position: absolute;
+  animation: animate-top-bottom 10s linear infinite;
+  animation-delay: calc(var(--i)*0.1s);
+  background: var(--color-primary);
+  top: -9px;
+  bottom: -9px;
+  left: -5px;
+  right: -5px;
+  box-shadow:
+    0 0 4px var(--color-primary),
+    0 0 12px var(--color-primary),
+    0 0 25px var(--color-primary),
+    0 0 40px var(--color-primary);
+}
+
+.friday-left span::before,
+.friday-right span::before {
+  content: "";
+  position: absolute;
+  animation: animate-sides 10s linear infinite;
+  animation-delay: calc(var(--i)*0.1s);
+  background: var(--color-primary);
+  top: -9px;
+  bottom: -9px;
+  left: -5px;
+  right: -5px;
+  box-shadow:
+    0 0 4px var(--color-primary),
+    0 0 12px var(--color-primary),
+    0 0 25px var(--color-primary),
+    0 0 40px var(--color-primary);
+}
+
+@keyframes animate-top-bottom {
+
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  25% {
+    filter: hue-rotate(90deg);
+  }
+
+  50% {
+    filter: hue-rotate(180deg);
+  }
+
+  75% {
+    filter: hue-rotate(270deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes animate-sides {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  25% {
+    filter: hue-rotate(90deg);
+  }
+
+  50% {
+    filter: hue-rotate(180deg);
+  }
+
+  75% {
+    filter: hue-rotate(270deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.glass-effect-div {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background: var(--bg-background);
+  backdrop-filter: blur(2.5px);
+  -webkit-backdrop-filter: blur(2.5px);
+  z-index: 9999;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

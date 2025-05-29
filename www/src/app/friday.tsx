@@ -1,16 +1,90 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Button } from "@/components/ui/button"; // Added import for Shadcn UI Button
 
 export function Friday() {
+    const [isFridayActive, setIsFridayActive] = useState(false);
+
+    const lineElements = Array.from({ length: 25 });
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: { opacity: 1, transition: { duration: 0.5 } },
+    };
+
+    const glassVariants = {
+        hidden: { height: "0vh", opacity: 0 },
+        visible: { height: "100vh", opacity: 1, transition: { duration: 0.7, ease: "easeInOut" } },
+    };
+
     return (
         <>
-            <motion.div
-                className=""
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            <Button
+                onClick={() => setIsFridayActive(!isFridayActive)}
+                className="fixed bottom-5 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-md z-[10000] transition-colors shadow-[0_0_10px_var(--primary),0_0_20px_var(--primary)]"
+                aria-label={isFridayActive ? "Deactivate Friday Effect" : "Activate Friday Effect"}
             >
-                Friday
-            </motion.div>
+                {isFridayActive ? "Deactivate" : "Activate"} Friday Effect
+            </Button>
+
+            <AnimatePresence>
+                {isFridayActive && (
+                    <>
+                        <motion.div
+                            className="friday-top"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            {lineElements.map((_, i) => (
+                                <span style={{ "--i": i + 1 } as React.CSSProperties} key={`top-${i}`}></span>
+                            ))}
+                        </motion.div>
+                        <motion.div
+                            className="friday-bottom"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            {lineElements.map((_, i) => (
+                                <span style={{ "--i": i + 1 } as React.CSSProperties} key={`bottom-${i}`}></span>
+                            ))}
+                        </motion.div>
+                        <motion.div
+                            className="friday-left"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            {lineElements.map((_, i) => (
+                                <span style={{ "--i": i + 1 } as React.CSSProperties} key={`left-${i}`}></span>
+                            ))}
+                        </motion.div>
+                        <motion.div
+                            className="friday-right"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            {lineElements.map((_, i) => (
+                                <span style={{ "--i": i + 1 } as React.CSSProperties} key={`right-${i}`}></span>
+                            ))}
+                        </motion.div>
+
+                        <motion.div
+                            className="glass-effect-div"
+                            variants={glassVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        />
+                    </>
+                )}
+            </AnimatePresence>
         </>
     );
 }
