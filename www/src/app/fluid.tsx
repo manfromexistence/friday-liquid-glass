@@ -95,12 +95,12 @@ export default function Fluids() {
 
         const initialConfig = window.fluidSim.config;
         const backgroundColorRgb = getCssBackgroundAsRgb();
-        
+
         const newConfig = {
             ...initialConfig,
             BACK_COLOR: backgroundColorRgb,
         };
-        
+
         setSimConfig(newConfig);
         window.fluidSim.config = { ...window.fluidSim.config, ...newConfig }; // Update the global config
         if (window.fluidSim.initFramebuffers) {
@@ -121,15 +121,15 @@ export default function Fluids() {
                         if (currentFluidSim.config.BACK_COLOR.r !== updatedBgColor.r ||
                             currentFluidSim.config.BACK_COLOR.g !== updatedBgColor.g ||
                             currentFluidSim.config.BACK_COLOR.b !== updatedBgColor.b) {
-                            
-                            setSimConfig(prev => ({...prev, BACK_COLOR: updatedBgColor}));
+
+                            setSimConfig(prev => ({ ...prev, BACK_COLOR: updatedBgColor }));
                             currentFluidSim.config.BACK_COLOR = updatedBgColor;
                             // No need to call initFramebuffers here usually, as BACK_COLOR is often used at draw time
                             // but if it's used in a buffer, then it might be needed.
                             // For now, let's assume it's used at draw time.
                         }
                     }
-                    break; 
+                    break;
                 }
             }
         });
@@ -159,7 +159,7 @@ export default function Fluids() {
             window.fluidSim.updateKeywords();
         }
     }, [isClient]);
-    
+
     const handleSliderChange = <K extends keyof FluidConfig>(key: K, value: number[]) => {
         handleConfigChange(key, value[0] as FluidConfig[K]);
     };
@@ -167,9 +167,9 @@ export default function Fluids() {
     const handleSwitchChange = <K extends keyof FluidConfig>(key: K, checked: boolean) => {
         handleConfigChange(key, checked as FluidConfig[K]);
     };
-    
+
     const handleSelectChange = <K extends keyof FluidConfig>(key: K, value: string) => {
-         handleConfigChange(key, parseInt(value, 10) as FluidConfig[K]);
+        handleConfigChange(key, parseInt(value, 10) as FluidConfig[K]);
     };
 
     const randomSplat = () => {
@@ -177,7 +177,7 @@ export default function Fluids() {
             window.fluidSim.splatStack.push(parseInt((Math.random() * 20).toString()) + 5);
         }
     };
-    
+
     const takeScreenshot = () => {
         if (isClient && window.fluidSim && window.fluidSim.captureScreenshot) {
             window.fluidSim.captureScreenshot();
@@ -195,9 +195,10 @@ export default function Fluids() {
                       ga('send', 'pageview');`
                     }
                 </Script>
+                <Script src="https://unpkg.com/color-convert" strategy="lazyOnload" />
                 <Script src="/script.js" strategy="lazyOnload" />
                 <canvas className="h-full w-full rounded-md border"></canvas>
-                 <div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md border hover:bg-primary-foreground">
+                <div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md border hover:bg-primary-foreground">
                     <Cog className="h-4 w-4 animate-spin" />
                 </div>
             </div>
@@ -207,6 +208,7 @@ export default function Fluids() {
 
     return (
         <div className="relative h-full w-full">
+            <Script src="https://unpkg.com/color-convert" strategy="lazyOnload" />
             <Script id="show-fluids" strategy="lazyOnload">
                 {`
                   window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -225,10 +227,10 @@ export default function Fluids() {
                         BACK_COLOR: backgroundColorRgb,
                     };
                     setSimConfig(newConfig);
-                    if(window.fluidSim) {
+                    if (window.fluidSim) {
                         window.fluidSim.config = { ...window.fluidSim.config, ...newConfig };
-                         if (window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
-                         if (window.fluidSim.updateKeywords) window.fluidSim.updateKeywords();
+                        if (window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
+                        if (window.fluidSim.updateKeywords) window.fluidSim.updateKeywords();
                     }
                 }
             }} />
@@ -263,7 +265,7 @@ export default function Fluids() {
                                     </div>
                                     <div className="grid grid-cols-3 items-center gap-4">
                                         <Label htmlFor="dye-resolution">Dye Res</Label>
-                                         <Select value={simConfig.DYE_RESOLUTION?.toString()} onValueChange={(val) => handleSelectChange("DYE_RESOLUTION", val)}>
+                                        <Select value={simConfig.DYE_RESOLUTION?.toString()} onValueChange={(val) => handleSelectChange("DYE_RESOLUTION", val)}>
                                             <SelectTrigger id="dye-resolution" className="col-span-2 h-8">
                                                 <SelectValue placeholder="Select resolution" />
                                             </SelectTrigger>
@@ -273,27 +275,27 @@ export default function Fluids() {
                                         </Select>
                                     </div>
 
-                                    <ControlSlider icon={<Droplets className="h-4 w-4 text-muted-foreground"/>} label="Density Diff." value={simConfig.DENSITY_DISSIPATION} step={0.01} min={0} max={4} onChange={(val) => handleSliderChange("DENSITY_DISSIPATION", val)} />
-                                    <ControlSlider icon={<Wind className="h-4 w-4 text-muted-foreground"/>} label="Velocity Diff." value={simConfig.VELOCITY_DISSIPATION} step={0.01} min={0} max={4} onChange={(val) => handleSliderChange("VELOCITY_DISSIPATION", val)} />
-                                    <ControlSlider icon={<Waves className="h-4 w-4 text-muted-foreground"/>} label="Pressure" value={simConfig.PRESSURE} step={0.01} min={0} max={1} onChange={(val) => handleSliderChange("PRESSURE", val)} />
-                                    <ControlSlider icon={<RefreshCw className="h-4 w-4 text-muted-foreground"/>} label="Vorticity" value={simConfig.CURL} step={1} min={0} max={50} onChange={(val) => handleSliderChange("CURL", val)} />
-                                    <ControlSlider icon={<ChevronsUpDown className="h-4 w-4 text-muted-foreground"/>} label="Splat Radius" value={simConfig.SPLAT_RADIUS} step={0.01} min={0.01} max={1} onChange={(val) => handleSliderChange("SPLAT_RADIUS", val)} />
-                                    
-                                    <ControlSwitch icon={<Palette className="h-4 w-4 text-muted-foreground"/>} label="Shading" checked={simConfig.SHADING} onChange={(val) => handleSwitchChange("SHADING", val)} />
-                                    <ControlSwitch icon={<Palette className="h-4 w-4 text-muted-foreground"/>} label="Colorful" checked={simConfig.COLORFUL} onChange={(val) => handleSwitchChange("COLORFUL", val)} />
-                                    <ControlSwitch icon={<Aperture className="h-4 w-4 text-muted-foreground"/>} label="Bloom" checked={simConfig.BLOOM} onChange={(val) => handleSwitchChange("BLOOM", val)} />
+                                    <ControlSlider icon={<Droplets className="h-4 w-4 text-muted-foreground" />} label="Density Diff." value={simConfig.DENSITY_DISSIPATION} step={0.01} min={0} max={4} onChange={(val) => handleSliderChange("DENSITY_DISSIPATION", val)} />
+                                    <ControlSlider icon={<Wind className="h-4 w-4 text-muted-foreground" />} label="Velocity Diff." value={simConfig.VELOCITY_DISSIPATION} step={0.01} min={0} max={4} onChange={(val) => handleSliderChange("VELOCITY_DISSIPATION", val)} />
+                                    <ControlSlider icon={<Waves className="h-4 w-4 text-muted-foreground" />} label="Pressure" value={simConfig.PRESSURE} step={0.01} min={0} max={1} onChange={(val) => handleSliderChange("PRESSURE", val)} />
+                                    <ControlSlider icon={<RefreshCw className="h-4 w-4 text-muted-foreground" />} label="Vorticity" value={simConfig.CURL} step={1} min={0} max={50} onChange={(val) => handleSliderChange("CURL", val)} />
+                                    <ControlSlider icon={<ChevronsUpDown className="h-4 w-4 text-muted-foreground" />} label="Splat Radius" value={simConfig.SPLAT_RADIUS} step={0.01} min={0.01} max={1} onChange={(val) => handleSliderChange("SPLAT_RADIUS", val)} />
+
+                                    <ControlSwitch icon={<Palette className="h-4 w-4 text-muted-foreground" />} label="Shading" checked={simConfig.SHADING} onChange={(val) => handleSwitchChange("SHADING", val)} />
+                                    <ControlSwitch icon={<Palette className="h-4 w-4 text-muted-foreground" />} label="Colorful" checked={simConfig.COLORFUL} onChange={(val) => handleSwitchChange("COLORFUL", val)} />
+                                    <ControlSwitch icon={<Aperture className="h-4 w-4 text-muted-foreground" />} label="Bloom" checked={simConfig.BLOOM} onChange={(val) => handleSwitchChange("BLOOM", val)} />
                                     {simConfig.BLOOM && (
                                         <>
-                                            <ControlSlider icon={<Settings2 className="h-4 w-4 text-muted-foreground"/>} label="Bloom Intensity" value={simConfig.BLOOM_INTENSITY} step={0.1} min={0.1} max={2} onChange={(val) => handleSliderChange("BLOOM_INTENSITY", val)} />
-                                            <ControlSlider icon={<Settings2 className="h-4 w-4 text-muted-foreground"/>} label="Bloom Threshold" value={simConfig.BLOOM_THRESHOLD} step={0.01} min={0} max={1} onChange={(val) => handleSliderChange("BLOOM_THRESHOLD", val)} />
+                                            <ControlSlider icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Bloom Intensity" value={simConfig.BLOOM_INTENSITY} step={0.1} min={0.1} max={2} onChange={(val) => handleSliderChange("BLOOM_INTENSITY", val)} />
+                                            <ControlSlider icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Bloom Threshold" value={simConfig.BLOOM_THRESHOLD} step={0.01} min={0} max={1} onChange={(val) => handleSliderChange("BLOOM_THRESHOLD", val)} />
                                         </>
                                     )}
-                                    <ControlSwitch icon={<Sun className="h-4 w-4 text-muted-foreground"/>} label="Sunrays" checked={simConfig.SUNRAYS} onChange={(val) => handleSwitchChange("SUNRAYS", val)} />
+                                    <ControlSwitch icon={<Sun className="h-4 w-4 text-muted-foreground" />} label="Sunrays" checked={simConfig.SUNRAYS} onChange={(val) => handleSwitchChange("SUNRAYS", val)} />
                                     {simConfig.SUNRAYS && (
-                                        <ControlSlider icon={<Settings2 className="h-4 w-4 text-muted-foreground"/>} label="Sunrays Weight" value={simConfig.SUNRAYS_WEIGHT} step={0.01} min={0.3} max={1} onChange={(val) => handleSliderChange("SUNRAYS_WEIGHT", val)} />
+                                        <ControlSlider icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Sunrays Weight" value={simConfig.SUNRAYS_WEIGHT} step={0.01} min={0.3} max={1} onChange={(val) => handleSliderChange("SUNRAYS_WEIGHT", val)} />
                                     )}
-                                    <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground"/>} label="Paused" checked={simConfig.PAUSED} onChange={(val) => handleSwitchChange("PAUSED", val)} />
-                                    <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground"/>} label="Transparent BG" checked={simConfig.TRANSPARENT} onChange={(val) => {
+                                    <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Paused" checked={simConfig.PAUSED} onChange={(val) => handleSwitchChange("PAUSED", val)} />
+                                    <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Transparent BG" checked={simConfig.TRANSPARENT} onChange={(val) => {
                                         handleSwitchChange("TRANSPARENT", val);
                                         // If turning transparency on, ensure back_color alpha is 0, otherwise restore it or set to opaque
                                         // This part of script.js might need adjustment to respect an alpha channel if it doesn't already
@@ -302,7 +304,7 @@ export default function Fluids() {
                                             // Transparency is a separate flag. If it's set to true, the script.js
                                             // should handle making the canvas background transparent.
                                             // We might need to call initFramebuffers if transparency changes how buffers are set up.
-                                            if(window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
+                                            if (window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
                                         }
                                     }} />
 
@@ -368,9 +370,9 @@ interface ControlSwitchProps {
 function ControlSwitch({ icon, label, checked, onChange }: ControlSwitchProps) {
     return (
         <div className="flex items-center justify-between space-x-2 py-1">
-             <Label htmlFor={label.toLowerCase().replace(" ", "-")} className="flex items-center">
+            <Label htmlFor={label.toLowerCase().replace(" ", "-")} className="flex items-center">
                 {icon}
-               <span className="ml-2"> {label}</span>
+                <span className="ml-2"> {label}</span>
             </Label>
             <Switch
                 id={label.toLowerCase().replace(" ", "-")}
