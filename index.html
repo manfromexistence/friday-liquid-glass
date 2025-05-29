@@ -141,8 +141,8 @@
     let glassDivElement = null;
 
     // Spring scroll parameters
-    const stiffness = 0.04;
-    const damping = 0.15;
+    const stiffness = 0.03; // Adjusted for smoother effect
+    const damping = 0.20; // Adjusted for smoother effect
     const mass = 1;
     let scrollVelocity = 0;
 
@@ -219,7 +219,7 @@
         const targetScrollDown = initialScrollY + littleScrollAmount;
         // Ensure we don't scroll beyond the document height
         const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        animatedScroll(Math.min(targetScrollDown, maxScroll), slideAnimationDuration * 0.8); // Scroll a bit faster than div animates
+        animatedScroll(Math.min(targetScrollDown, maxScroll), slideAnimationDuration * 0.9); // Adjusted for smoother effect
 
         glassDivElement.addEventListener('animationend', function handleAnimationEnd(event) {
             if (event.animationName === 'slideUp') {
@@ -227,7 +227,15 @@
                     glassDivElement.remove();
                 }
                 glassDivElement = null;
-                springScrollTo(initialScrollY);
+                const jiggleAmount = 30; // pixels for the additional spring jiggle
+                // The main spring scroll to revert to the initial position.
+                springScrollTo(initialScrollY, () => {
+                    // This callback executes after the page has reverted to initialScrollY.
+                    // Now, add the subsequent "jiggle" spring effect.
+                    springScrollTo(initialScrollY - jiggleAmount, () => {
+                        springScrollTo(initialScrollY); // Spring back to the final resting position
+                    });
+                });
             }
         });
     });
