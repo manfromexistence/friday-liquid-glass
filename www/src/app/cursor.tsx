@@ -36,6 +36,32 @@ import {
     clippy
  } from "./data";
 
+const effectColorPalettes: Record<string, string[]> = {
+    particles: ["#FF6B6B", "#FFD166", "#06D6A0", "#118AB2", "#073B4C"],
+    fireworks: ["#FF0000", "#FFA500", "#FFFF00", "#FFFFFF", "#FF4500", "#FFD700"],
+    flames: ["#FF4500", "#FFA500", "#FF8C00", "#FFD700", "#DC143C"],
+    magic: ["#9B59B6", "#3498DB", "#E74C3C", "#F1C40F", "#2ECC71", "#FFFFFF", "#C0C0C0"],
+    rift: ["#2c3e50", "#34495e", "#7f8c8d", "#95a5a6", "#000000"],
+    atom_explosion: [], // GIF based
+    magic_gif: [], // GIF based
+    vertical_rift: [], // GIF based
+    horizontal_rift: [], // GIF based
+    space_effect: [], // GIF based
+    flame_gif: [], // GIF based
+    sparkles_gif: [], // GIF based
+    fireworks_colorful_gif: [], // GIF based
+    clippy_gif: [], // GIF based
+    none: [],
+};
+
+interface Particle {
+    id: number;
+    x: number;
+    y: number;
+    style: React.CSSProperties;
+    type: string;
+}
+
 export function Cursor() {
     const [inputValue, setInputValue] = useState("");
     const [selectedEffect, setSelectedEffect] = useState("none");
