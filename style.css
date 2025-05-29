@@ -105,7 +105,6 @@ body.friday-effect-enabled .friday-right {
   0% {
     filter: hue-rotate(0deg);
   }
-
   100% {
     filter: hue-rotate(360deg);
   }
@@ -138,6 +137,7 @@ body.friday-effect-enabled .friday-right {
   background: rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(2.5px);
   -webkit-backdrop-filter: blur(2.5px);
+  animation: animate 10s linear infinite;
 
   z-index: 9999;
 }
@@ -154,7 +154,7 @@ body.friday-effect-enabled .friday-right {
   }
 }
 
-@keyframes animateBoxShadow {
+/* @keyframes animateBoxShadow {
   0% {
     box-shadow:
       0 8px 32px 0 rgba(31, 38, 135, 0.37),
@@ -167,7 +167,7 @@ body.friday-effect-enabled .friday-right {
       0 0 10px #00f,
       0 0 25px #00f;
   }
-}
+} */
 
 /* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
 /** {

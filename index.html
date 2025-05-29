@@ -197,49 +197,61 @@
     }
 
     fridayButton.addEventListener('click', () => {
-        if (document.querySelector('.glass-effect-div')) {
-            return; 
-        }
-        document.body.classList.add('friday-effect-enabled'); // Add class to body
-
-        initialScrollY = window.scrollY;
-
-        glassDivElement = document.createElement('div');
-        glassDivElement.className = 'glass-effect-div';
-        
-        // Set combined animation property for the glass div
-        glassDivElement.style.animation = 
-            `slideUp ${slideAnimationDuration / 1000}s ease-out forwards, ` +
-            `animate 10s linear infinite, ` + 
-            `animateBoxShadow 2s ease-in-out infinite alternate`;
-
-        document.body.appendChild(glassDivElement);
-        void glassDivElement.offsetWidth;
-
-
-        const targetScrollDown = initialScrollY + littleScrollAmount;
-        // Ensure we don't scroll beyond the document height
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        animatedScroll(Math.min(targetScrollDown, maxScroll), slideAnimationDuration * 0.9); // Adjusted for smoother effect
-
-        glassDivElement.addEventListener('animationend', function handleAnimationEnd(event) {
-            if (event.animationName === 'slideUp') {
-                if (glassDivElement && glassDivElement.parentNode) {
-                    glassDivElement.remove();
-                }
-                glassDivElement = null;
-                document.body.classList.remove('friday-effect-enabled'); // Remove class from body
-                const jiggleAmount = 30; // pixels for the additional spring jiggle
-                // The main spring scroll to revert to the initial position.
-                springScrollTo(initialScrollY, () => {
-                    // This callback executes after the page has reverted to initialScrollY.
-                    // Now, add the subsequent "jiggle" spring effect.
-                    springScrollTo(initialScrollY - jiggleAmount, () => {
-                        springScrollTo(initialScrollY); // Spring back to the final resting position
-                    });
-                });
+        if (document.body.classList.contains('friday-effect-enabled')) {
+            // ---- DEACTIVATE ----
+            document.body.classList.remove('friday-effect-enabled');
+            fridayButton.textContent = 'Activate Friday Effect';
+            if (glassDivElement && glassDivElement.parentNode) {
+                glassDivElement.remove(); // Remove if it exists during deactivation
             }
-        });
+            glassDivElement = null; // Ensure it's nulled
+            // Note: Ongoing scroll animations are not explicitly stopped here,
+            // as the primary request is about the visibility of border elements.
+        } else {
+            // ---- ACTIVATE ----
+            document.body.classList.add('friday-effect-enabled');
+            fridayButton.textContent = 'Deactivate Friday Effect';
+
+            initialScrollY = window.scrollY;
+
+            glassDivElement = document.createElement('div');
+            glassDivElement.className = 'glass-effect-div';
+            
+            // Set combined animation property for the glass div
+            glassDivElement.style.animation = 
+                `slideUp ${slideAnimationDuration / 1000}s ease-out forwards, ` +
+                `animate 10s linear infinite, ` + 
+                `animateBoxShadow 2s ease-in-out infinite alternate`;
+
+            document.body.appendChild(glassDivElement);
+            void glassDivElement.offsetWidth; // Trigger reflow for animation
+
+            const targetScrollDown = initialScrollY + littleScrollAmount;
+            // Ensure we don't scroll beyond the document height
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            animatedScroll(Math.min(targetScrollDown, maxScroll), slideAnimationDuration * 0.9); // Adjusted for smoother effect
+
+            glassDivElement.addEventListener('animationend', function handleAnimationEnd(event) {
+                if (event.animationName === 'slideUp') {
+                    if (glassDivElement && glassDivElement.parentNode) {
+                        glassDivElement.remove();
+                    }
+                    glassDivElement = null; // Nullify after removal
+                    // DO NOT remove 'friday-effect-enabled' from body here.
+                    // DO NOT change button text here.
+                    
+                    const jiggleAmount = 30; // pixels for the additional spring jiggle
+                    // The main spring scroll to revert to the initial position.
+                    springScrollTo(initialScrollY, () => {
+                        // This callback executes after the page has reverted to initialScrollY.
+                        // Now, add the subsequent "jiggle" spring effect.
+                        springScrollTo(initialScrollY - jiggleAmount, () => {
+                            springScrollTo(initialScrollY); // Spring back to the final resting position
+                        });
+                    });
+                }
+            });
+        }
     });
   </script>
 </body>
