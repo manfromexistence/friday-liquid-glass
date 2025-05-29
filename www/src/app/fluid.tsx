@@ -11,6 +11,11 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+// LocalStorage keys (should match fluid.js)
+const FLUID_CONFIG_KEY = 'fluidSimulationConfig';
+const FLUID_ACTION_SPLAT_KEY = 'fluidActionSplat';
+const FLUID_ACTION_SCREENSHOT_KEY = 'fluidActionScreenshot';
+
 // Define the structure of the simulation config for type safety
 interface FluidConfig {
     SIM_RESOLUTION: number;
@@ -40,22 +45,35 @@ interface FluidConfig {
     SUNRAYS_WEIGHT: number;
 }
 
-// Extend window interface to inform TypeScript about fluidSim
-declare global {
-    interface Window {
-        fluidSim?: {
-            config: FluidConfig;
-            initFramebuffers: () => void;
-            updateKeywords: () => void;
-            splatStack: number[];
-            captureScreenshot: () => void;
-            gl?: WebGLRenderingContext | WebGL2RenderingContext;
-            // Add other exposed functions/properties if any
-            randomSplats?: () => void;
-        };
-        ga?: any; // For existing Google Analytics code
-    }
-}
+// Default config for fluid.tsx if nothing in localStorage
+const defaultFluidConfig: FluidConfig = {
+    SIM_RESOLUTION: 128,
+    DYE_RESOLUTION: 1024,
+    CAPTURE_RESOLUTION: 512,
+    DENSITY_DISSIPATION: 1,
+    VELOCITY_DISSIPATION: 0.2,
+    PRESSURE: 0.8,
+    PRESSURE_ITERATIONS: 20,
+    CURL: 30,
+    SPLAT_RADIUS: 0.25,
+    SPLAT_FORCE: 6000,
+    SHADING: true,
+    COLORFUL: true,
+    COLOR_UPDATE_SPEED: 10,
+    PAUSED: false,
+    BACK_COLOR: { r: 0, g: 0, b: 0 },
+    TRANSPARENT: false,
+    BLOOM: false,
+    BLOOM_ITERATIONS: 8,
+    BLOOM_RESOLUTION: 256,
+    BLOOM_INTENSITY: 0.8,
+    BLOOM_THRESHOLD: 0.6,
+    BLOOM_SOFT_KNEE: 0.7,
+    SUNRAYS: true,
+    SUNRAYS_RESOLUTION: 196,
+    SUNRAYS_WEIGHT: 1.0,
+};
+
 
 export default function Fluids() {
     const [settingsOpen, setSettingsOpen] = useState(false);
@@ -82,53 +100,49 @@ export default function Fluids() {
                     }
                 } catch (error) {
                     console.error("Error parsing Oklch color:", error);
-                    // Fallback to a default color if parsing fails
                     return { r: 0, g: 0, b: 0 };
                 }
             }
         }
-        return { r: 0, g: 0, b: 0 }; // Default if not found or SSR
+        return { r: 0, g: 0, b: 0 }; 
     }, [oklchToRgb]);
 
+    // Effect to load config from localStorage and set up theme listener
     useEffect(() => {
-        if (!isClient || !window.fluidSim) return;
+        if (!isClient) return;
 
-        const initialConfig = window.fluidSim.config;
+        let currentConfig: Partial<FluidConfig> = { ...defaultFluidConfig };
+        try {
+            const storedConfig = localStorage.getItem(FLUID_CONFIG_KEY);
+            if (storedConfig) {
+                currentConfig = { ...currentConfig, ...JSON.parse(storedConfig) };
+            }
+        } catch (e) {
+            console.error("Failed to parse config from localStorage", e);
+        }
+        
         const backgroundColorRgb = getCssBackgroundAsRgb();
-
         const newConfig = {
-            ...initialConfig,
+            ...currentConfig,
             BACK_COLOR: backgroundColorRgb,
         };
 
         setSimConfig(newConfig);
-        window.fluidSim.config = { ...window.fluidSim.config, ...newConfig }; // Update the global config
-        if (window.fluidSim.initFramebuffers) {
-            window.fluidSim.initFramebuffers(); // Re-initialize if background color affects it
-        }
-        if (window.fluidSim.updateKeywords) {
-            window.fluidSim.updateKeywords();
-        }
+        localStorage.setItem(FLUID_CONFIG_KEY, JSON.stringify(newConfig));
 
 
-        // Optional: Listen for theme changes if your app supports dynamic theme switching
         const observer = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'style' || mutation.attributeName === 'class') {
+                if (mutation.type === 'attributes' && (mutation.attributeName === 'style' || mutation.attributeName === 'class')) {
                     const updatedBgColor = getCssBackgroundAsRgb();
-                    const currentFluidSim = window.fluidSim;
-                    if (currentFluidSim && currentFluidSim.config) {
-                        if (currentFluidSim.config.BACK_COLOR.r !== updatedBgColor.r ||
-                            currentFluidSim.config.BACK_COLOR.g !== updatedBgColor.g ||
-                            currentFluidSim.config.BACK_COLOR.b !== updatedBgColor.b) {
-
-                            setSimConfig(prev => ({ ...prev, BACK_COLOR: updatedBgColor }));
-                            currentFluidSim.config.BACK_COLOR = updatedBgColor;
-                            // No need to call initFramebuffers here usually, as BACK_COLOR is often used at draw time
-                            // but if it's used in a buffer, then it might be needed.
-                            // For now, let's assume it's used at draw time.
+                    setSimConfig(prev => {
+                        if (prev.BACK_COLOR && prev.BACK_COLOR.r === updatedBgColor.r && prev.BACK_COLOR.g === updatedBgColor.g && prev.BACK_COLOR.b === updatedBgColor.b) {
+                            return prev;
                         }
-                    }
+                        const updatedConfig = { ...prev, BACK_COLOR: updatedBgColor };
+                        localStorage.setItem(FLUID_CONFIG_KEY, JSON.stringify(updatedConfig));
+                        return updatedConfig;
+                    });
                     break;
                 }
             }
@@ -136,28 +150,36 @@ export default function Fluids() {
 
         observer.observe(document.documentElement, { attributes: true });
 
+        // Listen for storage events to sync config if changed by another tab/source
+        const handleStorageChange = (event: StorageEvent) => {
+            if (event.key === FLUID_CONFIG_KEY && event.newValue) {
+                try {
+                    const updatedConfig = JSON.parse(event.newValue);
+                    setSimConfig(prev => ({...prev, ...updatedConfig}));
+                } catch (e) {
+                    console.error("Error parsing stored config on storage event:", e);
+                }
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+
         return () => {
             observer.disconnect();
+            window.removeEventListener('storage', handleStorageChange);
         };
 
     }, [isClient, getCssBackgroundAsRgb]);
 
 
     const handleConfigChange = useCallback(<K extends keyof FluidConfig>(key: K, value: FluidConfig[K]) => {
-        if (!isClient || !window.fluidSim || !window.fluidSim.config) return;
+        if (!isClient) return;
 
-        const needsFrameBufferInit = ["SIM_RESOLUTION", "DYE_RESOLUTION"].includes(key);
-        const needsKeywordUpdate = ["SHADING", "BLOOM", "SUNRAYS"].includes(key);
-
-        setSimConfig(prev => ({ ...prev, [key]: value }));
-        window.fluidSim.config[key] = value;
-
-        if (needsFrameBufferInit && window.fluidSim.initFramebuffers) {
-            window.fluidSim.initFramebuffers();
-        }
-        if (needsKeywordUpdate && window.fluidSim.updateKeywords) {
-            window.fluidSim.updateKeywords();
-        }
+        setSimConfig(prev => {
+            const newConfig = { ...prev, [key]: value };
+            localStorage.setItem(FLUID_CONFIG_KEY, JSON.stringify(newConfig));
+            return newConfig;
+        });
     }, [isClient]);
 
     const handleSliderChange = <K extends keyof FluidConfig>(key: K, value: number[]) => {
@@ -173,14 +195,14 @@ export default function Fluids() {
     };
 
     const randomSplat = () => {
-        if (isClient && window.fluidSim && window.fluidSim.splatStack) {
-            window.fluidSim.splatStack.push(parseInt((Math.random() * 20).toString()) + 5);
+        if (isClient) {
+            localStorage.setItem(FLUID_ACTION_SPLAT_KEY, 'true');
         }
     };
 
     const takeScreenshot = () => {
-        if (isClient && window.fluidSim && window.fluidSim.captureScreenshot) {
-            window.fluidSim.captureScreenshot();
+        if (isClient) {
+            localStorage.setItem(FLUID_ACTION_SCREENSHOT_KEY, 'true');
         }
     };
 
@@ -214,24 +236,7 @@ export default function Fluids() {
                   ga('send', 'pageview');`
                 }
             </Script>
-            <Script src="/fluid.js" strategy="lazyOnload" onReady={() => {
-                // This ensures that the fluidSim object is available before we try to use it.
-                // The useEffect for initialization will then pick it up.
-                const initialConfig = window.fluidSim?.config;
-                if (initialConfig) {
-                    const backgroundColorRgb = getCssBackgroundAsRgb();
-                    const newConfig = {
-                        ...initialConfig,
-                        BACK_COLOR: backgroundColorRgb,
-                    };
-                    setSimConfig(newConfig);
-                    if (window.fluidSim) {
-                        window.fluidSim.config = { ...window.fluidSim.config, ...newConfig };
-                        if (window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
-                        if (window.fluidSim.updateKeywords) window.fluidSim.updateKeywords();
-                    }
-                }
-            }} />
+            <Script src="/fluid.js" strategy="lazyOnload" />
             <canvas className="h-full w-full rounded-md border"></canvas>
             <Popover open={settingsOpen} onOpenChange={setSettingsOpen}>
                 <PopoverTrigger asChild>
@@ -248,11 +253,11 @@ export default function Fluids() {
                             </p>
                         </div>
                         <div className="grid gap-2">
-                            {simConfig && window.fluidSim ? (
+                            {Object.keys(simConfig).length > 0 ? ( // Check if simConfig is populated
                                 <>
                                     <div className="grid grid-cols-3 items-center gap-4">
                                         <Label htmlFor="sim-resolution">Sim Res</Label>
-                                        <Select value={simConfig.SIM_RESOLUTION?.toString()} onValueChange={(val) => handleSelectChange("SIM_RESOLUTION", val)}>
+                                        <Select value={simConfig.SIM_RESOLUTION?.toString()} onValueChange={(val) => handleSelectChange("SIM_RESOLUTION", val)} >
                                             <SelectTrigger id="sim-resolution" className="col-span-2 h-8">
                                                 <SelectValue placeholder="Select resolution" />
                                             </SelectTrigger>
@@ -295,15 +300,6 @@ export default function Fluids() {
                                     <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Paused" checked={simConfig.PAUSED} onChange={(val) => handleSwitchChange("PAUSED", val)} />
                                     <ControlSwitch icon={<Settings2 className="h-4 w-4 text-muted-foreground" />} label="Transparent BG" checked={simConfig.TRANSPARENT} onChange={(val) => {
                                         handleSwitchChange("TRANSPARENT", val);
-                                        // If turning transparency on, ensure back_color alpha is 0, otherwise restore it or set to opaque
-                                        // This part of fluid.js might need adjustment to respect an alpha channel if it doesn't already
-                                        if (window.fluidSim && window.fluidSim.config) {
-                                            // The current fluid.js BACK_COLOR is {r,g,b}, it doesn't have alpha.
-                                            // Transparency is a separate flag. If it's set to true, the fluid.js
-                                            // should handle making the canvas background transparent.
-                                            // We might need to call initFramebuffers if transparency changes how buffers are set up.
-                                            if (window.fluidSim.initFramebuffers) window.fluidSim.initFramebuffers();
-                                        }
                                     }} />
 
 

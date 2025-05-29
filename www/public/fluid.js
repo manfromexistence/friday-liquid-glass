@@ -1,9 +1,11 @@
 "use strict";
 
-const canvas = document.getElementsByTagName("canvas")[0];
-resizeCanvas();
+const FLUID_CONFIG_KEY = 'fluidSimulationConfig';
+const FLUID_ACTION_SPLAT_KEY = 'fluidActionSplat';
+const FLUID_ACTION_SCREENSHOT_KEY = 'fluidActionScreenshot';
 
-let config = {
+// Default config (original config object is moved here)
+const defaultConfig = {
     SIM_RESOLUTION: 128,
     DYE_RESOLUTION: 1024,
     CAPTURE_RESOLUTION: 512,
@@ -29,7 +31,41 @@ let config = {
     SUNRAYS: true,
     SUNRAYS_RESOLUTION: 196,
     SUNRAYS_WEIGHT: 1.0,
+};
+
+let config; // This will be our runtime config object, populated from localStorage or defaults
+
+function loadConfigFromLocalStorage() {
+    let loadedConfig = null;
+    try {
+        const storedConfig = localStorage.getItem(FLUID_CONFIG_KEY);
+        if (storedConfig) {
+            loadedConfig = JSON.parse(storedConfig);
+        }
+    } catch (error) {
+        console.error("Error parsing fluid config from localStorage:", error);
+    }
+    // Merge with defaults: defaults provide structure, loadedConfig overrides values.
+    // This ensures 'config' always has all keys from 'defaultConfig'.
+    config = { ...defaultConfig, ...loadedConfig };
+
+    // Save back to ensure localStorage has the full, potentially updated/merged config.
+    // This is important if localStorage was empty or had a partial/old config.
+    saveConfigToLocalStorage();
 }
+
+function saveConfigToLocalStorage() {
+    try {
+        localStorage.setItem(FLUID_CONFIG_KEY, JSON.stringify(config));
+    } catch (error) {
+        console.error("Error saving fluid config to localStorage:", error);
+    }
+}
+
+loadConfigFromLocalStorage(); // Load initial config
+
+const canvas = document.getElementsByTagName("canvas")[0];
+resizeCanvas();
 
 function pointerPrototype () {
     this.id = -1;
@@ -1020,77 +1056,65 @@ function createTextureAsync (url) {
     return obj;
 }
 
-function updateKeywords () {
-    let displayKeywords = [];
-    if (config.SHADING) displayKeywords.push("SHADING");
-    if (config.BLOOM) displayKeywords.push("BLOOM");
-    if (config.SUNRAYS) displayKeywords.push("SUNRAYS");
-    displayMaterial.setKeywords(displayKeywords);
-}
+// Event listener for storage changes (e.g., from fluid.tsx)
+window.addEventListener('storage', function(event) {
+    if (event.key === FLUID_CONFIG_KEY) {
+        console.log('fluid.js: Detected config change in localStorage.');
+        try {
+            const newStoredConfig = event.newValue;
+            if (newStoredConfig) {
+                const newParsedConfig = JSON.parse(newStoredConfig);
 
-updateKeywords();
-initFramebuffers();
-multipleSplats(parseInt(Math.random() * 20) + 5);
+                const oldSimRes = config.SIM_RESOLUTION;
+                const oldDyeRes = config.DYE_RESOLUTION;
+                const oldShading = config.SHADING;
+                const oldBloom = config.BLOOM;
+                const oldSunrays = config.SUNRAYS;
+                const oldTransparent = config.TRANSPARENT;
 
-let lastUpdateTime = Date.now();
-let colorUpdateTimer = 0.0;
-update();
+                // Update the global config object in fluid.js
+                // We merge with current config to be safe, though newParsedConfig should be complete.
+                config = { ...config, ...newParsedConfig };
 
-function update () {
-    const dt = calcDeltaTime();
-    if (resizeCanvas())
-        initFramebuffers();
-    updateColors(dt);
-    applyInputs();
-    if (!config.PAUSED)
-        step(dt);
-    render(null);
-    requestAnimationFrame(update);
-}
+                let needsInitFramebuffers = false;
+                if (config.SIM_RESOLUTION !== oldSimRes || 
+                    config.DYE_RESOLUTION !== oldDyeRes ||
+                    config.TRANSPARENT !== oldTransparent) { // TRANSPARENT might affect framebuffer alpha
+                    needsInitFramebuffers = true;
+                }
 
-function calcDeltaTime () {
-    let now = Date.now();
-    let dt = (now - lastUpdateTime) / 1000;
-    dt = Math.min(dt, 0.016666);
-    lastUpdateTime = now;
-    return dt;
-}
+                let needsUpdateKeywords = false;
+                if (config.SHADING !== oldShading || 
+                    config.BLOOM !== oldBloom || 
+                    config.SUNRAYS !== oldSunrays) {
+                    needsUpdateKeywords = true;
+                }
 
-function resizeCanvas () {
-    let width = scaleByPixelRatio(canvas.clientWidth);
-    let height = scaleByPixelRatio(canvas.clientHeight);
-    if (canvas.width != width || canvas.height != height) {
-        canvas.width = width;
-        canvas.height = height;
-        return true;
-    }
-    return false;
-}
-
-function updateColors (dt) {
-    if (!config.COLORFUL) return;
-
-    colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
-    if (colorUpdateTimer >= 1) {
-        colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
-        pointers.forEach(p => {
-            p.color = generateColor();
-        });
-    }
-}
-
-function applyInputs () {
-    if (splatStack.length > 0)
-        multipleSplats(splatStack.pop());
-
-    pointers.forEach(p => {
-        if (p.moved) {
-            p.moved = false;
-            splatPointer(p);
+                if (needsInitFramebuffers && typeof initFramebuffers === 'function') {
+                    console.log('fluid.js: Re-initializing framebuffers due to config change.');
+                    initFramebuffers();
+                }
+                if (needsUpdateKeywords && typeof displayMaterial !== 'undefined' && typeof displayMaterial.setKeywords === 'function') {
+                    console.log('fluid.js: Updating keywords due to config change.');
+                    let keywords = [];
+                    if (config.SHADING) keywords.push("SHADING");
+                    if (config.BLOOM) keywords.push("BLOOM");
+                    if (config.SUNRAYS) keywords.push("SUNRAYS");
+                    displayMaterial.setKeywords(keywords);
+                }
+                 // If BACK_COLOR changed, the next render will pick it up.
+                 // If PAUSED changed, the animation loop will respect it.
+            }
+        } catch (error) {
+            console.error('fluid.js: Error processing storage event for config:', error);
         }
-    });
-}
+    }
+});
 
+// The rest of fluid.js will use the global 'config' variable as before.
+// Make sure there are no other 'let config = {...}' declarations later in the file.
+
+// Modify the 'step' function (or your main animation loop function)
 function step (dt) {
     gl.disable(gl.BLEND);
 
@@ -1508,8 +1532,8 @@ function hashCode (s) {
     return hash;
 };
 
-// Expose functionalities to fluid.tsx via window.fluidSim
-// Ensure fluidSim object exists
+// The following block should be deleted if it exists from previous attempts:
+/*
 window.fluidSim = window.fluidSim || {};
 
 // Assign existing config
@@ -1582,3 +1606,4 @@ if (typeof randomSplats === 'function') { // Check if fluid.js has its own rando
         }
     };
 }
+*/
