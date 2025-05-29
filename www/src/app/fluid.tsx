@@ -116,15 +116,18 @@ export default function Fluids() {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'style' || mutation.attributeName === 'class') {
                     const updatedBgColor = getCssBackgroundAsRgb();
-                    if (window.fluidSim && window.fluidSim.config.BACK_COLOR.r !== updatedBgColor.r ||
-                        window.fluidSim.config.BACK_COLOR.g !== updatedBgColor.g ||
-                        window.fluidSim.config.BACK_COLOR.b !== updatedBgColor.b) {
-                        
-                        setSimConfig(prev => ({...prev, BACK_COLOR: updatedBgColor}));
-                        window.fluidSim.config.BACK_COLOR = updatedBgColor;
-                        // No need to call initFramebuffers here usually, as BACK_COLOR is often used at draw time
-                        // but if it's used in a buffer, then it might be needed.
-                        // For now, let's assume it's used at draw time.
+                    const currentFluidSim = window.fluidSim;
+                    if (currentFluidSim && currentFluidSim.config) {
+                        if (currentFluidSim.config.BACK_COLOR.r !== updatedBgColor.r ||
+                            currentFluidSim.config.BACK_COLOR.g !== updatedBgColor.g ||
+                            currentFluidSim.config.BACK_COLOR.b !== updatedBgColor.b) {
+                            
+                            setSimConfig(prev => ({...prev, BACK_COLOR: updatedBgColor}));
+                            currentFluidSim.config.BACK_COLOR = updatedBgColor;
+                            // No need to call initFramebuffers here usually, as BACK_COLOR is often used at draw time
+                            // but if it's used in a buffer, then it might be needed.
+                            // For now, let's assume it's used at draw time.
+                        }
                     }
                     break; 
                 }
@@ -157,15 +160,15 @@ export default function Fluids() {
         }
     }, [isClient]);
     
-    const handleSliderChange = (key: keyof FluidConfig, value: number[]) => {
+    const handleSliderChange = <K extends keyof FluidConfig>(key: K, value: number[]) => {
         handleConfigChange(key, value[0] as FluidConfig[K]);
     };
 
-    const handleSwitchChange = (key: keyof FluidConfig, checked: boolean) => {
+    const handleSwitchChange = <K extends keyof FluidConfig>(key: K, checked: boolean) => {
         handleConfigChange(key, checked as FluidConfig[K]);
     };
     
-    const handleSelectChange = (key: keyof FluidConfig, value: string) => {
+    const handleSelectChange = <K extends keyof FluidConfig>(key: K, value: string) => {
          handleConfigChange(key, parseInt(value, 10) as FluidConfig[K]);
     };
 
