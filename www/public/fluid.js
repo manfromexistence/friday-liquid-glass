@@ -1,5 +1,20 @@
 'use strict';
 
+function scaleByPixelRatio (input) {
+    let pixelRatio = window.devicePixelRatio || 1;
+    return Math.floor(input * pixelRatio);
+}
+
+function hashCode (s) {
+    if (s.length == 0) return 0;
+    let hash = 0;
+    for (let i = 0; i < s.length; i++) {
+        hash = (hash << 5) - hash + s.charCodeAt(i);
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+};
+
 const canvas = document.getElementsByTagName('canvas')[0];
 resizeCanvas();
 
