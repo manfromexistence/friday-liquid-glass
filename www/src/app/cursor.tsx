@@ -36,6 +36,24 @@ import {
     clippy
  } from "./data";
 
+const effectOptions = [
+    { value: "none", label: "None" },
+    { value: "particles", label: "Particles" },
+    { value: "fireworks", label: "Fireworks" },
+    { value: "flames", label: "Flames" },
+    { value: "magic", label: "Magic (CSS)" },
+    { value: "rift", label: "Rift (CSS)" },
+    { value: "atom_explosion", label: "Atom Explosion (GIF)" },
+    { value: "magic_gif", label: "Magic (GIF)" },
+    { value: "vertical_rift", label: "Vertical Rift (GIF)" },
+    { value: "horizontal_rift", label: "Horizontal Rift (GIF)" },
+    { value: "space_effect", label: "Space (GIF)" },
+    { value: "flame_gif", label: "Flame (GIF)" },
+    { value: "sparkles_gif", label: "Sparkles (GIF)" },
+    { value: "fireworks_colorful_gif", label: "Colorful Fireworks (GIF)" },
+    { value: "clippy_gif", label: "Clippy (GIF)" },
+];
+
 const effectColorPalettes: Record<string, string[]> = {
     particles: ["#FF6B6B", "#FFD166", "#06D6A0", "#118AB2", "#073B4C"],
     fireworks: ["#FF0000", "#FFA500", "#FFFF00", "#FFFFFF", "#FF4500", "#FFD700"],
@@ -326,15 +344,6 @@ export function Cursor() {
                                 {option.label}
                             </SelectItem>
                         ))}
-                        <SelectItem value="atom_explosion" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Atom Explosion</SelectItem>
-                        <SelectItem value="magic_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Magic GIF</SelectItem>
-                        <SelectItem value="vertical_rift" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Vertical Rift</SelectItem>
-                        <SelectItem value="horizontal_rift" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Horizontal Rift</SelectItem>
-                        <SelectItem value="space_effect" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Space Effect</SelectItem>
-                        <SelectItem value="flame_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Flame GIF</SelectItem>
-                        <SelectItem value="sparkles_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Sparkles GIF</SelectItem>
-                        <SelectItem value="fireworks_colorful_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Colorful Fireworks GIF</SelectItem>
-                        <SelectItem value="clippy_gif" className="hover:bg-accent focus:bg-accent data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground">Clippy GIF</SelectItem>
                     </SelectContent>
                 </Select>
             </div>
