@@ -66,13 +66,18 @@ export function Cursor() {
         if (textareaRef.current) {
             const { selectionStart } = textareaRef.current;
             const textareaRect = textareaRef.current.getBoundingClientRect();
-            const lineHeight = parseInt(getComputedStyle(textareaRef.current).lineHeight, 10) || 20;
+            const style = getComputedStyle(textareaRef.current);
+            const paddingTop = parseFloat(style.paddingTop);
+            const paddingLeft = parseFloat(style.paddingLeft);
+            const borderTopWidth = parseFloat(style.borderTopWidth);
+            const borderLeftWidth = parseFloat(style.borderLeftWidth);
+            const lineHeight = parseFloat(style.lineHeight) || 20;
 
             const row = Math.floor(selectionStart / Math.floor(textareaRef.current.cols));
             const col = selectionStart % Math.floor(textareaRef.current.cols);
 
-            const cursorX = textareaRect.left + col * 10; // Exact cursor position
-            const cursorY = textareaRect.top + row * lineHeight; // Exact cursor position
+            const cursorX = textareaRect.left + borderLeftWidth + paddingLeft + col * 10;
+            const cursorY = textareaRect.top + borderTopWidth + paddingTop + row * lineHeight;
 
             return { x: cursorX, y: cursorY };
         }
