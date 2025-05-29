@@ -18,11 +18,11 @@ export default function Fluids() {
                   ga('send', 'pageview');`
                 }
             </Script>
-            <Script src="fluid.js" />
-            <canvas className="h-full w-full rounded-md"></canvas>
-            {/* <div onClick={HandleSettings} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md border hover:bg-primary-foreground">
+            <Script src="script.js" />
+            <canvas className="h-full w-full rounded-md border"></canvas>
+            <div onClick={HandleSettings} className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md border hover:bg-primary-foreground">
                 <Cog className="h-4 w-4" />
-            </div> */}
+            </div>
         </div>
     );
 }
