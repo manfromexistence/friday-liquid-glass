@@ -19,20 +19,20 @@ interface Particle {
 }
 
 // Define color palettes using shadcn/ui CSS variables
-const particleColors = {
-    primary: 'hsl(var(--primary))',
-    secondary: 'hsl(var(--secondary))',
-    accent: 'hsl(var(--accent))',
-    destructive: 'hsl(var(--destructive))',
-    warning: 'hsl(var(--warning))' // Assuming you have a warning color or use another like accent
-};
+// const particleColors = { // This can be removed or kept if used elsewhere, but not for effectColorPalettes
+//     primary: 'hsl(var(--primary))',
+//     secondary: 'hsl(var(--secondary))',
+//     accent: 'hsl(var(--accent))',
+//     destructive: 'hsl(var(--destructive))',
+//     warning: 'hsl(var(--warning))'
+// };
 
 const effectColorPalettes: Record<string, string[]> = {
-    particles: [particleColors.primary, particleColors.secondary, particleColors.accent],
-    fireworks: ['hsl(var(--primary))', 'hsl(var(--primary-foreground))', 'hsl(var(--accent))' ], // Example: using primary, its foreground, and accent
-    flames: ['hsl(var(--destructive))', 'hsl(var(--warning))', 'hsl(var(--destructive-foreground))' ], // Example: using destructive, warning, and destructive foreground
-    magic: ['hsl(var(--primary))', 'hsl(var(--accent))', 'hsl(var(--secondary))' ], // Similar to particles but could have different animation
-    rift: ['hsl(var(--muted-foreground))', 'hsl(var(--border))', 'hsl(var(--foreground))' ] // More subtle, glitchy colors
+    particles: ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'], // Red, Green, Blue, Yellow, Magenta, Cyan
+    fireworks: ['#FFD700', '#FFA500', '#FF4500', '#FF69B4', '#ADD8E6', '#FFFFFF'], // Gold, Orange, OrangeRed, HotPink, LightBlue, White
+    flames: ['#FF4500', '#FFA500', '#FFD700', '#DC143C'], // OrangeRed, Orange, Gold, Crimson
+    magic: ['#8A2BE2', '#4B0082', '#9400D3', '#00FA9A', '#AFEEEE'], // BlueViolet, Indigo, DarkViolet, MediumSpringGreen, PaleTurquoise
+    rift: ['#483D8B', '#000080', '#E0FFFF', '#FF00FF'] // DarkSlateBlue, Navy, LightCyan, Magenta
 };
 
 const effectOptions = [
@@ -61,29 +61,30 @@ export function Cursor() {
         const newParticleId = animationIdCounter.current++;
         const textareaRect = textareaRef.current?.getBoundingClientRect();
         
-        // Adjusted Y to be closer to the first line of text in the textarea.
-        // Precise cursor tracking is complex; this remains an approximation.
-        const startX = textareaRect ? textareaRect.left + (textareaRect.width / 2) + window.scrollX - 10 : window.innerWidth / 2;
-        const startY = textareaRect ? textareaRect.top + window.scrollY + 15 : window.innerHeight / 2; // Adjusted from +10 to +15
+        // Position particles near the top-left of the textarea.
+        // Precise cursor tracking is complex in a standard textarea.
+        const startX = textareaRect ? textareaRect.left + window.scrollX + 20 : window.innerWidth / 2; // Approx 20px from left
+        const startY = textareaRect ? textareaRect.top + window.scrollY + 15 : window.innerHeight / 2; // Approx 15px from top
 
         let particleStyle: React.CSSProperties = {
             position: 'absolute',
-            left: `${startX + Math.random() * 20 - 10}px`,
-            top: `${startY + Math.random() * 20 - 10}px`,
+            left: `${startX + Math.random() * 20 - 10}px`, // Spread around startX
+            top: `${startY + Math.random() * 20 - 10}px`,  // Spread around startY
             opacity: 1,
         };
         let particleType = selectedEffect;
         let color = getRandomColorFromPalette(selectedEffect);
 
         switch (selectedEffect) {
-            case "particles": // Debugging this effect
+            case "particles":
+                color = getRandomColorFromPalette("particles"); // Ensure color is from palette
                 particleStyle = {
                     ...particleStyle,
-                    width: `8px`, // Larger for debugging
-                    height: `8px`,// Larger for debugging
-                    backgroundColor: 'red', // Hardcoded bright color for debugging
+                    width: `${Math.random() * 5 + 3}px`,
+                    height: `${Math.random() * 5 + 3}px`,
+                    backgroundColor: color,
                     borderRadius: '50%',
-                    animation: `particle-debug-effect 1s ease-out forwards`, // Using debug animation
+                    animation: `particle-effect 1s ease-out forwards`, // Use standard particle animation
                 };
                 break;
             case "fireworks":
@@ -129,7 +130,7 @@ export function Cursor() {
                     height: `${Math.random() * 20 + 15}px`,
                     backgroundColor: color,
                     animation: `rift-effect 0.5s ease-in-out forwards`,
-                    transform: `rotate(${Math.random() * 180 - 90}deg)`,
+                    transform: `rotate(${Math.random() * 90 - 45}deg)`, // Keep initial random rotation here
                 };
                 particleType = "rift";
                 break;
@@ -149,7 +150,8 @@ export function Cursor() {
     const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setInputValue(event.target.value);
         if (selectedEffect !== "none") {
-            const numParticles = selectedEffect === "fireworks" ? 5 : (selectedEffect === "flames" ? 2 : (selectedEffect === "rift" ? 1 : (selectedEffect === "particles" ? 2 : 3))); // Adjusted for particles debug
+            // Reverted debug particle count for "particles" to a sensible default (e.g., 3)
+            const numParticles = selectedEffect === "fireworks" ? 5 : (selectedEffect === "flames" ? 2 : (selectedEffect === "rift" ? 1 : (selectedEffect === "particles" ? 3 : 3)));
             const newParticles = Array.from({ length: numParticles })
                 .map(() => createParticle())
                 .filter(p => p !== null) as Particle[];
@@ -158,7 +160,8 @@ export function Cursor() {
 
             newParticles.forEach(p => {
                 let duration = 700;
-                if (p.type === "particles") duration = 1000; // Debug duration for particles
+                // Reverted debug duration for "particles"
+                if (p.type === "particles") duration = 1000;
                 else if (p.type === "fireworks") duration = 800;
                 else if (p.type === "flames") duration = 700;
                 else if (p.type === "magic") duration = 700;
@@ -206,82 +209,82 @@ export function Cursor() {
 
             {/* Global styles for animations */}
             <style jsx global>{`
-                @keyframes particle-debug-effect { /* Debug animation for particles */
+                @keyframes particle-debug-effect { /* This can be removed if no longer used */
                     0% {
                         transform: translate(0, 0) scale(1);
                         opacity: 1;
                     }
                     50% {
-                        transform: translate(0, 20px) scale(1.2); /* Move down 20px */
+                        transform: translate(0, 20px) scale(1.2);
                         opacity: 0.5;
                     }
                     100% {
-                        transform: translate(0, 40px) scale(0); /* Move further down */
+                        transform: translate(0, 40px) scale(0);
                         opacity: 0;
                     }
                 }
                 @keyframes particle-effect {
                     0% {
-                        transform: translate(0, 0) scale(1);
+                        transform: scale(1); /* Start at its initial randomized (left, top) pos via style prop */
                         opacity: 1;
                     }
                     100% {
-                        transform: translate(${Math.random() * 80 - 40}px, ${Math.random() * -80 - 20}px) scale(0);
+                        transform: translateY(-70px) scale(0); /* General upward movement */
                         opacity: 0;
                     }
                 }
                 @keyframes firework-particle-effect {
                     0% {
-                        transform: translateY(0) scaleY(1) scaleX(1) rotate(0deg);
+                        transform: translateY(0) scale(1);
                         opacity: 1;
                     }
                     20% {
                         opacity: 1;
                     }
                     100% {
-                        transform: translateY(-120px) scaleY(0.5) scaleX(0.2) rotate(${Math.random() * 90 - 45}deg);
+                        transform: translateY(-100px) scale(0.3); /* Shoots up and shrinks */
                         opacity: 0;
                     }
                 }
                 @keyframes flame-effect {
                     0% {
-                        transform: translateY(0) scale(1) skewX(0deg);
+                        transform: translateY(0) scaleY(1) scaleX(1) skewX(0deg);
                         opacity: 0.8;
                     }
                     50% {
-                        transform: translateY(-30px) scale(1.2, 0.8) skewX(${Math.random() * 20 - 10}deg);
+                        transform: translateY(-35px) scaleY(1.3) scaleX(0.7) skewX(-8deg); /* Flicker up */
                         opacity: 0.5;
                     }
                     100% {
-                        transform: translateY(-70px) scale(0.5, 0.2) skewX(${Math.random() * 40 - 20}deg);
+                        transform: translateY(-80px) scaleY(0.4) scaleX(0.2) skewX(8deg); /* Fade out higher */
                         opacity: 0;
                     }
                 }
                 @keyframes magic-effect {
                     0% {
-                        transform: scale(0.5) rotate(0deg);
-                        opacity: 0;
+                        transform: scale(0.3) rotate(0deg);
+                        opacity: 0; /* Start almost invisible and small */
                     }
                     50% {
-                        transform: scale(1.2) rotate(${Math.random() * 360}deg);
+                        transform: scale(1.2) rotate(180deg); /* Grow, rotate, become fully visible */
                         opacity: 1;
                     }
                     100% {
-                        transform: scale(0.5) rotate(${Math.random() * 360 + 360}deg);
+                        transform: scale(0.3) rotate(360deg); /* Shrink, continue rotation, fade out */
                         opacity: 0;
                     }
                 }
-                @keyframes rift-effect {
+                @keyframes rift-effect { /* Initial rotation is applied via inline style in createParticle */
                     0% {
-                        transform: scaleX(0.1) rotate(${Math.random() * 180 - 90}deg);
+                        transform: scaleX(0.1); 
                         opacity: 0.5;
                     }
                     50% {
-                        transform: scaleX(1) rotate(${Math.random() * 180 - 90}deg);
+                        transform: scaleX(1);
                         opacity: 1;
                     }
                     100% {
-                        transform: scaleX(0.1) rotate(${Math.random() * 180 - 90}deg);
+                        transform: scaleX(0.1);
                         opacity: 0;
                     }
                 }
