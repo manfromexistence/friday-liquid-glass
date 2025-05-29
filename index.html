@@ -200,6 +200,7 @@
         if (document.querySelector('.glass-effect-div')) {
             return; 
         }
+        document.body.classList.add('friday-effect-enabled'); // Add class to body
 
         initialScrollY = window.scrollY;
 
@@ -227,6 +228,7 @@
                     glassDivElement.remove();
                 }
                 glassDivElement = null;
+                document.body.classList.remove('friday-effect-enabled'); // Remove class from body
                 const jiggleAmount = 30; // pixels for the additional spring jiggle
                 // The main spring scroll to revert to the initial position.
                 springScrollTo(initialScrollY, () => {
