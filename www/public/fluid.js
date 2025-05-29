@@ -1544,7 +1544,7 @@ if (typeof gl !== 'undefined') {
     window.fluidSim.gl = undefined;
 }
 
-// Assign initFramebuffers (should be globally available in fluid.js)
+// Assign initFramebuffers (should be globally available in fluid.js, as seen in its full content)
 if (typeof initFramebuffers === 'function') {
     window.fluidSim.initFramebuffers = initFramebuffers;
 } else {
@@ -1557,6 +1557,7 @@ if (typeof initFramebuffers === 'function') {
 // Assign updateKeywords
 // This function will update shader keywords based on the config.
 window.fluidSim.updateKeywords = function() {
+    // This relies on 'displayMaterial' and 'config' being globally accessible in fluid.js
     if (typeof displayMaterial !== 'undefined' && typeof displayMaterial.setKeywords === 'function' && typeof config !== 'undefined') {
         let keywords = [];
         if (config.SHADING) keywords.push("SHADING");
@@ -1564,16 +1565,17 @@ window.fluidSim.updateKeywords = function() {
         if (config.SUNRAYS) keywords.push("SUNRAYS");
         displayMaterial.setKeywords(keywords);
     } else {
-        console.warn('fluid.js: Cannot update keywords. "displayMaterial.setKeywords" or "config" not available.');
+        console.warn('fluid.js: Cannot update keywords. "displayMaterial.setKeywords" or "config" not available for updateKeywords.');
     }
 };
 
 // Assign randomSplats
-if (typeof randomSplats === 'function') {
+if (typeof randomSplats === 'function') { // Check if fluid.js has its own randomSplats
     window.fluidSim.randomSplats = randomSplats;
 } else {
+    // Provide the default implementation used in fluid.tsx if not defined in fluid.js
     window.fluidSim.randomSplats = function() {
-        if (window.fluidSim.splatStack && Array.isArray(window.fluidSim.splatStack)) {
+        if (window.fluidSim && window.fluidSim.splatStack && Array.isArray(window.fluidSim.splatStack)) {
             window.fluidSim.splatStack.push(parseInt((Math.random() * 20).toString()) + 5);
         } else {
             console.error('fluidSim.randomSplats: splatStack is not available on window.fluidSim.');
