@@ -195,7 +195,6 @@ export default function Fluids() {
                       ga('send', 'pageview');`
                     }
                 </Script>
-                <Script src="https://unpkg.com/color-convert" strategy="lazyOnload" />
                 <Script src="/fluid.js" strategy="lazyOnload" />
                 <canvas className="h-full w-full rounded-md border"></canvas>
                 <div className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-md border hover:bg-primary-foreground">
@@ -208,7 +207,6 @@ export default function Fluids() {
 
     return (
         <div className="relative h-full w-full">
-            <Script src="https://unpkg.com/color-convert" strategy="lazyOnload" />
             <Script id="show-fluids" strategy="lazyOnload">
                 {`
                   window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
