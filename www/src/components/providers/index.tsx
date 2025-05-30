@@ -55,33 +55,6 @@ export function Providers({
         >
           <JotaiProvider>
             <NextThemesProvider {...props}>
-              {/* <TooltipProvider delayDuration={0}>
-                <SidebarProvider>
-                  <LeftSidebar />
-                  <CategorySidebarProvider>
-                    <SubCategorySidebarProvider>
-                      <div
-                        vaul-drawer-wrapper=""
-                        className="relative h-screen w-full overflow-hidden"
-                      >
-                        <SiteHeader />
-                        <BottomBar />
-                        <Main>
-                          <Suspense>
-                            {children}
-                            <ThemeSync />
-                          </Suspense>
-                        </Main>
-                        <NewYorkToaster />
-                        <DefaultToaster />
-                        <NewYorkSonner />
-                      </div>
-                    </SubCategorySidebarProvider>
-                  </CategorySidebarProvider>
-                </SidebarProvider>
-                <FontLoader />
-                <Toaster />
-              </TooltipProvider> */}
               <TooltipProvider>
                 <SidebarProvider
                   style={{
@@ -89,27 +62,8 @@ export function Providers({
                   }}
                 >
                   <CustomizerSidebar variant="inset" />
-                  <SidebarInset className="relative isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-1rem)]">
-                    <header className="isolate z-20 flex shrink-0 items-center gap-2 border-b md:z-10">
-                      <ContainerWrapper className="flex items-center justify-between">
-                        <div className="flex h-14 w-full items-center gap-2">
-                          <div className="inline-flex">
-                            <CustomizerSidebarToggle />
-                          </div>
-                          <MainNavigation />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <Button
-                            asChild
-                            variant="ghost"
-                            size="icon"
-                            className="group/toggle"
-                          >
-                          </Button>
-                          <MobileNavigation />
-                        </div>
-                      </ContainerWrapper>
-                    </header>
+                  <SidebarInset className="peer-data-[variant=inset]:peer-data-[state=collapsed]:mt-12 peer-data-[variant=inset]:peer-data-[state=expanded]:mt-12 isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-3.5rem)]">
+                    <SiteHeader />
                     <ScrollArea className="relative z-10 flex h-full flex-col overflow-hidden">
                       <Suspense>
                         {children}
