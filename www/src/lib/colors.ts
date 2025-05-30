@@ -1,4 +1,4 @@
-import { monoFonts, sansFonts } from "@/utils/fonts";
+import { monoFonts, sansFonts } from "@/lib/utils/fonts";
 import {
   ColorfulPreset,
   PresetV4,

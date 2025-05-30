@@ -9,7 +9,7 @@ import { ThemeObject } from "@/types/theme";
 import {
   mergeThemeObjects,
   mergeThemeObjectWithInitial,
-} from "@/utils/theme-config";
+} from "@/lib/utils/theme-config";
 import { isEqual } from "lodash";
 import React from "react";
 import { useConfig } from "./use-config";

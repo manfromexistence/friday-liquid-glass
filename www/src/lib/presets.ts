@@ -1,5 +1,5 @@
 import { OtherPresets, ThemeObject } from "@/types/theme";
-import { monoFonts, sansFonts, serifFonts } from "@/utils/fonts";
+import { monoFonts, sansFonts, serifFonts } from "@/lib/utils/fonts";
 
 export const otherPresets: Record<OtherPresets, ThemeObject> = {
   vercel: {

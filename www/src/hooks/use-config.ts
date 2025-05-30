@@ -1,6 +1,6 @@
 import { initialThemeConfig } from "@/lib/themes";
 import { ThemeConfig } from "@/types/theme";
-import { LOCAL_STORAGE_KEYS } from "@/utils/constants";
+import { LOCAL_STORAGE_KEYS } from "@/lib/utils/constants";
 import { useAtom } from "jotai/react";
 import { atomWithStorage } from "jotai/utils";
 

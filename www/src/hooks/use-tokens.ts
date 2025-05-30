@@ -8,7 +8,7 @@ import {
   ThemeMode,
   ThemeProperty,
 } from "@/types/theme";
-import { getOptimalForegroundColor, isValidColor } from "@/utils/colors";
+import { getOptimalForegroundColor, isValidColor } from "@/lib/utils/colors";
 import { useTheme } from "next-themes";
 import { useCallback } from "react";
 import { useThemeConfig } from "./use-theme-config";

@@ -1,6 +1,6 @@
 import { allPresetsArray } from "@/lib/colors";
 import { Preset } from "@/types/theme";
-import { QUERY_PARAMS_KEYS } from "@/utils/constants";
+import { QUERY_PARAMS_KEYS } from "@/lib/utils/constants";
 import { useQueryState } from "nuqs";
 import React from "react";
 import { useThemeConfig } from "./use-theme-config";

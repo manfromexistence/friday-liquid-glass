@@ -2,7 +2,7 @@
 
 import { createRegistryItem } from "@/data/r/themes";
 import { ThemeObject } from "@/types/theme";
-import { buildThemeRegistryItem } from "@/utils/registry/themes";
+import { buildThemeRegistryItem } from "@/lib/utils/registry/themes";
 
 export async function generateThemeRegistryItemFromThemeObject(
   themeObject: ThemeObject,

@@ -39,7 +39,7 @@ const VK = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/200
 }}><path fill="#fff" d="M256 0H0v256h256V0z" /></mask><g mask="url(#prefix__a)"><path fill="#07F" d="M0 122.88C0 64.95 0 35.99 18 18 36 0 64.95 0 122.88 0h10.24C191.05 0 220.01 0 238 18c18 18 18 46.95 18 104.88v10.24c0 57.93 0 86.89-18 104.88-18 18-46.95 18-104.88 18h-10.24c-57.93 0-86.89 0-104.88-18C0 220 0 191.06 0 133.13v-10.24z" /><path fill="#fff" d="M136.21 184.43c-58.34 0-91.62-40-93.01-106.56h29.23c.96 48.85 22.5 69.54 39.57 73.81V77.87h27.52V120c16.85-1.81 34.56-21.01 40.53-42.13h27.52c-4.58 26.02-23.78 45.22-37.44 53.12 13.66 6.4 35.52 23.14 43.84 53.44h-30.29c-6.5-20.27-22.72-35.95-44.16-38.08v38.08h-3.3z" /></g></g><defs><clipPath id="prefix__a"><path fill="#fff" d="M0 0h256v256H0z" /></clipPath></defs></svg>;
 const Zoom = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256" {...props}><defs><linearGradient id="a" x1="23.666%" x2="76.334%" y1="95.6118%" y2="4.3882%"><stop offset=".00006%" stopColor="#0845BF" /><stop offset="19.11%" stopColor="#0950DE" /><stop offset="38.23%" stopColor="#0B59F6" /><stop offset="50%" stopColor="#0B5CFF" /><stop offset="67.32%" stopColor="#0E5EFE" /><stop offset="77.74%" stopColor="#1665FC" /><stop offset="86.33%" stopColor="#246FF9" /><stop offset="93.88%" stopColor="#387FF4" /><stop offset="100%" stopColor="#4F90EE" /></linearGradient></defs><path fill="url(#a)" d="M256 128c0 13.568-1.024 27.136-3.328 40.192-6.912 43.264-41.216 77.568-84.48 84.48C155.136 254.976 141.568 256 128 256c-13.568 0-27.136-1.024-40.192-3.328-43.264-6.912-77.568-41.216-84.48-84.48C1.024 155.136 0 141.568 0 128c0-13.568 1.024-27.136 3.328-40.192 6.912-43.264 41.216-77.568 84.48-84.48C100.864 1.024 114.432 0 128 0c13.568 0 27.136 1.024 40.192 3.328 43.264 6.912 77.568 41.216 84.48 84.48C254.976 100.864 256 114.432 256 128Z" /><path fill="#FFF" d="M204.032 207.872H75.008c-8.448 0-16.64-4.608-20.48-12.032-4.608-8.704-2.816-19.2 4.096-26.112l89.856-89.856H83.968c-17.664 0-32-14.336-32-32h118.784c8.448 0 16.64 4.608 20.48 12.032 4.608 8.704 2.816 19.2-4.096 26.112l-89.6 90.112h74.496c17.664 0 32 14.08 32 31.744Z" /></svg>;
 
-export function SignIn() {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ export function SignIn() {
           Enter your email below to login to your account
         </CardDescription>
       </CardHeader>
-      <CardContent className="py-0">
+      <CardContent className="py-0 pb-4">
         <div className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
@@ -123,9 +123,9 @@ export function SignIn() {
           </Button>
 
           <div className="w-full flex flex-row space-x-2 items-center">
-            <Separator className="max-w-1/3" />
+            <Separator className="w-1/3" />
             <span className="w-1/3 text-center text-sm text-muted-foreground">Or continue with</span>
-            <Separator className="max-w-1/3" />
+            <Separator className="w-1/3" />
           </div>
 
           <div className={cn(
@@ -135,7 +135,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -159,7 +159,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -184,7 +184,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -208,7 +208,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -232,7 +232,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -256,7 +256,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {
@@ -280,7 +280,7 @@ export function SignIn() {
             <Button
               variant="outline"
               className={cn(
-                "max-w-10 gap-2"
+                "w-full gap-2"
               )}
               disabled={loading}
               onClick={async () => {

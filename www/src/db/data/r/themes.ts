@@ -1,9 +1,9 @@
-import { db } from "@/lib/theme/db";
+import { db } from "@/lib/db";
 import {
   InsertRegistryTable,
   registryTable,
   RegistryTable,
-} from "@/lib/theme/db/schema";
+} from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { RegistryItem } from "shadcn/registry";
 

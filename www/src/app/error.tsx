@@ -1,9 +1,9 @@
 "use client";
 
-import { FrameHighlight } from "@/components/frame-highlight";
-import { GoBackButton } from "@/components/go-back-button";
+import { FrameHighlight } from "@/components/abstract/frame-highlight";
+import { GoBackButton } from "@/components/abstract/go-back-button";
 import { Button } from "@/components/ui/button";
-import { ContainerWrapper } from "@/components/wrappers";
+import { ContainerWrapper } from "@/components/abstract/wrappers";
 import { MoveLeft } from "lucide-react";
 import { useEffect } from "react";
 

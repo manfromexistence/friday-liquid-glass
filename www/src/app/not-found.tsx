@@ -1,8 +1,8 @@
-import { Footer } from "@/components/footer";
-import { FrameHighlight } from "@/components/frame-highlight";
-import { GoBackButton } from "@/components/go-back-button";
+import { Footer } from "@/components/abstract/footer";
+import { FrameHighlight } from "@/components/abstract/frame-highlight";
+import { GoBackButton } from "@/components/abstract/go-back-button";
 import { Separator } from "@/components/ui/separator";
-import { ContainerWrapper } from "@/components/wrappers";
+import { ContainerWrapper } from "@/components/abstract/wrappers";
 import { MoveLeft } from "lucide-react";
 
 export default function RootNotFound() {

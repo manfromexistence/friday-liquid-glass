@@ -1,5 +1,5 @@
 import { allPresets } from "@/lib/colors";
-import { generateThemeRegistryFromPreset } from "@/utils/registry/themes";
+import { generateThemeRegistryFromPreset } from "@/lib/utils/registry/themes";
 
 function execute() {
   const presets = allPresets;

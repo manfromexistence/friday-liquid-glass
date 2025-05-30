@@ -3,18 +3,18 @@ import { Metadata } from "next";
 import {
   CustomizerSidebar,
   CustomizerSidebarToggle,
-} from "@/components/customizer/customizer-sidebar";
-import { RandomizeButton } from "@/components/customizer/randomize-button";
-import { ExternalLink } from "@/components/external-link";
-import { GitHub } from "@/components/icons/github";
-import { ModeSwitcher } from "@/components/mode-switcher";
-import { TooltipWrapper } from "@/components/tooltip-wrapper";
+} from "@/components/theme/customizer-sidebar";
+// import { RandomizeButton } from "@/components/abstract/customizer/randomize-button";
+// import { ExternalLink } from "@/components/abstract/external-link";
+// import { GitHub } from "@/components/abstract/icons/github";
+// import { ModeSwitcher } from "@/components/abstract/mode-switcher";
+// import { TooltipWrapper } from "@/components/abstract/tooltip-wrapper";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ContainerWrapper } from "@/components/wrappers";
-import { MainNavigation, MobileNavigation } from "./navigation";
+import { ContainerWrapper } from "@/components/abstract/wrappers";
+import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
 
 export const metadata: Metadata = {
   title: {
