@@ -1,48 +1,39 @@
-import { ReactScan } from "@/components/devtools/react-scan";
-import { ScreenDevTools } from "@/components/devtools/screen-devtools";
-import { FontLoader } from "@/components/font-loader";
 import { LoadTheme } from "@/components/load-theme";
-import { ThemeSync } from "@/components/theme-sync";
-import { Toaster } from "@/components/ui/sonner";
-import { Providers } from "./providers";
-import type { Metadata } from "next";
-import { Suspense } from "react";
+import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "themux | shadcn/ui theme generator",
-    template: "%s | themux",
+    default: "Friday",
+    template: "%s | friday",
   },
   description:
-    "A shadcn/ui theme generator, but fully customizable. Supports Tailwind v4 and v3.",
+    "Your Ai Friend.",
   keywords: [
-    "themux",
-    "themux shadcn",
-    "shadcn",
-    "shadcn/ui",
-    "Tailwind",
-    "Tailwind v4",
-    "TailwindCSS",
-    "theme generator",
-    "theme customizer",
-    "theme editor",
-    "Next.js",
-    "llanesluis",
+    "friday",
+    "manfromexistence",
+    "multiverse",
+    "aladdin",
+    "better",
+    "dx",
+    "manfromexistence-auth",
+    "manfromexistence-ui",
+    "manfromexistence-ux",
   ],
   authors: [
     {
-      name: "llanesluis",
-      url: "https://www.llanesluis.xyz/",
+      name: "manfromexistence",
+      url: "https://manfromexistence.vercel.app",
     },
   ],
-  creator: "llanesluis",
+  creator: "manfromexistence",
   metadataBase: new URL("https://themux.vercel.app"),
   openGraph: {
-    title: "themux | Not your regular shadcn/ui theme generator",
+    title: "friday | More than just your ai assisstance",
     description:
-      "A shadcn/ui theme generator, but fully customizable. Supports Tailwind v4 and v3 and different color formats.",
+      "Your Ai Friend.",
   },
   generator: "Next.js",
 };
@@ -55,18 +46,9 @@ export default async function RootLayout({
       <head>
         <LoadTheme />
       </head>
-      {/* <ReactScan options={{ enabled: true }} /> */}
-
       <body className={cn(`antialiased`)}>
         <Providers>
-          <Suspense>
-            {children}
-            <ThemeSync />
-          </Suspense>
-
-          <FontLoader />
-          <Toaster />
-          {/* <ScreenDevTools /> */}
+          {children}
         </Providers>
       </body>
     </html>

@@ -45,6 +45,7 @@
     "@react-email/components": "^0.0.41",
     "@react-spectrum/color": "^3.0.6",
     "@tabler/icons-react": "^3.31.0",
+    "@tanstack/react-query": "^5.79.0",
     "@tanstack/react-table": "^8.21.3",
     "@vercel/analytics": "^1.5.0",
     "better-auth": "^1.2.8",
