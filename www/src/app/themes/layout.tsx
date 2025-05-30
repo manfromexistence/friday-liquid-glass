@@ -62,9 +62,9 @@ export default async function ShadcnThemesLayout({
                   size="icon"
                   className="group/toggle"
                 >
-                  <ExternalLink href="https://github.com/llanesluis/themux">
+                  {/* <ExternalLink href="https://github.com/llanesluis/themux">
                     <GitHub />
-                  </ExternalLink>
+                  </ExternalLink> */}
                 </Button>
 
                 <MobileNavigation />
