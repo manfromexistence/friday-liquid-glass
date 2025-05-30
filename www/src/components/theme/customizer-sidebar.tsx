@@ -4,9 +4,9 @@ import { useMounted } from "@/hooks/use-mounted";
 import { cn } from "@/lib/utils";
 import { PaintBucket, Palette, SlidersHorizontal, X } from "lucide-react";
 import * as React from "react";
-import { Button } from "@/component/ui/button";
-import { Label } from "@/component/ui/label";
-import { ScrollArea } from "@/component/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
   SidebarContent,
@@ -14,9 +14,9 @@ import {
   SidebarHeader,
   SidebarRail,
   useSidebar,
-} from "@/component/ui/sidebar";
-import { Skeleton } from "@/component/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/component/ui/tabs";
+} from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ActionButtons } from "./action-buttons";
 import { ColorTokens } from "./color-tokens";
 import { ComingSoon } from "./coming-soon";

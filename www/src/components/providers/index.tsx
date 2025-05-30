@@ -25,11 +25,12 @@ import {
 } from "@/components/theme/customizer-sidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SidebarInset, SidebarProvider } from "@/component/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ContainerWrapper } from "@/components/abstract/wrappers";
 import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
 
+const SIDEBAR_WIDTH = "21rem";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -82,7 +83,11 @@ export function Providers({
                 <Toaster />
               </TooltipProvider> */}
               <TooltipProvider>
-                <SidebarProvider>
+                <SidebarProvider
+                  style={{
+                    "--sidebar-width": SIDEBAR_WIDTH,
+                  }}
+                >
                   <CustomizerSidebar variant="inset" />
                   <SidebarInset className="relative isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-1rem)]">
                     <header className="isolate z-20 flex shrink-0 items-center gap-2 border-b md:z-10">
@@ -106,7 +111,10 @@ export function Providers({
                       </ContainerWrapper>
                     </header>
                     <ScrollArea className="relative z-10 flex h-full flex-col overflow-hidden">
-                      {children}
+                      <Suspense>
+                        {children}
+                        <ThemeSync />
+                      </Suspense>
                     </ScrollArea>
                   </SidebarInset>
                 </SidebarProvider>
