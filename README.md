@@ -37,3 +37,4 @@ bunx --bun shadcn@latest add
 git add . && git commit -m "docs: update README.md with git commands" && git push
 ```
 git remote set-url origin https://oauth2:glpat-eXH-yRdqQuaQfWQR_SVz@gitlab.com/manfmexistence/friday.git
+
