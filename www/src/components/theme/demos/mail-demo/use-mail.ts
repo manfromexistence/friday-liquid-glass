@@ -1,4 +1,4 @@
-import { Mail, mails } from "@/components/abstract/demos/mail-demo/data";
+import { Mail, mails } from "@/components/theme/demos/mail-demo/data";
 import { create } from "zustand";
 
 interface Config {

@@ -5,11 +5,11 @@ import { SubCategorySidebarProvider } from "@/components/layout/sidebar/subcateg
 import { CategorySidebarProvider } from "@/components/layout/sidebar/category-sidebar"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { LeftSidebar } from "@/components/layout/sidebar/left-sidebar"
-import { ThemeProvider } from "@/components/abstract/theme-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster as NewYorkSonner } from "@/components/ui/sonner"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { FontLoader } from "@/components/abstract/font-loader";
-import { ThemeSync } from "@/components/abstract/theme-sync";
+import { FontLoader } from "@/components/theme/font-loader";
+import { ThemeSync } from "@/components/theme/theme-sync";
 import { SiteHeader } from "@/components/layout/site-header"
 import { BottomBar } from "@/components/layout/bottom-bar"
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -22,12 +22,12 @@ import * as React from "react"
 import {
   CustomizerSidebar,
   CustomizerSidebarToggle,
-} from "@/components/theme/customizer-sidebar";
+} from "@/components/theme/customizer/customizer-sidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ContainerWrapper } from "@/components/abstract/wrappers";
+import { ContainerWrapper } from "@/components/theme/wrappers";
 import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
 
 const SIDEBAR_WIDTH = "21rem";

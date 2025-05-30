@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ContainerWrapper } from "@/components/abstract/wrappers";
+import { ContainerWrapper } from "@/components/theme/wrappers";
 import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
 
 export const metadata: Metadata = {

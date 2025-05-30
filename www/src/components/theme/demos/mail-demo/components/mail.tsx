@@ -15,12 +15,12 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-import { AccountSwitcher } from "@/components/abstract/demos/mail-demo/components/account-switcher";
-import { MailDisplay } from "@/components/abstract/demos/mail-demo/components/mail-display";
-import { MailList } from "@/components/abstract/demos/mail-demo/components/mail-list";
-import { Nav } from "@/components/abstract/demos/mail-demo/components/nav";
-import { type Mail } from "@/components/abstract/demos/mail-demo/data";
-import { useMail } from "@/components/abstract/demos/mail-demo/use-mail";
+import { AccountSwitcher } from "@/components/theme/demos/mail-demo/components/account-switcher";
+import { MailDisplay } from "@/components/theme/demos/mail-demo/components/mail-display";
+import { MailList } from "@/components/theme/demos/mail-demo/components/mail-list";
+import { Nav } from "@/components/theme/demos/mail-demo/components/nav";
+import { type Mail } from "@/components/theme/demos/mail-demo/data";
+import { useMail } from "@/components/theme/demos/mail-demo/use-mail";
 import { Input } from "@/components/ui/input";
 import {
   ResizableHandle,

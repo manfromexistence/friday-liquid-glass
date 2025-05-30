@@ -1,6 +1,6 @@
 import { CurrentDate } from "./current-date";
 import { ExternalLink } from "./external-link";
-import { GitHub } from "../icons/github";
+import { Github } from "lucide-react";
 
 export function Footer() {
   return (
@@ -16,7 +16,7 @@ export function Footer() {
             </ExternalLink>
           </div>
           <ExternalLink href="https://github.com/llanesluis" showIcon>
-            <GitHub />
+            <Github />
           </ExternalLink>
         </div>
 

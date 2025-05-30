@@ -2,8 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
-import { ModeSwitcher } from "../abstract/mode-switcher";
-import { TooltipWrapper } from "../abstract/tooltip-wrapper";
+import { ModeSwitcher } from "@/components/theme/mode-switcher";
+import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
 import { Separator } from "@/components/ui/separator";
 import { ContrastChecker } from "./contrast-checker";
 import { CopyCodeButtonDialog } from "./copy-code-button-dialog";

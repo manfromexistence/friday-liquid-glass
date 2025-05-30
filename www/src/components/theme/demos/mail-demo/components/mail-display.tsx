@@ -10,7 +10,7 @@ import {
   Trash2,
 } from "lucide-react";
 
-import { Mail } from "@/components/abstract/demos/mail-demo/data";
+import { Mail } from "@/components/theme/demos/mail-demo/data";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";

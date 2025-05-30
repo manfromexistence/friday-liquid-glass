@@ -1,16 +1,16 @@
-import { CardsActivityGoal } from "@/components/abstract/demos/cards-demo/activity-goal";
-import { CardsCalendar } from "@/components/abstract/demos/cards-demo/calendar";
-import { CardsDonationForm } from "@/components/abstract/demos/cards-demo/card-donation";
-import { CardsChat } from "@/components/abstract/demos/cards-demo/chat";
-import { CardsCookieSettings } from "@/components/abstract/demos/cards-demo/cookie-settings";
-import { CardsCreateAccount } from "@/components/abstract/demos/cards-demo/create-account";
-import { CardsDataTable } from "@/components/abstract/demos/cards-demo/data-table";
-import { CardsMetric } from "@/components/abstract/demos/cards-demo/metric";
-import { CardsPaymentMethod } from "@/components/abstract/demos/cards-demo/payment-method";
-import { CardsReportIssue } from "@/components/abstract/demos/cards-demo/report-issue";
-import { CardsShare } from "@/components/abstract/demos/cards-demo/share";
-import { CardsStats } from "@/components/abstract/demos/cards-demo/stats";
-import { CardsTeamMembers } from "@/components/abstract/demos/cards-demo/team-members";
+import { CardsActivityGoal } from "@/components/theme/demos/cards-demo/activity-goal";
+import { CardsCalendar } from "@/components/theme/demos/cards-demo/calendar";
+import { CardsDonationForm } from "@/components/theme/demos/cards-demo/card-donation";
+import { CardsChat } from "@/components/theme/demos/cards-demo/chat";
+import { CardsCookieSettings } from "@/components/theme/demos/cards-demo/cookie-settings";
+import { CardsCreateAccount } from "@/components/theme/demos/cards-demo/create-account";
+import { CardsDataTable } from "@/components/theme/demos/cards-demo/data-table";
+import { CardsMetric } from "@/components/theme/demos/cards-demo/metric";
+import { CardsPaymentMethod } from "@/components/theme/demos/cards-demo/payment-method";
+import { CardsReportIssue } from "@/components/theme/demos/cards-demo/report-issue";
+import { CardsShare } from "@/components/theme/demos/cards-demo/share";
+import { CardsStats } from "@/components/theme/demos/cards-demo/stats";
+import { CardsTeamMembers } from "@/components/theme/demos/cards-demo/team-members";
 
 export function CardsDemo() {
   return (

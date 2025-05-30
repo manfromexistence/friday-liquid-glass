@@ -1,4 +1,4 @@
-import { LoadTheme } from "@/components/abstract/load-theme";
+import { LoadTheme } from "@/components/theme/load-theme";
 import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";

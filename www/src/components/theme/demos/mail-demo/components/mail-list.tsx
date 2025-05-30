@@ -1,8 +1,8 @@
 import { formatDistanceToNow } from "date-fns";
 import { ComponentProps } from "react";
 
-import { Mail } from "@/components/abstract/demos/mail-demo/data";
-import { useMail } from "@/components/abstract/demos/mail-demo/use-mail";
+import { Mail } from "@/components/theme/demos/mail-demo/data";
+import { useMail } from "@/components/theme/demos/mail-demo/use-mail";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 

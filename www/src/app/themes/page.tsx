@@ -2,13 +2,13 @@ import { Metadata } from "next";
 
 import { ActionButtons } from "@/components/theme/action-buttons";
 import { QuickCustomizer } from "@/components/theme/quick-customizer";
-import { CardsDemo } from "@/components/abstract/demos/cards-demo";
-import { DashboardDemo } from "@/components/abstract/demos/dashboard-demo";
-import { MailDemo } from "@/components/abstract/demos/mail-demo";
+import { CardsDemo } from "@/components/theme/demos/cards-demo";
+import { DashboardDemo } from "@/components/theme/demos/dashboard-demo";
+import { MailDemo } from "@/components/theme/demos/mail-demo";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ContainerWrapper } from "@/components/abstract/wrappers";
-import { ComponentsDemo } from "@/components/abstract/demos/components-demo";
+import { ContainerWrapper } from "@/components/theme/wrappers";
+import { ComponentsDemo } from "@/components/theme/demos/components-demo";
 
 export const metadata: Metadata = {
   title: "Theme Customizer",

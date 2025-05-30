@@ -14,7 +14,7 @@ import { TailwindVersion } from "@/types/theme";
 import { generateThemeCode } from "@/lib/utils/theme-style-generator";
 import { Check, Clipboard, Code, Terminal } from "lucide-react";
 import React, { useMemo } from "react";
-import { TooltipWrapper } from "../abstract/tooltip-wrapper";
+import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {

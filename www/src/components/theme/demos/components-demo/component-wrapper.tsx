@@ -1,9 +1,9 @@
 // pulled from https://github.com/shadcn-ui/ui/blob/main/apps/v4/components/component-wrapper.tsx#L7
 "use client";
 
-import { ComponentErrorBoundary } from "@/components/abstract/error-boundary";
-import { ExternalLink } from "@/components/abstract/external-link";
-import { TooltipWrapper } from "@/components/abstract/tooltip-wrapper";
+import { ComponentErrorBoundary } from "@/components/theme/error-boundary";
+import { ExternalLink } from "@/components/theme/external-link";
+import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";

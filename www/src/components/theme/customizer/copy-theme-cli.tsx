@@ -28,8 +28,8 @@ import { generateThemeRegistryItemFromThemeObject } from "@/actions/registry";
 import { usePackageManager } from "@/store/preferences-store";
 import { ThemeObject } from "@/types/theme";
 import { toast } from "sonner";
-import { CopyToClipboardButton } from "../abstract/copy-to-clipboard-button";
-import { ExternalLink } from "../abstract/external-link";
+import { CopyToClipboardButton } from "@/components/theme/copy-to-clipboard-button";
+import { ExternalLink } from "@/components/theme/external-link";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 

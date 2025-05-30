@@ -4,10 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-import { FrameHighlight } from "@/components/abstract/frame-highlight";
+import { FrameHighlight } from "@/components/theme/frame-highlight";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ContainerWrapper } from "@/components/abstract/wrappers";
+import { ContainerWrapper } from "@/components/theme/wrappers";
 import { useClickOutside } from "@/hooks/use-click-outside";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { NAV_LINKS } from "@/lib/constants";
