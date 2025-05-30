@@ -18,17 +18,16 @@ import { Provider as JotaiProvider } from "jotai"
 import { Toaster } from "@/components/ui/sonner";
 import { Suspense } from "react";
 import * as React from "react"
-
-import {
-  CustomizerSidebar,
-  CustomizerSidebarToggle,
-} from "@/components/theme/customizer/customizer-sidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ContainerWrapper } from "@/components/theme/wrappers";
 import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
+import {
+  CustomizerSidebar,
+  CustomizerSidebarToggle,
+} from "@/components/theme/customizer/customizer-sidebar";
 
 const SIDEBAR_WIDTH = "21rem";
 const queryClient = new QueryClient({
