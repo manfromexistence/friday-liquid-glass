@@ -4,11 +4,11 @@ import { useState, useEffect, useRef } from "react"
 import { Search, ChevronRight, AlertCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from 'uuid'
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase/config"
-import { useAuth } from "@/contexts/auth-context"
+// import { doc, setDoc } from "firebase/firestore"
+// import { db } from "@/lib/firebase/config"
+// import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
-import { useAIModelStore } from "@/lib/store/ai-model-store"
+import { useAIModelStore } from "@/store/ai-model-store"
 import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
@@ -40,7 +40,7 @@ export default function SearchSuggestions({ inputValue, onSuggestionSelect }: Se
   const bottomObserverRef = useRef<HTMLDivElement>(null);
   const lastQueryRef = useRef<string>("");
   const router = useRouter();
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const { currentModel } = useAIModelStore();
 
   // Reset pagination when input changes
@@ -238,19 +238,19 @@ export default function SearchSuggestions({ inputValue, onSuggestionSelect }: Se
     }
     
     // Otherwise, create a new chat
-    if (!user) {
-      toast.error("Authentication required", {
-        description: "Please sign in to chat with Friday AI",
-        action: {
-          label: "Sign In",
-          onClick: () => {
-            // Handle sign in
-          },
-        },
-        duration: 5000,
-      });
-      return;
-    }
+    // if (!user) {
+    //   toast.error("Authentication required", {
+    //     description: "Please sign in to chat with Friday AI",
+    //     action: {
+    //       label: "Sign In",
+    //       onClick: () => {
+    //         // Handle sign in
+    //       },
+    //     },
+    //     duration: 5000,
+    //   });
+    //   return;
+    // }
 
     try {
       const chatId = uuidv4();
@@ -272,19 +272,19 @@ export default function SearchSuggestions({ inputValue, onSuggestionSelect }: Se
         visibility: 'public',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        creatorUid: user.uid,
+        creatorUid: `ffdsfkjdsaklfjadsklfjdsklfj`,
         reactions: {
           likes: {},
           dislikes: {}
         },
-        participants: [user.uid],
+        participants: [`ffdsfkjdsaklfjadsklfjdsklfj`],
         views: 0,
         uniqueViewers: [],
         isPinned: false
       };
 
       // Store chat data in Firestore
-      await setDoc(doc(db, "chats", chatId), chatData);
+      // await setDoc(doc(db, "chats", chatId), chatData);
 
       // Store session data for auto-submission
       sessionStorage.setItem('initialPrompt', suggestion);

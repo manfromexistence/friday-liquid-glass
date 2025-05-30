@@ -1,6 +1,6 @@
 "use server";
 
-import { createRegistryItem } from "@/data/r/themes";
+import { createRegistryItem } from "@/db/data/r/themes";
 import { ThemeObject } from "@/types/theme";
 import { buildThemeRegistryItem } from "@/lib/utils/registry/themes";
 
