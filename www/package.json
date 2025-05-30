@@ -112,6 +112,7 @@
   "trustedDependencies": [
     "@tailwindcss/oxide",
     "core-js",
+    "es5-ext",
     "esbuild",
     "msw",
     "sharp",
