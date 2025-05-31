@@ -45,11 +45,7 @@ import { TeamSwitcher } from "@/components/layout/sidebar/team-switcher"
 import { useCallback } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { useRouter } from "next/navigation"
-// import { doc, setDoc } from "firebase/firestore"; // Corrected import
-// import { db } from "@/lib/firebase/config";
-// import { useAuth } from "@/contexts/auth-context";
 import { toast } from "sonner"
-// import { aiService } from "@/lib/services/ai-service";
 import { Banner } from "@/components/layout/banner"
 
 export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
