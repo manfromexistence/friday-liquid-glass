@@ -55,7 +55,7 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 // import { collection, query, getDocs, onSnapshot, doc, deleteDoc, updateDoc, getDoc, where } from "firebase/firestore"
 // import { useAuth } from "@/contexts/auth-context"
-import {cn} from "@/lib/utils"
+import { cn } from "@/lib/utils"
 // Modify the Chat interface to include isPinned
 interface Chat {
   id: string;
@@ -123,8 +123,8 @@ export function History() {
       // Hardcoded chats for now
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async fetch
       return [
-        { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url:'/chat/chat1', emoji:'😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true },
-        { id: 'chat2', title: 'Another Hardcoded Chat', name: 'HC Chat 2', url:'/chat/chat2', emoji:'🎉', creatorUid: userUid, lastMessage: 'World', timestamp: Date.now() - 100000, isPinned: false },
+        { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url: '/chat/chat1', emoji: '😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true },
+        { id: 'chat2', title: 'Another Hardcoded Chat', name: 'HC Chat 2', url: '/chat/chat2', emoji: '🎉', creatorUid: userUid, lastMessage: 'World', timestamp: Date.now() - 100000, isPinned: false },
       ].sort((a: Chat, b: Chat) => { // Added explicit types for a and b
         if (a.isPinned && !b.isPinned) return -1;
         if (!a.isPinned && b.isPinned) return 1;
@@ -185,7 +185,7 @@ export function History() {
 
     // return () => unsubscribe()
     // No-op for now, as Firebase is commented out
-    return () => {};
+    return () => { };
   }, [queryClient, userUid])
 
   const [isRenameOpen, setIsRenameOpen] = useState(false)
@@ -308,7 +308,7 @@ export function History() {
           return { ...simulatedChat };
         }
         if (chatId === 'chat1' && userUid === 'test-user-uid') {
-            return { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url:'/chat/chat1', emoji:'😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true, visibility: 'public' };
+          return { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url: '/chat/chat1', emoji: '😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true, visibility: 'public' };
         }
         return null;
       },
@@ -325,7 +325,9 @@ export function History() {
   return (
     <>
       <SidebarGroup className="!py-0 group-data-[collapsible=icon]:hidden">
-        <SidebarGroupLabel className="flex items-center justify-between py-0 px-2 rounded-md mt-2 mb-1 bg-background/40 dark:hover:bg-background hover:bg-primary-foreground hover:border-border dark:border-background dark:hover:border-primary-foreground border">
+        <SidebarGroupLabel
+          onClick={() => setIsCommandOpen(true)}
+          className="flex items-center justify-between py-0 px-2 rounded-md mt-2 mb-1 border">
           <span className="ml-0.5">
             Chats
           </span>
@@ -334,9 +336,8 @@ export function History() {
               onClick={() => setIsCommandOpen(true)}
               className="hover:text-primary mr-2 size-2 md:mr-0" />
           </div> */}
-            <Search
-              onClick={() => setIsCommandOpen(true)}
-              className="hover:text-primary mr-0.5 size-2 md:mr-0" />
+          <Search
+            className="hover:text-primary mr-0.5 size-2 md:mr-0" />
           {/* <Button
             variant="outline"
             size="icon"
@@ -364,7 +365,6 @@ export function History() {
                 <SidebarMenuItem key={chat.id}>
                   <SidebarMenuButton
                     asChild
-                    className={cn(isActive ? "bg-primary-foreground text-primary dark:bg-background dark:text-sidebar-accent-foreground" : "", "dark:hover:bg-background dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group")}
                   >
                     <a
                       href={`/chat/${chat.id}`}

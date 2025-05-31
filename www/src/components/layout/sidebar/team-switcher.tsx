@@ -124,6 +124,9 @@ export function TeamSwitcher() {
             <Orb className="" baseOrbSize={25} baseShapeSize={21} {...currentPreset} />
           </motion.div> */}
           <Friday />
+
+<span className="text-sm font-bold">Friday</span>
+
           {state === "expanded" ? (<PanelRight
             onClick={() => {
               toggleSidebar()

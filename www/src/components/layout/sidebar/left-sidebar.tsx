@@ -37,6 +37,7 @@ import {
   SidebarMenuButton,
   useSidebar,
   SidebarRail,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { History } from '@/components/layout/sidebar/history'
@@ -130,7 +131,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                 <TooltipTrigger asChild>
                   <button
                     onClick={handleStartNew}
-                    className="hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm bg-background/40 dark:hover:bg-background hover:bg-primary-foreground hover:border-border dark:border-primary-foreground border"
+                    className="flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm border hover:bg-secondary"
                   >
                     {state === 'expanded' ? 'Start New' : <Plus className="size-4" />}
                   </button>
@@ -143,8 +144,8 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/">
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Home className="size-4" />
+                    <SidebarMenuButton>
+                      <Home className="size-4 mr-2" />
                       Home
                     </SidebarMenuButton>
                   </Link>
@@ -157,8 +158,8 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/automations">
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Sparkles className="size-4" />
+                    <SidebarMenuButton>
+                      <Sparkles className="size-4 mr-2" />
                       Automations
                     </SidebarMenuButton>
                   </Link>
@@ -171,8 +172,8 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/variants">
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <CircleSlash2 className="size-4" />
+                    <SidebarMenuButton>
+                      <CircleSlash2 className="size-4 mr-2" />
                       Varients
                     </SidebarMenuButton>
                   </Link>
@@ -185,8 +186,8 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/library">
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <LibraryBig className="size-4" />
+                    <SidebarMenuButton>
+                      <LibraryBig className="size-4 mr-2" />
                       Library
                     </SidebarMenuButton>
                   </Link>
@@ -199,8 +200,9 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/projects">
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Blocks className="size-4" />
+                    <SidebarMenuItem>
+                    <SidebarMenuButton>
+                      <Blocks className="size-4 mr-2" />
                       Projects
                     </SidebarMenuButton>
                   </Link>
@@ -213,8 +215,8 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/spaces">
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Frame className="size-4" />
+                    <SidebarMenuButton>
+                      <Frame className="size-4 mr-2" />
                       Spaces
                     </SidebarMenuButton>
                   </Link>
@@ -227,8 +229,8 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href={{ pathname: '/more' }}>
-                    <SidebarMenuButton className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center justify-start transition-all duration-200 ease-in-out border border-transparent hover:border-background">
-                      <Ellipsis className="size-4" />
+                    <SidebarMenuButton>
+                      <Ellipsis className="size-4 mr-2" />
                       More
                     </SidebarMenuButton>
                   </Link>
@@ -259,7 +261,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                     onClick={() => {
                       toggleSidebar()
                     }}
-                    className="hover:bg-background hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md"
+                    className="flex min-h-8 min-w-8 items-center justify-center rounded-md"
                   >
                     <PanelRight className="size-4" />
                   </div>
@@ -272,7 +274,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="hover:bg-background hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md">
+                  <div className="flex min-h-8 min-w-8 items-center justify-center rounded-md">
                     <Info className="size-[18.5px]" />
                   </div>
                 </TooltipTrigger>
