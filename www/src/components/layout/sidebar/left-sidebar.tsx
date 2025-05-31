@@ -200,7 +200,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/projects">
-                    <SidebarMenuItem>
                     <SidebarMenuButton>
                       <Blocks className="size-4 mr-2" />
                       Projects
