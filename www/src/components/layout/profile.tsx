@@ -26,9 +26,12 @@ import {
   Moon,
   Sun,
   Cog,
+  MoonIcon,
+  SunIcon,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import router from "next/router";
+import Link from "next/link";
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
@@ -110,28 +113,28 @@ export default function Profile() {
     setTheme(theme === "light" ? "dark" : "light");
   }, [theme, setTheme]);
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex items-center justify-center w-10 h-10">
-  //       <div className="w-6 h-6 border-2 border-gray-300 rounded-full border-t-primary animate-spin"></div>
-  //     </div>
-  //   );
-  // }
-
   if (!user || !user.user) {
     return (
-      <Button
-        size={"sm"}
-        variant="outline"
-        onClick={() => {
-          // For a real app, you might navigate to a login page or open a modal
-          // Example: router.push('/signin');
-          // toast.info("Please sign in.");
-          router.push('/signin');
-        }}
-      >
-        Sign In
-      </Button>
+      <>
+        <Button
+          size={"sm"}
+          variant="outline"
+          className='size-8'
+          onClick={toggleTheme}
+
+        >
+          {theme === 'light' ? <MoonIcon className="size-4" /> : <SunIcon className="size-4" />}
+        </Button>
+        <Link href="/sign-in">
+          <Button
+            size={"sm"}
+            variant="outline"
+          >
+            Sign In
+          </Button>
+        </Link>
+      </>
+
     );
   }
 
@@ -309,8 +312,6 @@ export default function Profile() {
               )}
             </div>
           )}
-
-
           <Button
             variant="ghost"
             onClick={handleSignOut}

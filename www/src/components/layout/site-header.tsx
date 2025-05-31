@@ -257,7 +257,7 @@ export function SiteHeader() {
 
     // return () => unsubscribe()
     // No-op for now
-    return () => {};
+    return () => { };
   }, [params?.slug, queryClient])
 
   useEffect(() => {
@@ -504,7 +504,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-40 flex h-12 items-center justify-between border-b px-2 bg-background',
+        'fixed top-0 z-40 flex h-12 items-center justify-between border-b px-2 bg-background w-full',
         // Add transition for smooth changes
         'transition-all duration-200 ease-linear',
         // Base width and position - full width on mobile, default md width with 48px offset
@@ -512,7 +512,7 @@ export function SiteHeader() {
 
         // Left sidebar positioning (after md breakpoint)
         leftSidebarState === 'expanded'
-          ? 'w-[calc(100%-256px)] md:left-64' // When left sidebar is expanded
+          ? 'md:w-[calc(100%-256px)] md:left-64' // When left sidebar is expanded
           : 'md:left-12', // When collapsed
 
         // Width calculations based on sidebar states and viewport
@@ -537,17 +537,26 @@ export function SiteHeader() {
           ? 'md:w-[calc(100%-256px)] '
           : '',
 
-        statecategorysidebar === 'expanded' ? 'w-[calc(100%-256px)]' : '',
-        statesubcategorysidebar === 'expanded' ? 'w-[calc(100%-256px)]' : ''
+        statecategorysidebar === 'expanded' ? 'md:w-[calc(100%-256px)]' : '',
+        statesubcategorysidebar === 'expanded' ? 'md:w-[calc(100%-256px)]' : ''
       )}
     >
       {/* Header content */}
-      <div className="flex items-center">
+      <div className="flex items-center space-x-1.5">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <div className="md:text-primary-foreground md:hover:text-primary mr-1 flex size-8 cursor-pointer items-center justify-center rounded-md border bg-background hover:bg-primary-foreground md:hidden">
+            {/* <div className="md:text-primary-foreground md:hover:text-primary mr-1 flex size-8 cursor-pointer items-center justify-center rounded-md border bg-background hover:bg-primary-foreground md:hidden">
               <Menu className="size-4" />
-            </div>
+            </div> */}
+            <Button
+              size={"sm"}
+              variant="outline"
+              className='size-8 md:hidden'
+            >
+              <Menu className="size-4" />
+            </Button>
+
+
           </SheetTrigger>
           <SheetContent
             side="left"
@@ -711,12 +720,21 @@ export function SiteHeader() {
         <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
           <CommandMenu />
         </div>
-        <div
+        {/* <div
           onClick={() => setCommandOpen(true)}
           className="md:text-primary-foreground md:hover:text-primary md:hidden h-8 w-8 rounded-md border bg-background hover:bg-primary-foreground flex items-center justify-center cursor-pointer"
         >
           <Search className="h-4 w-4" />
-        </div>
+        </div> */}
+
+        <Button
+          onClick={() => setCommandOpen(true)}
+          size={"sm"}
+          variant="outline"
+          className='size-8 md:hidden'
+        >
+          <Search className="h-4 w-4" />
+        </Button>
 
         <div className="hidden">
           <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>
@@ -741,7 +759,7 @@ export function SiteHeader() {
               </CommandGroup>
               {docsConfig.sidebarNav.map((group) => (
                 <CommandGroup key={group.title} heading={group.title}>
-                  {group.items.map((navItem:any) => (
+                  {group.items.map((navItem: any) => (
                     <CommandItem
                       key={navItem.href}
                       value={navItem.title}
@@ -775,9 +793,9 @@ export function SiteHeader() {
             </CommandList>
           </CommandDialog>
         </div>
+        <Profile />
 
-        {user ? (
-          <Profile />
+        {/* {user ? (
         ) : (
           <>
             <div
@@ -793,12 +811,14 @@ export function SiteHeader() {
               Sign in
             </div>
           </>
-        )}
-        {/* <div className="!m-0 items-center gap-0 space-x-0 !p-0">
+        )} */}
+        {/* <div className="hidden">
           <CategorySidebar className="!m-0 !p-0" />
           <SubCategorySidebar className="!m-0 !p-0" />
         </div> */}
       </div>
+      <CategorySidebar />
+      <SubCategorySidebar />
     </header>
   )
 }

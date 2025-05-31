@@ -56,12 +56,12 @@ export function Providers({
             <NextThemesProvider {...props}>
               <TooltipProvider>
                 <SidebarProvider
-                  // style={{
-                  //   "--sidebar-width": SIDEBAR_WIDTH,
-                  // }}
+                // style={{
+                //   "--sidebar-width": SIDEBAR_WIDTH,
+                // }}
                 >
 
-                  <CustomizerSidebar variant="inset" />
+                  {/* <CustomizerSidebar variant="inset" /> */}
                   <LeftSidebar />
                   <CategorySidebarProvider>
                     <SubCategorySidebarProvider>
@@ -72,10 +72,9 @@ export function Providers({
                         <SiteHeader />
                         <BottomBar />
                         <Main>
-                          <Suspense>
-                            {children}
-                            <ThemeSync />
-                          </Suspense>
+                          {/* <Suspense></Suspense> */}
+                          {children}
+                          <ThemeSync />
                         </Main>
                         <NewYorkToaster />
                         <DefaultToaster />
@@ -92,9 +91,6 @@ export function Providers({
                       </Suspense>
                     </ScrollArea>
                   </SidebarInset> */}
-
-
-
                 </SidebarProvider>
               </TooltipProvider>
             </NextThemesProvider>
