@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
-import { ActionButtons } from "@/components/theme/action-buttons";
-import { QuickCustomizer } from "@/components/theme/quick-customizer";
+import { ActionButtons } from "@/components/theme/customizer/action-buttons";
+import { QuickCustomizer } from "@/components/theme/customizer/quick-customizer";
 import { CardsDemo } from "@/components/theme/demos/cards-demo";
 import { DashboardDemo } from "@/components/theme/demos/dashboard-demo";
 import { MailDemo } from "@/components/theme/demos/mail-demo";

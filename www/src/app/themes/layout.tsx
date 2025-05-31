@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import {
   CustomizerSidebar,
   CustomizerSidebarToggle,
-} from "@/components/theme/customizer-sidebar";
+} from "@/components/theme/customizer/customizer-sidebar";
 // import { RandomizeButton } from "@/components/abstract/customizer/randomize-button";
 // import { ExternalLink } from "@/components/abstract/external-link";
 // import { GitHub } from "@/components/abstract/icons/github";
