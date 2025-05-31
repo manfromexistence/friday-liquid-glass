@@ -504,7 +504,7 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-40 flex h-12 items-center justify-between border-b px-2 bg-background w-full',
+        'fixed top-0 z-40 flex h-12 items-center border-b px-2 bg-background w-full',
         // Add transition for smooth changes
         'transition-all duration-200 ease-linear',
         // Base width and position - full width on mobile, default md width with 48px offset
@@ -542,7 +542,7 @@ export function SiteHeader() {
       )}
     >
       {/* Header content */}
-      <div className="flex items-center space-x-1.5">
+      <div className="flex items-center space-x-1.5 flex-1">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             {/* <div className="md:text-primary-foreground md:hover:text-primary mr-1 flex size-8 cursor-pointer items-center justify-center rounded-md border bg-background hover:bg-primary-foreground md:hidden">
@@ -816,6 +816,8 @@ export function SiteHeader() {
           <CategorySidebar className="!m-0 !p-0" />
           <SubCategorySidebar className="!m-0 !p-0" />
         </div> */}
+              {/* <CategorySidebar />
+              <SubCategorySidebar /> */}
       </div>
       <CategorySidebar />
       <SubCategorySidebar />
