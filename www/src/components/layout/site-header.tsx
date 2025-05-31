@@ -77,6 +77,7 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 import { Separator } from '@/components/ui/separator'
 import Profile from '@/components/layout/profile'
+import { CustomizerSidebarToggle } from '../theme/customizer/customizer-sidebar'
 
 type ChatVisibility = 'public' | 'private' | 'unlisted'
 
@@ -794,6 +795,7 @@ export function SiteHeader() {
           </CommandDialog>
         </div>
         <Profile />
+        <CustomizerSidebarToggle />
 
         {/* {user ? (
         ) : (
@@ -816,7 +818,7 @@ export function SiteHeader() {
           <CategorySidebar className="!m-0 !p-0" />
           <SubCategorySidebar className="!m-0 !p-0" />
         </div> */}
-              {/* <CategorySidebar />
+        {/* <CategorySidebar />
               <SubCategorySidebar /> */}
       </div>
       <CategorySidebar />
