@@ -544,11 +544,9 @@ export function SiteHeader() {
     >
       {/* Header content */}
       <div className="flex items-center space-x-1.5 flex-1">
-        <Sheet open={open} onOpenChange={setOpen}>
+        <CustomizerSidebarToggle />
+        {/* <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            {/* <div className="md:text-primary-foreground md:hover:text-primary mr-1 flex size-8 cursor-pointer items-center justify-center rounded-md border bg-background hover:bg-primary-foreground md:hidden">
-              <Menu className="size-4" />
-            </div> */}
             <Button
               size={"sm"}
               variant="outline"
@@ -556,23 +554,18 @@ export function SiteHeader() {
             >
               <Menu className="size-4" />
             </Button>
-
-
           </SheetTrigger>
           <SheetContent
             side="left"
             className="w-[280px] p-0 border-background border-r"
           >
             <ScrollArea className="h-full w-full p-0">
-              {/* Header inside Sheet */}
               <SheetHeader className="p-2">
                 <SheetTitle className="flex items-center justify-start gap-1">
                   <Friday className="size-5" />
                   <span className="mt-1 ml-2">Friday</span>
                 </SheetTitle>
               </SheetHeader>
-
-              {/* Content from LeftSidebar */}
               <div className="flex flex-col gap-1 px-3">
                 <TooltipProvider>
                   <Tooltip>
@@ -588,7 +581,6 @@ export function SiteHeader() {
                       <p>Start New Conversation</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href="/" onClick={() => setOpen(false)}>
@@ -602,7 +594,6 @@ export function SiteHeader() {
                       <p>Home</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href="/automations" onClick={() => setOpen(false)}>
@@ -616,7 +607,6 @@ export function SiteHeader() {
                       <p>Automations</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href="/variants" onClick={() => setOpen(false)}>
@@ -630,7 +620,6 @@ export function SiteHeader() {
                       <p>Varients</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href="/library" onClick={() => setOpen(false)}>
@@ -644,7 +633,6 @@ export function SiteHeader() {
                       <p>Library</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href="/projects" onClick={() => setOpen(false)}>
@@ -658,7 +646,6 @@ export function SiteHeader() {
                       <p>Projects</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href="/spaces" onClick={() => setOpen(false)}>
@@ -672,7 +659,6 @@ export function SiteHeader() {
                       <p>Spaces</p>
                     </TooltipContent>
                   </Tooltip>
-
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link href={{ pathname: '/more' }} onClick={() => setOpen(false)}>
@@ -688,15 +674,13 @@ export function SiteHeader() {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-
-              {/* History Section */}
               <div className="p-1 pt-2">
                 <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
                 <History />
               </div>
             </ScrollArea>
           </SheetContent>
-        </Sheet>
+        </Sheet> */}
         {!pathname?.startsWith('/chat') ? (
           <>
             <Friday className="md:hidden" orbSize={25} shapeSize={21} />
@@ -795,7 +779,6 @@ export function SiteHeader() {
           </CommandDialog>
         </div>
         <Profile />
-        <CustomizerSidebarToggle />
 
         {/* {user ? (
         ) : (

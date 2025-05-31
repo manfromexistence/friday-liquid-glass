@@ -1,7 +1,7 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import Link from 'next/link'
+import * as React from "react"
+import Link from "next/link"
 import {
   AudioWaveform,
   Blocks,
@@ -27,8 +27,8 @@ import {
   Sparkles,
   SquareTerminal,
   Trash2,
-} from 'lucide-react'
-import { ScrollArea } from '@/components/ui/scroll-area'
+} from "lucide-react"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   Sidebar,
   SidebarContent,
@@ -38,19 +38,19 @@ import {
   useSidebar,
   SidebarRail,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { History } from '@/components/layout/sidebar/history'
-import { TeamSwitcher } from '@/components/layout/sidebar/team-switcher'
-import { useCallback } from 'react'
-import { v4 as uuidv4 } from 'uuid'
-import { useRouter } from 'next/navigation'
-// import { doc, setDoc } from 'firebase/firestore'; // Corrected import
-// import { db } from '@/lib/firebase/config';
-// import { useAuth } from '@/contexts/auth-context';
-import { toast } from 'sonner'
-// import { aiService } from '@/lib/services/ai-service';
-import { Banner } from '@/components/layout/banner'
+} from "@/components/ui/sidebar"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { History } from "@/components/layout/sidebar/history"
+import { TeamSwitcher } from "@/components/layout/sidebar/team-switcher"
+import { useCallback } from "react"
+import { v4 as uuidv4 } from "uuid"
+import { useRouter } from "next/navigation"
+// import { doc, setDoc } from "firebase/firestore"; // Corrected import
+// import { db } from "@/lib/firebase/config";
+// import { useAuth } from "@/contexts/auth-context";
+import { toast } from "sonner"
+// import { aiService } from "@/lib/services/ai-service";
+import { Banner } from "@/components/layout/banner"
 
 export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { state, toggleSidebar } = useSidebar()
@@ -58,18 +58,18 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
   // const { user } = useAuth(); // Corrected hook usage
   // Hardcoded user for now
   const user = {
-    uid: 'test-user-uid',
-    photoURL: 'https://via.placeholder.com/150',
-    displayName: 'Test User',
-    email: 'test@example.com',
+    uid: "test-user-uid",
+    photoURL: "https://via.placeholder.com/150",
+    displayName: "Test User",
+    email: "test@example.com",
   };
 
   // Create a handler function for the Start New button
   const handleStartNew = useCallback(async () => {
     try {
       if (!user) {
-        toast.error('Authentication required', {
-          description: 'Please sign in to start a new chat',
+        toast.error("Authentication required", {
+          description: "Please sign in to start a new chat",
           duration: 3000,
         });
         return;
@@ -81,10 +81,10 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
       // Create initial chat data with empty messages array
       const chatData = {
         id: chatId,
-        title: 'New Conversation',
+        title: "New Conversation",
         messages: [], // Start with empty messages array
-        model: 'simulated-model', // Default model // aiService.currentModel,
-        visibility: 'public',
+        model: "simulated-model", // Default model // aiService.currentModel,
+        visibility: "public",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         creatorUid: user.uid,
@@ -99,21 +99,21 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
       };
 
       // Store chat data in Firestore
-      // await setDoc(doc(db, 'chats', chatId), chatData);
-      console.log('Simulating storing chat data:', chatData);
+      // await setDoc(doc(db, "chats", chatId), chatData);
+      console.log("Simulating storing chat data:", chatData);
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
 
       // Store information in sessionStorage
-      sessionStorage.setItem('selectedAI', 'simulated-model' /*aiService.currentModel*/);
-      sessionStorage.setItem('chatId', chatId)
-      sessionStorage.setItem('isNewChat', 'true')
+      sessionStorage.setItem("selectedAI", "simulated-model" /*aiService.currentModel*/);
+      sessionStorage.setItem("chatId", chatId)
+      sessionStorage.setItem("isNewChat", "true")
 
       // Navigate to the new chat
       router.push(`/chat/${chatId}`)
     } catch (error) {
-      console.error('Error creating new chat:', error)
-      toast.error('Failed to create new chat', {
-        description: 'Please try again',
+      console.error("Error creating new chat:", error)
+      toast.error("Failed to create new chat", {
+        description: "Please try again",
       })
     }
   }, [user, router])
@@ -133,7 +133,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                     onClick={handleStartNew}
                     className="flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm border hover:bg-secondary"
                   >
-                    {state === 'expanded' ? 'Start New' : <Plus className="size-4" />}
+                    {state === "expanded" ? "Start New" : <Plus className="size-4" />}
                   </button>
                 </TooltipTrigger>
                 <TooltipContent side="right">
@@ -227,7 +227,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
 
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Link href={{ pathname: '/more' }}>
+                  <Link href={{ pathname: "/more" }}>
                     <SidebarMenuButton>
                       <Ellipsis className="size-4 mr-2" />
                       More
@@ -240,7 +240,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
               </Tooltip>
             </TooltipProvider>
           </div>
-          {state === 'expanded' ? (
+          {state === "expanded" ? (
             <div className="">
               <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
               <History />
@@ -249,7 +249,7 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
         </ScrollArea>
       </SidebarContent>
       <SidebarFooter>
-        {state === 'expanded' ? (
+        {state === "expanded" ? (
           <Banner title="Info" message="Friday is still in beta so it can make mistakes." />
         ) : (
           <>

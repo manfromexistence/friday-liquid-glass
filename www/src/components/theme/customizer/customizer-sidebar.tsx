@@ -2,7 +2,7 @@
 
 import { useMounted } from "@/hooks/use-mounted";
 import { cn } from "@/lib/utils";
-import { PaintBucket, Palette, SlidersHorizontal, X } from "lucide-react";
+import { Menu, PaintBucket, Palette, SlidersHorizontal, X } from "lucide-react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -63,7 +63,7 @@ export function CustomizerSidebar({
   }
 
   return (
-    <Sidebar className="overflow-hidden" {...props}>
+    <Sidebar collapsible="icon" className="overflow-hidden" {...props}>
       <Tabs
         defaultValue="palette"
         className="flex flex-1 flex-col gap-0 overflow-hidden"
@@ -148,6 +148,15 @@ export function CustomizerSidebarToggle({
   return (
     <>
       <Button
+        size={"sm"}
+        variant="outline"
+        className="size-8 md:hidden"
+        onClick={toggleSidebar}
+
+      >
+        <Menu className="size-4" />
+      </Button>
+      {/* <Button
         variant={"ghost"}
         size={"icon"}
         onClick={toggleSidebar}
@@ -199,7 +208,7 @@ export function CustomizerSidebarToggle({
             openMobile ? "opacity-0" : "animate-bounce opacity-100",
           )}
         />
-      </Button>
+      </Button> */}
     </>
   );
 }

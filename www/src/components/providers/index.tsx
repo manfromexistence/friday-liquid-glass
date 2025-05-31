@@ -61,8 +61,10 @@ export function Providers({
                 // }}
                 >
 
+                  <CustomizerSidebar />
+                  {/* <LeftSidebar />
                   <CustomizerSidebar variant="inset" />
-                  {/* <LeftSidebar /> */}
+                  */}
                   <CategorySidebarProvider>
                     <SubCategorySidebarProvider>
                       <div
