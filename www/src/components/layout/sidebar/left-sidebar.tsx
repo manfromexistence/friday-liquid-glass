@@ -140,7 +140,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Start New Conversation</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/">
@@ -154,7 +153,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Home</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/automations">
@@ -168,7 +166,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Automations</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/variants">
@@ -182,7 +179,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Varients</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/library">
@@ -196,7 +192,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Library</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/projects">
@@ -210,7 +205,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Projects</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href="/spaces">
@@ -224,7 +218,6 @@ export function LeftSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) 
                   <p>Spaces</p>
                 </TooltipContent>
               </Tooltip>
-
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link href={{ pathname: "/more" }}>
