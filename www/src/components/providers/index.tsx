@@ -56,12 +56,34 @@ export function Providers({
             <NextThemesProvider {...props}>
               <TooltipProvider>
                 <SidebarProvider
-                  style={{
-                    "--sidebar-width": SIDEBAR_WIDTH,
-                  }}
+                  // style={{
+                  //   "--sidebar-width": SIDEBAR_WIDTH,
+                  // }}
                 >
+
                   <CustomizerSidebar variant="inset" />
-                  <SidebarInset className="peer-data-[variant=inset]:peer-data-[state=collapsed]:mt-12 peer-data-[variant=inset]:peer-data-[state=expanded]:mt-12 isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-3.5rem)]">
+                  <LeftSidebar />
+                  <CategorySidebarProvider>
+                    <SubCategorySidebarProvider>
+                      <div
+                        vaul-drawer-wrapper=""
+                        className="relative h-screen w-full overflow-hidden"
+                      >
+                        <SiteHeader />
+                        <BottomBar />
+                        <Main>
+                          <Suspense>
+                            {children}
+                            <ThemeSync />
+                          </Suspense>
+                        </Main>
+                        <NewYorkToaster />
+                        <DefaultToaster />
+                        <NewYorkSonner />
+                      </div>
+                    </SubCategorySidebarProvider>
+                  </CategorySidebarProvider>
+                  {/* <SidebarInset className="peer-data-[variant=inset]:peer-data-[state=collapsed]:mt-12 peer-data-[variant=inset]:peer-data-[state=expanded]:mt-12 isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-3.5rem)]">
                     <SiteHeader />
                     <ScrollArea className="relative z-10 flex h-full flex-col overflow-hidden">
                       <Suspense>
@@ -69,7 +91,10 @@ export function Providers({
                         <ThemeSync />
                       </Suspense>
                     </ScrollArea>
-                  </SidebarInset>
+                  </SidebarInset> */}
+
+
+
                 </SidebarProvider>
               </TooltipProvider>
             </NextThemesProvider>
@@ -79,3 +104,4 @@ export function Providers({
     </QueryClientProvider>
   )
 }
+

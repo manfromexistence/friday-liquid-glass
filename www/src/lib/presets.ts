@@ -53,8 +53,8 @@ export const otherPresets: Record<OtherPresets, ThemeObject> = {
       "shadow-offset-y": "1px"
     },
     dark: {
-      background: "oklch(0.18 0 0)",
-      // background: "oklch(0 0 0)",
+      // background: "oklch(0.18 0 0)",
+      background: "oklch(0 0 0)",
       foreground: "oklch(1.00 0 0)",
       card: "oklch(0.14 0 0)",
       "card-foreground": "oklch(1.00 0 0)",
@@ -78,8 +78,8 @@ export const otherPresets: Record<OtherPresets, ThemeObject> = {
       "chart-3": "oklch(0.56 0 0)",
       "chart-4": "oklch(0.44 0 0)",
       "chart-5": "oklch(0.92 0 0)",
-      sidebar: "oklch(0 0 0)",
-      // sidebar: "oklch(0.18 0 0)",
+      // sidebar: "oklch(0 0 0)",
+      sidebar: "oklch(0.18 0 0)",
       "sidebar-foreground": "oklch(1.00 0 0)",
       "sidebar-primary": "oklch(1.00 0 0)",
       "sidebar-primary-foreground": "oklch(0 0 0)",

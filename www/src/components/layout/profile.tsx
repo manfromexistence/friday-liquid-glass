@@ -28,6 +28,7 @@ import {
   Cog,
 } from "lucide-react";
 import { useTheme } from "next-themes";
+import router from "next/router";
 
 export default function Profile() {
   const [user, setUser] = useState<any>(null);
@@ -109,22 +110,24 @@ export default function Profile() {
     setTheme(theme === "light" ? "dark" : "light");
   }, [theme, setTheme]);
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center w-10 h-10">
-        <div className="w-6 h-6 border-2 border-gray-300 rounded-full border-t-primary animate-spin"></div>
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="flex items-center justify-center w-10 h-10">
+  //       <div className="w-6 h-6 border-2 border-gray-300 rounded-full border-t-primary animate-spin"></div>
+  //     </div>
+  //   );
+  // }
 
   if (!user || !user.user) {
     return (
       <Button
+        size={"sm"}
         variant="outline"
         onClick={() => {
           // For a real app, you might navigate to a login page or open a modal
           // Example: router.push('/signin');
-          toast.info("Please sign in.");
+          // toast.info("Please sign in.");
+          router.push('/signin');
         }}
       >
         Sign In
@@ -211,25 +214,22 @@ export default function Profile() {
                 <div className="flex space-x-1 p-1 border rounded-full">
                   <button
                     onClick={() => setTheme("light")}
-                    className={`p-1.5 rounded-full ${
-                      theme === "light" ? "bg-primary-foreground border" : ""
-                    }`}
+                    className={`p-1.5 rounded-full ${theme === "light" ? "bg-primary-foreground border" : ""
+                      }`}
                   >
                     <Sun className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setTheme("dark")}
-                    className={`p-1.5 rounded-full ${
-                      theme === "dark" ? "bg-primary-foreground border" : ""
-                    }`}
+                    className={`p-1.5 rounded-full ${theme === "dark" ? "bg-primary-foreground border" : ""
+                      }`}
                   >
                     <Moon className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => setTheme("system")}
-                    className={`p-1.5 rounded-full ${
-                      theme === "system" ? "bg-primary-foreground border" : ""
-                    }`}
+                    className={`p-1.5 rounded-full ${theme === "system" ? "bg-primary-foreground border" : ""
+                      }`}
                   >
                     <Cog className="h-4 w-4" />
                   </button>
@@ -279,8 +279,8 @@ export default function Profile() {
               </div>
             </div>
           </div>
-           {/* Displaying User, Session, and Account Information similar to page.tsx */}
-           {user && user.user && (
+          {/* Displaying User, Session, and Account Information similar to page.tsx */}
+          {user && user.user && (
             <div className="p-3 border-t text-xs text-muted-foreground max-h-48 overflow-y-auto">
               <h3 className="font-semibold text-sm text-foreground mb-1">User Details</h3>
               <p><strong>ID:</strong> {userData.id || "N/A"}</p>
@@ -297,16 +297,16 @@ export default function Profile() {
               )}
 
               {betterauth && betterauth.data && betterauth.data.length > 0 && (
-              <>
-                <h3 className="font-semibold text-sm text-foreground mt-2 mb-1">Linked Accounts</h3>
-                {betterauth.data.map((account: any, index: number) => (
-                  <div key={account.id} className="mt-1">
-                    <p><strong>Provider {index + 1}:</strong> {account.provider || "N/A"}</p>
-                    {/* Add more account details if needed */}
-                  </div>
-                ))}
-              </>
-            )}
+                <>
+                  <h3 className="font-semibold text-sm text-foreground mt-2 mb-1">Linked Accounts</h3>
+                  {betterauth.data.map((account: any, index: number) => (
+                    <div key={account.id} className="mt-1">
+                      <p><strong>Provider {index + 1}:</strong> {account.provider || "N/A"}</p>
+                      {/* Add more account details if needed */}
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           )}
 
