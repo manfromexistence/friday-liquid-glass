@@ -19,7 +19,7 @@ export function ActionButtons({ className }: ActionButtonsProps) {
   return (
     <div
       className={cn(
-        "@container flex min-h-0 w-full flex-wrap items-center justify-between gap-2 border",
+        "@container flex min-h-0 w-full flex-wrap items-center justify-between gap-2 border p-1 rounded-md mb-4",
         className,
       )}
     >
