@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from "uuid"
 import { doc, setDoc } from "firebase/firestore"
-// import { db } from "@/lib/firebase/config"
-// import { useAuth } from "@/contexts/auth-context"
+import { db } from "@/lib/firebase/config"
+import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useAIModelStore } from "@/store/ai-model-store"
@@ -46,13 +46,7 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   const { statesubcategorysidebar } = useSubCategorySidebar()
   const router = useRouter()
   const { currentModel, setModel } = useAIModelStore()
-  // const { user } = useAuth()
-  const user = {
-    uid: "test-user-uid",
-    photoURL: "https://via.placeholder.com/150",
-    displayName: "Test User",
-    email: "test@example.com",
-  };
+  const { user } = useAuth()
 
   const [value, setValue] = useState("")
   const [isMaxHeight, setIsMaxHeight] = useState(false)
@@ -215,7 +209,7 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       }
 
       // Store chat data in Firestore
-      // await setDoc(doc(db, "chats", chatId), chatData)
+      await setDoc(doc(db, "chats", chatId), chatData)
 
       // Store the input value and selected AI model in sessionStorage
       sessionStorage.setItem("initialPrompt", trimmedValue)

@@ -20,10 +20,6 @@ import { toast } from "sonner";
 import { useAIModelStore } from "@/store/ai-model-store";
 import { stripPrefixes } from "@/lib/utils";
 
-const MIN_HEIGHT = 48;
-const MAX_HEIGHT = 164;
-
-
 function sanitizeForFirestore(obj: any): any {
   if (obj === null || obj === undefined) {
     return null;
@@ -86,12 +82,14 @@ function validateMessage(message: Message): boolean {
   return true;
 }
 
-// Define expected AI response type
 interface AIResponse {
   text_response: string; // Updated to match ImageGenResponse from ai-service.ts
   image_urls: string[];  // Changed from image_ids to image_urls
   model_used: string;
 }
+
+const MIN_HEIGHT = 48;
+const MAX_HEIGHT = 164;
 
 interface ChatState {
   messages: Message[];
@@ -110,20 +108,27 @@ export default function ChatPage() {
   const queryClient = useQueryClient();
   const { statecategorysidebar } = useCategorySidebar();
   const { statesubcategorysidebar } = useSubCategorySidebar();
+
+  // Use Zustand store directly
   const { currentModel, setModel } = useAIModelStore();
+
   const [value, setValue] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
+  // Remove this line: const [selectedAI, setSelectedAI] = useState(aiService.currentModel);
   const [sessionId, setSessionId] = useState<string>(params.slug);
   const [initialResponseGenerated, setInitialResponseGenerated] = useState(false);
+
+  const { textareaRef, adjustHeight } = useAutoResizeTextarea({
+    minHeight: MIN_HEIGHT,
+    maxHeight: MAX_HEIGHT,
+  });
+
   const [inputHeight, setInputHeight] = useState(MIN_HEIGHT);
   const [showSearch, setShowSearch] = useState(false);
   const [showResearch, setShowReSearch] = useState(false);
   const [showThinking, setShowThinking] = useState(false);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const { textareaRef, adjustHeight } = useAutoResizeTextarea({
-    minHeight: MIN_HEIGHT,
-    maxHeight: MAX_HEIGHT,
-  });
+
   const [chatState, setChatState] = useState<ChatState>({
     messages: [],
     isLoading: false,
@@ -501,7 +506,7 @@ export default function ChatPage() {
         messages={chatState.messages}
         messagesEndRef={messagesEndRef}
         isThinking={chatState.isLoading}
-        selectedAI={currentModel} // Changed from selectedAI to currentModel
+        selectedAI={currentModel}
       />
       <ChatInput
         className="absolute bottom-4 left-1/2 z-50 -translate-x-1/2 md:bottom-2"
@@ -517,14 +522,13 @@ export default function ChatPage() {
         onSubmit={handleSubmit}
         onChange={setValue}
         onHeightChange={handleAdjustHeight}
-        onImageChange={(file) =>
-          file ? setImagePreview(URL.createObjectURL(file)) : setImagePreview(null)
-        }
         onSearchToggle={() => setShowSearch(!showSearch)}
         onResearchToggle={() => setShowReSearch(!showResearch)}
         onThinkingToggle={() => setShowThinking(!showThinking)}
-        // We can remove selectedAI and onAIChange props since ChatInput will use Zustand directly
         onUrlAnalysis={handleURLAnalysis}
+        onImageChange={(file) =>
+          file ? setImagePreview(URL.createObjectURL(file)) : setImagePreview(null)
+        }
       />
     </div>
   );

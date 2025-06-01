@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool } from "lucide-react";
+import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool, Images } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { doc, updateDoc, collection, addDoc, getDocs } from "firebase/firestore";
@@ -1030,7 +1030,11 @@ export function InputActions({
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" align="start">
             <DropdownMenuItem onClick={handleImageSelect}>
-              <Search className={cn("mr-1 size-4", activeCommandMode === "image-gen" && "text-primary")} />
+              <Images className={cn("mr-1 size-4", activeCommandMode === "image-gen" && "text-primary")} />
+              Image
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleImageSelect}>
+              <Search className={cn("mr-1 size-4", activeCommandMode === "search-mode" && "text-primary")} />
               Search
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleThinkingSelect}>
@@ -1045,10 +1049,10 @@ export function InputActions({
               <Microscope className={cn("mr-1 size-4", activeCommandMode === "research-mode" && "text-primary")} />
               Deep Research
             </DropdownMenuItem>
-            {/* <DropdownMenuItem onClick={handleCanvasSelect}>
+            <DropdownMenuItem onClick={handleCanvasSelect}>
               <NotebookPen className={cn("mr-2 size-4", activeCommandMode === "canvas-mode" && "text-primary")} />
               Canvas
-            </DropdownMenuItem> */}
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
@@ -1223,9 +1227,6 @@ export function InputActions({
             <Radio className="size-4" />
           )}
         </motion.button>
-
-        {/* <CategorySidebar className="!m-0 !p-0" />
-        <SubCategorySidebar className="!m-0 !p-0" /> */}
       </div>
     </div>
   );

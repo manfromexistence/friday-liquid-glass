@@ -10,7 +10,7 @@ import { motion, useAnimationControls } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react";
-// Create a motion version of Textarea
+
 const MotionTextarea = motion.create(Textarea);
 
 export interface ChatInputProps {
