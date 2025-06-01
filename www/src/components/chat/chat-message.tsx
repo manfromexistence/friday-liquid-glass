@@ -1,17 +1,17 @@
-import { Message } from '@/types/chat';
-import { cn } from '@/lib/utils';
-import { Sparkles, Play, Pause, Volume2, ImageIcon } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useAuth } from '@/contexts/auth-context';
-import { User as FirebaseUser } from 'firebase/auth';
-import React, { useState, useEffect, useRef, memo } from 'react';
-import AiMessage from '@/components/chat/ai-message-actions';
-import UserMessage from '@/components/chat/user-message-actions';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { MarkdownPreview } from './markdown-preview';
-import AnimatedGradientText from '@/components/ui/animated-gradient-text';
-import ImageGen from '@/components/image';
-import { ReasoningPreview } from './reasoning-preview';
+import { Message } from "@/types/chat";
+import { cn } from "@/lib/utils";
+import { Sparkles, Play, Pause, Volume2, ImageIcon } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/contexts/auth-context";
+import { User as FirebaseUser } from "firebase/auth";
+import React, { useState, useEffect, useRef, memo } from "react";
+import AiMessage from "@/components/chat/ai-message-actions";
+import UserMessage from "@/components/chat/user-message-actions";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { MarkdownPreview } from "@/components/chat/markdown-preview";
+import AnimatedGradientText from "@/components/ui/animated-gradient-text";
+import ImageGen from "@/components/image";
+import { ReasoningPreview } from "@/components/chat/reasoning-preview";
 
 interface ChatMessageProps {
   message: Message;
@@ -31,25 +31,25 @@ export const ChatMessage = memo(
     className,
     isFadingOut,
     onTransitionEnd,
-    selectedAI = '',
+    selectedAI = "",
   }: ChatMessageProps) => {
     const { user } = useAuth();
-    const isAssistant = message.role === 'assistant';
+    const isAssistant = message.role === "assistant";
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isPopoverOpen, setIsPopoverOpen] = useState(false);
     const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const contentHash = useRef<string>('');
+    const contentHash = useRef<string>("");
 
     const userImage = (user as FirebaseUser)?.photoURL;
     const userName = (user as FirebaseUser)?.displayName;
     const userEmail = (user as FirebaseUser)?.email;
-    const fallbackInitial = userName?.[0] || userEmail?.[0]?.toUpperCase() || 'U';
+    const fallbackInitial = userName?.[0] || userEmail?.[0]?.toUpperCase() || "U";
 
     const [currentWordIndex, setCurrentWordIndex] = useState(-1);
     const isImageGenerationMessage =
-      message.model_used === 'gemini-2.0-flash-exp-image-generation' ||
+      message.model_used === "gemini-2.0-flash-exp-image-generation" ||
       (message.image_urls && message.image_urls.length > 0);
 
     // Helper function to check if content has reasoning structure
@@ -70,8 +70,8 @@ export const ChatMessage = memo(
 
     // Check both model type and content structure
     const isReasoningMessage =
-      message.model_used === 'gemini-2.5-pro-exp-03-25' ||
-      message.model_used === 'gemini-2.0-flash-thinking-exp-01-21' ||
+      message.model_used === "gemini-2.5-pro-exp-03-25" ||
+      message.model_used === "gemini-2.0-flash-thinking-exp-01-21" ||
       hasReasoningStructure(message.content);
 
     const handleWordIndexUpdate = (index: number) => {
@@ -122,7 +122,7 @@ export const ChatMessage = memo(
     }, []);
 
     return (
-      <div className={cn('flex w-full', isAssistant ? 'justify-start' : 'justify-end', className)}>
+      <div className={cn("flex w-full", isAssistant ? "justify-start" : "justify-end", className)}>
         {!isAssistant && (
           <div className="flex w-full flex-row items-start justify-end gap-2">
             <div className="hover:bg-primary-foreground hover:text-primary relative flex items-center justify-center rounded-xl rounded-tr-none border p-2 font-mono text-sm">
@@ -131,7 +131,7 @@ export const ChatMessage = memo(
             <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
               <PopoverTrigger>
                 <Avatar className="size-9">
-                  <AvatarImage src={userImage ?? undefined} alt={userName || userEmail || 'User'} />
+                  <AvatarImage src={userImage ?? undefined} alt={userName || userEmail || "User"} />
                   <AvatarFallback>{fallbackInitial}</AvatarFallback>
                 </Avatar>
               </PopoverTrigger>
@@ -150,12 +150,12 @@ export const ChatMessage = memo(
           <div className="flex w-full flex-col items-start">
             <div
               className={cn(
-                'hover:text-primary relative flex w-full items-center font-mono text-sm',
-                { 'fade-out': isFadingOut }
+                "hover:text-primary relative flex w-full items-center font-mono text-sm",
+                { "fade-out": isFadingOut }
               )}
               onTransitionEnd={onTransitionEnd}
             >
-              {message.content === 'thinking' ? (
+              {message.content === "thinking" ? (
                 <div className="thinking-content">
                   <AnimatedGradientText text="AI is thinking..." />
                 </div>
@@ -195,4 +195,4 @@ export const ChatMessage = memo(
 );
 
 // Add display name to resolve the ESLint error
-ChatMessage.displayName = 'ChatMessage';
+ChatMessage.displayName = "ChatMessage";

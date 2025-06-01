@@ -15,7 +15,7 @@ export function Main({ children }: MainProps) {
   return (
     <div
       className={cn(
-        "bg-background no-scrollbar flex h-screen w-full flex-col overflow-y-auto transition-all duration-200 ease-linear md:pb-0 p-2 pt-14",
+        "bg-background no-scrollbar flex h-screen w-full flex-col overflow-y-auto transition-all duration-200 ease-linear p-2 pt-14 pb-4 md:pb-0",
         statecategorysidebar === "expanded" && "pr-64",
         statesubcategorysidebar === "expanded" && "pr-64"
       )}

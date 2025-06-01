@@ -16,15 +16,15 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { doc, updateDoc, collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/config";
 import { Separator } from "@/components/ui/separator"
-import { useCategorySidebar } from '@/components/layout/sidebar/category-sidebar'
-import { useSubCategorySidebar } from '@/components/layout/sidebar/subcategory-sidebar'
-import CategorySidebar from '@/components/layout/sidebar/category-app-sidebar'
-import SubCategorySidebar from '@/components/layout/sidebar/subcategory-app-sidebar'
+import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar"
+import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar"
+import CategorySidebar from "@/components/layout/sidebar/category-app-sidebar"
+import SubCategorySidebar from "@/components/layout/sidebar/subcategory-app-sidebar"
 
 import {
   MessageCircle,
   Type,
-} from 'lucide-react'
+} from "lucide-react"
 
 interface AIModel {
   value: string;
@@ -181,20 +181,20 @@ export function InputActions({
 
   const handleCategorySidebarToggle = () => {
     toggleCategorySidebar()
-    if (statesubcategorysidebar === 'expanded') {
+    if (statesubcategorysidebar === "expanded") {
       toggleSubCategorySidebar()
     }
   }
 
   const handleSubCategorySidebarToggle = () => {
     toggleSubCategorySidebar()
-    if (statecategorysidebar === 'expanded') {
+    if (statecategorysidebar === "expanded") {
       toggleCategorySidebar()
     }
   }
 
   useEffect(() => {
-    const savedCommand = localStorage.getItem('activeCommand');
+    const savedCommand = localStorage.getItem("activeCommand");
     if (savedCommand) {
       setActiveCommandMode(savedCommand);
     }
@@ -212,22 +212,22 @@ export function InputActions({
   }, [localSelectedAI]);
 
   useEffect(() => {
-    if (showThinking && activeCommandMode !== 'thinking-mode') {
-      setActiveCommandMode('thinking-mode');
-      localStorage.setItem('activeCommand', 'thinking-mode');
-    } else if (!showThinking && activeCommandMode === 'thinking-mode') {
+    if (showThinking && activeCommandMode !== "thinking-mode") {
+      setActiveCommandMode("thinking-mode");
+      localStorage.setItem("activeCommand", "thinking-mode");
+    } else if (!showThinking && activeCommandMode === "thinking-mode") {
       setActiveCommandMode(null);
-      localStorage.removeItem('activeCommand');
+      localStorage.removeItem("activeCommand");
     }
   }, [showThinking, activeCommandMode]);
 
   useEffect(() => {
-    if (showResearch && activeCommandMode !== 'research-mode') {
-      setActiveCommandMode('research-mode');
-      localStorage.setItem('activeCommand', 'research-mode');
-    } else if (!showResearch && activeCommandMode === 'research-mode') {
+    if (showResearch && activeCommandMode !== "research-mode") {
+      setActiveCommandMode("research-mode");
+      localStorage.setItem("activeCommand", "research-mode");
+    } else if (!showResearch && activeCommandMode === "research-mode") {
       setActiveCommandMode(null);
-      localStorage.removeItem('activeCommand');
+      localStorage.removeItem("activeCommand");
     }
   }, [showResearch, activeCommandMode]);
 
@@ -315,14 +315,14 @@ export function InputActions({
     setSelectedProject(project);
     toast({
       title: "Project selected",
-      description: `You're now working in "${project.name}"`,
+      description: `You"re now working in "${project.name}"`,
     });
   };
 
   const fetchMegaFiles = React.useCallback(async () => {
     setIsLoadingFiles(true);
     try {
-      const response = await fetch('/api/mega/files');
+      const response = await fetch("/api/mega/files");
       const data = await response.json();
       if (data.files) {
         setMegaFiles(data.files);
@@ -362,8 +362,8 @@ export function InputActions({
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch('/api/mega/upload', {
-        method: 'POST',
+      const response = await fetch("/api/mega/upload", {
+        method: "POST",
         body: formData,
       });
 
@@ -407,10 +407,10 @@ export function InputActions({
     setIsUrlUploading(true);
 
     try {
-      const response = await fetch('/api/mega/url', {
-        method: 'POST',
+      const response = await fetch("/api/mega/url", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ url: attachUrl }),
       });
@@ -486,12 +486,12 @@ export function InputActions({
 
       aiService.setModel(previousModel);
 
-      const enhancedPrompt = typeof response === 'string'
+      const enhancedPrompt = typeof response === "string"
         ? response.trim()
-        : response.text_response?.trim() || '';
+        : response.text_response?.trim() || "";
 
       let cleanedPrompt = enhancedPrompt;
-      while (cleanedPrompt.endsWith(':')) {
+      while (cleanedPrompt.endsWith(":")) {
         cleanedPrompt = cleanedPrompt.slice(0, -1).trim();
       }
 
@@ -500,7 +500,7 @@ export function InputActions({
         const prefix = prefixes[activeCommandMode as keyof typeof prefixes];
         finalText = `${prefix}: ${enhancedPrompt}`;
 
-        while (finalText.endsWith(':')) {
+        while (finalText.endsWith(":")) {
           finalText = finalText.slice(0, -1).trim();
         }
 
@@ -508,9 +508,9 @@ export function InputActions({
           onInsertText(finalText, activeCommandMode);
 
           setTimeout(() => {
-            if (document.getElementById('ai-input')) {
-              const event = new Event('input', { bubbles: true });
-              document.getElementById('ai-input')?.dispatchEvent(event);
+            if (document.getElementById("ai-input")) {
+              const event = new Event("input", { bubbles: true });
+              document.getElementById("ai-input")?.dispatchEvent(event);
             }
           }, 50);
         }
@@ -519,9 +519,9 @@ export function InputActions({
           onInsertText(finalText, "");
 
           setTimeout(() => {
-            if (document.getElementById('ai-input')) {
-              const event = new Event('input', { bubbles: true });
-              document.getElementById('ai-input')?.dispatchEvent(event);
+            if (document.getElementById("ai-input")) {
+              const event = new Event("input", { bubbles: true });
+              document.getElementById("ai-input")?.dispatchEvent(event);
             }
           }, 50);
         }
@@ -547,11 +547,11 @@ export function InputActions({
   };
 
   const prefixes = {
-    'image-gen': "Image",
-    'thinking-mode': "Thinking",
-    'search-mode': "Search",
-    'research-mode': "Research",
-    'canvas-mode': "Canvas"
+    "image-gen": "Image",
+    "thinking-mode": "Thinking",
+    "search-mode": "Search",
+    "research-mode": "Research",
+    "canvas-mode": "Canvas"
   };
 
   const handleImageSelect = async () => {
@@ -559,8 +559,8 @@ export function InputActions({
 
     setLocalSelectedAI(imageGenModel);
 
-    setActiveCommandMode('image-gen');
-    localStorage.setItem('activeCommand', 'image-gen');
+    setActiveCommandMode("image-gen");
+    localStorage.setItem("activeCommand", "image-gen");
 
     aiService.setModel(imageGenModel);
 
@@ -569,13 +569,13 @@ export function InputActions({
     }
 
     if (onInsertText) {
-      onInsertText(`${prefixes['image-gen']}:`, 'image-gen');
+      onInsertText(`${prefixes["image-gen"]}:`, "image-gen");
     }
 
     localStorage.setItem("previousModel", selectedAI || "gemini-2.0-flash");
 
     try {
-      const currentChatId = window.location.pathname.split('/').pop();
+      const currentChatId = window.location.pathname.split("/").pop();
       if (currentChatId) {
         const chatRef = doc(db, "chats", currentChatId);
         await updateDoc(chatRef, { model: imageGenModel });
@@ -606,11 +606,11 @@ export function InputActions({
     const thinkingModel = "gemini-2.0-flash-thinking-exp-01-21";
     setLocalSelectedAI(thinkingModel);
 
-    setActiveCommandMode('canvas-mode');
-    localStorage.setItem('activeCommand', 'canvas-mode');
+    setActiveCommandMode("canvas-mode");
+    localStorage.setItem("activeCommand", "canvas-mode");
 
     if (onInsertText) {
-      onInsertText(`${prefixes['canvas-mode']}:`, 'canvas-mode');
+      onInsertText(`${prefixes["canvas-mode"]}:`, "canvas-mode");
     }
 
     toast({
@@ -662,11 +662,11 @@ export function InputActions({
     const thinkingModel = "gemini-2.0-flash-thinking-exp-01-21";
     setLocalSelectedAI(thinkingModel);
 
-    setActiveCommandMode('research-mode');
-    localStorage.setItem('activeCommand', 'research-mode');
+    setActiveCommandMode("research-mode");
+    localStorage.setItem("activeCommand", "research-mode");
 
     if (onInsertText) {
-      onInsertText(`${prefixes['research-mode']}:`, 'research-mode');
+      onInsertText(`${prefixes["research-mode"]}:`, "research-mode");
     }
 
     toast({
@@ -685,15 +685,15 @@ export function InputActions({
       const thinkingModel = "gemini-2.5-pro-exp-03-25";
       setLocalSelectedAI(thinkingModel);
 
-      setActiveCommandMode('search-mode');
-      localStorage.setItem('activeCommand', 'search-mode');
+      setActiveCommandMode("search-mode");
+      localStorage.setItem("activeCommand", "search-mode");
 
       if (onInsertText) {
-        onInsertText(`${prefixes['search-mode']}:`, 'search-mode');
+        onInsertText(`${prefixes["search-mode"]}:`, "search-mode");
       }
 
       try {
-        const currentChatId = window.location.pathname.split('/').pop();
+        const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
           const chatRef = doc(db, "chats", currentChatId);
           await updateDoc(chatRef, { model: thinkingModel });
@@ -713,7 +713,7 @@ export function InputActions({
       setLocalSelectedAI(prevModel);
 
       setActiveCommandMode(null);
-      localStorage.removeItem('activeCommand');
+      localStorage.removeItem("activeCommand");
 
       if (value && value.startsWith("Search")) {
         if (onInsertText) {
@@ -722,7 +722,7 @@ export function InputActions({
       }
 
       try {
-        const currentChatId = window.location.pathname.split('/').pop();
+        const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
           const chatRef = doc(db, "chats", currentChatId);
           await updateDoc(chatRef, { model: prevModel });
@@ -748,15 +748,15 @@ export function InputActions({
       const thinkingModel = "gemini-2.0-flash-thinking-exp-01-21";
       setLocalSelectedAI(thinkingModel);
 
-      setActiveCommandMode('research-mode');
-      localStorage.setItem('activeCommand', 'research-mode');
+      setActiveCommandMode("research-mode");
+      localStorage.setItem("activeCommand", "research-mode");
 
       if (onInsertText) {
-        onInsertText(`${prefixes['research-mode']}:`, 'research-mode');
+        onInsertText(`${prefixes["research-mode"]}:`, "research-mode");
       }
 
       try {
-        const currentChatId = window.location.pathname.split('/').pop();
+        const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
           const chatRef = doc(db, "chats", currentChatId);
           await updateDoc(chatRef, { model: thinkingModel });
@@ -776,7 +776,7 @@ export function InputActions({
       setLocalSelectedAI(prevModel);
 
       setActiveCommandMode(null);
-      localStorage.removeItem('activeCommand');
+      localStorage.removeItem("activeCommand");
 
       if (value && value.startsWith("Research")) {
         if (onInsertText) {
@@ -785,7 +785,7 @@ export function InputActions({
       }
 
       try {
-        const currentChatId = window.location.pathname.split('/').pop();
+        const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
           const chatRef = doc(db, "chats", currentChatId);
           await updateDoc(chatRef, { model: prevModel });
@@ -816,10 +816,10 @@ export function InputActions({
                 >
                   <PenTool
                     className={cn(
-                      statecategorysidebar === 'expanded'
-                        ? 'text-primary'
-                        : 'text-muted-foreground',
-                      'hover:text-primary group-hover:text-primary size-4'
+                      statecategorysidebar === "expanded"
+                        ? "text-primary"
+                        : "text-muted-foreground",
+                      "hover:text-primary group-hover:text-primary size-4"
                     )}
                   />
                 </div>
@@ -839,10 +839,10 @@ export function InputActions({
                 >
                   <MessageCircle
                     className={cn(
-                      'hover:text-primary group-hover:text-primary size-4',
-                      statesubcategorysidebar === 'expanded'
-                        ? 'text-primary'
-                        : 'text-muted-foreground'
+                      "hover:text-primary group-hover:text-primary size-4",
+                      statesubcategorysidebar === "expanded"
+                        ? "text-primary"
+                        : "text-muted-foreground"
                     )}
                   />
                 </div>
@@ -1010,8 +1010,8 @@ export function InputActions({
             <div
               className={cn(
                 "flex items-center justify-center rounded-full p-0",
-                (activeCommandMode === 'image-gen' || activeCommandMode === 'search-mode' ||
-                  activeCommandMode === 'thinking-mode' || activeCommandMode === 'canvas-mode') ?
+                (activeCommandMode === "image-gen" || activeCommandMode === "search-mode" ||
+                  activeCommandMode === "thinking-mode" || activeCommandMode === "canvas-mode") ?
                   "bg-background text-primary border" : "text-muted-foreground",
                 isLoading && "cursor-not-allowed opacity-50"
               )}
@@ -1020,8 +1020,8 @@ export function InputActions({
                 <PackageOpen
                   className={cn(
                     "size-4 transition-colors",
-                    (activeCommandMode === 'image-gen' || activeCommandMode === 'search-mode' ||
-                      activeCommandMode === 'thinking-mode' || activeCommandMode === 'canvas-mode') ?
+                    (activeCommandMode === "image-gen" || activeCommandMode === "search-mode" ||
+                      activeCommandMode === "thinking-mode" || activeCommandMode === "canvas-mode") ?
                       "text-primary" : "text-muted-foreground hover:text-primary"
                   )}
                 />
@@ -1030,23 +1030,23 @@ export function InputActions({
           </DropdownMenuTrigger>
           <DropdownMenuContent side="top" align="start">
             <DropdownMenuItem onClick={handleImageSelect}>
-              <Search className={cn("mr-1 size-4", activeCommandMode === 'image-gen' && "text-primary")} />
+              <Search className={cn("mr-1 size-4", activeCommandMode === "image-gen" && "text-primary")} />
               Search
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleThinkingSelect}>
-              <Lightbulb className={cn("mr-1 size-4", activeCommandMode === 'thinking-mode' && "text-primary")} />
+              <Lightbulb className={cn("mr-1 size-4", activeCommandMode === "thinking-mode" && "text-primary")} />
               Thinking Mode
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleResearchSelect}>
-              <CircleDotDashed className={cn("mr-1 size-4", activeCommandMode === 'research-mode' && "text-primary")} />
+              <CircleDotDashed className={cn("mr-1 size-4", activeCommandMode === "research-mode" && "text-primary")} />
               Research
             </DropdownMenuItem>
             <DropdownMenuItem onClick={handleResearchSelect}>
-              <Microscope className={cn("mr-1 size-4", activeCommandMode === 'research-mode' && "text-primary")} />
+              <Microscope className={cn("mr-1 size-4", activeCommandMode === "research-mode" && "text-primary")} />
               Deep Research
             </DropdownMenuItem>
             {/* <DropdownMenuItem onClick={handleCanvasSelect}>
-              <NotebookPen className={cn("mr-2 size-4", activeCommandMode === 'canvas-mode' && "text-primary")} />
+              <NotebookPen className={cn("mr-2 size-4", activeCommandMode === "canvas-mode" && "text-primary")} />
               Canvas
             </DropdownMenuItem> */}
           </DropdownMenuContent>

@@ -1,14 +1,14 @@
-import * as React from 'react'
-import { cn } from '@/lib/utils'
-import { ChatState } from '@/types/chat'
-import { Textarea } from '@/components/ui/textarea'
-import { InputActions } from '@/components/chat/input-actions'
-import { ImagePreview } from '@/components/chat/image-preview'
-import { useAIModelStore } from '@/store/ai-model-store'
-import { useToast } from '@/hooks/use-toast'
-import { motion, useAnimationControls } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import * as React from "react"
+import { cn } from "@/lib/utils"
+import { ChatState } from "@/types/chat"
+import { Textarea } from "@/components/ui/textarea"
+import { InputActions } from "@/components/chat/input-actions"
+import { ImagePreview } from "@/components/chat/image-preview"
+import { useAIModelStore } from "@/store/ai-model-store"
+import { useToast } from "@/hooks/use-toast"
+import { motion, useAnimationControls } from "framer-motion"
+import { ChevronDown } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { X } from "lucide-react";
 // Create a motion version of Textarea
 const MotionTextarea = motion.create(Textarea);
@@ -83,7 +83,7 @@ export function ChatInput({
     if (chatState?.messages?.length > 0) {
       // Get all user messages
       const userMessages = chatState.messages
-        .filter(msg => msg.role === 'user')
+        .filter(msg => msg.role === "user")
         .map(msg => msg.content);
 
       // Only update if messages have changed
@@ -97,9 +97,9 @@ export function ChatInput({
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       // Multiple checks for mobile detection
-      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera || '';
+      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera || "";
       const isMobileByUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-      const isTouchScreen = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isTouchScreen = "ontouchstart" in window || navigator.maxTouchPoints > 0;
       const isNarrowScreen = window.innerWidth <= 768;
 
       // Consider a device mobile if it matches at least two conditions
@@ -131,7 +131,7 @@ export function ChatInput({
       // Focus/blur detection for additional reliability
       const handleFocus = (e: FocusEvent) => {
         const target = e.target as HTMLElement
-        if (target.id === 'ai-input') {
+        if (target.id === "ai-input") {
           // Only set keyboard visible for mobile devices
           if (isMobileDevice) {
             setTimeout(() => setIsKeyboardVisible(true), 100)
@@ -143,14 +143,14 @@ export function ChatInput({
         setTimeout(() => setIsKeyboardVisible(false), 100)
       }
 
-      window.addEventListener('resize', handleResize)
-      document.addEventListener('focusin', handleFocus)
-      document.addEventListener('focusout', handleBlur)
+      window.addEventListener("resize", handleResize)
+      document.addEventListener("focusin", handleFocus)
+      document.addEventListener("focusout", handleBlur)
 
       return () => {
-        window.removeEventListener('resize', handleResize)
-        document.removeEventListener('focusin', handleFocus)
-        document.removeEventListener('focusout', handleBlur)
+        window.removeEventListener("resize", handleResize)
+        document.removeEventListener("focusin", handleFocus)
+        document.removeEventListener("focusout", handleBlur)
       }
     }
   }, [initialHeight, isMobileDevice])
@@ -171,17 +171,17 @@ export function ChatInput({
   // Add useEffect to load the active command from localStorage on component mount
   React.useEffect(() => {
     // Retrieve saved command from localStorage
-    const savedCommand = localStorage.getItem('activeCommand');
+    const savedCommand = localStorage.getItem("activeCommand");
     if (savedCommand) {
       setActiveCommand(savedCommand);
 
       // If we have a saved command, we should prepend it to the current value
       const prefixes = {
-        'image-gen': "Image",
-        'thinking-mode': "Thinking",
-        'search-mode': "Search",
-        'research-mode': "Research",
-        'canvas-mode': "Canvas"
+        "image-gen": "Image",
+        "thinking-mode": "Thinking",
+        "search-mode": "Search",
+        "research-mode": "Research",
+        "canvas-mode": "Canvas"
       };
 
       const prefix = prefixes[savedCommand as keyof typeof prefixes];
@@ -196,16 +196,16 @@ export function ChatInput({
     // If value is empty but we have an active command, restore the prefix
     if (value === "" && activeCommand) {
       const prefixes = {
-        'image-gen': "Image",
-        'thinking-mode': "Thinking",
-        'search-mode': "Search",
-        'research-mode': "Research",
-        'canvas-mode': "Canvas"
+        "image-gen": "Image",
+        "thinking-mode": "Thinking",
+        "search-mode": "Search",
+        "research-mode": "Research",
+        "canvas-mode": "Canvas"
       };
 
       const prefix = prefixes[activeCommand as keyof typeof prefixes];
       if (prefix) {
-        // Small delay to ensure we don't interfere with other state updates
+        // Small delay to ensure we don"t interfere with other state updates
         setTimeout(() => {
           onChange(`${prefix}: `);
         }, 50);
@@ -218,17 +218,17 @@ export function ChatInput({
     // If the text is empty, clear the input and reset the active command
     if (!text) {
       setActiveCommand(null);
-      localStorage.removeItem('activeCommand');
+      localStorage.removeItem("activeCommand");
       onChange("");
       return;
     }
 
     // Otherwise, set the active command and insert the text
     setActiveCommand(type);
-    localStorage.setItem('activeCommand', type);
+    localStorage.setItem("activeCommand", type);
 
-    // Add colon and space only if the text doesn't already end with a colon
-    const newText = text.endsWith(':') ? text + " " : text;
+    // Add colon and space only if the text doesn"t already end with a colon
+    const newText = text.endsWith(":") ? text + " " : text;
     onChange(newText);
 
     // Focus the textarea after inserting and position cursor after the prefix
@@ -245,15 +245,15 @@ export function ChatInput({
   };
 
   // Function to navigate message history
-  const navigateHistory = (direction: 'up' | 'down'): void => {
+  const navigateHistory = (direction: "up" | "down"): void => {
     if (historyMessages.length === 0) return;
 
-    // Store the current value before navigating if we're at the initial position
-    if (historyIndex === -1 && direction === 'up') {
+    // Store the current value before navigating if we"re at the initial position
+    if (historyIndex === -1 && direction === "up") {
       setTempValue(value);
     }
 
-    if (direction === 'up') {
+    if (direction === "up") {
       // Move up in history (older messages)
       if (historyIndex < historyMessages.length - 1) {
         const newIndex = historyIndex + 1;
@@ -281,21 +281,21 @@ export function ChatInput({
     const isAtEnd = cursorPosition === value.length;
 
     // Handle up arrow key for history navigation when cursor is at the start
-    if (e.key === 'ArrowUp' && isAtStart && !e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey) {
+    if (e.key === "ArrowUp" && isAtStart && !e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
-      navigateHistory('up');
+      navigateHistory("up");
       return;
     }
 
     // Handle down arrow key for history navigation when cursor is at the end
-    if (e.key === 'ArrowDown' && isAtEnd && !e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey) {
+    if (e.key === "ArrowDown" && isAtEnd && !e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey) {
       e.preventDefault();
-      navigateHistory('down');
+      navigateHistory("down");
       return;
     }
 
     // Handle Enter key for submission
-    if (e.key === 'Enter' && !e.shiftKey && !chatState.isLoading) {
+    if (e.key === "Enter" && !e.shiftKey && !chatState.isLoading) {
       e.preventDefault();
       if (value.trim()) {
         // Store the current command before submission
@@ -307,11 +307,11 @@ export function ChatInput({
         // If we have an active command, extract the content without the prefix
         if (activeCommand) {
           const prefixes = {
-            'image-gen': "Image: ",
-            'thinking-mode': "Thinking: ",
-            'search-mode': "Search: ",
-            'research-mode': "Research: ",
-            'canvas-mode': "Canvas: "
+            "image-gen": "Image: ",
+            "thinking-mode": "Thinking: ",
+            "search-mode": "Search: ",
+            "research-mode": "Research: ",
+            "canvas-mode": "Canvas: "
           };
 
           const prefix = prefixes[activeCommand as keyof typeof prefixes];
@@ -342,20 +342,20 @@ export function ChatInput({
 
         // Keep current command active
         if (currentCommand) {
-          localStorage.setItem('activeCommand', currentCommand);
+          localStorage.setItem("activeCommand", currentCommand);
         }
         return;
       }
     }
 
     // Special handling for backspace when at or within command text
-    if (e.key === 'Backspace' && activeCommand) {
+    if (e.key === "Backspace" && activeCommand) {
       const commandTexts = {
-        'image-gen': "Image: ",
-        'thinking-mode': "Thinking: ",
-        'search-mode': "Search: ",
-        'research-mode': "Research: ",
-        'canvas-mode': "Canvas: ",
+        "image-gen": "Image: ",
+        "thinking-mode": "Thinking: ",
+        "search-mode": "Search: ",
+        "research-mode": "Research: ",
+        "canvas-mode": "Canvas: ",
       };
       const commandText = commandTexts[activeCommand as keyof typeof commandTexts];
       const cursorPosition = textareaRef.current?.selectionStart ?? 0;
@@ -370,7 +370,7 @@ export function ChatInput({
         });
         onChange("");
         setActiveCommand(null);
-        localStorage.removeItem('activeCommand');
+        localStorage.removeItem("activeCommand");
       }
     }
   };
@@ -417,9 +417,9 @@ export function ChatInput({
         setTextareaHeight(prev => prev); // This is a trick to force re-render
       };
 
-      textarea.addEventListener('scroll', handleScroll);
+      textarea.addEventListener("scroll", handleScroll);
       return () => {
-        textarea.removeEventListener('scroll', handleScroll);
+        textarea.removeEventListener("scroll", handleScroll);
       };
     }
   }, [activeCommand, textareaRef]);
@@ -430,7 +430,7 @@ export function ChatInput({
   // Add scroll to bottom function
   const scrollToBottom = React.useCallback(() => {
     // Find the message container and scroll it to the bottom
-    const messageContainer = document.querySelector('.message-list-container');
+    const messageContainer = document.querySelector(".message-list-container");
     if (messageContainer) {
       messageContainer.scrollTop = messageContainer.scrollHeight + 2000;
       setShowScrollButton(false);
@@ -440,7 +440,7 @@ export function ChatInput({
   // Add an effect to check if we need to show the scroll button
   React.useEffect(() => {
     const handleScroll = () => {
-      const messageContainer = document.querySelector('.message-list-container');
+      const messageContainer = document.querySelector(".message-list-container");
       if (messageContainer) {
         const { scrollTop, scrollHeight, clientHeight } = messageContainer;
         const nearBottom = scrollHeight - scrollTop - clientHeight < 100;
@@ -448,15 +448,15 @@ export function ChatInput({
       }
     };
 
-    const messageContainer = document.querySelector('.message-list-container');
+    const messageContainer = document.querySelector(".message-list-container");
     if (messageContainer) {
-      messageContainer.addEventListener('scroll', handleScroll);
-      return () => messageContainer.removeEventListener('scroll', handleScroll);
+      messageContainer.addEventListener("scroll", handleScroll);
+      return () => messageContainer.removeEventListener("scroll", handleScroll);
     }
   }, []);
 
   return (
-    <div className={cn('relative z-10 w-[95%] rounded-2xl border shadow-md xl:w-1/2 dark:shadow-none bg-primary-foreground/30', positioningClasses, className)}>
+    <div className={cn("relative z-10 w-[95%] rounded-2xl border shadow-md xl:w-1/2 dark:shadow-none bg-primary-foreground/30", positioningClasses, className)}>
       <Button
         onClick={scrollToBottom}
         className={cn(
@@ -478,15 +478,15 @@ export function ChatInput({
       )}
 
       <div className="relative flex flex-col rounded-2xl">
-        <div className='w-full h-12 border-b px-3 text-sm flex flex-row space-x-1 items-center justify-start'>
-          <div className='h-8 w-8 rounded-md relative broder'>
-            <img src='/Doraemon.jpg' className='h-full w-full rounded-md' />
-            <div className='h-5 w-5 rounded-full border absolute -top-2.5 bg-background -right-2.5 flex items-center justify-center hover:bg-primary-foreground'>
-              <X className='h-3 w-3' />
+        <div className="w-full h-12 border-b px-3 text-sm flex flex-row space-x-1 items-center justify-start">
+          <div className="h-8 w-8 rounded-md relative broder">
+            <img src="/Doraemon.jpg" className="h-full w-full rounded-md" />
+            <div className="h-5 w-5 rounded-full border absolute -top-2.5 bg-background -right-2.5 flex items-center justify-center hover:bg-primary-foreground">
+              <X className="h-3 w-3" />
             </div>
           </div>
-          {/* <div className='h-full flex-1 border-r flex items-center justify-start'>Left</div>
-          <div className='h-full min-w-16 flex items-center justify-end'>Right</div> */}
+          {/* <div className="h-full flex-1 border-r flex items-center justify-start">Left</div>
+          <div className="h-full min-w-16 flex items-center justify-end">Right</div> */}
         </div>
 
         <div className="relative">
@@ -496,9 +496,9 @@ export function ChatInput({
             placeholder="Ask me anything..."
             disabled={chatState.isLoading}
             className={cn(
-              'w-full resize-none rounded-2xl rounded-b-none border-none !py-3 px-3 leading-normal tracking-wider focus-visible:ring-0 text-sm',
-              chatState.isLoading && 'opacity-50',
-              activeCommand && 'first-line-visible text-opacity-0' // Updated class
+              "w-full resize-none rounded-2xl rounded-b-none border-none !py-3 px-3 leading-normal tracking-wider focus-visible:ring-0 text-sm",
+              chatState.isLoading && "opacity-50",
+              activeCommand && "first-line-visible text-opacity-0" // Updated class
             )}
             ref={textareaRef}
             animate={controls}
@@ -510,11 +510,11 @@ export function ChatInput({
 
               // Store content without prefix
               const prefixes = {
-                'image-gen': "Image: ",
-                'thinking-mode': "Thinking: ",
-                'search-mode': "Search: ",
-                'research-mode': "Research: ",
-                'canvas-mode': "Canvas: "
+                "image-gen": "Image: ",
+                "thinking-mode": "Thinking: ",
+                "search-mode": "Search: ",
+                "research-mode": "Research: ",
+                "canvas-mode": "Canvas: "
               };
 
               if (activeCommand) {
@@ -524,36 +524,36 @@ export function ChatInput({
                 } else {
                   setActiveCommand(null);
                   // Remove from localStorage when command is gone
-                  localStorage.removeItem('activeCommand');
+                  localStorage.removeItem("activeCommand");
                   setContentWithoutPrefix("");
 
                   // Call the appropriate toggle functions when command is removed
-                  if (activeCommand === 'research-mode' && onResearchToggle) {
+                  if (activeCommand === "research-mode" && onResearchToggle) {
                     onResearchToggle();
-                  } else if (activeCommand === 'thinking-mode' && onThinkingToggle) {
+                  } else if (activeCommand === "thinking-mode" && onThinkingToggle) {
                     onThinkingToggle();
-                  } else if (activeCommand === 'search-mode' && onSearchToggle) {
+                  } else if (activeCommand === "search-mode" && onSearchToggle) {
                     onSearchToggle();
                   }
                 }
               }
 
               // Handle command prefix checking for all command types
-              if (activeCommand === 'image-gen' && !e.target.value.startsWith("Image: ")) {
+              if (activeCommand === "image-gen" && !e.target.value.startsWith("Image: ")) {
                 setActiveCommand(null);
-                localStorage.removeItem('activeCommand');
-              } else if (activeCommand === 'thinking-mode' && !e.target.value.startsWith("Thinking: ")) {
+                localStorage.removeItem("activeCommand");
+              } else if (activeCommand === "thinking-mode" && !e.target.value.startsWith("Thinking: ")) {
                 setActiveCommand(null);
-                localStorage.removeItem('activeCommand');
-              } else if (activeCommand === 'search-mode' && !e.target.value.startsWith("Search: ")) {
+                localStorage.removeItem("activeCommand");
+              } else if (activeCommand === "search-mode" && !e.target.value.startsWith("Search: ")) {
                 setActiveCommand(null);
-                localStorage.removeItem('activeCommand');
-              } else if (activeCommand === 'research-mode' && !e.target.value.startsWith("Research: ")) {
+                localStorage.removeItem("activeCommand");
+              } else if (activeCommand === "research-mode" && !e.target.value.startsWith("Research: ")) {
                 setActiveCommand(null);
-                localStorage.removeItem('activeCommand');
-              } else if (activeCommand === 'canvas-mode' && !e.target.value.startsWith("Canvas: ")) {
+                localStorage.removeItem("activeCommand");
+              } else if (activeCommand === "canvas-mode" && !e.target.value.startsWith("Canvas: ")) {
                 setActiveCommand(null);
-                localStorage.removeItem('activeCommand');
+                localStorage.removeItem("activeCommand");
               }
 
               // Reset history navigation index when manually typing
@@ -561,9 +561,9 @@ export function ChatInput({
             }}
             style={{
               minHeight: `${minHeight}px`,
-              maxHeight: '300px',
-              overflowY: 'auto',
-              lineHeight: '1.5',
+              maxHeight: "300px",
+              overflowY: "auto",
+              lineHeight: "1.5",
             }}
           />
         </div>

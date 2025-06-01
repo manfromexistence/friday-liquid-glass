@@ -3,18 +3,18 @@
 import { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from "react"
 import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar"
 import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar"
-import { useAutoResizeTextarea } from '@/hooks/use-auto-resize-textarea'
-import { ChatInput } from '@/components/chat/chat-input'
+import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea"
+import { ChatInput } from "@/components/chat/chat-input"
 import { useQueryClient } from "@tanstack/react-query"
 import type { Message } from "@/types/chat"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 import { doc, setDoc } from "firebase/firestore"
 // import { db } from "@/lib/firebase/config"
 // import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useAIModelStore } from "@/store/ai-model-store"
 
 // Update the ChatState interface to match the one in chat-input.tsx
@@ -48,10 +48,10 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   const { currentModel, setModel } = useAIModelStore()
   // const { user } = useAuth()
   const user = {
-    uid: 'test-user-uid',
-    photoURL: 'https://via.placeholder.com/150',
-    displayName: 'Test User',
-    email: 'test@example.com',
+    uid: "test-user-uid",
+    photoURL: "https://via.placeholder.com/150",
+    displayName: "Test User",
+    email: "test@example.com",
   };
 
   const [value, setValue] = useState("")
@@ -78,10 +78,10 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       toast.success("Successfully logged in")
 
       // If we had stored a pending message, we could retrieve it here
-      // const pendingMessage = sessionStorage.getItem('pendingMessage')
+      // const pendingMessage = sessionStorage.getItem("pendingMessage")
     } catch (error) {
-      console.error('Error signing in:', error)
-      toast.error('Failed to log in. Please try again.')
+      console.error("Error signing in:", error)
+      toast.error("Failed to log in. Please try again.")
     } finally {
       setIsLoggingIn(false)
     }
@@ -154,7 +154,7 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     }
 
     // Combine URLs and prompt
-    const fullPrompt = `${prompt}: ${urls.join(', ')}`;
+    const fullPrompt = `${prompt}: ${urls.join(", ")}`;
     handleValueChange(fullPrompt);
 
     // Auto-submit if desired
@@ -190,17 +190,17 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       const initialMessage = {
         id: uuidv4(),
         content: trimmedValue,
-        role: 'user',
+        role: "user",
         timestamp: new Date().toISOString()
       }
 
       // Create initial chat data
       const chatData = {
         id: chatId,
-        title: trimmedValue.slice(0, 50) + (trimmedValue.length > 50 ? '...' : ''),
+        title: trimmedValue.slice(0, 50) + (trimmedValue.length > 50 ? "..." : ""),
         messages: [initialMessage],
         model: currentModel, // Use currentModel from Zustand store instead of selectedAI
-        visibility: 'public',
+        visibility: "public",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         creatorUid: user.uid, // Add user ID to the chat data
@@ -218,10 +218,10 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       // await setDoc(doc(db, "chats", chatId), chatData)
 
       // Store the input value and selected AI model in sessionStorage
-      sessionStorage.setItem('initialPrompt', trimmedValue)
-      sessionStorage.setItem('selectedAI', currentModel) // Use currentModel instead of selectedAI
-      sessionStorage.setItem('chatId', chatId)
-      sessionStorage.setItem('autoSubmit', 'true')
+      sessionStorage.setItem("initialPrompt", trimmedValue)
+      sessionStorage.setItem("selectedAI", currentModel) // Use currentModel instead of selectedAI
+      sessionStorage.setItem("chatId", chatId)
+      sessionStorage.setItem("autoSubmit", "true")
 
       // Navigate to the new chat page
       router.push(`/chat/${chatId}`)

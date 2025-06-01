@@ -1,8 +1,8 @@
 import * as React from "react"
-import { Copy, Volume2, Edit, Download, Play, Pause, Loader } from 'lucide-react'
+import { Copy, Volume2, Edit, Download, Play, Pause, Loader } from "lucide-react"
 import { useState, useEffect, useRef, useCallback } from "react"
-import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import { motion } from "framer-motion"
+import { cn } from "@/lib/utils"
 import { toast } from "sonner"
 
 interface UserMessageProps {
@@ -52,7 +52,7 @@ function createContentHash(content: string): string {
     hash = ((hash << 5) - hash) + char;
     hash = hash & hash;
   }
-  return 'tts_' + Math.abs(hash).toString(16);
+  return "tts_" + Math.abs(hash).toString(16);
 }
 
 export default function UserMessage({
@@ -81,7 +81,7 @@ export default function UserMessage({
     globalAudioState.isPlaying = false;
     onPlayStateChange?.(false, null);
     localStorage.removeItem(`tts_progress_${contentHash.current}`);
-    console.log('Audio playback completed');
+    console.log("Audio playback completed");
   }, [onPlayStateChange]);
 
   const handleAudioError = useCallback((e: Event) => {
@@ -131,7 +131,7 @@ export default function UserMessage({
     
     return () => {
       isMounted.current = false;
-      // DON'T stop audio on unmount - only update component state
+      // DON"T stop audio on unmount - only update component state
     };
   }, []);
 
@@ -142,14 +142,14 @@ export default function UserMessage({
     return () => {
       isMounted.current = false;
 
-      // Only clean up audio if it's not actively playing
+      // Only clean up audio if it"s not actively playing
       if (currentAudio && !isPlaying) {
-        currentAudio.removeEventListener('timeupdate', handleTimeUpdate);
-        currentAudio.removeEventListener('ended', handleAudioEnd);
-        currentAudio.removeEventListener('error', handleAudioError);
+        currentAudio.removeEventListener("timeupdate", handleTimeUpdate);
+        currentAudio.removeEventListener("ended", handleAudioEnd);
+        currentAudio.removeEventListener("error", handleAudioError);
       }
 
-      // Don't cancel speech synthesis on unmount if it's speaking
+      // Don"t cancel speech synthesis on unmount if it"s speaking
     };
   }, [currentAudio, isPlaying, handleAudioEnd, handleAudioError]);
 
@@ -179,14 +179,14 @@ export default function UserMessage({
       await navigator.clipboard.writeText(content);
       toast.success("Copied to clipboard");
     } catch (error) {
-      console.error('Failed to copy:', error);
+      console.error("Failed to copy:", error);
     }
   };
 
   const handleDownload = () => {
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `friday-message-${new Date().toISOString()}.txt`;
     document.body.appendChild(a);
@@ -196,28 +196,28 @@ export default function UserMessage({
   };
 
   const getTextFromContainer = useCallback((): string => {
-    const parentElement = containerRef.current?.closest('.markdown-content');
+    const parentElement = containerRef.current?.closest(".markdown-content");
     if (parentElement) {
-      return (parentElement as HTMLElement).innerText || '';
+      return (parentElement as HTMLElement).innerText || "";
     }
     return content
-      .replace(/[#]+/g, '')
-      .replace(/[*_-]{1,}/g, '')
-      .replace(/`[^`]*`/g, '')
-      .replace(/!\[[^\]]*\]\([^\)]*\)/g, '')
-      .replace(/\[[^\]]*\]\([^\)]*\)/g, '')
-      .replace(/[\n\r]/g, ' ')
+      .replace(/[#]+/g, "")
+      .replace(/[*_-]{1,}/g, "")
+      .replace(/`[^`]*`/g, "")
+      .replace(/!\[[^\]]*\]\([^\)]*\)/g, "")
+      .replace(/\[[^\]]*\]\([^\)]*\)/g, "")
+      .replace(/[\n\r]/g, " ")
       .trim();
   }, [content]);
 
   const detectLanguage = (text: string): string => {
-    if (/[áéíóúñ¿¡]/.test(text)) return 'es-MX';
-    if (/[àâçéèêëîïôûùüÿœ]/.test(text)) return 'fr-FR';
-    if (/[äöüß]/.test(text)) return 'de-DE';
-    if (/[а-яА-Я]/.test(text)) return 'ru-RU';
-    if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text) || /[\u4E00-\u9FFF]/.test(text)) return 'ja-JP';
-    if (/[\u4E00-\u9FFF]/.test(text) && !/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return 'zh-CN';
-    return 'en-US';
+    if (/[áéíóúñ¿¡]/.test(text)) return "es-MX";
+    if (/[àâçéèêëîïôûùüÿœ]/.test(text)) return "fr-FR";
+    if (/[äöüß]/.test(text)) return "de-DE";
+    if (/[а-яА-Я]/.test(text)) return "ru-RU";
+    if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text) || /[\u4E00-\u9FFF]/.test(text)) return "ja-JP";
+    if (/[\u4E00-\u9FFF]/.test(text) && !/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return "zh-CN";
+    return "en-US";
   };
 
   const fetchTTS = async (text: string): Promise<HTMLAudioElement | null> => {
@@ -236,12 +236,12 @@ export default function UserMessage({
     }
 
     try {
-      const response = await fetch('https://friday-backend.vercel.app/tts', {
-        method: 'POST',
+      const response = await fetch("https://friday-backend.vercel.app/tts", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Origin': window.location.origin
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Origin": window.location.origin
         },
         body: JSON.stringify({ text }),
       });
@@ -267,7 +267,7 @@ export default function UserMessage({
       return newAudio;
     } catch (error: unknown) {
       console.error(`Error fetching TTS:`, error);
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
       toast.error(`Failed to fetch TTS: ${errorMessage}`);
       return null;
     } finally {
@@ -279,10 +279,10 @@ export default function UserMessage({
   };
 
   const formatToSingleLine = (text: string): string => {
-    if (!text) return '';
+    if (!text) return "";
     return text
-      .replace(/[\n\r]+/g, ' ')
-      .replace(/\s+/g, ' ')
+      .replace(/[\n\r]+/g, " ")
+      .replace(/\s+/g, " ")
       .trim();
   };
 
@@ -298,7 +298,7 @@ export default function UserMessage({
 
   const playAudio = useCallback((audio: HTMLAudioElement) => {
     if (!isMounted.current) {
-      console.log('Component unmounted, but continuing playback');
+      console.log("Component unmounted, but continuing playback");
     }
 
     setCurrentAudio(audio);
@@ -319,9 +319,9 @@ export default function UserMessage({
     }
 
     // Add event listeners instead of using on* properties
-    audio.addEventListener('timeupdate', handleTimeUpdate);
-    audio.addEventListener('ended', handleAudioEnd);
-    audio.addEventListener('error', handleAudioError);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("ended", handleAudioEnd);
+    audio.addEventListener("error", handleAudioError);
 
     try {
       audio.play()
@@ -338,7 +338,7 @@ export default function UserMessage({
           globalAudioState.isPlaying = false;
         });
     } catch (error) {
-      console.error('Speaker playback error:', error);
+      console.error("Speaker playback error:", error);
       setCurrentAudio(null);
       globalAudioState.currentAudio = null;
       globalAudioState.isPlaying = false;
@@ -363,7 +363,7 @@ export default function UserMessage({
           globalAudioState.isPlaying = true;
           onPlayStateChange?.(true, currentAudio);
         })
-        .catch(err => console.error('Resume failed:', err));
+        .catch(err => console.error("Resume failed:", err));
       return;
     }
 
@@ -383,7 +383,7 @@ export default function UserMessage({
 
       playAudio(audio);
     } catch (error) {
-      console.error('TTS error:', error);
+      console.error("TTS error:", error);
       toast.error("Failed to initiate audio playback");
       setIsLoading(false);
       globalAudioState.isPlaying = false;
@@ -400,7 +400,7 @@ export default function UserMessage({
       newUtterance.lang = detectedLang;
 
       const matchingVoice = voices.find(voice => voice.lang === detectedLang) ||
-        voices.find(voice => voice.lang.startsWith(detectedLang.split('-')[0]));
+        voices.find(voice => voice.lang.startsWith(detectedLang.split("-")[0]));
       if (matchingVoice) newUtterance.voice = matchingVoice;
 
       newUtterance.onend = () => {
