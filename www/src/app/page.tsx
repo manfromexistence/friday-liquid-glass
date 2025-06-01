@@ -8,10 +8,12 @@ import { Friday } from "@/app/friday";
 import { Fluid } from "@/app/fluid";
 import { Cursor } from "@/app/cursor";
 import ChatPage from "@/app/chat/[slug]/page";
+import Chatbot from "@/app/chat";
 
 export default function Home() {
   return (
     <div className="flex min-h-svh w-full flex-col items-start">
+      <Chatbot />
       {/* <ChatPage /> */}
       {/* Friday */}
       {/* <Cursor /> */}

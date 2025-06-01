@@ -778,7 +778,7 @@ export function SiteHeader() {
             </CommandList>
           </CommandDialog>
         </div>
-        <Profile />
+        {/* <Profile /> */}
 
         {/* {user ? (
         ) : (

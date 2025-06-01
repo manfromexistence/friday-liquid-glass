@@ -496,7 +496,7 @@ export function ChatInput({
             placeholder="Ask me anything..."
             disabled={chatState.isLoading}
             className={cn(
-              "w-full resize-none rounded-2xl rounded-b-none border-none !py-3 px-3 leading-normal tracking-wider focus-visible:ring-0 text-sm",
+              "w-full resize-none border-none p-3 leading-normal tracking-wider focus-visible:ring-0 text-sm !bg-background",
               chatState.isLoading && "opacity-50",
               activeCommand && "first-line-visible text-opacity-0" // Updated class
             )}
