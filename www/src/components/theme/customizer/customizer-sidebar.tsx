@@ -441,12 +441,12 @@ export function CustomizerSidebar({
               className="mx-2.5 mb-2 flex flex-col space-y-4"
             >
               <section className="flex-1 space-y-1.5 max-sm:w-full max-sm:max-w-full">
+                <ActionButtons />
                 <Label className="flex items-center gap-1 pb-2">
                   <PaintBucket className="size-4" /> Theme presets
                 </Label>
                 <AllPresetsControl />
               </section>
-
               <ColorTokens />
             </TabsContent>
 

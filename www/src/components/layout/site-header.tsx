@@ -543,7 +543,7 @@ export function SiteHeader() {
       )}
     >
       {/* Header content */}
-      <div className="flex items-center space-x-1.5 flex-1">
+      <div className="flex items-center space-x-1 flex-1">
         <CustomizerSidebarToggle />
         {/* <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>

@@ -19,11 +19,11 @@ export function ActionButtons({ className }: ActionButtonsProps) {
   return (
     <div
       className={cn(
-        "@container flex min-h-0 w-full flex-wrap items-center justify-between gap-2",
+        "@container flex min-h-0 w-full flex-wrap items-center justify-between gap-2 border",
         className,
       )}
     >
-      <section className="flex grow items-center gap-2">
+      {/* <section className="flex grow items-center gap-2">
         <TooltipWrapper label="View generated code" asChild>
           <CopyCodeButtonDialog
             size="sm"
@@ -39,8 +39,7 @@ export function ActionButtons({ className }: ActionButtonsProps) {
       <Separator
         orientation="vertical"
         className="hidden min-h-6 @xl:inline-flex"
-      />
-
+      /> */}
       <section className="flex items-center justify-between gap-2 @max-[375px]:w-full">
         <TooltipWrapper label="Options to reset tokens" asChild>
           <ResetButton size="sm" variant="ghost" />
@@ -65,9 +64,9 @@ export function ActionButtons({ className }: ActionButtonsProps) {
           </Button>
         </TooltipWrapper> */}
 
-        <TooltipWrapper label="Configure the customizer" asChild>
+        {/* <TooltipWrapper label="Configure the customizer" asChild>
           <CustomizerSettings variant="ghost" />
-        </TooltipWrapper>
+        </TooltipWrapper> */}
       </section>
     </div>
   );
