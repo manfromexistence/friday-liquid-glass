@@ -196,8 +196,8 @@ export function History() {
 
   // Debug rendered state
   useEffect(() => {
-    console.log('Rendered chats:', chats)
-    console.log('Is loading:', isLoading)
+    // console.log('Rendered chats:', chats)
+    // console.log('Is loading:', isLoading)
   }, [chats, isLoading])
 
   const handleRename = async (chatId: string, currentTitle: string) => {
@@ -217,7 +217,7 @@ export function History() {
       // await updateDoc(chatRef, {
       //   title: newTitle
       // })
-      console.log(`Simulating rename of chat ${selectedChat.id} to "${newTitle}"`);
+      // console.log(`Simulating rename of chat ${selectedChat.id} to "${newTitle}"`);
       await new Promise(resolve => setTimeout(resolve, 300)); // Simulate async operation
 
       queryClient.invalidateQueries({ queryKey: ['chats'] })
@@ -239,7 +239,7 @@ export function History() {
 
     try {
       // await deleteDoc(doc(db, "chats", selectedChat.id))
-      console.log(`Simulating delete of chat ${selectedChat.id}`);
+      // console.log(`Simulating delete of chat ${selectedChat.id}`);
       await new Promise(resolve => setTimeout(resolve, 300)); // Simulate async operation
       queryClient.invalidateQueries({ queryKey: ['chats'] }); // Refresh list after simulated delete
       toast.success("Chat deleted successfully (simulated)")
@@ -269,7 +269,7 @@ export function History() {
       //   isPinned: !currentPinned,
       //   timestamp: Date.now() // Update timestamp to current time when pin status changes
       // })
-      console.log(`Simulating toggle pin for chat ${chatId} to ${!currentPinned}`);
+      // console.log(`Simulating toggle pin for chat ${chatId} to ${!currentPinned}`);
       await new Promise(resolve => setTimeout(resolve, 300)); // Simulate async operation
 
       toast.success(currentPinned ? "Chat unpinned (simulated)" : "Chat pinned (simulated)")
@@ -300,7 +300,7 @@ export function History() {
         //   id: chatDoc.id,
         //   ...data
         // }
-        console.log(`Simulating prefetch for chat ${chatId}`);
+        // console.log(`Simulating prefetch for chat ${chatId}`);
         await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async fetch
         // Return a hardcoded chat object or null if not found in a simulated list
         const simulatedChat = chats.find((c: Chat) => c.id === chatId); // Added explicit type for c
