@@ -10,7 +10,7 @@ import { Cursor } from "@/app/cursor";
 
 export default function Home() {
   return (
-    <div className="flex min-h-svh w-full flex-col items-center justify-center gap-4 p-4">
+    <div className="flex min-h-svh w-full flex-col items-start">
       Friday
       {/* <Cursor /> */}
 
