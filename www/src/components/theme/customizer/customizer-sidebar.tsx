@@ -219,131 +219,122 @@ export function CustomizerSidebar({
           <TeamSwitcher />
           {state !== "expanded" &&
             (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      onClick={handleStartNew}
-                      className="flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm border hover:bg-secondary"
-                    >
-                      <Plus className="size-4" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Start New Conversation</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href="/">
-                      <SidebarMenuButton>
-                        <Home className="size-4 mr-2" />
-                        Home
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Home</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href="/automations">
-                      <SidebarMenuButton>
-                        <Sparkles className="size-4 mr-2" />
-                        Automations
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Automations</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href="/variants">
-                      <SidebarMenuButton>
-                        <CircleSlash2 className="size-4 mr-2" />
-                        Varients
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Varients</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href="/library">
-                      <SidebarMenuButton>
-                        <LibraryBig className="size-4 mr-2" />
-                        Library
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Library</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href="/projects">
-                      <SidebarMenuButton>
-                        <Blocks className="size-4 mr-2" />
-                        Projects
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Projects</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href="/spaces">
-                      <SidebarMenuButton>
-                        <Frame className="size-4 mr-2" />
-                        Spaces
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Spaces</p>
-                  </TooltipContent>
-                </Tooltip>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link href={{ pathname: "/more" }}>
-                      <SidebarMenuButton>
-                        <Ellipsis className="size-4 mr-2" />
-                        More
-                      </SidebarMenuButton>
-                    </Link>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>More Options</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <div className="hidden md:inline">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={handleStartNew}
+                        className="flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                      >
+                        <Plus className="size-4" />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Start New Conversation</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/">
+                        <SidebarMenuButton>
+                          <Home className="size-4 mr-2" />
+                          Home
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Home</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/automations">
+                        <SidebarMenuButton>
+                          <Sparkles className="size-4 mr-2" />
+                          Automations
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Automations</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/variants">
+                        <SidebarMenuButton>
+                          <CircleSlash2 className="size-4 mr-2" />
+                          Varients
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Varients</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/library">
+                        <SidebarMenuButton>
+                          <LibraryBig className="size-4 mr-2" />
+                          Library
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Library</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/projects">
+                        <SidebarMenuButton>
+                          <Blocks className="size-4 mr-2" />
+                          Projects
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Projects</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/spaces">
+                        <SidebarMenuButton>
+                          <Frame className="size-4 mr-2" />
+                          Spaces
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Spaces</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href={{ pathname: "/more" }}>
+                        <SidebarMenuButton>
+                          <Ellipsis className="size-4 mr-2" />
+                          More
+                        </SidebarMenuButton>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>More Options</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+
             )}
-          {/* <TabsList className="w-full p-1">
-            <TabsTrigger value="palette" className="text-xs">
-              Palette
-            </TabsTrigger>
-            <TabsTrigger value="tokens" className="text-xs">
-              Tokens
-            </TabsTrigger>
-            <TabsTrigger value="typography" className="text-xs">
-              Typography
-            </TabsTrigger>
-          </TabsList> */}
         </SidebarHeader>
 
         <SidebarContent className="@container relative my-0 max-h-svh pt-2 pb-0 group-data-[collapsible=icon]:invisible [&>button]:hidden">
           <ScrollArea className="flex flex-col overflow-hidden">
             <TabsContent
               value="sidebar"
-              // className="mb-2 min-h-full"
               className="mx-1 mb-2 flex flex-col space-y-4"
 
             >
@@ -493,7 +484,6 @@ export function CustomizerSidebar({
 
         </SidebarContent>
 
-
         <SidebarFooter className="px-2">
           {state === "expanded" ? (
             <>
@@ -514,37 +504,55 @@ export function CustomizerSidebar({
               </TabsList>
             </>
           ) : (
-            <div className="flex flex-col gap-2">
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div
-                      onClick={() => {
-                        toggleSidebar()
-                      }}
-                      className="flex min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground items-center justify-center rounded-md"
-                    >
-                      <PanelRight className="size-4" />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Expand Sidebar</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <div className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md">
-                      <Info className="size-[18.5px]" />
-                    </div>
-                  </TooltipTrigger>
-                  <TooltipContent side="right">
-                    <p>Friday is still in beta so it can make mistakes.</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
+            <>
+              <div className="inline md:hidden">
+                <TabsList className="w-full p-1">
+                  <TabsTrigger value="sidebar">
+                    <PanelLeftDashed />
+                  </TabsTrigger>
+                  <TabsTrigger value="palette">
+                    <SwatchBook />
+                  </TabsTrigger>
+                  <TabsTrigger value="tokens">
+                    <FileSliders />
+                  </TabsTrigger>
+                  <TabsTrigger value="typography">
+                    <LetterText />
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+              <div className="md:flex flex-col gap-2 hidden">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div
+                        onClick={() => {
+                          toggleSidebar()
+                        }}
+                        className="flex min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground items-center justify-center rounded-md"
+                      >
+                        <PanelRight className="size-4" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Expand Sidebar</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md">
+                        <Info className="size-[18.5px]" />
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Friday is still in beta so it can make mistakes.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </>
           )}
           {/* <ActionButtons /> */}
         </SidebarFooter>

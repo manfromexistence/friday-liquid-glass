@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import type { SVGProps } from "react"
-import { PanelRight } from "lucide-react"
+import { PanelRight, X } from "lucide-react"
 import { motion } from "framer-motion"
 import { startOfWeek, addDays, isSameDay } from "date-fns"
 import {
@@ -92,21 +92,34 @@ export function TeamSwitcher() {
   }
 
   return (
-    <div className="flex items-center">
-      <Friday />
-
-
-      {state === "expanded" && (
-        <>
-          <span className="text-sm font-bold ml-1">Friday</span>
-          <PanelRight
-            onClick={() => {
-              toggleSidebar()
-            }}
-            className="ml-auto size-4"
-          />
-        </>
-      )}
-    </div>
+    <>
+      <div className="items-center hidden md:flex">
+        <Friday />
+        {state === "expanded" && (
+          <>
+            <span className="text-sm font-bold ml-1">Friday</span>
+            <PanelRight
+              onClick={() => {
+                toggleSidebar()
+              }}
+              className="ml-auto size-4"
+            />
+          </>
+        )}
+      </div>
+      <div className="items-center md:hidden flex">
+        <Friday />
+        <span className="text-sm font-bold ml-1">Friday</span>
+        
+        <div className="border rounded-md p-1 ml-auto flex items-center justify-center hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+        <X
+          onClick={() => {
+            toggleSidebar()
+          }}
+          className="size-4"
+        />
+        </div>
+      </div>
+    </>
   )
 }
