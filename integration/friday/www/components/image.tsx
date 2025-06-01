@@ -110,6 +110,7 @@ export default function ImageGen({ message }: ImageGenProps) {
       );
     }
 
+
     // Single image case
     if (imageUrls.length === 1) {
       return (
@@ -121,6 +122,8 @@ export default function ImageGen({ message }: ImageGenProps) {
                   <Image
                     src={imageUrls[0]}
                     alt="Generated Image"
+                  unoptimized
+
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover transition-all hover:scale-[102.5%]"
@@ -154,6 +157,8 @@ export default function ImageGen({ message }: ImageGenProps) {
               <AspectRatio ratio={1 / 1}>
                 <div className="relative size-full overflow-hidden">
                   <Image
+                  unoptimized
+
                     src={imageUrls[index - 1]}
                     alt={`Chapter ${index} Image`}
                     fill
