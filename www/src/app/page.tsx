@@ -12,7 +12,7 @@ import ChatPage from "@/app/chat/[slug]/page";
 export default function Home() {
   return (
     <div className="flex min-h-svh w-full flex-col items-start">
-      <ChatPage />
+      {/* <ChatPage /> */}
       {/* Friday */}
       {/* <Cursor /> */}
 

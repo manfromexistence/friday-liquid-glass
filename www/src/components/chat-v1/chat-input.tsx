@@ -10,7 +10,7 @@ import { motion, useAnimationControls } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react";
-
+// Create a motion version of Textarea
 const MotionTextarea = motion.create(Textarea);
 
 export interface ChatInputProps {
@@ -456,7 +456,7 @@ export function ChatInput({
   }, []);
 
   return (
-    <div className={cn("relative z-10 w-[95%] rounded-2xl border shadow-md xl:w-1/2 dark:shadow-none", positioningClasses, className)}>
+    <div className={cn("relative z-10 w-[95%] rounded-2xl border shadow-md xl:w-1/2 dark:shadow-none bg-primary-foreground/30", positioningClasses, className)}>
       <Button
         onClick={scrollToBottom}
         className={cn(
@@ -481,7 +481,7 @@ export function ChatInput({
         <div className="w-full h-12 border-b px-3 text-sm flex flex-row space-x-1 items-center justify-start">
           <div className="h-8 w-8 rounded-md relative broder">
             <img src="/Doraemon.jpg" className="h-full w-full rounded-md" />
-            <div className="h-5 w-5 rounded-full border absolute -top-2.5 -right-2.5 flex items-center justify-center hover:bg-primary-foreground">
+            <div className="h-5 w-5 rounded-full border absolute -top-2.5 bg-background -right-2.5 flex items-center justify-center hover:bg-primary-foreground">
               <X className="h-3 w-3" />
             </div>
           </div>

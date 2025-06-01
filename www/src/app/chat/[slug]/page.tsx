@@ -20,7 +20,6 @@ import { toast } from "sonner";
 import { useAIModelStore } from "@/store/ai-model-store";
 import { stripPrefixes } from "@/lib/utils";
 
-
 const MIN_HEIGHT = 48;
 const MAX_HEIGHT = 164;
 
