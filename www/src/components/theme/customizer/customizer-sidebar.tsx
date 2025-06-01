@@ -71,6 +71,49 @@ import { toast } from "sonner"
 import { Banner } from "@/components/layout/banner"
 
 
+// This is sample data.
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  },
+  teams: [
+    {
+      name: "Acme Inc",
+      logo: GalleryVerticalEnd,
+      plan: "Enterprise",
+    },
+    {
+      name: "Acme Corp.",
+      logo: AudioWaveform,
+      plan: "Startup",
+    },
+    {
+      name: "Evil Corp.",
+      logo: Command,
+      plan: "Free",
+    },
+  ],
+  navMain: [
+    {
+      name: "Design Engineering",
+      url: "#",
+      icon: Frame,
+    },
+    {
+      name: "Sales & Marketing",
+      url: "#",
+      icon: PieChart,
+    },
+    {
+      name: "Travel",
+      url: "#",
+      icon: Map,
+    },
+  ],
+}
+
 export function CustomizerSidebar({
   className,
   ...props
@@ -140,31 +183,31 @@ export function CustomizerSidebar({
     }
   }, [user, router])
 
-  if (!isMounted) {
-    return (
-      <Sidebar className="overflow-hidden" {...props}>
-        <SidebarHeader className="px-2 pr-3 max-md:pt-4">
-          <Skeleton className="bg-muted h-9" />
-        </SidebarHeader>
+  // if (!isMounted) {
+  //   return (
+  //     <Sidebar className="overflow-hidden" {...props}>
+  //       <SidebarHeader className="px-2 max-md:pt-4">
+  //         <Skeleton className="bg-muted h-9" />
+  //       </SidebarHeader>
 
-        <SidebarContent className="scrollbar-thin @container relative flex max-h-svh flex-col py-2 group-data-[collapsible=icon]:invisible [&>button]:hidden">
-          <div className="flex grow flex-col space-y-4 overflow-hidden px-2 pr-3">
-            <ControlsSkeleton className="h-10" />
+  //       <SidebarContent className="scrollbar-thin @container relative flex max-h-svh flex-col py-2 group-data-[collapsible=icon]:invisible [&>button]:hidden">
+  //         <div className="flex grow flex-col space-y-4 overflow-hidden px-2">
+  //           <ControlsSkeleton className="h-10" />
 
-            <div className="grow overflow-hidden">
-              <ControlsSkeleton className="h-200" />
-            </div>
-          </div>
-        </SidebarContent>
+  //           <div className="grow overflow-hidden">
+  //             <ControlsSkeleton className="h-200" />
+  //           </div>
+  //         </div>
+  //       </SidebarContent>
 
-        <SidebarFooter className="space-y-1 px-2 pr-3">
-          <Skeleton className="bg-muted h-8" />
-          <Skeleton className="bg-muted h-8" />
-        </SidebarFooter>
-        <SidebarRail />
-      </Sidebar>
-    );
-  }
+  //       <SidebarFooter className="space-y-1 px-2">
+  //         <Skeleton className="bg-muted h-8" />
+  //         <Skeleton className="bg-muted h-8" />
+  //       </SidebarFooter>
+  //       <SidebarRail />
+  //     </Sidebar>
+  //   );
+  // }
 
   return (
     <Sidebar collapsible="icon" className="overflow-hidden" {...props}>
@@ -297,201 +340,181 @@ export function CustomizerSidebar({
         </SidebarHeader>
 
         <SidebarContent className="@container relative my-0 max-h-svh pt-2 pb-0 group-data-[collapsible=icon]:invisible [&>button]:hidden">
-            <ScrollArea className="flex flex-col px-2 pr-1 overflow-hidden">
-              <TabsContent
-                value="sidebar"
-                className="mb-2 min-h-full"
-              >
-                <div className="flex flex-col gap-1 px-2">
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <button
-                          onClick={handleStartNew}
-                          className="flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm border hover:bg-secondary"
-                        >
-                          Start New
-                          {/* {state === "expanded" ? "Start New" : <Plus className="size-4" />} */}
-                        </button>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Start New Conversation</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/">
-                          <SidebarMenuButton>
-                            <Home className="size-4 mr-2" />
-                            Home
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Home</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/automations">
-                          <SidebarMenuButton>
-                            <Sparkles className="size-4 mr-2" />
-                            Automations
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Automations</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/variants">
-                          <SidebarMenuButton>
-                            <CircleSlash2 className="size-4 mr-2" />
-                            Varients
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Varients</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/library">
-                          <SidebarMenuButton>
-                            <LibraryBig className="size-4 mr-2" />
-                            Library
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Library</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/projects">
-                          <SidebarMenuButton>
-                            <Blocks className="size-4 mr-2" />
-                            Projects
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Projects</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href="/spaces">
-                          <SidebarMenuButton>
-                            <Frame className="size-4 mr-2" />
-                            Spaces
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>Spaces</p>
-                      </TooltipContent>
-                    </Tooltip>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Link href={{ pathname: "/more" }}>
-                          <SidebarMenuButton>
-                            <Ellipsis className="size-4 mr-2" />
-                            More
-                          </SidebarMenuButton>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>More Options</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
-                  <History />
-                </div>
-                {/* {state === "expanded" && (
-                  <div className="">
-                    <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
-                    <History />
+          <ScrollArea className="flex flex-col overflow-hidden">
+            <TabsContent
+              value="sidebar"
+              // className="mb-2 min-h-full"
+              className="mx-1 mb-2 flex flex-col space-y-4"
+
+            >
+              <div className="flex flex-col gap-1 w-full">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={handleStartNew}
+                        className="mx-1.5 flex min-h-8 min-w-8 items-center justify-center rounded-md text-sm border hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                      >
+                        Start New
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Start New Conversation</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/" className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <Home className="size-4 mr-2" />
+                        Home
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Home</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/automations" className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <Sparkles className="size-4 mr-2" />
+                        Automations
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Automations</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/variants" className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <CircleSlash2 className="size-4 mr-2" />
+                        Varients
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Varients</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/library" className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <LibraryBig className="size-4 mr-2" />
+                        Library
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Library</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/projects" className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <Blocks className="size-4 mr-2" />
+                        Projects
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Projects</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href="/spaces" className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <Frame className="size-4 mr-2" />
+                        Spaces
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>Spaces</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href={{ pathname: "/more" }} className="text-sm mx-1.5 min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground rounded-md hover:border flex items-center px-2 py-1">
+                        <Ellipsis className="size-4 mr-2" />
+                        More
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right">
+                      <p>More Options</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <div className="mx-auto h-auto w-[93%] border-t border-dashed" />
+                <History />
+              </div>
+            </TabsContent>
+
+            <TabsContent
+              value="palette"
+              className="mx-2.5 mb-2 flex flex-col space-y-4"
+            >
+              <section className="flex-1 space-y-1.5 max-sm:w-full max-sm:max-w-full">
+                <Label className="flex items-center gap-1 pb-2">
+                  <PaintBucket className="size-4" /> Theme presets
+                </Label>
+                <AllPresetsControl />
+              </section>
+
+              <ColorTokens />
+            </TabsContent>
+
+            <TabsContent value="tokens" className="mx-2.5 mb-2">
+              <section className="space-y-1.5">
+                <Label className="flex items-center gap-1 pb-2">
+                  <SlidersHorizontal className="size-4" /> Other tokens
+                </Label>
+
+                <ControlSection title="Surface" expanded className="p-0">
+                  <SurfaceShadesControl className="bg-transparent" />
+                  <div className="text-muted-foreground mb-3 truncate px-3 text-xs">
+                    For background, card, popover, muted, accent...
                   </div>
-                )} */}
-              </TabsContent>
+                </ControlSection>
 
-              <TabsContent
-                value="palette"
-                className="mx-1 mb-2 flex flex-col space-y-4"
-              >
-                <section className="flex-1 space-y-1.5 max-sm:w-full max-sm:max-w-full">
-                  <Label className="flex items-center gap-1 pb-2">
-                    <PaintBucket className="size-4" /> Theme presets
-                  </Label>
-                  <AllPresetsControl />
-                </section>
+                <ControlSection title="Radius" expanded>
+                  <RadiusSliderControl />
+                </ControlSection>
 
-                <ColorTokens />
-              </TabsContent>
+                <ControlSection title="Shadows">
+                  <ShadowsControl />
+                </ControlSection>
 
-              <TabsContent value="tokens" className="mx-2 mb-2">
-                <section className="space-y-1.5">
-                  <Label className="flex items-center gap-1 pb-2">
-                    <SlidersHorizontal className="size-4" /> Other tokens
-                  </Label>
+                <ControlSection title="Spacing">
+                  <ComingSoon />
+                </ControlSection>
 
-                  <ControlSection title="Surface" expanded className="p-0">
-                    <SurfaceShadesControl className="bg-transparent" />
-                    <div className="text-muted-foreground mb-3 truncate px-3 text-xs">
-                      For background, card, popover, muted, accent...
-                    </div>
-                  </ControlSection>
-
-                  <ControlSection title="Radius" expanded>
-                    <RadiusSliderControl />
-                  </ControlSection>
-
-                  <ControlSection title="Shadows">
-                    <ShadowsControl />
-                  </ControlSection>
-
-                  <ControlSection title="Spacing">
-                    <ComingSoon />
-                  </ControlSection>
-
-                </section>
-              </TabsContent>
-              <TabsContent value="typography" className="mx-2 mb-2">
-                <Typography />
-              </TabsContent>
-            </ScrollArea>
+              </section>
+            </TabsContent>
+            <TabsContent value="typography" className="mx-2.5 mb-2">
+              <Typography />
+            </TabsContent>
+          </ScrollArea>
 
         </SidebarContent>
 
 
         <SidebarFooter className="px-2">
           {state === "expanded" ? (
-            <TabsList className="w-full p-1">
-              <TabsTrigger value="sidebar">
-                {/* Sidebar */}
-                <PanelLeftDashed />
-              </TabsTrigger>
-              <TabsTrigger value="palette">
-                {/* Palette */}
-                <SwatchBook />
-              </TabsTrigger>
-              <TabsTrigger value="tokens">
-                {/* Tokens */}
-                <FileSliders />
-              </TabsTrigger>
-              <TabsTrigger value="typography">
-                {/* Typography */}
-                <LetterText />
-              </TabsTrigger>
-            </TabsList>
-          ) : (
             <>
+              <Banner title="Info" message="Friday is still in beta so it can make mistakes." />
+              <TabsList className="w-full p-1">
+                <TabsTrigger value="sidebar">
+                  <PanelLeftDashed />
+                </TabsTrigger>
+                <TabsTrigger value="palette">
+                  <SwatchBook />
+                </TabsTrigger>
+                <TabsTrigger value="tokens">
+                  <FileSliders />
+                </TabsTrigger>
+                <TabsTrigger value="typography">
+                  <LetterText />
+                </TabsTrigger>
+              </TabsList>
+            </>
+          ) : (
+            <div className="flex flex-col gap-2">
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
@@ -499,7 +522,7 @@ export function CustomizerSidebar({
                       onClick={() => {
                         toggleSidebar()
                       }}
-                      className="flex min-h-8 min-w-8 items-center justify-center rounded-md"
+                      className="flex min-h-8 min-w-8 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground items-center justify-center rounded-md"
                     >
                       <PanelRight className="size-4" />
                     </div>
@@ -512,7 +535,7 @@ export function CustomizerSidebar({
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="flex min-h-8 min-w-8 items-center justify-center rounded-md">
+                    <div className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex min-h-8 min-w-8 items-center justify-center rounded-md">
                       <Info className="size-[18.5px]" />
                     </div>
                   </TooltipTrigger>
@@ -521,7 +544,7 @@ export function CustomizerSidebar({
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            </>
+            </div>
           )}
           {/* <ActionButtons /> */}
         </SidebarFooter>

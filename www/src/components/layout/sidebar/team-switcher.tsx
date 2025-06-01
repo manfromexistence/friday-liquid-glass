@@ -22,6 +22,7 @@ import {
   volcanicPreset
 } from "@/components/friday/index"
 import Friday from "@/components/friday/friday"
+import { cn } from "@/lib/utils"
 
 export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -91,50 +92,21 @@ export function TeamSwitcher() {
   }
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <div className="peer/menu-button ring-sidebar-ring data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground flex h-8 w-full items-center gap-2 rounded-md p-2 !px-0 text-left text-sm outline-none transition-[width,height,padding] focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:font-medium group-data-[collapsible=icon]:!size-8 group-data-[collapsible=icon]:!p-0 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0">
-          {/* <motion.div
-            className="text-sidebar-primary-foreground flex aspect-square min-h-8 min-w-8 items-center justify-center rounded-lg cursor-pointer"
-            drag
-            dragElastic={0.05} // Reduced elastic feel even more
-            dragConstraints={{
-              top: 0, // Reduced constraints
-              left: 0,
-              right: 0,
-              bottom: 0
-            }}
-            dragMomentum={false} // Disable momentum for precise return
-            whileDrag={{ scale: 1.05 }} // Reduced scale effect
-            whileTap={{ scale: 1.2 }}
-            onClick={() => {
-              const nextIndex = (presets.indexOf(currentPreset) + 1) % presets.length
-              setCurrentPreset(presets[nextIndex])
-            }}
-            onDragEnd={handleDragEnd}
-            transition={{
-              type: "spring",
-              stiffness: 2000, // Increased stiffness significantly
-              damping: 50, // Increased damping
-              mass: 0.2, // Reduced mass further
-              restDelta: 0.0001, // Even smaller rest delta
-              restSpeed: 0.001 // Added rest speed for precise stopping
-            }}
-          >
-            <Orb className="" baseOrbSize={25} baseShapeSize={21} {...currentPreset} />
-          </motion.div> */}
-          <Friday />
+    <div className="flex items-center">
+      <Friday />
 
-<span className="text-sm font-bold">Friday</span>
 
-          {state === "expanded" ? (<PanelRight
+      {state === "expanded" && (
+        <>
+          <span className="text-sm font-bold ml-1">Friday</span>
+          <PanelRight
             onClick={() => {
               toggleSidebar()
             }}
-            className="ml-auto"
-          />) : null}
-        </div>
-      </SidebarMenuItem>
-    </SidebarMenu>
+            className="ml-auto size-4"
+          />
+        </>
+      )}
+    </div>
   )
 }

@@ -1,23 +1,23 @@
-'use client'
+"use client"
 
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
-import { Menu, Search } from 'lucide-react'
-import Friday from '@/components/friday/friday'
-import * as React from 'react'
-import { useState, useCallback } from 'react'
-import Link from 'next/link'
-import { cn } from '@/lib/utils'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { useCategorySidebar } from '@/components/layout/sidebar/category-sidebar'
-import { NavActions } from '@/components/layout/sidebar/nav-actions'
-import { useSubCategorySidebar } from '@/components/layout/sidebar/subcategory-sidebar'
-import CategorySidebar from '@/components/layout/sidebar/category-app-sidebar'
-import SubCategorySidebar from '@/components/layout/sidebar/subcategory-app-sidebar'
-import { usePathname } from 'next/navigation'
-import { useRouter } from 'next/navigation'
-import { toast } from 'sonner'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { Menu, Search } from "lucide-react"
+import Friday from "@/components/friday/friday"
+import * as React from "react"
+import { useState, useCallback } from "react"
+import Link from "next/link"
+import { cn } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar"
+import { NavActions } from "@/components/layout/sidebar/nav-actions"
+import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar"
+import CategorySidebar from "@/components/layout/sidebar/category-app-sidebar"
+import SubCategorySidebar from "@/components/layout/sidebar/subcategory-app-sidebar"
+import { usePathname } from "next/navigation"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,9 +26,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useSidebar } from '@/components/ui/sidebar'
-import { SidebarMenuButton } from '@/components/ui/sidebar'
+} from "@/components/ui/dropdown-menu"
+import { useSidebar } from "@/components/ui/sidebar"
+import { SidebarMenuButton } from "@/components/ui/sidebar"
 import {
   BadgeCheck,
   Bell,
@@ -47,24 +47,24 @@ import {
   Ellipsis,
   FileText,
   Users,
-} from 'lucide-react'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { History } from '@/components/layout/sidebar/history'
-import ThemeToggleButton from '@/components/ui/theme-toggle-button'
-import { useParams } from 'next/navigation'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { GlobeIcon, LockIcon, EyeOff, Loader2 } from 'lucide-react'
-import { useEffect } from 'react'
-import { SidebarProvider } from '@/components/layout/sidebar/actions-sidebar'
-import { MoonIcon, SunIcon } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { AnimationStart, AnimationVariant, createAnimation } from '@/components/ui/theme-animations'
-import { Calculator, Calendar, Settings, Smile, User } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { CommandMenu } from './command-menu'
-import { type DialogProps } from '@radix-ui/react-dialog'
-import { Circle, File, Laptop, Moon, Sun } from 'lucide-react'
-import { docsConfig } from '@/config/command-palettle'
+} from "lucide-react"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { History } from "@/components/layout/sidebar/history"
+import ThemeToggleButton from "@/components/ui/theme-toggle-button"
+import { useParams } from "next/navigation"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { GlobeIcon, LockIcon, EyeOff, Loader2 } from "lucide-react"
+import { useEffect } from "react"
+import { SidebarProvider } from "@/components/layout/sidebar/actions-sidebar"
+import { MoonIcon, SunIcon } from "lucide-react"
+import { useTheme } from "next-themes"
+import { AnimationStart, AnimationVariant, createAnimation } from "@/components/ui/theme-animations"
+import { Calculator, Calendar, Settings, Smile, User } from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { CommandMenu } from "./command-menu"
+import { type DialogProps } from "@radix-ui/react-dialog"
+import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
+import { docsConfig } from "@/config/command-palettle"
 import {
   CommandDialog,
   CommandEmpty,
@@ -73,13 +73,13 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command'
-import { v4 as uuidv4 } from 'uuid'
-import { Separator } from '@/components/ui/separator'
-import Profile from '@/components/layout/profile'
-import { CustomizerSidebarToggle } from '../theme/customizer/customizer-sidebar'
+} from "@/components/ui/command"
+import { v4 as uuidv4 } from "uuid"
+import { Separator } from "@/components/ui/separator"
+import Profile from "@/components/layout/profile"
+import { CustomizerSidebarToggle } from "../theme/customizer/customizer-sidebar"
 
-type ChatVisibility = 'public' | 'private' | 'unlisted'
+type ChatVisibility = "public" | "private" | "unlisted"
 
 interface ChatData {
   id: string
@@ -93,23 +93,23 @@ interface ChatData {
 const visibilityConfig = {
   public: {
     icon: <GlobeIcon className="size-1.5" />,
-    text: 'Public',
-    description: 'Visible to everyone',
+    text: "Public",
+    description: "Visible to everyone",
   },
   private: {
     icon: <LockIcon className="size-1.5" />,
-    text: 'Private',
-    description: 'Only visible to you',
+    text: "Private",
+    description: "Only visible to you",
   },
   unlisted: {
     icon: <EyeOff className="size-1.5" />,
-    text: 'Unlisted',
-    description: 'Only accessible via link',
+    text: "Unlisted",
+    description: "Only accessible via link",
   },
 } as const
 
 export function SiteHeader() {
-  const [language, setLanguage] = useState('English')
+  const [language, setLanguage] = useState("English")
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
   // const { toggleGoodSidebar, state } = useGoodSidebar()
@@ -118,10 +118,10 @@ export function SiteHeader() {
   // const { user } = useAuth()
   // Hardcoded user for now
   const user = {
-    uid: 'test-user-uid',
-    photoURL: 'https://via.placeholder.com/150',
-    displayName: 'Test User',
-    email: 'test@example.com',
+    uid: "test-user-uid",
+    photoURL: "https://via.placeholder.com/150",
+    displayName: "Test User",
+    email: "test@example.com",
   }
   const { isMobile, state: leftSidebarState } = useSidebar()
   const router = useRouter()
@@ -131,12 +131,12 @@ export function SiteHeader() {
   const queryClient = useQueryClient()
   const [isChangingVisibility, setIsChangingVisibility] = useState(false)
   const { theme, setTheme } = useTheme()
-  const styleId = 'theme-transition-styles'
+  const styleId = "theme-transition-styles"
   const [commandOpen, setCommandOpen] = React.useState(false)
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+      if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
         if (
           (e.target instanceof HTMLElement && e.target.isContentEditable) ||
           e.target instanceof HTMLInputElement ||
@@ -151,8 +151,8 @@ export function SiteHeader() {
       }
     }
 
-    document.addEventListener('keydown', down)
-    return () => document.removeEventListener('keydown', down)
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
   }, [])
 
   const runCommand = React.useCallback((command: () => unknown) => {
@@ -161,37 +161,37 @@ export function SiteHeader() {
   }, [])
 
   const updateStyles = React.useCallback((css: string, name: string) => {
-    if (typeof window === 'undefined') return
+    if (typeof window === "undefined") return
 
     let styleElement = document.getElementById(styleId) as HTMLStyleElement
 
-    console.log('style ELement', styleElement)
-    console.log('name', name)
+    console.log("style ELement", styleElement)
+    console.log("name", name)
 
     if (!styleElement) {
-      styleElement = document.createElement('style')
+      styleElement = document.createElement("style")
       styleElement.id = styleId
       document.head.appendChild(styleElement)
     }
 
     styleElement.textContent = css
 
-    console.log('content updated')
+    console.log("content updated")
   }, [])
 
   const toggleTheme = React.useCallback(() => {
     const animation = createAnimation(
-      'gif',
-      'center',
-      'https://media.giphy.com/media/5PncuvcXbBuIZcSiQo/giphy.gif?cid=ecf05e47j7vdjtytp3fu84rslaivdun4zvfhej6wlvl6qqsz&ep=v1_stickers_search&rid=giphy.gif&ct=s'
+      "gif",
+      "center",
+      "https://media.giphy.com/media/5PncuvcXbBuIZcSiQo/giphy.gif?cid=ecf05e47j7vdjtytp3fu84rslaivdun4zvfhej6wlvl6qqsz&ep=v1_stickers_search&rid=giphy.gif&ct=s"
     )
 
     updateStyles(animation.css, animation.name)
 
-    if (typeof window === 'undefined') return
+    if (typeof window === "undefined") return
 
     const switchTheme = () => {
-      setTheme(theme === 'light' ? 'dark' : 'light')
+      setTheme(theme === "light" ? "dark" : "light")
     }
 
     if (!document.startViewTransition) {
@@ -203,15 +203,15 @@ export function SiteHeader() {
   }, [theme, setTheme, updateStyles])
 
   const { data: chatData, isLoading } = useQuery<ChatData | null>({
-    queryKey: ['chat', params?.slug],
+    queryKey: ["chat", params?.slug],
     queryFn: async () => {
       if (!params?.slug) return null;
 
       // Try to get from cache first
-      // const cachedData = queryClient.getQueryData(['chat', params.slug])
+      // const cachedData = queryClient.getQueryData(["chat", params.slug])
       // if (cachedData) return cachedData as ChatData
 
-      // const chatRef = doc(db, 'chats', params.slug as string)
+      // const chatRef = doc(db, "chats", params.slug as string)
       // const chatDoc = await getDoc(chatRef)
 
       // if (!chatDoc.exists()) {
@@ -220,18 +220,18 @@ export function SiteHeader() {
 
       // const data = {
       //   id: chatDoc.id,
-      //   ...(chatDoc.data() as Omit<ChatData, 'id'>),
+      //   ...(chatDoc.data() as Omit<ChatData, "id">),
       // }
 
       // return data
       // Hardcoded chatData for now
       return {
         id: params.slug as string,
-        title: 'Hardcoded Chat Title',
-        visibility: 'public' as ChatVisibility,
+        title: "Hardcoded Chat Title",
+        visibility: "public" as ChatVisibility,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        creatorUid: 'test-user-uid',
+        creatorUid: "test-user-uid",
       };
     },
     enabled: !!params?.slug,
@@ -245,14 +245,14 @@ export function SiteHeader() {
   useEffect(() => {
     if (!params?.slug) return
 
-    // const chatRef = doc(db, 'chats', params.slug as string)
+    // const chatRef = doc(db, "chats", params.slug as string)
     // const unsubscribe = onSnapshot(chatRef, (doc) => {
     //   if (doc.exists()) {
     //     const data = {
     //       id: doc.id,
     //       ...doc.data(),
     //     }
-    //     queryClient.setQueryData(['chat', params.slug], data)
+    //     queryClient.setQueryData(["chat", params.slug], data)
     //   }
     // })
 
@@ -268,22 +268,22 @@ export function SiteHeader() {
     }
   }, [chatData, params?.slug, pathname, router])
 
-  const title = chatData?.title || ''
-  const visibility = chatData?.visibility || 'public'
+  const title = chatData?.title || ""
+  const visibility = chatData?.visibility || "public"
 
   const handleVisibilityChange = async (newVisibility: ChatVisibility) => {
     if (!params?.slug || newVisibility === visibility) return
 
     setIsChangingVisibility(true)
     try {
-      // const chatRef = doc(db, 'chats', params.slug as string)
+      // const chatRef = doc(db, "chats", params.slug as string)
       // await updateDoc(chatRef, {
       //   visibility: newVisibility,
       //   updatedAt: new Date().toISOString(),
       // })
 
       // Update React Query cache with proper typing
-      queryClient.setQueryData<ChatData | null>(['chat', params.slug], (oldData) => {
+      queryClient.setQueryData<ChatData | null>(["chat", params.slug], (oldData) => {
         if (!oldData) return null
         return {
           ...oldData,
@@ -293,11 +293,11 @@ export function SiteHeader() {
       })
 
       // Invalidate related queries
-      queryClient.invalidateQueries({ queryKey: ['chats'] })
-      console.log('Simulating visibility change to:', newVisibility);
+      queryClient.invalidateQueries({ queryKey: ["chats"] })
+      console.log("Simulating visibility change to:", newVisibility);
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
     } catch (error) {
-      console.error('Error updating visibility:', error)
+      console.error("Error updating visibility:", error)
     } finally {
       setIsChangingVisibility(false)
     }
@@ -311,19 +311,19 @@ export function SiteHeader() {
   const userImage = user?.photoURL
   const userName = user?.displayName
   const userEmail = user?.email
-  const fallbackInitial = userName?.[0] || userEmail?.[0]?.toUpperCase() || 'U'
+  const fallbackInitial = userName?.[0] || userEmail?.[0]?.toUpperCase() || "U"
 
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true)
       // await signOut(getAuth())
-      console.log('Simulating logout');
+      console.log("Simulating logout");
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
-      router.push('/') // Redirect to home page
-      toast.success('Successfully logged out (simulated)')
+      router.push("/") // Redirect to home page
+      toast.success("Successfully logged out (simulated)")
     } catch (error) {
-      console.error('Error signing out:', error)
-      toast.error('Failed to log out. Please try again.')
+      console.error("Error signing out:", error)
+      toast.error("Failed to log out. Please try again.")
     } finally {
       setIsLoggingOut(false)
     }
@@ -335,12 +335,12 @@ export function SiteHeader() {
       // const auth = getAuth()
       // const provider = new GoogleAuthProvider()
       // await signInWithPopup(auth, provider)
-      console.log('Simulating login');
+      console.log("Simulating login");
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
-      toast.success('Successfully logged in (simulated)')
+      toast.success("Successfully logged in (simulated)")
     } catch (error) {
-      console.error('Error signing in:', error)
-      toast.error('Failed to log in. Please try again.')
+      console.error("Error signing in:", error)
+      toast.error("Failed to log in. Please try again.")
     } finally {
       setIsLoggingIn(false)
     }
@@ -348,33 +348,33 @@ export function SiteHeader() {
 
   // Get route name
   const getRouteName = () => {
-    if (pathname === '/') return 'Home'
-    const lastSegment = pathname ? pathname.split('/').pop() : undefined
-    return lastSegment ? lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1) : 'Home'
+    if (pathname === "/") return "Home"
+    const lastSegment = pathname ? pathname.split("/").pop() : undefined
+    return lastSegment ? lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1) : "Home"
   }
 
   // Check if route is chat related
-  const isChatRoute = pathname?.startsWith('/chat') ?? false
+  const isChatRoute = pathname?.startsWith("/chat") ?? false
 
   const handleGoodSidebarToggle = () => {
     // toggleGoodSidebar()
-    if (statesubcategorysidebar === 'expanded') {
+    if (statesubcategorysidebar === "expanded") {
       toggleSubCategorySidebar()
-    } else if (statecategorysidebar === 'expanded') {
+    } else if (statecategorysidebar === "expanded") {
       toggleCategorySidebar()
     }
   }
 
   const handleCategorySidebarToggle = () => {
     toggleCategorySidebar()
-    if (statesubcategorysidebar === 'expanded') {
+    if (statesubcategorysidebar === "expanded") {
       toggleSubCategorySidebar()
     }
   }
 
   const handleSubCategorySidebarToggle = () => {
     toggleSubCategorySidebar()
-    if (statecategorysidebar === 'expanded') {
+    if (statecategorysidebar === "expanded") {
       toggleCategorySidebar()
     }
   }
@@ -397,7 +397,7 @@ export function SiteHeader() {
       <>
         <div className="xs:block xs:max-w-[85px] relative hidden max-w-[50px] overflow-hidden sm:max-w-[200px] md:max-w-[250px]">
           <span className="block truncate text-[13px] font-medium">
-            {chatData.title || 'Untitled Chat'}
+            {chatData.title || "Untitled Chat"}
           </span>
         </div>
         <DropdownMenu>
@@ -415,9 +415,9 @@ export function SiteHeader() {
                 </>
               ) : (
                 <>
-                  {visibilityConfig[chatData.visibility || 'public'].icon}
+                  {visibilityConfig[chatData.visibility || "public"].icon}
                   <span className="flex h-full items-center text-[10px]">
-                    {visibilityConfig[chatData.visibility || 'public'].text}
+                    {visibilityConfig[chatData.visibility || "public"].text}
                   </span>
                 </>
               )}
@@ -450,8 +450,8 @@ export function SiteHeader() {
   const handleStartNew = useCallback(async () => {
     try {
       if (!user) {
-        toast.error('Authentication required', {
-          description: 'Please sign in to start a new chat',
+        toast.error("Authentication required", {
+          description: "Please sign in to start a new chat",
           duration: 3000,
         })
         return
@@ -463,10 +463,10 @@ export function SiteHeader() {
       // Create initial chat data with empty messages array
       const newChatData = { // Renamed to avoid conflict with existing chatData
         id: chatId,
-        title: 'New Conversation',
+        title: "New Conversation",
         messages: [], // Start with empty messages array
-        model: 'simulated-model', // Default model // aiService.currentModel,
-        visibility: 'public' as ChatVisibility, // Explicitly type visibility
+        model: "simulated-model", // Default model // aiService.currentModel,
+        visibility: "public" as ChatVisibility, // Explicitly type visibility
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         creatorUid: user.uid,
@@ -481,23 +481,23 @@ export function SiteHeader() {
       }
 
       // Store chat data in Firestore
-      // await setDoc(doc(db, 'chats', chatId), chatData)
-      console.log('Simulating creation of new chat:', newChatData);
+      // await setDoc(doc(db, "chats", chatId), chatData)
+      console.log("Simulating creation of new chat:", newChatData);
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
 
 
       // Store information in sessionStorage
-      sessionStorage.setItem('selectedAI', 'simulated-model' /*aiService.currentModel*/);
-      sessionStorage.setItem('chatId', chatId)
-      sessionStorage.setItem('isNewChat', 'true')
+      sessionStorage.setItem("selectedAI", "simulated-model" /*aiService.currentModel*/);
+      sessionStorage.setItem("chatId", chatId)
+      sessionStorage.setItem("isNewChat", "true")
 
       // Navigate to the new chat
       router.push(`/chat/${chatId}`)
       setOpen(false) // Close the sheet after starting new chat
     } catch (error) {
-      console.error('Error creating new chat:', error)
-      toast.error('Failed to create new chat', {
-        description: 'Please try again',
+      console.error("Error creating new chat:", error)
+      toast.error("Failed to create new chat", {
+        description: "Please try again",
       })
     }
   }, [user, router])
@@ -505,41 +505,41 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-40 flex h-12 items-center border-b px-2 bg-background w-full',
+        "fixed top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex h-12 items-center border-b px-2 w-full",
         // Add transition for smooth changes
-        'transition-all duration-200 ease-linear',
+        "transition-all duration-200 ease-linear",
         // Base width and position - full width on mobile, default md width with 48px offset
-        'left-0 w-full md:w-[calc(100%-48px)]',
+        "left-0 w-full md:w-[calc(100%-48px)]",
 
         // Left sidebar positioning (after md breakpoint)
-        leftSidebarState === 'expanded'
-          ? 'md:w-[calc(100%-256px)] md:left-64' // When left sidebar is expanded
-          : 'md:left-12', // When collapsed
+        leftSidebarState === "expanded"
+          ? "md:w-[calc(100%-256px)] md:left-64" // When left sidebar is expanded
+          : "md:left-12", // When collapsed
 
         // Width calculations based on sidebar states and viewport
         // When left sidebar is expanded
-        leftSidebarState === 'expanded' &&
-          statecategorysidebar !== 'expanded' &&
-          statesubcategorysidebar !== 'expanded'
-          ? 'md:w-[calc(100%-256px)]'
-          : '',
+        leftSidebarState === "expanded" &&
+          statecategorysidebar !== "expanded" &&
+          statesubcategorysidebar !== "expanded"
+          ? "md:w-[calc(100%-256px)]"
+          : "",
 
         // When left sidebar is expanded + category sidebar
-        leftSidebarState === 'expanded' &&
-          statecategorysidebar === 'expanded' &&
-          statesubcategorysidebar !== 'expanded'
-          ? 'md:w-[calc(100%-256px)]'
-          : '',
+        leftSidebarState === "expanded" &&
+          statecategorysidebar === "expanded" &&
+          statesubcategorysidebar !== "expanded"
+          ? "md:w-[calc(100%-256px)]"
+          : "",
 
         // When left sidebar is expanded + subCategory sidebar
-        leftSidebarState === 'expanded' &&
-          statecategorysidebar !== 'expanded' &&
-          statesubcategorysidebar === 'expanded'
-          ? 'md:w-[calc(100%-256px)] '
-          : '',
+        leftSidebarState === "expanded" &&
+          statecategorysidebar !== "expanded" &&
+          statesubcategorysidebar === "expanded"
+          ? "md:w-[calc(100%-256px)] "
+          : "",
 
-        statecategorysidebar === 'expanded' ? 'md:w-[calc(100%-256px)]' : '',
-        statesubcategorysidebar === 'expanded' ? 'md:w-[calc(100%-256px)]' : ''
+        statecategorysidebar === "expanded" ? "md:w-[calc(100%-256px)]" : "",
+        statesubcategorysidebar === "expanded" ? "md:w-[calc(100%-256px)]" : ""
       )}
     >
       {/* Header content */}
@@ -550,7 +550,7 @@ export function SiteHeader() {
             <Button
               size={"sm"}
               variant="outline"
-              className='size-8 md:hidden'
+              className="size-8 md:hidden"
             >
               <Menu className="size-4" />
             </Button>
@@ -661,7 +661,7 @@ export function SiteHeader() {
                   </Tooltip>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link href={{ pathname: '/more' }} onClick={() => setOpen(false)}>
+                      <Link href={{ pathname: "/more" }} onClick={() => setOpen(false)}>
                         <SidebarMenuButton className="w-full justify-start data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground dark:hover:bg-background/40 dark:hover:text-sidebar-accent-foreground hover:bg-primary-foreground hover:text-primary group flex flex-row items-center transition-all duration-200 ease-in-out border border-transparent hover:border-background">
                           <Ellipsis className="mr-2 size-4" />
                           More
@@ -681,15 +681,15 @@ export function SiteHeader() {
             </ScrollArea>
           </SheetContent>
         </Sheet> */}
-        {!pathname?.startsWith('/chat') ? (
+        {!pathname?.startsWith("/chat") ? (
           <>
             <Friday className="md:hidden" orbSize={25} shapeSize={21} />
             <span className="hidden md:flex">
-              {pathname === '/'
-                ? 'Home'
+              {pathname === "/"
+                ? "Home"
                 : pathname
                   ? pathname.substring(1).charAt(0).toUpperCase() + pathname.substring(2)
-                  : 'Home'}
+                  : "Home"}
             </span>
           </>
         ) : (
@@ -716,7 +716,7 @@ export function SiteHeader() {
           onClick={() => setCommandOpen(true)}
           size={"sm"}
           variant="outline"
-          className='size-8 md:hidden'
+          className="size-8 md:hidden"
         >
           <Search className="h-4 w-4" />
         </Button>
@@ -762,15 +762,15 @@ export function SiteHeader() {
               ))}
               <CommandSeparator />
               <CommandGroup heading="Theme">
-                <CommandItem onSelect={() => runCommand(() => setTheme('light'))}>
+                <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
                   <Sun className="mr-2 h-4 w-4" />
                   Light
                 </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => setTheme('dark'))}>
+                <CommandItem onSelect={() => runCommand(() => setTheme("dark"))}>
                   <Moon className="mr-2 h-4 w-4" />
                   Dark
                 </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => setTheme('system'))}>
+                <CommandItem onSelect={() => runCommand(() => setTheme("system"))}>
                   <Laptop className="mr-2 h-4 w-4" />
                   System
                 </CommandItem>
@@ -787,7 +787,7 @@ export function SiteHeader() {
               onClick={toggleTheme}
               className="h-8 w-8 bg-background rounded-md flex items-center justify-center border hover:bg-primary-foreground md:text-muted-foreground md:hover:text-primary text-primary"
             >
-              {theme === 'light' ? <MoonIcon className="size-4" /> : <SunIcon className="size-4" />}
+              {theme === "light" ? <MoonIcon className="size-4" /> : <SunIcon className="size-4" />}
             </div>
             <div
               className="hover:text-primary max-h-5 cursor-pointer rounded-md border bg-background px-2 text-xs hover:bg-primary-foreground flex items-center justify-center"

@@ -56,9 +56,7 @@ export function Providers({
             <NextThemesProvider {...props}>
               <TooltipProvider>
                 <SidebarProvider
-                // style={{
-                //   "--sidebar-width": SIDEBAR_WIDTH,
-                // }}
+                  defaultOpen={false}
                 >
 
                   <CustomizerSidebar />

@@ -6,7 +6,7 @@ import { type DialogProps } from "@radix-ui/react-dialog"
 import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { docsConfig } from "@/config/command-palettle"
+import { docsConfig } from "@/config/docs"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -55,15 +55,15 @@ export function CommandMenu({ ...props }: DialogProps) {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-background hover:bg-primary-foreground text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
+          "relative h-8 w-full justify-start rounded-[0.5rem] text-sm font-normal text-muted-foreground shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
         )}
         onClick={() => setOpen(true)}
         {...props}
       >
-        <span className="hidden lg:inline-flex">Search anything...</span>
+        <span className="hidden lg:inline-flex">Search documentation...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.35rem] hidden h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex justify-center">
-          <span className="text-xs">⌘</span>K
+        <kbd className="text-[8px] pointer-events-none absolute right-[0.3rem] top-[0.35rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono font-medium opacity-100 sm:flex">
+          <span className="text-[10px]">⌘</span>K
         </kbd>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
@@ -78,7 +78,7 @@ export function CommandMenu({ ...props }: DialogProps) {
                   key={navItem.href}
                   value={navItem.title}
                   onSelect={() => {
-                    runCommand(() => navItem.href ? router.push(navItem.href as any) : null)
+                    runCommand(() => router.push(navItem.href as string))
                   }}
                 >
                   <File />
@@ -88,12 +88,12 @@ export function CommandMenu({ ...props }: DialogProps) {
           </CommandGroup>
           {docsConfig.sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
-              {group.items.map((navItem) => (
+              {group.items.map((navItem:any) => (
                 <CommandItem
                   key={navItem.href}
                   value={navItem.title}
                   onSelect={() => {
-                    runCommand(() => navItem.href ? router.push(navItem.href as any) : null)
+                    runCommand(() => router.push(navItem.href as string))
                   }}
                 >
                   <div className="mr-2 flex h-4 w-4 items-center justify-center">
