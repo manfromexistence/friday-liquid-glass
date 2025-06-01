@@ -3,6 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Send, Bot, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GoogleGenAI } from "@google/genai";
@@ -14,10 +21,34 @@ interface Message {
   responseTime?: number; // in seconds
 }
 
+const models = [
+  "gemma-3n-e4b-it",
+  "gemma-3-27b-it",
+  "gemma-3-12b-it",
+  "gemma-3-4b-it",
+  "gemma-3-1b-it",
+  "gemini-1.5-flash-8b",
+  "gemini-1.5-flash",
+  "gemini-1.5-pro",
+  "gemini-2.0-flash-lite",
+  "gemini-2.0-flash-preview-image-generation",
+  "gemini-2.0-flash",
+  "gemini-2.5-flash-preview-04-17",
+  "gemini-2.5-pro-preview-05-06",
+  "learnlm-2.0-flash-experimental",
+  "models/gemini-2.0-flash-live-001",
+  "models/gemini-2.5-flash-exp-native-audio-thinking-dialog",
+  "models/gemini-2.5-flash-preview-native-audio-dialog",
+  "models/imagen-3.0-generate-002",
+  "veo-2.0-generate-001",
+  "gemini-2.5-flash-preview-tts",
+];
+
 export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isStreaming, setIsStreaming] = useState(false);
+  const [selectedModel, setSelectedModel] = useState("learnlm-2.0-flash-experimental");
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   const getAIResponse = async (userMessage: string) => {
@@ -26,9 +57,9 @@ export default function Chatbot() {
       const config = {
         responseMimeType: "text/plain",
       };
-      const model = "learnlm-2.0-flash-experimental";
+      const model = selectedModel;
       const contents = [
-        ...messages.map(msg => ({
+        ...messages.map((msg) => ({
           role: msg.role,
           parts: [{ text: msg.content }],
         })),
@@ -46,13 +77,16 @@ export default function Chatbot() {
       });
 
       const tempMessageId = crypto.randomUUID();
-      setMessages(prev => [...prev, { id: tempMessageId, content: "", role: "model", responseTime: undefined }]);
+      setMessages((prev) => [
+        ...prev,
+        { id: tempMessageId, content: "", role: "model", responseTime: undefined },
+      ]);
       let fullResponse = "";
 
       for await (const chunk of response) {
         fullResponse += chunk.text || "";
-        setMessages(prev =>
-          prev.map(msg =>
+        setMessages((prev) =>
+          prev.map((msg) =>
             msg.id === tempMessageId ? { ...msg, content: fullResponse } : msg
           )
         );
@@ -61,8 +95,8 @@ export default function Chatbot() {
       const endTime = performance.now();
       const responseTime = (endTime - startTime) / 1000;
 
-      setMessages(prev =>
-        prev.map(msg =>
+      setMessages((prev) =>
+        prev.map((msg) =>
           msg.id === tempMessageId ? { ...msg, responseTime } : msg
         )
       );
@@ -83,7 +117,7 @@ export default function Chatbot() {
       role: "user",
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsStreaming(true);
 
@@ -100,10 +134,27 @@ export default function Chatbot() {
   return (
     <Card className="w-full max-w-2xl mx-auto h-[600px] flex flex-col bg-background border-border">
       <CardHeader>
-        <CardTitle className="text-foreground flex items-center gap-2">
-          <Bot className="h-6 w-6" />
-          AI Chatbot
-        </CardTitle>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-foreground flex items-center gap-2">
+            <Bot className="h-6 w-6" />
+            AI Chatbot
+          </CardTitle>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Model:</span>
+            <Select value={selectedModel} onValueChange={setSelectedModel}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select a model" />
+              </SelectTrigger>
+              <SelectContent>
+                {models.map((model) => (
+                  <SelectItem key={model} value={model}>
+                    {model}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col gap-4">
         <ScrollArea className="flex-1 pr-4" ref={scrollAreaRef}>

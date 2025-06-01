@@ -1,389 +1,31 @@
 ```
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemma-3n-e4b-it';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemma-3n-e4b-it';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemma-3-27b-it';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemma-3-27b-it';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemma-3-12b-it';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemma-3-12b-it';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemma-3-4b-it';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemma-3-4b-it';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemma-3-1b-it';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemma-3-1b-it';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-1.5-flash-8b';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-1.5-flash-8b';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-1.5-flash';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-1.5-flash';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-1.5-pro';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-1.5-pro';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-2.0-flash-lite';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
+const model = 'gemini-2.0-flash-lite';}
+main();<!--  -->
 import mime from 'mime';
 import { writeFile } from 'fs';
 
@@ -409,17 +51,6 @@ async function main() {
     responseMimeType: 'text/plain',
   };
   const model = 'gemini-2.0-flash-preview-image-generation';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
   const response = await ai.models.generateContentStream({
     model,
     config,
@@ -442,226 +73,24 @@ async function main() {
     }
   }
 }
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-2.0-flash';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-2.0-flash';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-2.0-flash';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-2.0-flash';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-2.5-flash-preview-04-17';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-2.5-flash-preview-04-17';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'gemini-2.5-pro-preview-05-06';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
-<!--  -->
-
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
-
+const model = 'gemini-2.5-pro-preview-05-06';}
+main();<!--  -->
 async function main() {
-  const ai = new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
-  });
-  const config = {
-    responseMimeType: 'text/plain',
-  };
-  const model = 'learnlm-2.0-flash-experimental';
-  const contents = [
-    {
-      role: 'user',
-      parts: [
-        {
-          text: `INSERT_INPUT_HERE`,
-        },
-      ],
-    },
-  ];
-
-  const response = await ai.models.generateContentStream({
-    model,
-    config,
-    contents,
-  });
-  let fileIndex = 0;
-  for await (const chunk of response) {
-    console.log(chunk.text);
-  }
-}
-
-main();
-
+const model = 'learnlm-2.0-flash-experimental';}
+main();<!--  -->
 <!--  -->
-<!--  -->
-<!--  -->
-
-// To run this code you need to install the following dependencies:
+<!--  -->// To run this code you need to install the following dependencies:
 // npm install @google/genai mime
 // npm install -D @types/node
 import {
@@ -707,23 +136,13 @@ async function waitMessage(): Promise<LiveServerMessage> {
 const audioParts: string[] = [];
 function handleModelTurn(message: LiveServerMessage) {
   if(message.serverContent?.modelTurn?.parts) {
-    const part = message.serverContent?.modelTurn?.parts?.[0];
-
-    if(part?.fileData) {
+    const part = message.serverContent?.modelTurn?.parts?.[0];    if(part?.fileData) {
       console.log(`File: ${part?.fileData.fileUri}`);
-    }
-
-    if (part?.inlineData) {
+    }    if (part?.inlineData) {
       const fileName = 'audio.wav';
-      const inlineData = part?.inlineData;
-
-      audioParts.push(inlineData?.data ?? '');
-
-      const buffer = convertToWav(audioParts, inlineData.mimeType ?? '');
+      const inlineData = part?.inlineData;      audioParts.push(inlineData?.data ?? '');      const buffer = convertToWav(audioParts, inlineData.mimeType ?? '');
       saveBinaryFile(fileName, buffer);
-    }
-
-    if(part?.text) {
+    }    if(part?.text) {
       console.log(part?.text);
     }
   }
@@ -749,35 +168,25 @@ function convertToWav(rawData: string[], mimeType: string) {
   const options = parseMimeType(mimeType);
   const dataLength = rawData.reduce((a, b) => a + b.length, 0);
   const wavHeader = createWavHeader(dataLength, options);
-  const buffer = Buffer.concat(rawData.map(data => Buffer.from(data, 'base64')));
-
-  return Buffer.concat([wavHeader, buffer]);
+  const buffer = Buffer.concat(rawData.map(data => Buffer.from(data, 'base64')));  return Buffer.concat([wavHeader, buffer]);
 }
 
 function parseMimeType(mimeType : string) {
   const [fileType, ...params] = mimeType.split(';').map(s => s.trim());
-  const [_, format] = fileType.split('/');
-
-  const options : Partial<WavConversionOptions> = {
+  const [_, format] = fileType.split('/');  const options : Partial<WavConversionOptions> = {
     numChannels: 1,
     bitsPerSample: 16,
-  };
-
-  if (format && format.startsWith('L')) {
+  };  if (format && format.startsWith('L')) {
     const bits = parseInt(format.slice(1), 10);
     if (!isNaN(bits)) {
       options.bitsPerSample = bits;
     }
-  }
-
-  for (const param of params) {
+  }  for (const param of params) {
     const [key, value] = param.split('=').map(s => s.trim());
     if (key === 'rate') {
       options.sampleRate = parseInt(value, 10);
     }
-  }
-
-  return options as WavConversionOptions;
+  }  return options as WavConversionOptions;
 }
 
 function createWavHeader(dataLength: number, options: WavConversionOptions) {
@@ -785,15 +194,11 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
     numChannels,
     sampleRate,
     bitsPerSample,
-  } = options;
-
-  // http://soundfile.sapp.org/doc/WaveFormat
+  } = options;  // http://soundfile.sapp.org/doc/WaveFormat
 
   const byteRate = sampleRate * numChannels * bitsPerSample / 8;
   const blockAlign = numChannels * bitsPerSample / 8;
-  const buffer = Buffer.alloc(44);
-
-  buffer.write('RIFF', 0);                      // ChunkID
+  const buffer = Buffer.alloc(44);  buffer.write('RIFF', 0);                      // ChunkID
   buffer.writeUInt32LE(36 + dataLength, 4);     // ChunkSize
   buffer.write('WAVE', 8);                      // Format
   buffer.write('fmt ', 12);                     // Subchunk1ID
@@ -813,15 +218,9 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
 async function main() {
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
-  });
-
-  const model = 'models/gemini-2.0-flash-live-001'
-
-  const tools = [
+  });  const model = 'models/gemini-2.0-flash-live-001'  const tools = [
     { googleSearch: {} },
-  ];
-
-  const config = {
+  ];  const config = {
     responseModalities: [
         Modality.AUDIO,
     ],
@@ -839,9 +238,7 @@ async function main() {
         slidingWindow: { targetTokens: '12800' },
     },
     tools,
-  };
-
-  session = await ai.live.connect({
+  };  session = await ai.live.connect({
     model,
     callbacks: {
       onopen: function () {
@@ -858,25 +255,14 @@ async function main() {
       },
     },
     config
-  });
-
-  session.sendClientContent({
+  });  session.sendClientContent({
     turns: [
       `INSERT_INPUT_HERE`
     ]
-  });
-
-  await handleTurn();
-
-  session.close();
-}
-main();
-
+  });  await handleTurn();  session.close();
+}main();<!--  -->
 <!--  -->
 <!--  -->
-<!--  -->
-
-
 // To run this code you need to install the following dependencies:
 // npm install @google/genai mime
 // npm install -D @types/node
@@ -923,23 +309,13 @@ async function waitMessage(): Promise<LiveServerMessage> {
 const audioParts: string[] = [];
 function handleModelTurn(message: LiveServerMessage) {
   if(message.serverContent?.modelTurn?.parts) {
-    const part = message.serverContent?.modelTurn?.parts?.[0];
-
-    if(part?.fileData) {
+    const part = message.serverContent?.modelTurn?.parts?.[0];    if(part?.fileData) {
       console.log(`File: ${part?.fileData.fileUri}`);
-    }
-
-    if (part?.inlineData) {
+    }    if (part?.inlineData) {
       const fileName = 'audio.wav';
-      const inlineData = part?.inlineData;
-
-      audioParts.push(inlineData?.data ?? '');
-
-      const buffer = convertToWav(audioParts, inlineData.mimeType ?? '');
+      const inlineData = part?.inlineData;      audioParts.push(inlineData?.data ?? '');      const buffer = convertToWav(audioParts, inlineData.mimeType ?? '');
       saveBinaryFile(fileName, buffer);
-    }
-
-    if(part?.text) {
+    }    if(part?.text) {
       console.log(part?.text);
     }
   }
@@ -965,35 +341,25 @@ function convertToWav(rawData: string[], mimeType: string) {
   const options = parseMimeType(mimeType);
   const dataLength = rawData.reduce((a, b) => a + b.length, 0);
   const wavHeader = createWavHeader(dataLength, options);
-  const buffer = Buffer.concat(rawData.map(data => Buffer.from(data, 'base64')));
-
-  return Buffer.concat([wavHeader, buffer]);
+  const buffer = Buffer.concat(rawData.map(data => Buffer.from(data, 'base64')));  return Buffer.concat([wavHeader, buffer]);
 }
 
 function parseMimeType(mimeType : string) {
   const [fileType, ...params] = mimeType.split(';').map(s => s.trim());
-  const [_, format] = fileType.split('/');
-
-  const options : Partial<WavConversionOptions> = {
+  const [_, format] = fileType.split('/');  const options : Partial<WavConversionOptions> = {
     numChannels: 1,
     bitsPerSample: 16,
-  };
-
-  if (format && format.startsWith('L')) {
+  };  if (format && format.startsWith('L')) {
     const bits = parseInt(format.slice(1), 10);
     if (!isNaN(bits)) {
       options.bitsPerSample = bits;
     }
-  }
-
-  for (const param of params) {
+  }  for (const param of params) {
     const [key, value] = param.split('=').map(s => s.trim());
     if (key === 'rate') {
       options.sampleRate = parseInt(value, 10);
     }
-  }
-
-  return options as WavConversionOptions;
+  }  return options as WavConversionOptions;
 }
 
 function createWavHeader(dataLength: number, options: WavConversionOptions) {
@@ -1001,15 +367,11 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
     numChannels,
     sampleRate,
     bitsPerSample,
-  } = options;
-
-  // http://soundfile.sapp.org/doc/WaveFormat
+  } = options;  // http://soundfile.sapp.org/doc/WaveFormat
 
   const byteRate = sampleRate * numChannels * bitsPerSample / 8;
   const blockAlign = numChannels * bitsPerSample / 8;
-  const buffer = Buffer.alloc(44);
-
-  buffer.write('RIFF', 0);                      // ChunkID
+  const buffer = Buffer.alloc(44);  buffer.write('RIFF', 0);                      // ChunkID
   buffer.writeUInt32LE(36 + dataLength, 4);     // ChunkSize
   buffer.write('WAVE', 8);                      // Format
   buffer.write('fmt ', 12);                     // Subchunk1ID
@@ -1029,11 +391,7 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
 async function main() {
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
-  });
-
-  const model = 'models/gemini-2.5-flash-exp-native-audio-thinking-dialog'
-
-  const config = {
+  });  const model = 'models/gemini-2.5-flash-exp-native-audio-thinking-dialog'  const config = {
     responseModalities: [
         Modality.AUDIO,
     ],
@@ -1049,9 +407,7 @@ async function main() {
         triggerTokens: '25600',
         slidingWindow: { targetTokens: '12800' },
     },
-  };
-
-  session = await ai.live.connect({
+  };  session = await ai.live.connect({
     model,
     callbacks: {
       onopen: function () {
@@ -1068,25 +424,14 @@ async function main() {
       },
     },
     config
-  });
-
-  session.sendClientContent({
+  });  session.sendClientContent({
     turns: [
       `INSERT_INPUT_HERE`
     ]
-  });
-
-  await handleTurn();
-
-  session.close();
-}
-main();
-
+  });  await handleTurn();  session.close();
+}main();<!--  -->
 <!--  -->
-<!--  -->
-<!--  -->
-
-// To run this code you need to install the following dependencies:
+<!--  -->// To run this code you need to install the following dependencies:
 // npm install @google/genai mime
 // npm install -D @types/node
 import {
@@ -1132,23 +477,13 @@ async function waitMessage(): Promise<LiveServerMessage> {
 const audioParts: string[] = [];
 function handleModelTurn(message: LiveServerMessage) {
   if(message.serverContent?.modelTurn?.parts) {
-    const part = message.serverContent?.modelTurn?.parts?.[0];
-
-    if(part?.fileData) {
+    const part = message.serverContent?.modelTurn?.parts?.[0];    if(part?.fileData) {
       console.log(`File: ${part?.fileData.fileUri}`);
-    }
-
-    if (part?.inlineData) {
+    }    if (part?.inlineData) {
       const fileName = 'audio.wav';
-      const inlineData = part?.inlineData;
-
-      audioParts.push(inlineData?.data ?? '');
-
-      const buffer = convertToWav(audioParts, inlineData.mimeType ?? '');
+      const inlineData = part?.inlineData;      audioParts.push(inlineData?.data ?? '');      const buffer = convertToWav(audioParts, inlineData.mimeType ?? '');
       saveBinaryFile(fileName, buffer);
-    }
-
-    if(part?.text) {
+    }    if(part?.text) {
       console.log(part?.text);
     }
   }
@@ -1174,35 +509,25 @@ function convertToWav(rawData: string[], mimeType: string) {
   const options = parseMimeType(mimeType);
   const dataLength = rawData.reduce((a, b) => a + b.length, 0);
   const wavHeader = createWavHeader(dataLength, options);
-  const buffer = Buffer.concat(rawData.map(data => Buffer.from(data, 'base64')));
-
-  return Buffer.concat([wavHeader, buffer]);
+  const buffer = Buffer.concat(rawData.map(data => Buffer.from(data, 'base64')));  return Buffer.concat([wavHeader, buffer]);
 }
 
 function parseMimeType(mimeType : string) {
   const [fileType, ...params] = mimeType.split(';').map(s => s.trim());
-  const [_, format] = fileType.split('/');
-
-  const options : Partial<WavConversionOptions> = {
+  const [_, format] = fileType.split('/');  const options : Partial<WavConversionOptions> = {
     numChannels: 1,
     bitsPerSample: 16,
-  };
-
-  if (format && format.startsWith('L')) {
+  };  if (format && format.startsWith('L')) {
     const bits = parseInt(format.slice(1), 10);
     if (!isNaN(bits)) {
       options.bitsPerSample = bits;
     }
-  }
-
-  for (const param of params) {
+  }  for (const param of params) {
     const [key, value] = param.split('=').map(s => s.trim());
     if (key === 'rate') {
       options.sampleRate = parseInt(value, 10);
     }
-  }
-
-  return options as WavConversionOptions;
+  }  return options as WavConversionOptions;
 }
 
 function createWavHeader(dataLength: number, options: WavConversionOptions) {
@@ -1210,15 +535,11 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
     numChannels,
     sampleRate,
     bitsPerSample,
-  } = options;
-
-  // http://soundfile.sapp.org/doc/WaveFormat
+  } = options;  // http://soundfile.sapp.org/doc/WaveFormat
 
   const byteRate = sampleRate * numChannels * bitsPerSample / 8;
   const blockAlign = numChannels * bitsPerSample / 8;
-  const buffer = Buffer.alloc(44);
-
-  buffer.write('RIFF', 0);                      // ChunkID
+  const buffer = Buffer.alloc(44);  buffer.write('RIFF', 0);                      // ChunkID
   buffer.writeUInt32LE(36 + dataLength, 4);     // ChunkSize
   buffer.write('WAVE', 8);                      // Format
   buffer.write('fmt ', 12);                     // Subchunk1ID
@@ -1238,11 +559,7 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
 async function main() {
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
-  });
-
-  const model = 'models/gemini-2.5-flash-preview-native-audio-dialog'
-
-  const config = {
+  });  const model = 'models/gemini-2.5-flash-preview-native-audio-dialog'  const config = {
     responseModalities: [
         Modality.AUDIO,
     ],
@@ -1258,9 +575,7 @@ async function main() {
         triggerTokens: '25600',
         slidingWindow: { targetTokens: '12800' },
     },
-  };
-
-  session = await ai.live.connect({
+  };  session = await ai.live.connect({
     model,
     callbacks: {
       onopen: function () {
@@ -1277,25 +592,14 @@ async function main() {
       },
     },
     config
-  });
-
-  session.sendClientContent({
+  });  session.sendClientContent({
     turns: [
       `INSERT_INPUT_HERE`
     ]
-  });
-
-  await handleTurn();
-
-  session.close();
-}
-main();
-
+  });  await handleTurn();  session.close();
+}main();<!--  -->
 <!--  -->
-<!--  -->
-<!--  -->
-
-// To run this code you need to install the following dependencies:
+<!--  -->// To run this code you need to install the following dependencies:
 // npm install @google/genai
 // npm install -D @types/node
 
@@ -1317,9 +621,7 @@ function saveBinaryFile(fileName: string, content: Buffer) {
 async function main() {
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
-  });
-
-  const response = await ai.models.generateImages({
+  });  const response = await ai.models.generateImages({
     model: 'models/imagen-3.0-generate-002',
     prompt: `INSERT_INPUT_HERE`,
     config: {
@@ -1327,18 +629,12 @@ async function main() {
       outputMimeType: 'image/jpeg',
       aspectRatio: '1:1',
     },
-  });
-
-  if (!response?.generatedImages) {
+  });  if (!response?.generatedImages) {
     console.error('No images generated.');
     return;
-  }
-
-  if (response.generatedImages.length !== 1) {
+  }  if (response.generatedImages.length !== 1) {
     console.error('Number of images generated does not match the requested number.');
-  }
-
-  for (let i = 0; i < response.generatedImages.length; i++) {
+  }  for (let i = 0; i < response.generatedImages.length; i++) {
     if (!response.generatedImages?.[i]?.image?.imageBytes) {
       continue;
     }
@@ -1348,16 +644,11 @@ async function main() {
     saveBinaryFile(fileName, buffer);
   }
 }
-
-main();
-
+main();<!--  -->
 <!--  -->
 <!--  -->
 <!--  -->
-<!--  -->
-<!--  -->
-
-// To run this code you need to install the following dependencies:
+<!--  -->// To run this code you need to install the following dependencies:
 // npm install @google/genai
 // npm install -D @types/node
 
@@ -1371,9 +662,7 @@ import fetch from 'node-fetch';
 async function main() {
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY,
-  });
-
-  let operation = await ai.models.generateVideos({
+  });  let operation = await ai.models.generateVideos({
     model: 'veo-2.0-generate-001',
     prompt: `INSERT_INPUT_HERE`,
     config: {
@@ -1382,19 +671,13 @@ async function main() {
         personGeneration: 'dont_allow',
         durationSeconds: 8,
     },
-  });
-
-  while (!operation.done) {
+  });  while (!operation.done) {
     console.log(`Video ${operation.name} has not been generated yet. Check again in 10 seconds...`);
     await new Promise((resolve) => setTimeout(resolve, 10000));
     operation = await ai.operations.getVideosOperation({
       operation: operation,
     });
-  }
-
-  console.log(`Generated ${operation.response?.generatedVideos?.length ?? 0} video(s).`);
-
-  operation.response?.generatedVideos?.forEach(async (generatedVideo, i) => {
+  }  console.log(`Generated ${operation.response?.generatedVideos?.length ?? 0} video(s).`);  operation.response?.generatedVideos?.forEach(async (generatedVideo, i) => {
     console.log(`Video has been generated: ${generatedVideo?.video?.uri}`);
     const response = await fetch(`${generatedVideo?.video?.uri}&key=${process.env.GEMINI_API_KEY}`);
     const buffer = await response.arrayBuffer();
@@ -1402,22 +685,11 @@ async function main() {
     console.log(`Video ${generatedVideo?.video?.uri} has been downloaded to video_${i}.mp4.`);
   });
 }
-
-main();
-
+main();<!--  -->
 <!--  -->
 <!--  -->
 <!--  -->
 <!--  -->
-<!--  -->
-
-// To run this code you need to install the following dependencies:
-// npm install @google/genai mime
-// npm install -D @types/node
-
-import {
-  GoogleGenAI,
-} from '@google/genai';
 import mime from 'mime';
 import { writeFile } from 'fs';
 
@@ -1475,9 +747,7 @@ Speaker 2: The Empire State Building is 1,454 feet, or about 443 meters tall.`,
         },
       ],
     },
-  ];
-
-  const response = await ai.models.generateContentStream({
+  ];  const response = await ai.models.generateContentStream({
     model,
     config,
     contents,
@@ -1515,34 +785,24 @@ interface WavConversionOptions {
 function convertToWav(rawData: string, mimeType: string) {
   const options = parseMimeType(mimeType)
   const wavHeader = createWavHeader(rawData.length, options);
-  const buffer = Buffer.from(rawData, 'base64');
-
-  return Buffer.concat([wavHeader, buffer]);
+  const buffer = Buffer.from(rawData, 'base64');  return Buffer.concat([wavHeader, buffer]);
 }
 
 function parseMimeType(mimeType : string) {
   const [fileType, ...params] = mimeType.split(';').map(s => s.trim());
-  const [_, format] = fileType.split('/');
-
-  const options : Partial<WavConversionOptions> = {
+  const [_, format] = fileType.split('/');  const options : Partial<WavConversionOptions> = {
     numChannels: 1,
-  };
-
-  if (format && format.startsWith('L')) {
+  };  if (format && format.startsWith('L')) {
     const bits = parseInt(format.slice(1), 10);
     if (!isNaN(bits)) {
       options.bitsPerSample = bits;
     }
-  }
-
-  for (const param of params) {
+  }  for (const param of params) {
     const [key, value] = param.split('=').map(s => s.trim());
     if (key === 'rate') {
       options.sampleRate = parseInt(value, 10);
     }
-  }
-
-  return options as WavConversionOptions;
+  }  return options as WavConversionOptions;
 }
 
 function createWavHeader(dataLength: number, options: WavConversionOptions) {
@@ -1550,15 +810,11 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
     numChannels,
     sampleRate,
     bitsPerSample,
-  } = options;
-
-  // http://soundfile.sapp.org/doc/WaveFormat
+  } = options;  // http://soundfile.sapp.org/doc/WaveFormat
 
   const byteRate = sampleRate * numChannels * bitsPerSample / 8;
   const blockAlign = numChannels * bitsPerSample / 8;
-  const buffer = Buffer.alloc(44);
-
-  buffer.write('RIFF', 0);                      // ChunkID
+  const buffer = Buffer.alloc(44);  buffer.write('RIFF', 0);                      // ChunkID
   buffer.writeUInt32LE(36 + dataLength, 4);     // ChunkSize
   buffer.write('WAVE', 8);                      // Format
   buffer.write('fmt ', 12);                     // Subchunk1ID
@@ -1574,6 +830,4 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
 
   return buffer;
 }
-
-
 ```
