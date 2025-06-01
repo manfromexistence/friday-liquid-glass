@@ -20,6 +20,10 @@ import { toast } from "sonner";
 import { useAIModelStore } from "@/store/ai-model-store";
 import { stripPrefixes } from "@/lib/utils";
 
+
+const MIN_HEIGHT = 48;
+const MAX_HEIGHT = 164;
+
 function sanitizeForFirestore(obj: any): any {
   if (obj === null || obj === undefined) {
     return null;
@@ -87,9 +91,6 @@ interface AIResponse {
   image_urls: string[];  // Changed from image_ids to image_urls
   model_used: string;
 }
-
-const MIN_HEIGHT = 48;
-const MAX_HEIGHT = 164;
 
 interface ChatState {
   messages: Message[];
