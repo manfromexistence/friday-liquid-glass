@@ -49,7 +49,7 @@ for lang in language_codes:
     for key, text in flat.items():
         try:
             translated[key] = GoogleTranslator(source='en', target=lang).translate(text)
-            time.sleep(0.2)  # Be polite to avoid rate-limiting
+            # time.sleep(0.2)  # Be polite to avoid rate-limiting
         except Exception as e:
             print(f"Error translating {key} to {lang}: {e}")
             translated[key] = text  # Fallback to English on error
