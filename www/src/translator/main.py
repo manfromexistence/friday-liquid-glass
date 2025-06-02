@@ -5,20 +5,115 @@ from collections import deque
 from googletrans import Translator
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# List of language codes
+# List of language codes (updated)
 language_codes = [
-    "af", "sq", "am", "ar", "hy", "as", "ay", "az", "bm", "eu", "be", "bn",
-    "bho", "bs", "bg", "ca", "ceb", "ny", "zh-CN", "zh-TW", "co", "hr", "cs",
-    "da", "dv", "doi", "nl", "en", "eo", "et", "ee", "tl", "fi", "fr", "fy",
-    "gl", "ka", "de", "el", "gn", "gu", "ht", "ha", "haw", "iw", "hi", "hmn",
-    "hu", "is", "ig", "ilo", "id", "ga", "it", "ja", "jw", "kn", "kk", "km",
-    "rw", "gom", "ko", "kri", "ku", "ckb", "ky", "lo", "la", "lv", "ln", "lt",
-    "lg", "lb", "mk", "mai", "mg", "ms", "ml", "mt", "mi", "mr", "mni-Mtei",
-    "lus", "mn", "my", "ne", "no", "or", "om", "ps", "fa", "pl", "pt", "pa",
-    "qu", "ro", "ru", "sm", "sa", "gd", "nso", "sr", "st", "sn", "sd", "si",
-    "sk", "sl", "so", "es", "su", "sw", "sv", "tg", "ta", "tt", "te", "th",
-    "ti", "ts", "tr", "tk", "ak", "uk", "ur", "ug", "uz", "vi", "cy", "xh",
-    "yi", "yo", "zu"
+    "af",  # afrikaans
+    "sq",  # albanian
+    "am",  # amharic
+    "ar",  # arabic
+    "hy",  # armenian
+    "az",  # azerbaijani
+    "eu",  # basque
+    "be",  # belarusian
+    "bn",  # bengali
+    "bs",  # bosnian
+    "bg",  # bulgarian
+    "ca",  # catalan
+    "ceb", # cebuano
+    "ny",  # chichewa
+    "zh-cn", # chinese (simplified)
+    "zh-tw", # chinese (traditional)
+    "co",  # corsican
+    "hr",  # croatian
+    "cs",  # czech
+    "da",  # danish
+    "nl",  # dutch
+    "en",  # english
+    "eo",  # esperanto
+    "et",  # estonian
+    "tl",  # filipino
+    "fi",  # finnish
+    "fr",  # french
+    "fy",  # frisian
+    "gl",  # galician
+    "ka",  # georgian
+    "de",  # german
+    "el",  # greek
+    "gu",  # gujarati
+    "ht",  # haitian creole
+    "ha",  # hausa
+    "haw", # hawaiian
+    "iw",  # hebrew
+    "he",  # hebrew
+    "hi",  # hindi
+    "hmn", # hmong
+    "hu",  # hungarian
+    "is",  # icelandic
+    "ig",  # igbo
+    "id",  # indonesian
+    "ga",  # irish
+    "it",  # italian
+    "ja",  # japanese
+    "jw",  # javanese
+    "kn",  # kannada
+    "kk",  # kazakh
+    "km",  # khmer
+    "ko",  # korean
+    "ku",  # kurdish (kurmanji)
+    "ky",  # kyrgyz
+    "lo",  # lao
+    "la",  # latin
+    "lv",  # latvian
+    "lt",  # lithuanian
+    "lb",  # luxembourgish
+    "mk",  # macedonian
+    "mg",  # malagasy
+    "ms",  # malay
+    "ml",  # malayalam
+    "mt",  # maltese
+    "mi",  # maori
+    "mr",  # marathi
+    "mn",  # mongolian
+    "my",  # myanmar (burmese)
+    "ne",  # nepali
+    "no",  # norwegian
+    "or",  # odia
+    "ps",  # pashto
+    "fa",  # persian
+    "pl",  # polish
+    "pt",  # portuguese
+    "pa",  # punjabi
+    "ro",  # romanian
+    "ru",  # russian
+    "sm",  # samoan
+    "gd",  # scots gaelic
+    "sr",  # serbian
+    "st",  # sesotho
+    "sn",  # shona
+    "sd",  # sindhi
+    "si",  # sinhala
+    "sk",  # slovak
+    "sl",  # slovenian
+    "so",  # somali
+    "es",  # spanish
+    "su",  # sundanese
+    "sw",  # swahili
+    "sv",  # swedish
+    "tg",  # tajik
+    "ta",  # tamil
+    "te",  # telugu
+    "th",  # thai
+    "tr",  # turkish
+    "uk",  # ukrainian
+    "ur",  # urdu
+    "ug",  # uyghur
+    "uz",  # uzbek
+    "vi",  # vietnamese
+    "cy",  # welsh
+    "xh",  # xhosa
+    "yi",  # yiddish
+    "yo",  # yoruba
+    "zu"   # zulu
 ]
 
 # Max concurrent workers for translation API calls. Adjust based on API limits and testing.
@@ -62,7 +157,6 @@ except json.JSONDecodeError:
     print("Error: en.json is not a valid JSON file.")
     exit()
 
-
 def flatten_for_translation(d, parent_key='', sep='.'):
     flat_map_all_stringified = {}
     ordered_original_strings_info = []
@@ -84,7 +178,6 @@ def flatten_for_translation(d, parent_key='', sep='.'):
     _recursive_flatten(d, parent_key)
     return flat_map_all_stringified, ordered_original_strings_info
 
-
 def unflatten(d, sep='.'):
     result_dict = {}
     for key, value in d.items():
@@ -95,7 +188,6 @@ def unflatten(d, sep='.'):
         d_ref[keys[-1]] = value
     return result_dict
 
-
 # Prepare data from en.json - this is done once
 flat_en_json_template, original_strings_info = flatten_for_translation(en_json)
 texts_to_translate_list = [info['value'] for info in original_strings_info]
@@ -103,7 +195,6 @@ texts_to_translate_list = [info['value'] for info in original_strings_info]
 if not texts_to_translate_list:
     print("No text values found to translate in en.json.")
     exit()
-
 
 def translate_and_save_language(lang_code):
     if lang_code == "en":
@@ -116,7 +207,7 @@ def translate_and_save_language(lang_code):
         rate_limiter.acquire()
         translator = Translator()
 
-        # Translate each text individually (googletrans doesn't reliably support full batching)
+        # Translate each text individually
         translated_texts_list = []
         for text in texts_to_translate_list:
             result = translator.translate(text, dest=lang_code)
@@ -142,7 +233,6 @@ def translate_and_save_language(lang_code):
         return f"Successfully translated and saved {lang_code}.json"
     except Exception as e_save:
         return f"Error saving {lang_code}.json: {e_save}"
-
 
 # Main execution with ThreadPoolExecutor
 start_time = time.time()
