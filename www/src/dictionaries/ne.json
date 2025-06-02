@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "अनलाइन",
+      "offline": "चिनो",
+      "busy": "व्यस्त",
+      "learning": "हाल सिक्ने ..."
+    }
+  },
+  "navigation": {
+    "tasks": "मेरो काम",
+    "integrations": "संघीय",
+    "notifications": "सूचना"
+  },
+  "authentication": {
+    "magic-link": "जादू लिंक पठाउनुहोस्",
+    "sso": "SSO सँग साइन इन गर्नुहोस्"
+  },
+  "dashboard": {
+    "upcoming_tasks": "आगामी कार्यहरू",
+    "stats": {
+      "new_notifications": "नयाँ सूचनाहरू"
+    }
+  },
+  "projects": {
+    "archive": "संग्रह परियोजना",
+    "due_date": "मिति",
+    "assignee": "आदानब",
+    "status": {
+      "archived": "संग्राम भएको",
+      "pending_review": "समीक्षा समीक्षा"
+    }
+  },
+  "tasks": {
+    "add_task": "नयाँ कार्य थप्नुहोस्",
+    "edit_task": "सम्भ्कनुहोस्",
+    "mark_complete": "पूर्ण रूपमा चिन्ह लगाउनुहोस्",
+    "mark_incomplete": "अपूर्ण रूपमा मार्क गर्नुहोस्",
+    "delete_task": "खेल मेट्नुहोस्",
+    "task_title_placeholder": "के गर्न आवश्यक छ?",
+    "priority": "प्राथमिकता",
+    "priorities": {
+      "high": "उच्च",
+      "medium": "माध्यम",
+      "low": "मन्द"
+    }
+  },
+  "automations": {
+    "logs": "लग हेर्नुहोस् लगहरू हेर्नुहोस्",
+    "schedule": "तालिका स्वचालन"
+  },
+  "library": {
+    "categories": {
+      "workflows": "कार्यप्रवाह",
+      "plugins": "निशम्न"
+    },
+    "view_details": "विवरण हेर्नुहोस्"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "प्रशासक",
+      "editor": "सम्पादक",
+      "viewer": "दर्शक"
+    }
+  },
+  "notifications": {
+    "title": "सूचना",
+    "mark_all_read": "सबै पढिएको रूपमा चिन्ह लगाउनुहोस्",
+    "no_new_notifications": "कुनै नयाँ सूचनाहरू छैनन्।",
+    "clear_all": "सबै सूचनाहरू खाली गर्नुहोस्",
+    "settings_link": "अधिसूचना सेटिंग्स"
+  },
+  "settings": {
+    "account": "खाता",
+    "appearance": "प्रकटन",
+    "theme": "विषय",
+    "themes": {
+      "light": "हल्का भाषा",
+      "dark": "कालो मोड",
+      "system": "प्रणालीको पूर्वनिर्धारित"
+    },
+    "language": "भाषा",
+    "integrations_settings": "एकक्षण प्रबन्ध गर्नुहोस्",
+    "api_access": "Api पहुँच",
+    "billing": "बिलि and र सदस्यताहरू"
+  },
+  "errors": {
+    "timeout": "अपरेशन समाप्त भयो। कृपया फेरि प्रयास गर्नुहोस्।",
+    "api_limit_exceeded": "एपीआई सीमा नाघ्यो। कृपया पछि पुन: प्रयास गर्नुहोस्।"
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "पढिएको रूपमा तपाईंको सबै सूचनाहरू चिन्ह लगाउनुहोस्।",
+    "change_theme": "आवेदन उपस्थिति परिवर्तन गर्नुहोस्।"
+  },
+  "common_actions": {
+    "save": "बचाउनु",
+    "cancel": "रद्द गर्नु",
+    "confirm": "पक्का गर्नु",
+    "delete": "मेटाउन",
+    "edit": "सम्पादन गर्नु",
+    "add": "थप्नु",
+    "apply": "निवेदन गर्नु",
+    "close": "घनिष्ट",
+    "next": "अर्को",
+    "previous": "पूर्ववर्ती",
+    "learn_more": "अझ धेरै जान्नुहोस्"
+  },
+  "footer": {
+    "status_page": "स्थिति पृष्ठ",
+    "documentation": "कागजाजीवली"
+  }
+}

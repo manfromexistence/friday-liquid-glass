@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Okkupat",
+      "learning": "Bħalissa qed nitgħallem ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Il-kompiti tiegħi",
+    "integrations": "Integrazzjonijiet",
+    "notifications": "Notifiki"
+  },
+  "authentication": {
+    "magic-link": "Ibgħat link maġiku",
+    "sso": "Iffirma ma 'SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Kompiti li ġejjin",
+    "stats": {
+      "new_notifications": "Notifiki Ġodda"
+    }
+  },
+  "projects": {
+    "archive": "Proġett tal-Arkivju",
+    "due_date": "Data ta 'skadenza",
+    "assignee": "Assenjat",
+    "status": {
+      "archived": "Arkivjat",
+      "pending_review": "Reviżjoni pendenti"
+    }
+  },
+  "tasks": {
+    "add_task": "Żid kompitu ġdid",
+    "edit_task": "Editja l-kompitu",
+    "mark_complete": "Immarka bħala kompluta",
+    "mark_incomplete": "Immarka bħala mhux komplut",
+    "delete_task": "Ħassar il-kompitu",
+    "task_title_placeholder": "X'hemm bżonn li jsir?",
+    "priority": "Prijorità",
+    "priorities": {
+      "high": "Għoli",
+      "medium": "Medju",
+      "low": "Baxx"
+    }
+  },
+  "automations": {
+    "logs": "Ara zkuk",
+    "schedule": "Skeda awtomazzjoni"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Flussi tax-xogħol",
+      "plugins": "Plugins"
+    },
+    "view_details": "Ara d-dettalji"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Amministratur",
+      "editor": "Editur",
+      "viewer": "Telespettatur"
+    }
+  },
+  "notifications": {
+    "title": "Notifiki",
+    "mark_all_read": "Immarka kollha kif aqra",
+    "no_new_notifications": "L-ebda notifiki ġodda.",
+    "clear_all": "Ċar in-notifiki kollha",
+    "settings_link": "Settings tan-Notifika"
+  },
+  "settings": {
+    "account": "Kont",
+    "appearance": "Dehra",
+    "theme": "Tema",
+    "themes": {
+      "light": "Modalità Dawl",
+      "dark": "Mod skur",
+      "system": "Sistema Default"
+    },
+    "language": "Lingwa",
+    "integrations_settings": "Immaniġġja l-integrazzjonijiet",
+    "api_access": "Aċċess għall-API",
+    "billing": "Billing & Abbonamenti"
+  },
+  "errors": {
+    "timeout": "L-operazzjoni skedata. Jekk jogħġbok erġa 'pprova.",
+    "api_limit_exceeded": "Il-limitu tal-API jinqabeż. Jekk jogħġbok erġa 'pprova aktar tard."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Immarka n-notifiki kollha tiegħek kif qrajt.",
+    "change_theme": "Ibdel id-dehra tal-applikazzjoni."
+  },
+  "common_actions": {
+    "save": "Ħlief",
+    "cancel": "Ikkanċella",
+    "confirm": "Ikkonferma",
+    "delete": "Ħassar",
+    "edit": "Editja",
+    "add": "Żid",
+    "apply": "Applika",
+    "close": "Viċin",
+    "next": "Sussegwentement",
+    "previous": "Preċedenti",
+    "learn_more": "Tgħallem aktar"
+  },
+  "footer": {
+    "status_page": "Paġna tal-istatus",
+    "documentation": "Dokumentazzjoni"
+  }
+}

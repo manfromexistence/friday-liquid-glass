@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Verkossa",
+      "offline": "Offline -tilassa",
+      "busy": "Kiireinen",
+      "learning": "Tällä hetkellä oppiminen ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Minun tehtäväni",
+    "integrations": "Integraatiot",
+    "notifications": "Ilmoitukset"
+  },
+  "authentication": {
+    "magic-link": "Lähetä taikuuslinkki",
+    "sso": "Kirjaudu sisään SSO: n kanssa"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Tulevat tehtävät",
+    "stats": {
+      "new_notifications": "Uudet ilmoitukset"
+    }
+  },
+  "projects": {
+    "archive": "Arkistointiprojekti",
+    "due_date": "Eräpäivä",
+    "assignee": "Toimeksiantaja",
+    "status": {
+      "archived": "Arkistoitu",
+      "pending_review": "Odotettavissa tarkistus"
+    }
+  },
+  "tasks": {
+    "add_task": "Lisää uusi tehtävä",
+    "edit_task": "Muokkaustehtävä",
+    "mark_complete": "Merkitse täydellisesti",
+    "mark_incomplete": "Merkitä epätäydelliseksi",
+    "delete_task": "Poistaa tehtävän",
+    "task_title_placeholder": "Mitä on tehtävä?",
+    "priority": "Prioriteetti",
+    "priorities": {
+      "high": "Korkea",
+      "medium": "Keskipitkä",
+      "low": "Matala"
+    }
+  },
+  "automations": {
+    "logs": "Näytä lokit",
+    "schedule": "Aikataulu automaatio"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Työnkulkut",
+      "plugins": "Plugins"
+    },
+    "view_details": "Katso yksityiskohdat"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Ylläpitäjä",
+      "editor": "Toimittaja",
+      "viewer": "Katsoja"
+    }
+  },
+  "notifications": {
+    "title": "Ilmoitukset",
+    "mark_all_read": "Merkitse kaikki luetuksi",
+    "no_new_notifications": "Ei uusia ilmoituksia.",
+    "clear_all": "Tyhjennä kaikki ilmoitukset",
+    "settings_link": "Ilmoitusasetukset"
+  },
+  "settings": {
+    "account": "Tili",
+    "appearance": "Esiintyminen",
+    "theme": "Teema",
+    "themes": {
+      "light": "Valotila",
+      "dark": "Pimeätila",
+      "system": "Järjestelmän laiminlyönti"
+    },
+    "language": "Kieli",
+    "integrations_settings": "Hallitse integraatioita",
+    "api_access": "API -käyttöoikeus",
+    "billing": "Laskutus ja tilaukset"
+  },
+  "errors": {
+    "timeout": "Operaatio ajoitettu. Yritä uudelleen.",
+    "api_limit_exceeded": "API -raja ylitti. Yritä myöhemmin uudelleen."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Merkitse kaikki ilmoituksesi luetuksi.",
+    "change_theme": "Muuta sovelluksen ulkonäköä."
+  },
+  "common_actions": {
+    "save": "Tallentaa",
+    "cancel": "Peruuttaa",
+    "confirm": "Vahvistaa",
+    "delete": "Poistaa",
+    "edit": "Muokata",
+    "add": "Lisätä",
+    "apply": "Soveltaa",
+    "close": "Lähellä",
+    "next": "Seuraava",
+    "previous": "Edellinen",
+    "learn_more": "Oppia lisää"
+  },
+  "footer": {
+    "status_page": "Tilasivu",
+    "documentation": "Dokumentointi"
+  }
+}

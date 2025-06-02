@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Kikowaena pūnaewele",
+      "busy": "Luhi",
+      "learning": "I kēia manawa hana ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ʻO kaʻu mau hana",
+    "integrations": "Hoʻohuiʻia",
+    "notifications": "Nā hōʻikeʻike"
+  },
+  "authentication": {
+    "magic-link": "Hoʻouna i ka loulou",
+    "sso": "Kākau me SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Nā hana e hiki mai ana",
+    "stats": {
+      "new_notifications": "Nā hoʻolaha hou"
+    }
+  },
+  "projects": {
+    "archive": "Hoʻohana Pūnaewele",
+    "due_date": "Palena pau",
+    "assignee": "Hesigne",
+    "status": {
+      "archived": "Nā Ariki",
+      "pending_review": "ʻO ka hoʻolahaʻana"
+    }
+  },
+  "tasks": {
+    "add_task": "Hoʻohui i nā hana hou",
+    "edit_task": "Hoʻoponopono i nā hana",
+    "mark_complete": "Hōʻailona e like me ka piha",
+    "mark_incomplete": "Hōʻailona e like me ka pihaʻole",
+    "delete_task": "Hoʻopau i ka hana",
+    "task_title_placeholder": "He aha nā mea e pono ai?",
+    "priority": "Ke Kuhina nui",
+    "priorities": {
+      "high": "High",
+      "medium": "Kūpono",
+      "low": "Hoʻohaʻahaʻa"
+    }
+  },
+  "automations": {
+    "logs": "E nānā i nā logs",
+    "schedule": "E hoʻonohonoho i nā automation"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Nā hana",
+      "plugins": "Plguins"
+    },
+    "view_details": "E nānā i nā kiko'ī"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Luna",
+      "editor": "Lunahoomal",
+      "viewer": "Mea kūlike"
+    }
+  },
+  "notifications": {
+    "title": "Nā hōʻikeʻike",
+    "mark_all_read": "E hōʻailona i nā mea a pau",
+    "no_new_notifications": "ʻAʻohe hōʻike hou.",
+    "clear_all": "E wehe i nā hōʻike āpau",
+    "settings_link": "Nā'ōkuhi helu"
+  },
+  "settings": {
+    "account": "Moohu",
+    "appearance": "Helehelena",
+    "theme": "Kumuhana",
+    "themes": {
+      "light": "Mālamalama kukui",
+      "dark": "Mody mode",
+      "system": "Pūnaehana Pūnaewele"
+    },
+    "language": "Kanakai",
+    "integrations_settings": "Mālama i nā hālāwai",
+    "api_access": "API KA MEA ALA",
+    "billing": "Nā Kūleʻa Kūʻai & Luna"
+  },
+  "errors": {
+    "timeout": "Ua hanaʻia ka hana. Eʻoluʻolu e ho'āʻo hou.",
+    "api_limit_exceeded": "Uaʻoi aku ka palena API. Eʻoluʻolu e ho'āʻo hou ma hope."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "E hōʻailona i kāu mau hoʻolaha āpau e heluhelu ai.",
+    "change_theme": "Hoʻololi i keʻano noi."
+  },
+  "common_actions": {
+    "save": "Lauku",
+    "cancel": "Ke kāpae nei",
+    "confirm": "E hōʻoia",
+    "delete": "Hoʻopue",
+    "edit": "Hoʻoponopono",
+    "add": "Hoʻohui",
+    "apply": "Noi",
+    "close": "'ĀʻE",
+    "next": "A hiki",
+    "previous": "Kekahi",
+    "learn_more": "E aʻo hou"
+  },
+  "footer": {
+    "status_page": "ʻAoʻaoʻaoʻao",
+    "documentation": "Nā palapala palapala"
+  }
+}

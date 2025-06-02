@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ऑनलाइन",
+      "offline": "ऑफलाइन",
+      "busy": "व्यस्त",
+      "learning": "सध्या शिकत आहे ..."
+    }
+  },
+  "navigation": {
+    "tasks": "माझी कार्ये",
+    "integrations": "एकत्रीकरण",
+    "notifications": "सूचना"
+  },
+  "authentication": {
+    "magic-link": "जादू दुवा पाठवा",
+    "sso": "एसएसओ सह साइन इन करा"
+  },
+  "dashboard": {
+    "upcoming_tasks": "आगामी कार्ये",
+    "stats": {
+      "new_notifications": "नवीन सूचना"
+    }
+  },
+  "projects": {
+    "archive": "संग्रहण प्रकल्प",
+    "due_date": "देय तारीख",
+    "assignee": "सहाय्यक",
+    "status": {
+      "archived": "संग्रहित",
+      "pending_review": "प्रलंबित पुनरावलोकन"
+    }
+  },
+  "tasks": {
+    "add_task": "नवीन कार्य जोडा",
+    "edit_task": "कार्य संपादित करा",
+    "mark_complete": "पूर्ण म्हणून चिन्हांकित करा",
+    "mark_incomplete": "अपूर्ण म्हणून चिन्हांकित करा",
+    "delete_task": "कार्य हटवा",
+    "task_title_placeholder": "काय करण्याची आवश्यकता आहे?",
+    "priority": "प्राधान्य",
+    "priorities": {
+      "high": "उच्च",
+      "medium": "मध्यम",
+      "low": "निम्न"
+    }
+  },
+  "automations": {
+    "logs": "नोंदी पहा",
+    "schedule": "ऑटोमेशनचे वेळापत्रक"
+  },
+  "library": {
+    "categories": {
+      "workflows": "वर्कफ्लो",
+      "plugins": "प्लगइन"
+    },
+    "view_details": "तपशील पहा"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "प्रशासक",
+      "editor": "संपादक",
+      "viewer": "दर्शक"
+    }
+  },
+  "notifications": {
+    "title": "सूचना",
+    "mark_all_read": "वाचल्याप्रमाणे सर्व चिन्हांकित करा",
+    "no_new_notifications": "नवीन सूचना नाहीत.",
+    "clear_all": "सर्व सूचना साफ करा",
+    "settings_link": "सूचना सेटिंग्ज"
+  },
+  "settings": {
+    "account": "खाते",
+    "appearance": "देखावा",
+    "theme": "थीम",
+    "themes": {
+      "light": "प्रकाश मोड",
+      "dark": "गडद मोड",
+      "system": "सिस्टम डीफॉल्ट"
+    },
+    "language": "भाषा",
+    "integrations_settings": "एकत्रीकरण व्यवस्थापित करा",
+    "api_access": "एपीआय प्रवेश",
+    "billing": "बिलिंग आणि सदस्यता"
+  },
+  "errors": {
+    "timeout": "ऑपरेशन कालबाह्य झाले. कृपया पुन्हा प्रयत्न करा.",
+    "api_limit_exceeded": "एपीआय मर्यादा ओलांडली. कृपया नंतर पुन्हा प्रयत्न करा."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "आपल्या सर्व सूचना वाचल्याप्रमाणे चिन्हांकित करा.",
+    "change_theme": "अनुप्रयोग देखावा बदला."
+  },
+  "common_actions": {
+    "save": "जतन करा",
+    "cancel": "रद्द करा",
+    "confirm": "पुष्टी करा",
+    "delete": "हटवा",
+    "edit": "संपादित करा",
+    "add": "जोडा",
+    "apply": "अर्ज करा",
+    "close": "बंद",
+    "next": "पुढे",
+    "previous": "मागील",
+    "learn_more": "अधिक जाणून घ्या"
+  },
+  "footer": {
+    "status_page": "स्थिती पृष्ठ",
+    "documentation": "दस्तऐवजीकरण"
+  }
+}

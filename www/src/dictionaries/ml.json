@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ഓൺലൈൻ",
+      "offline": "ഓഫ്ലൈൻ",
+      "busy": "തിരക്ക്",
+      "learning": "നിലവിൽ പഠിക്കുന്നു ..."
+    }
+  },
+  "navigation": {
+    "tasks": "എന്റെ ചുമതലകൾ",
+    "integrations": "സംയോജനങ്ങൾ",
+    "notifications": "അറിയിപ്പുകൾ"
+  },
+  "authentication": {
+    "magic-link": "മാജിക് ലിങ്ക് അയയ്ക്കുക",
+    "sso": "SSO ഉപയോഗിച്ച് പ്രവേശിക്കുക"
+  },
+  "dashboard": {
+    "upcoming_tasks": "വരാനിരിക്കുന്ന ജോലികൾ",
+    "stats": {
+      "new_notifications": "പുതിയ അറിയിപ്പുകൾ"
+    }
+  },
+  "projects": {
+    "archive": "ആർക്കൈവ് പ്രോജക്റ്റ്",
+    "due_date": "അവസാന തീയതി",
+    "assignee": "നിയമനിക",
+    "status": {
+      "archived": "ആർക്കൈവുചെയ്തു",
+      "pending_review": "ശേഷിക്കാത്ത അവലോകനം"
+    }
+  },
+  "tasks": {
+    "add_task": "പുതിയ ടാസ്ക് ചേർക്കുക",
+    "edit_task": "ചുമതല എഡിറ്റുചെയ്യുക",
+    "mark_complete": "പൂർണ്ണമായി അടയാളപ്പെടുത്തുക",
+    "mark_incomplete": "അപൂർണ്ണമായി അടയാളപ്പെടുത്തുക",
+    "delete_task": "ചുമതല ഇല്ലാതാക്കുക",
+    "task_title_placeholder": "എന്താണ് ചെയ്യേണ്ടത്?",
+    "priority": "മുന്ഗണന",
+    "priorities": {
+      "high": "ഉയര്ന്ന",
+      "medium": "മധസ്ഥാനം",
+      "low": "താണനിലയില്"
+    }
+  },
+  "automations": {
+    "logs": "ലോഗുകൾ കാണുക",
+    "schedule": "ഓട്ടോമേഷൻ ഷെഡ്യൂൾ ചെയ്യുക"
+  },
+  "library": {
+    "categories": {
+      "workflows": "വർക്ക്ഫ്ലോകൾ",
+      "plugins": "പ്ലഗിനുകൾ"
+    },
+    "view_details": "വിശദാംശങ്ങൾ കാണുക"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "ഭരണാധിപന്",
+      "editor": "പതാധിപ",
+      "viewer": "കാഴ്ചക്കാരൻ"
+    }
+  },
+  "notifications": {
+    "title": "അറിയിപ്പുകൾ",
+    "mark_all_read": "എല്ലാം വായിക്കാൻ അടയാളപ്പെടുത്തുക",
+    "no_new_notifications": "പുതിയ അറിയിപ്പുകളൊന്നുമില്ല.",
+    "clear_all": "എല്ലാ അറിയിപ്പുകളും മായ്ക്കുക",
+    "settings_link": "അറിയിപ്പ് ക്രമീകരണങ്ങൾ"
+  },
+  "settings": {
+    "account": "കണക്ക്",
+    "appearance": "കാഴ്ച",
+    "theme": "പതിപാദം",
+    "themes": {
+      "light": "ഇളം മോഡ്",
+      "dark": "ഇരുണ്ട മോഡ്",
+      "system": "സിസ്റ്റം സ്ഥിരസ്ഥിതി"
+    },
+    "language": "ഭാഷ",
+    "integrations_settings": "സംയോജനങ്ങൾ നിയന്ത്രിക്കുക",
+    "api_access": "API ആക്സസ്സ്",
+    "billing": "ബില്ലിംഗ് & സബ്സ്ക്രിപ്ഷനുകൾ"
+  },
+  "errors": {
+    "timeout": "പ്രവർത്തനം കാലഹരണപ്പെട്ടു. ദയവായി വീണ്ടും ശ്രമിക്കുക.",
+    "api_limit_exceeded": "API പരിധി കവിഞ്ഞു. പിന്നീട് വീണ്ടും ശ്രമിക്കുക."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "നിങ്ങളുടെ എല്ലാ അറിയിപ്പുകളും വായിക്കുക.",
+    "change_theme": "അപ്ലിക്കേഷൻ രൂപം മാറ്റുക."
+  },
+  "common_actions": {
+    "save": "രക്ഷിക്കുക",
+    "cancel": "റദ്ദാക്കുക",
+    "confirm": "ഉറപ്പിക്കുക",
+    "delete": "ഇല്ലാതാക്കുക",
+    "edit": "തിരുത്തുക",
+    "add": "കൂട്ടിച്ചേര്ക്കുക",
+    "apply": "അപേക്ഷിക്കുക",
+    "close": "അടയ്ക്കുക",
+    "next": "അടുത്തത്",
+    "previous": "മുന്പിലത്തേതായ",
+    "learn_more": "കൂടുതലറിയുക"
+  },
+  "footer": {
+    "status_page": "സ്റ്റാറ്റസ് പേജ്",
+    "documentation": "ഡോക്യുമെന്റേഷൻ"
+  }
+}

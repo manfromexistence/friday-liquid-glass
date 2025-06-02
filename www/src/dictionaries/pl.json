@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Zajęty",
+      "learning": "Obecnie ucząc się ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Moje zadania",
+    "integrations": "Integracje",
+    "notifications": "Powiadomienia"
+  },
+  "authentication": {
+    "magic-link": "Wyślij Magic Link",
+    "sso": "Zaloguj się z SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Nadchodzące zadania",
+    "stats": {
+      "new_notifications": "Nowe powiadomienia"
+    }
+  },
+  "projects": {
+    "archive": "Projekt archiwum",
+    "due_date": "Termin",
+    "assignee": "Mandatariusz",
+    "status": {
+      "archived": "Zarchiwizowane",
+      "pending_review": "Oczekujący przegląd"
+    }
+  },
+  "tasks": {
+    "add_task": "Dodaj nowe zadanie",
+    "edit_task": "Edytuj zadanie",
+    "mark_complete": "Zaznacz jako kompletny",
+    "mark_incomplete": "Znak jako niekompletny",
+    "delete_task": "Usuń zadanie",
+    "task_title_placeholder": "Co należy zrobić?",
+    "priority": "Priorytet",
+    "priorities": {
+      "high": "Wysoki",
+      "medium": "Średni",
+      "low": "Niski"
+    }
+  },
+  "automations": {
+    "logs": "Wyświetl dzienniki",
+    "schedule": "Zaplanuj automatyzację"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Przepływy pracy",
+      "plugins": "Wtyczki"
+    },
+    "view_details": "Zobacz szczegóły"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrator",
+      "editor": "Redaktor",
+      "viewer": "Dozorca"
+    }
+  },
+  "notifications": {
+    "title": "Powiadomienia",
+    "mark_all_read": "Zaznacz wszystko jako czytaj",
+    "no_new_notifications": "Brak nowych powiadomień.",
+    "clear_all": "Wyczyść wszystkie powiadomienia",
+    "settings_link": "Ustawienia powiadomień"
+  },
+  "settings": {
+    "account": "Konto",
+    "appearance": "Wygląd",
+    "theme": "Temat",
+    "themes": {
+      "light": "Tryb światła",
+      "dark": "Tryb ciemny",
+      "system": "System domyślny"
+    },
+    "language": "Język",
+    "integrations_settings": "Zarządzaj integracjami",
+    "api_access": "Dostęp do API",
+    "billing": "Oddziaływanie i subskrypcje"
+  },
+  "errors": {
+    "timeout": "Operacja została zaplanowana. Spróbuj ponownie.",
+    "api_limit_exceeded": "Limit API przekroczył. Spróbuj ponownie później."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Zaznacz wszystkie swoje powiadomienia jako odczyt.",
+    "change_theme": "Zmień wygląd aplikacji."
+  },
+  "common_actions": {
+    "save": "Ratować",
+    "cancel": "Anulować",
+    "confirm": "Potwierdzać",
+    "delete": "Usuwać",
+    "edit": "Redagować",
+    "add": "Dodać",
+    "apply": "Stosować",
+    "close": "Zamknąć",
+    "next": "Następny",
+    "previous": "Poprzedni",
+    "learn_more": "Dowiedz się więcej"
+  },
+  "footer": {
+    "status_page": "Strona statusu",
+    "documentation": "Dokumentacja"
+  }
+}

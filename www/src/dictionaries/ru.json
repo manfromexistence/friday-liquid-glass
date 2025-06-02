@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Онлайн",
+      "offline": "В автономном режиме",
+      "busy": "Занятый",
+      "learning": "В настоящее время обучение ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Мои задачи",
+    "integrations": "Интеграции",
+    "notifications": "Уведомления"
+  },
+  "authentication": {
+    "magic-link": "Отправить магическую ссылку",
+    "sso": "Войдите с SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Предстоящие задачи",
+    "stats": {
+      "new_notifications": "Новые уведомления"
+    }
+  },
+  "projects": {
+    "archive": "Архивный проект",
+    "due_date": "Срок оплаты",
+    "assignee": "Пришит",
+    "status": {
+      "archived": "Архивированный",
+      "pending_review": "В ожидании обзора"
+    }
+  },
+  "tasks": {
+    "add_task": "Добавить новую задачу",
+    "edit_task": "Редактировать задачу",
+    "mark_complete": "Отметьте как полное",
+    "mark_incomplete": "Марк как неполный",
+    "delete_task": "Удалить задачу",
+    "task_title_placeholder": "Что нужно сделать?",
+    "priority": "Приоритет",
+    "priorities": {
+      "high": "Высокий",
+      "medium": "Середина",
+      "low": "Низкий"
+    }
+  },
+  "automations": {
+    "logs": "Просмотреть журналы",
+    "schedule": "Расписание автоматизации"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Рабочие процессы",
+      "plugins": "Плагины"
+    },
+    "view_details": "Просмотреть детали"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Администратор",
+      "editor": "Редактор",
+      "viewer": "Зритель"
+    }
+  },
+  "notifications": {
+    "title": "Уведомления",
+    "mark_all_read": "Отметьте все как чтение",
+    "no_new_notifications": "Нет новых уведомлений.",
+    "clear_all": "Очистить все уведомления",
+    "settings_link": "Настройки уведомления"
+  },
+  "settings": {
+    "account": "Счет",
+    "appearance": "Появление",
+    "theme": "Тема",
+    "themes": {
+      "light": "Легкий режим",
+      "dark": "Темный режим",
+      "system": "Система по умолчанию"
+    },
+    "language": "Язык",
+    "integrations_settings": "Управление интеграциями",
+    "api_access": "API доступ",
+    "billing": "Биллинг и подписки"
+  },
+  "errors": {
+    "timeout": "Операция по времени. Пожалуйста, попробуйте еще раз.",
+    "api_limit_exceeded": "Предел API превышен. Пожалуйста, попробуйте еще раз позже."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Отметьте все свои уведомления как чтение.",
+    "change_theme": "Измените появление приложения."
+  },
+  "common_actions": {
+    "save": "Сохранять",
+    "cancel": "Отмена",
+    "confirm": "Подтверждать",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "add": "Добавлять",
+    "apply": "Применять",
+    "close": "Закрывать",
+    "next": "Следующий",
+    "previous": "Предыдущий",
+    "learn_more": "Узнать больше"
+  },
+  "footer": {
+    "status_page": "Страница статуса",
+    "documentation": "Документация"
+  }
+}

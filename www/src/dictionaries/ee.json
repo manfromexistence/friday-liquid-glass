@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Le kadzi",
+      "offline": "Offline .",
+      "busy": "Le dɔ wɔm",
+      "learning": "Nusɔsrɔ̃ fifia..."
+    }
+  },
+  "navigation": {
+    "tasks": "Nye Dɔwo .",
+    "integrations": "Integrations .",
+    "notifications": "Nyatakakawo ."
+  },
+  "authentication": {
+    "magic-link": "Ðo akunyawɔwɔ ƒe kadodo ɖa .",
+    "sso": "De asi ete kple SSO ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Dɔ siwo gbɔna .",
+    "stats": {
+      "new_notifications": "Nyatakaka Yeyewo ."
+    }
+  },
+  "projects": {
+    "archive": "Nudzraɖoƒe ƒe Dɔwɔɖoɖo .",
+    "due_date": "Ɣletiŋkeke si wòle be wòaxe .",
+    "assignee": "Ame si wode dɔ asi na .",
+    "status": {
+      "archived": "Nudzraɖoƒe .",
+      "pending_review": "Wole lalam be woagbugbɔ ŋku alé ɖe eŋu ."
+    }
+  },
+  "tasks": {
+    "add_task": "Tsɔ dɔ yeye kpe ɖe eŋu .",
+    "edit_task": "Trɔ asi le dɔ ŋu .",
+    "mark_complete": "De dzesi abe blibo ene .",
+    "mark_incomplete": "De dzesii be mede blibo o .",
+    "delete_task": "Delete Dɔa .",
+    "task_title_placeholder": "Nukae wòle be woawɔ?",
+    "priority": "Nu si le veviẽ",
+    "priorities": {
+      "high": "Kɔ",
+      "medium": "Le vedome",
+      "low": "Bᴐbᴐ"
+    }
+  },
+  "automations": {
+    "logs": "Kpɔ nuŋlɔɖiwo .",
+    "schedule": "Ðoɖowɔɖi ƒe automation ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Dɔwɔwɔ ƒe ɖoɖowo .",
+      "plugins": "Plugins ."
+    },
+    "view_details": "Kpɔ nyatakakawo ."
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Dɔdzikpɔla .",
+      "editor": "Nuŋlɔla .",
+      "viewer": "Nukpɔla ."
+    }
+  },
+  "notifications": {
+    "title": "Nyatakakawo .",
+    "mark_all_read": "De dzesi wo katã abe alesi woxlẽe ene .",
+    "no_new_notifications": "Nyatakaka yeye aɖeke meli o.",
+    "clear_all": "Klɔ gbeƒãɖeɖeawo katã ɖa .",
+    "settings_link": "Nyatakaka ƒe ɖoɖowo ."
+  },
+  "settings": {
+    "account": "Akᴐnta",
+    "appearance": "Dzedzeme",
+    "theme": "Nyati",
+    "themes": {
+      "light": "Kekeli ƒe nɔnɔme .",
+      "dark": "Viviti ƒe nɔnɔme .",
+      "system": "System Default ."
+    },
+    "language": "Gbegbᴐgblᴐ",
+    "integrations_settings": "Kpɔ ɖekawɔwɔwo dzi .",
+    "api_access": "API ƒe mɔɖeɖe .",
+    "billing": "Billing & Subscriptions ."
+  },
+  "errors": {
+    "timeout": "Dɔwɔwɔa ɖe ɣeyiɣi si wotsɔ wɔ dɔae. Taflatse gate kpɔ ake.",
+    "api_limit_exceeded": "API ƒe seɖoƒe si wu enu. Taflatse migadze agbagba emegbe."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "De dzesi wò nyatakakawo katã abe nuxexlẽ ene.",
+    "change_theme": "Trɔ dɔbiagbalẽvi ƒe dzedzeme."
+  },
+  "common_actions": {
+    "save": "Dzrae ɖo",
+    "cancel": "Te fli ɖe eme",
+    "confirm": "Ɖo kpe edzi",
+    "delete": "Ɖe ɖa",
+    "edit": "Wɔ tɔtrɔ",
+    "add": "Kpee ɖe eŋu",
+    "apply": "Tsᴐe wᴐ dᴐ",
+    "close": "Tu",
+    "next": "Esi kplᴐe ɖo",
+    "previous": "Si do ŋgᴐ",
+    "learn_more": "Srɔ̃ nu geɖe tso eŋu"
+  },
+  "footer": {
+    "status_page": "Nɔnɔme ƒe axa .",
+    "documentation": "Nuŋlɔɖiwo ."
+  }
+}

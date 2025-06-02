@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Toora intarneetiirraan",
+      "offline": "Sarara ala .",
+      "busy": "Muddamuu",
+      "learning": "Yeroo ammaa kana barachaa..."
+    }
+  },
+  "navigation": {
+    "tasks": "Hojiiwwan koo .",
+    "integrations": "Ida'amuu .",
+    "notifications": "Beeksisa ."
+  },
+  "authentication": {
+    "magic-link": "Hidhaa Sihrii Ergi .",
+    "sso": "SSO waliin galmaa'aa ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Hojiiwwan dhufan .",
+    "stats": {
+      "new_notifications": "Beeksisa haaraa ."
+    }
+  },
+  "projects": {
+    "archive": "Pirojektii Kuusaa .",
+    "due_date": "Guyyaa itti kaffalamuu qabu .",
+    "assignee": "Ramadame .",
+    "status": {
+      "archived": "Kuusaa .",
+      "pending_review": "Gamaaggama yeroo ammaa ."
+    }
+  },
+  "tasks": {
+    "add_task": "Hojii haaraa itti dabalaa .",
+    "edit_task": "Hojii gulaaluu .",
+    "mark_complete": "Mallattoo akka guutuutti .",
+    "mark_incomplete": "Mallattoo akka hin xumuramnetti .",
+    "delete_task": "Hojii haquu .",
+    "task_title_placeholder": "Maaltu hojjetamuu qaba?",
+    "priority": "Dursa",
+    "priorities": {
+      "high": "Ol aanaa",
+      "medium": "Giddugaleessa",
+      "low": "Gadi bu'aa"
+    }
+  },
+  "automations": {
+    "logs": "Galmeewwan ilaali .",
+    "schedule": "Sagantaa ofumaan hojjechuu ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Adeemsa hojii .",
+      "plugins": "Ijaarsa ."
+    },
+    "view_details": "Bal'ina isaa ilaali"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Bulchaa .",
+      "editor": "Gulaalaa .",
+      "viewer": "Ilaaltuu ."
+    }
+  },
+  "notifications": {
+    "title": "Beeksisa .",
+    "mark_all_read": "Hundumaa akka dubbisitti mallatteessi .",
+    "no_new_notifications": "Beeksisa haaraa hin qabu.",
+    "clear_all": "Beeksisa hunda qulqulleessi .",
+    "settings_link": "Sajoo Beeksisa ."
+  },
+  "settings": {
+    "account": "Herrega",
+    "appearance": "Mul'ina",
+    "theme": "Dhimma haasaa",
+    "themes": {
+      "light": "Haala ifaa .",
+      "dark": "Haala Dukkanaawaa .",
+      "system": "Durtii sirnaa ."
+    },
+    "language": "Afaan",
+    "integrations_settings": "Ida'ama bulchuu .",
+    "api_access": "API argachuu .",
+    "billing": "Billing & maallaqa galchuu ."
+  },
+  "errors": {
+    "timeout": "Opireeshiniin yeroon isaa darbeera. Mee irra deebi'ii yaali.",
+    "api_limit_exceeded": "Daangaan API darbeera. Mee booda irra deebi'ii yaali."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Beeksisa kee hunda akka dubbisitti mallatteessi.",
+    "change_theme": "Mul'ata aplikeeshinii jijjiiri."
+  },
+  "common_actions": {
+    "save": "Qusachuu",
+    "cancel": "Haquu",
+    "confirm": "Mirkaneessuu",
+    "delete": "Haquu",
+    "edit": "Gulaaluu",
+    "add": "Ida'uu",
+    "apply": "Hojiirra oolchuu",
+    "close": "Cufuu",
+    "next": "Kan itti aanu",
+    "previous": "Kan duraa",
+    "learn_more": "Caalaatti baradhaa"
+  },
+  "footer": {
+    "status_page": "Fuula Haala .",
+    "documentation": "Dokumantarii ."
+  }
+}

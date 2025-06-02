@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Ipurangi",
+      "offline": "Taipitopito",
+      "busy": "Ringa raweke",
+      "learning": "Akoranga ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Aku mahi",
+    "integrations": "Whakaurunga",
+    "notifications": "Whakamōhiotanga"
+  },
+  "authentication": {
+    "magic-link": "Tukuna he hononga makutu",
+    "sso": "Waitohu me te SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Nga mahi e heke mai",
+    "stats": {
+      "new_notifications": "Nga whakamōhiotanga hou"
+    }
+  },
+  "projects": {
+    "archive": "Kaupapa Archive",
+    "due_date": "Rā tika",
+    "assignee": "Hāpai",
+    "status": {
+      "archived": "Opini",
+      "pending_review": "Arotake Takiwā"
+    }
+  },
+  "tasks": {
+    "add_task": "Tāpirihia he mahi hou",
+    "edit_task": "Whakatika i nga mahi",
+    "mark_complete": "Tohu kia oti",
+    "mark_incomplete": "Tohu rite te oti",
+    "delete_task": "Mukua te mahi",
+    "task_title_placeholder": "Me aha koe?",
+    "priority": "Mea tuatahi",
+    "priorities": {
+      "high": "Teitei",
+      "medium": "Kauwaka",
+      "low": "Pāpaku"
+    }
+  },
+  "automations": {
+    "logs": "Tirohia nga Raarangi",
+    "schedule": "Apiti Areamation"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Nga mahi mahi",
+      "plugins": "Monga"
+    },
+    "view_details": "Tirohia nga korero taipitopito"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Kaiwhakahaere",
+      "editor": "Kaiwhakatika",
+      "viewer": "Kaikōrerohipa"
+    }
+  },
+  "notifications": {
+    "title": "Whakamōhiotanga",
+    "mark_all_read": "Tohu katoa kia rite ki te panui",
+    "no_new_notifications": "Kaore he whakamōhiotanga hou.",
+    "clear_all": "Whakamutua nga whakamohiotanga katoa",
+    "settings_link": "Tautuhinga whakamōhiotanga"
+  },
+  "settings": {
+    "account": "Kaute",
+    "appearance": "Putanga",
+    "theme": "Kaupapa",
+    "themes": {
+      "light": "Aratau Maama",
+      "dark": "Arawai Matapihi",
+      "system": "Te taunoa o te punaha"
+    },
+    "language": "Reo",
+    "integrations_settings": "Whakahaere i nga whakauru",
+    "api_access": "API Uru",
+    "billing": "Nga utu me nga ohaurunga"
+  },
+  "errors": {
+    "timeout": "Kua puta te mahi. Me ngana ano.",
+    "api_limit_exceeded": "Kua nui ake te rohe API. Tena koa ngana ano i muri mai."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Tuhia nga panui katoa kia rite ki te panui.",
+    "change_theme": "Hurihia te ahua tono."
+  },
+  "common_actions": {
+    "save": "Whakaora",
+    "cancel": "Whakakore",
+    "confirm": "Whakaū",
+    "delete": "Muku",
+    "edit": "Whakatikatika",
+    "add": "Tāpiri",
+    "apply": "Tono",
+    "close": "Whakapā",
+    "next": "Muri atu",
+    "previous": "Tōmua",
+    "learn_more": "Ako atu"
+  },
+  "footer": {
+    "status_page": "Whārangi Tūemi",
+    "documentation": "Tuhinga"
+  }
+}

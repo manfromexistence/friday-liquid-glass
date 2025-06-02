@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "In ligna",
+      "offline": "Offline",
+      "busy": "Occupatu",
+      "learning": "Attualmente apprendendu ..."
+    }
+  },
+  "navigation": {
+    "tasks": "I mo compiti",
+    "integrations": "INTREGAZIONI",
+    "notifications": "Notificazioni"
+  },
+  "authentication": {
+    "magic-link": "Mandà u ligame magicu",
+    "sso": "Accettate cù SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Visualizazioni",
+    "stats": {
+      "new_notifications": "Novi notificazioni"
+    }
+  },
+  "projects": {
+    "archive": "Prughjettu di archiviu",
+    "due_date": "Scadenza",
+    "assignee": "Assignatu",
+    "status": {
+      "archived": "Archivatu",
+      "pending_review": "Pendita di Revisione"
+    }
+  },
+  "tasks": {
+    "add_task": "Aggiungi novu compitu",
+    "edit_task": "Edite a compitu",
+    "mark_complete": "Marcu cum'è cumpletu",
+    "mark_incomplete": "Marca cum'è incompleta",
+    "delete_task": "Sguassà u compitu",
+    "task_title_placeholder": "Chì ci vole à fà?",
+    "priority": "Priorità",
+    "priorities": {
+      "high": "Altu",
+      "medium": "MEDIUM",
+      "low": "Bassa"
+    }
+  },
+  "automations": {
+    "logs": "Vede i ghjurnali",
+    "schedule": "Orcorazione Chiudizzione"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Fiflows di travagliu",
+      "plugins": "I plugins"
+    },
+    "view_details": "Vede i dettagli"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Amministratore",
+      "editor": "Editore",
+      "viewer": "Viewer"
+    }
+  },
+  "notifications": {
+    "title": "Notificazioni",
+    "mark_all_read": "Marca tuttu cume leghje",
+    "no_new_notifications": "Nisuna nova notificazioni.",
+    "clear_all": "Chjaru tutte e notificazioni",
+    "settings_link": "Configurazione di Notificazione"
+  },
+  "settings": {
+    "account": "Contu",
+    "appearance": "Apparenza",
+    "theme": "Tema",
+    "themes": {
+      "light": "Modalità ligera",
+      "dark": "Modu scuru",
+      "system": "U sistema predeterminatu"
+    },
+    "language": "Lingua",
+    "integrations_settings": "Gestite l'integrazioni",
+    "api_access": "Accessu API",
+    "billing": "Billing & abbonamenti"
+  },
+  "errors": {
+    "timeout": "L'operazione hà timed. Per piacè di pruvà.",
+    "api_limit_exceeded": "U limitu API hè superatu. Per piacè à pruvà dopu."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Marca tutte e vostre notificazioni cum'è leghje.",
+    "change_theme": "Cambia l'apparenza di l'applicazione."
+  },
+  "common_actions": {
+    "save": "Salvata",
+    "cancel": "Annulla",
+    "confirm": "Cunfirmà",
+    "delete": "Sguassà",
+    "edit": "Edità",
+    "add": "Aghjustate",
+    "apply": "Applicà",
+    "close": "Chiudere",
+    "next": "Next",
+    "previous": "Precedente",
+    "learn_more": "Sapè ne di più"
+  },
+  "footer": {
+    "status_page": "Prima pagina di statua",
+    "documentation": "Documentazione"
+  }
+}

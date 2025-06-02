@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Elfoglalt",
+      "learning": "Jelenleg tanulni ..."
+    }
+  },
+  "navigation": {
+    "tasks": "A feladataim",
+    "integrations": "Integrációk",
+    "notifications": "Értesítések"
+  },
+  "authentication": {
+    "magic-link": "Küldje el a Magic Link -t",
+    "sso": "Jelentkezzen be az SSO -val"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Közelgő feladatok",
+    "stats": {
+      "new_notifications": "Új értesítések"
+    }
+  },
+  "projects": {
+    "archive": "Archiválási projekt",
+    "due_date": "Határidő",
+    "assignee": "Engedményes",
+    "status": {
+      "archived": "Archivált",
+      "pending_review": "Fárusan felülvizsgálat"
+    }
+  },
+  "tasks": {
+    "add_task": "Adjon hozzá új feladatot",
+    "edit_task": "Feladat szerkesztése",
+    "mark_complete": "Jelölje meg teljesnek",
+    "mark_incomplete": "Jelölje meg, mint hiányos",
+    "delete_task": "Törlés feladat",
+    "task_title_placeholder": "Mit kell tenni?",
+    "priority": "Prioritás",
+    "priorities": {
+      "high": "Magas",
+      "medium": "Közepes",
+      "low": "Alacsony"
+    }
+  },
+  "automations": {
+    "logs": "A naplók megtekintése",
+    "schedule": "Ütemezési automatizálás"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Munkafolyamatok",
+      "plugins": "Plugins"
+    },
+    "view_details": "A részletek megtekintése"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Adminisztrátor",
+      "editor": "Szerkesztő",
+      "viewer": "Néző"
+    }
+  },
+  "notifications": {
+    "title": "Értesítések",
+    "mark_all_read": "Jelölje meg az összes olvasást",
+    "no_new_notifications": "Nincs új értesítés.",
+    "clear_all": "Tisztítsa meg az összes értesítést",
+    "settings_link": "Értesítési beállítások"
+  },
+  "settings": {
+    "account": "Beszámoló",
+    "appearance": "Megjelenés",
+    "theme": "Téma",
+    "themes": {
+      "light": "Fénymód",
+      "dark": "Sötét üzemmód",
+      "system": "Rendszer alapértelmezett"
+    },
+    "language": "Nyelv",
+    "integrations_settings": "Kezelje az integrációkat",
+    "api_access": "API -hozzáférés",
+    "billing": "Számlázás és előfizetések"
+  },
+  "errors": {
+    "timeout": "A művelet lejárt. Kérjük, próbálkozzon újra.",
+    "api_limit_exceeded": "Az API határértéke meghaladta. Kérjük, próbálkozzon újra később."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Jelölje meg az összes értesítést olvasásként.",
+    "change_theme": "Változtassa meg az alkalmazás megjelenését."
+  },
+  "common_actions": {
+    "save": "Megtakarítás",
+    "cancel": "Töröl",
+    "confirm": "Megerősít",
+    "delete": "Töröl",
+    "edit": "Szerkeszt",
+    "add": "Hozzáad",
+    "apply": "Alkalmaz",
+    "close": "Közeli",
+    "next": "Következő",
+    "previous": "Előző",
+    "learn_more": "Tudjon meg többet"
+  },
+  "footer": {
+    "status_page": "Állapotoldal",
+    "documentation": "Dokumentáció"
+  }
+}
