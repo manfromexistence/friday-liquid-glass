@@ -52,7 +52,7 @@ export default function Profile() {
         const accountsData = await authClient.listAccounts();
         setBetterAuth(accountsData);
       } catch (error) {
-        console.error("Failed to fetch user data:", error);
+        // console.error("Failed to fetch user data:", error);
         toast.error("Failed to load profile data.");
       } finally {
         setIsLoading(false);
@@ -73,7 +73,7 @@ export default function Profile() {
             // Optionally, redirect: window.location.href = '/login';
           },
           onError: (error: any) => {
-            console.error("SignOut Error:", error);
+            // console.error("SignOut Error:", error);
             toast.error(
               error?.message || "Sign out failed. Please try again."
             );
@@ -81,7 +81,7 @@ export default function Profile() {
         },
       });
     } catch (error: any) {
-      console.error("SignOut Exception:", error);
+      // console.error("SignOut Exception:", error);
       toast.error(
         error?.message || "An unexpected error occurred during sign out."
       );
