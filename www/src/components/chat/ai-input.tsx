@@ -37,7 +37,7 @@ export interface AiInputRef {
 const MIN_HEIGHT = 48
 const MAX_HEIGHT = 164
 
-const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
+export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   { onInputChange, onSubmit }, 
   ref
 ) {
