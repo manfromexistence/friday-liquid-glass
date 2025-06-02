@@ -13,7 +13,8 @@ import Chatbot from "@/app/chat";
 export default function Home() {
   return (
     <div className="flex min-h-svh w-full flex-col items-start">
-      <Chatbot />
+      Hello
+      {/* <Chatbot /> */}
       {/* <ChatPage /> */}
       {/* Friday */}
       {/* <Cursor /> */}
