@@ -5,7 +5,7 @@ from collections import deque
 from googletrans import Translator
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# List of language codes (updated)
+# List of language codes (shortened for demonstration)
 language_codes = [
     "af",  # afrikaans
     "sq",  # albanian
@@ -116,8 +116,8 @@ language_codes = [
     "zu"   # zulu
 ]
 
-# Max concurrent workers for translation API calls. Adjust based on API limits and testing.
-MAX_WORKERS = 150
+# Reduce concurrency to help avoid address/port exhaustion
+MAX_WORKERS = 20
 
 # Rate limiter: max 5 calls per 1 second
 class RateLimiter:
@@ -207,14 +207,23 @@ def translate_and_save_language(lang_code):
         rate_limiter.acquire()
         translator = Translator()
 
-        # Translate each text individually
         translated_texts_list = []
         for text in texts_to_translate_list:
-            result = translator.translate(text, dest=lang_code)
-            translated_texts_list.append(result.text)
+            try:
+                rate_limiter.acquire()  # rate-limit each call
+                result = translator.translate(text, dest=lang_code)
+                # Check for unexpected None results
+                if result and hasattr(result, 'text'):
+                    translated_texts_list.append(result.text)
+                else:
+                    # If translator returns None or invalid structure, store fallback
+                    translated_texts_list.append(text)
+            except Exception as single_error:
+                print(f"  Error translating text for {lang_code}: {single_error}")
+                translated_texts_list.append(text)
 
         if not translated_texts_list or len(translated_texts_list) != len(texts_to_translate_list):
-            print(f"  Warning: Batch translation for {lang_code} returned unexpected result.")
+            print(f"  Warning: Translation for {lang_code} returned unexpected result.")
             translated_json_content = en_json  # fallback
         else:
             current_lang_flat_dict = flat_en_json_template.copy()
