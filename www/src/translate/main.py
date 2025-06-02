@@ -22,7 +22,7 @@ language_codes = [
 ]
 
 # Max concurrent workers for translation API calls. Adjust based on API limits and testing.
-MAX_WORKERS = 150
+MAX_WORKERS = 50
 
 # Rate limiter: max 5 calls per 1 second
 class RateLimiter:
