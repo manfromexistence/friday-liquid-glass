@@ -5,123 +5,25 @@ from collections import deque
 from googletrans import Translator
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# List of language codes (shortened for demonstration)
+# List of language codes
 language_codes = [
-    "af",  # afrikaans
-    "sq",  # albanian
-    "am",  # amharic
-    "ar",  # arabic
-    "hy",  # armenian
-    "az",  # azerbaijani
-    "eu",  # basque
-    "be",  # belarusian
-    "bn",  # bengali
-    "bs",  # bosnian
-    "bg",  # bulgarian
-    "ca",  # catalan
-    "ceb", # cebuano
-    "ny",  # chichewa
-    "zh-cn", # chinese (simplified)
-    "zh-tw", # chinese (traditional)
-    "co",  # corsican
-    "hr",  # croatian
-    "cs",  # czech
-    "da",  # danish
-    "nl",  # dutch
-    "en",  # english
-    "eo",  # esperanto
-    "et",  # estonian
-    "tl",  # filipino
-    "fi",  # finnish
-    "fr",  # french
-    "fy",  # frisian
-    "gl",  # galician
-    "ka",  # georgian
-    "de",  # german
-    "el",  # greek
-    "gu",  # gujarati
-    "ht",  # haitian creole
-    "ha",  # hausa
-    "haw", # hawaiian
-    "iw",  # hebrew
-    "he",  # hebrew
-    "hi",  # hindi
-    "hmn", # hmong
-    "hu",  # hungarian
-    "is",  # icelandic
-    "ig",  # igbo
-    "id",  # indonesian
-    "ga",  # irish
-    "it",  # italian
-    "ja",  # japanese
-    "jw",  # javanese
-    "kn",  # kannada
-    "kk",  # kazakh
-    "km",  # khmer
-    "ko",  # korean
-    "ku",  # kurdish (kurmanji)
-    "ky",  # kyrgyz
-    "lo",  # lao
-    "la",  # latin
-    "lv",  # latvian
-    "lt",  # lithuanian
-    "lb",  # luxembourgish
-    "mk",  # macedonian
-    "mg",  # malagasy
-    "ms",  # malay
-    "ml",  # malayalam
-    "mt",  # maltese
-    "mi",  # maori
-    "mr",  # marathi
-    "mn",  # mongolian
-    "my",  # myanmar (burmese)
-    "ne",  # nepali
-    "no",  # norwegian
-    "or",  # odia
-    "ps",  # pashto
-    "fa",  # persian
-    "pl",  # polish
-    "pt",  # portuguese
-    "pa",  # punjabi
-    "ro",  # romanian
-    "ru",  # russian
-    "sm",  # samoan
-    "gd",  # scots gaelic
-    "sr",  # serbian
-    "st",  # sesotho
-    "sn",  # shona
-    "sd",  # sindhi
-    "si",  # sinhala
-    "sk",  # slovak
-    "sl",  # slovenian
-    "so",  # somali
-    "es",  # spanish
-    "su",  # sundanese
-    "sw",  # swahili
-    "sv",  # swedish
-    "tg",  # tajik
-    "ta",  # tamil
-    "te",  # telugu
-    "th",  # thai
-    "tr",  # turkish
-    "uk",  # ukrainian
-    "ur",  # urdu
-    "ug",  # uyghur
-    "uz",  # uzbek
-    "vi",  # vietnamese
-    "cy",  # welsh
-    "xh",  # xhosa
-    "yi",  # yiddish
-    "yo",  # yoruba
-    "zu"   # zulu
+    "af", "sq", "am", "ar", "hy", "az", "eu", "be", "bn", "bs", "bg", "ca", 
+    "ceb", "ny", "zh-cn", "zh-tw", "co", "hr", "cs", "da", "nl", "en", "eo", 
+    "et", "tl", "fi", "fr", "fy", "gl", "ka", "de", "el", "gu", "ht", "ha", 
+    "haw", "iw", "he", "hi", "hmn", "hu", "is", "ig", "id", "ga", "it", "ja", 
+    "jw", "kn", "kk", "km", "ko", "ku", "ky", "lo", "la", "lv", "lt", "lb", 
+    "mk", "mg", "ms", "ml", "mt", "mi", "mr", "mn", "my", "ne", "no", "or", 
+    "ps", "fa", "pl", "pt", "pa", "ro", "ru", "sm", "gd", "sr", "st", "sn", 
+    "sd", "si", "sk", "sl", "so", "es", "su", "sw", "sv", "tg", "ta", "te", 
+    "th", "tr", "uk", "ur", "ug", "uz", "vi", "cy", "xh", "yi", "yo", "zu"
 ]
 
-# Reduce concurrency to help avoid address/port exhaustion
-MAX_WORKERS = 20
+# Reduce concurrency to help avoid connection issues
+MAX_WORKERS = 10
 
-# Rate limiter: max 5 calls per 1 second
+# Rate limiter: max 3 calls per 2 seconds (more conservative)
 class RateLimiter:
-    def __init__(self, max_calls, period=1.0):
+    def __init__(self, max_calls, period=2.0):
         self.max_calls = max_calls
         self.period = period
         self.lock = threading.Lock()
@@ -144,7 +46,7 @@ class RateLimiter:
             if sleep_time > 0:
                 time.sleep(sleep_time)
 
-rate_limiter = RateLimiter(max_calls=5, period=1.0)
+rate_limiter = RateLimiter(max_calls=3, period=2.0)
 
 # Load your en.json
 try:
@@ -196,6 +98,34 @@ if not texts_to_translate_list:
     print("No text values found to translate in en.json.")
     exit()
 
+def safe_translate(translator, text, dest_lang, max_retries=3):
+    """Safely translate text with retries and error handling"""
+    for attempt in range(max_retries):
+        try:
+            rate_limiter.acquire()
+            result = translator.translate(text, dest=dest_lang)
+            
+            # Check if result is valid
+            if result and hasattr(result, 'text') and result.text:
+                return result.text
+            else:
+                print(f"    Attempt {attempt + 1}: Invalid result for text: {text[:50]}...")
+                if attempt < max_retries - 1:
+                    time.sleep(1)  # Wait before retry
+                    translator = Translator()  # Create new translator instance
+                continue
+                
+        except Exception as e:
+            print(f"    Attempt {attempt + 1} failed for '{text[:50]}...': {e}")
+            if attempt < max_retries - 1:
+                time.sleep(2)  # Wait longer before retry
+                translator = Translator()  # Create new translator instance
+            else:
+                print(f"    All attempts failed, using original text")
+                return text
+    
+    return text  # Fallback to original text
+
 def translate_and_save_language(lang_code):
     if lang_code == "en":
         return f"Skipped {lang_code} (source language)."
@@ -203,36 +133,24 @@ def translate_and_save_language(lang_code):
     print(f"Starting translation for: {lang_code}")
 
     try:
-        # Enforce rate limit before each API call
-        rate_limiter.acquire()
         translator = Translator()
-
         translated_texts_list = []
-        for text in texts_to_translate_list:
-            try:
-                rate_limiter.acquire()  # rate-limit each call
-                result = translator.translate(text, dest=lang_code)
-                # Check for unexpected None results
-                if result and hasattr(result, 'text'):
-                    translated_texts_list.append(result.text)
-                else:
-                    # If translator returns None or invalid structure, store fallback
-                    translated_texts_list.append(text)
-            except Exception as single_error:
-                print(f"  Error translating text for {lang_code}: {single_error}")
-                translated_texts_list.append(text)
+        
+        for i, text in enumerate(texts_to_translate_list):
+            if i % 10 == 0:  # Progress indicator
+                print(f"  Translating {i+1}/{len(texts_to_translate_list)} for {lang_code}")
+            
+            translated_text = safe_translate(translator, text, lang_code)
+            translated_texts_list.append(translated_text)
 
-        if not translated_texts_list or len(translated_texts_list) != len(texts_to_translate_list):
-            print(f"  Warning: Translation for {lang_code} returned unexpected result.")
-            translated_json_content = en_json  # fallback
-        else:
-            current_lang_flat_dict = flat_en_json_template.copy()
-            for i, string_info in enumerate(original_strings_info):
-                current_lang_flat_dict[string_info['key']] = translated_texts_list[i]
-            translated_json_content = unflatten(current_lang_flat_dict)
+        # Build the final JSON
+        current_lang_flat_dict = flat_en_json_template.copy()
+        for i, string_info in enumerate(original_strings_info):
+            current_lang_flat_dict[string_info['key']] = translated_texts_list[i]
+        translated_json_content = unflatten(current_lang_flat_dict)
 
     except Exception as e:
-        print(f"  Error during translation for {lang_code}: {e}")
+        print(f"  Critical error during translation for {lang_code}: {e}")
         translated_json_content = en_json  # fallback
 
     # Save the translated JSON
@@ -265,4 +183,3 @@ with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
 
 end_time = time.time()
 print(f"\nAll translations processed in {end_time - start_time:.2f} seconds.")
-# You can further inspect 'results' if needed
