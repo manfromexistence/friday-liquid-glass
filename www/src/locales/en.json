@@ -1,0 +1,17 @@
+{
+    "home": {
+      "title": "What can I help you with?",
+      "description": "This is a sample Next.js application.",
+      "button": "Click Here"
+    },
+    "navigation": {
+      "new": "Start New",
+      "home": "Home",
+      "automations": "Automations",
+      "varients": "Varients",
+      "projects": "Projects",
+      "spaces": "Spaces",
+      "library": "Library",
+      "more": "More"
+    }
+  }
