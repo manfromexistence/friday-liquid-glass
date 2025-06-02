@@ -1,6 +1,7 @@
 import json
 import time
 from deep_translator import GoogleTranslator
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # List of language codes
 language_codes = [
@@ -16,6 +17,9 @@ language_codes = [
     "ti","ts","tr","tk","ak","uk","ur","ug","uz","vi","cy","xh","yi","yo","zu"
 ]
 
+# Max concurrent workers for translation API calls. Adjust based on API limits and testing.
+MAX_WORKERS = 10 
+
 # Load your en.json
 try:
     with open("en.json", "r", encoding="utf-8") as f:
@@ -27,36 +31,22 @@ except json.JSONDecodeError:
     print("Error: en.json is not a valid JSON file.")
     exit()
 
-# Helper: Flattens the dictionary and identifies original strings for translation.
-# Returns:
-#   - flat_map_all_stringified: A flat dictionary where all values are strings (original strings or stringified non-strings).
-#                               Used as a template for reconstructing the JSON with translated values.
-#   - ordered_original_strings_info: A list of dictionaries, each {'key': flat_key, 'value': original_string_to_translate}.
-#                                    The order is crucial and is maintained by translate_batch.
 def flatten_for_translation(d, parent_key='', sep='.'):
     flat_map_all_stringified = {}
     ordered_original_strings_info = []
-
     def _recursive_flatten(sub_d, current_parent_key):
         for k, v_orig in sub_d.items():
             new_key = f"{current_parent_key}{sep}{k}" if current_parent_key else k
-            
             if isinstance(v_orig, dict):
-                _recursive_flatten(v_orig, new_key) # Recurse for nested dicts
+                _recursive_flatten(v_orig, new_key)
             elif isinstance(v_orig, str):
-                # This is an original string that needs translation
                 flat_map_all_stringified[new_key] = v_orig
                 ordered_original_strings_info.append({'key': new_key, 'value': v_orig})
             else:
-                # Non-string, non-dict (numbers, booleans, nulls). Stringify for structure.
                 flat_map_all_stringified[new_key] = str(v_orig)
-                # We don't add these to ordered_original_strings_info as they aren't translated.
-                # They are preserved in flat_map_all_stringified.
-
     _recursive_flatten(d, parent_key)
     return flat_map_all_stringified, ordered_original_strings_info
 
-# Helper: unflatten to restore structure
 def unflatten(d, sep='.'):
     result_dict = {}
     for key, value in d.items():
@@ -67,7 +57,7 @@ def unflatten(d, sep='.'):
         d_ref[keys[-1]] = value
     return result_dict
 
-# Prepare data from en.json
+# Prepare data from en.json - this is done once
 flat_en_json_template, original_strings_info = flatten_for_translation(en_json)
 texts_to_translate_list = [info['value'] for info in original_strings_info]
 
@@ -75,53 +65,66 @@ if not texts_to_translate_list:
     print("No text values found to translate in en.json.")
     exit()
 
-for lang in language_codes:
-    if lang == "en":
-        # Optionally, save en.json in the same format if needed for consistency
-        # with open("en.json", "w", encoding="utf-8") as out:
-        #     json.dump(en_json, out, ensure_ascii=False, indent=2)
-        continue
+def translate_and_save_language(lang_code):
+    if lang_code == "en":
+        # Optionally, save en.json if needed, though usually not necessary here
+        # print(f"Skipping 'en' as it's the source language.")
+        return f"Skipped {lang_code} (source language)."
 
-    print(f"Processing language: {lang}...")
+    print(f"Starting translation for: {lang_code}")
+    translated_json_content = None
     
     try:
-        # Use translate_batch for efficiency and reliability
-        translator = GoogleTranslator(source='en', target=lang)
-        print(f"  Translating {len(texts_to_translate_list)} text segments for {lang} in batch...")
+        translator = GoogleTranslator(source='en', target=lang_code)
+        # print(f"  Translating {len(texts_to_translate_list)} text segments for {lang_code} in batch...")
         translated_texts_list = translator.translate_batch(texts_to_translate_list)
 
         if translated_texts_list is None or len(translated_texts_list) != len(texts_to_translate_list):
-            print(f"  Warning: Batch translation for {lang} returned an unexpected result.")
-            print(f"  Expected {len(texts_to_translate_list)} segments, got {len(translated_texts_list) if translated_texts_list else 'None'}.")
-            print(f"  Falling back to saving original English text for {lang}.json")
+            error_msg = (f"Batch translation for {lang_code} returned an unexpected result. "
+                         f"Expected {len(texts_to_translate_list)} segments, "
+                         f"got {len(translated_texts_list) if translated_texts_list else 'None'}.")
+            print(f"  Warning: {error_msg}")
+            print(f"  Falling back to saving original English text for {lang_code}.json")
             translated_json_content = en_json # Fallback content
         else:
-            # Create a new flat dictionary for the translated language
-            # Start with the template that includes stringified non-string values
             current_lang_flat_dict = flat_en_json_template.copy()
-            
-            # Populate with translated strings
             for i, string_info in enumerate(original_strings_info):
                 current_lang_flat_dict[string_info['key']] = translated_texts_list[i]
-            
             translated_json_content = unflatten(current_lang_flat_dict)
-            print(f"  Batch translation successful for {lang}.")
+            # print(f"  Batch translation successful for {lang_code}.")
 
     except Exception as e:
-        print(f"  Error during batch translation for {lang}: {e}")
-        print(f"  Falling back to saving original English text for {lang}.json")
+        error_msg = f"Error during batch translation for {lang_code}: {e}"
+        print(f"  {error_msg}")
+        print(f"  Falling back to saving original English text for {lang_code}.json")
         translated_json_content = en_json # Fallback content
-        # Optional: Implement individual translation as a further fallback here if desired
-
+    
     # Save the translated JSON
     try:
-        with open(f"{lang}.json", "w", encoding="utf-8") as out_file:
+        with open(f"{lang_code}.json", "w", encoding="utf-8") as out_file:
             json.dump(translated_json_content, out_file, ensure_ascii=False, indent=2)
-        print(f"  Successfully saved {lang}.json")
+        return f"Successfully translated and saved {lang_code}.json"
     except Exception as e_save:
-        print(f"  Error saving {lang}.json: {e_save}")
-        # If even saving the fallback fails, there's little more to do in this automated step
-        print(f"    Could not save {lang}.json (even fallback).")
+        return f"Error saving {lang_code}.json: {e_save}"
 
+# Main execution with ThreadPoolExecutor
+start_time = time.time()
+results = []
 
-print("\nAll translations processed!")
+with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+    # Submit all translation tasks
+    future_to_lang = {executor.submit(translate_and_save_language, lang): lang for lang in language_codes if lang != "en"}
+    
+    for future in as_completed(future_to_lang):
+        lang = future_to_lang[future]
+        try:
+            result_message = future.result()
+            print(result_message)
+            results.append(result_message)
+        except Exception as exc:
+            print(f"{lang} generated an exception: {exc}")
+            results.append(f"Failed {lang} with exception: {exc}")
+
+end_time = time.time()
+print(f"\nAll translations processed in {end_time - start_time:.2f} seconds.")
+# You can further inspect 'results' if needed
