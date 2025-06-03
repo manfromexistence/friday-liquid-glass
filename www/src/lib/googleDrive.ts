@@ -1,15 +1,16 @@
 import { google } from 'googleapis';
 import { JWT } from 'google-auth-library';
 
-interface DriveFile {
+interface DriveItem {
   id: string;
   name: string;
+  mimeType: string;
 }
 
 export class GoogleDriveService {
   private driveClient;
 
-  constructor(clientEmail: string, privateKey: string, folderId?: string) {
+  constructor(clientEmail: string, privateKey: string) {
     const auth = new JWT({
       email: clientEmail,
       key: privateKey,
@@ -22,26 +23,62 @@ export class GoogleDriveService {
     });
   }
 
-  async createFile(fileName: string, content: string, mimeType = 'application/json'): Promise<DriveFile> {
-    const fileMetadata: any = {
-      name: fileName,
-      mimeType,
-    };
-
-    if (process.env.GOOGLE_DRIVE_FOLDER_ID) {
-      fileMetadata.parents = [process.env.GOOGLE_DRIVE_FOLDER_ID];
-    }
-
-    const response = await this.driveClient.files.create({
-      requestBody: fileMetadata,
-      media: {
+  async createFile(fileName: string, content: string, mimeType = 'application/octet-stream', folderId?: string): Promise<DriveItem> {
+    try {
+      const fileMetadata: any = {
+        name: fileName,
         mimeType,
-        body: content,
-      },
-      fields: 'id, name',
-    });
+      };
 
-    return response.data as DriveFile;
+      if (folderId || process.env.GOOGLE_DRIVE_FOLDER_ID) {
+        fileMetadata.parents = [folderId || process.env.GOOGLE_DRIVE_FOLDER_ID];
+      }
+
+      const response = await this.driveClient.files.create({
+        requestBody: fileMetadata,
+        media: {
+          mimeType,
+          body: content,
+        },
+        fields: 'id, name, mimeType',
+      });
+
+      return response.data as DriveItem;
+    } catch (error: any) {
+      if (error.code === 429) {
+        console.warn('Rate limit exceeded, retrying after delay...');
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return this.createFile(fileName, content, mimeType, folderId);
+      }
+      throw error;
+    }
+  }
+
+  async createFolder(folderName: string, folderId?: string): Promise<DriveItem> {
+    try {
+      const fileMetadata: any = {
+        name: folderName,
+        mimeType: 'application/vnd.google-apps.folder',
+      };
+
+      if (folderId || process.env.GOOGLE_DRIVE_FOLDER_ID) {
+        fileMetadata.parents = [folderId || process.env.GOOGLE_DRIVE_FOLDER_ID];
+      }
+
+      const response = await this.driveClient.files.create({
+        requestBody: fileMetadata,
+        fields: 'id, name, mimeType',
+      });
+
+      return response.data as DriveItem;
+    } catch (error: any) {
+      if (error.code === 429) {
+        console.warn('Rate limit exceeded, retrying after delay...');
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return this.createFolder(folderName, folderId);
+      }
+      throw error;
+    }
   }
 
   async getFile(fileId: string): Promise<string> {
@@ -57,17 +94,17 @@ export class GoogleDriveService {
     return data;
   }
 
-  async listFiles(): Promise<DriveFile[]> {
-    const query = process.env.GOOGLE_DRIVE_FOLDER_ID
-      ? `'${process.env.GOOGLE_DRIVE_FOLDER_ID}' in parents`
+  async listItems(folderId?: string): Promise<DriveItem[]> {
+    const query = folderId || process.env.GOOGLE_DRIVE_FOLDER_ID
+      ? `'${folderId || process.env.GOOGLE_DRIVE_FOLDER_ID}' in parents`
       : undefined;
 
     const response = await this.driveClient.files.list({
       q: query,
-      fields: 'files(id, name)',
+      fields: 'files(id, name, mimeType)',
     });
 
-    return response.data.files as DriveFile[];
+    return response.data.files as DriveItem[];
   }
 
   async deleteFile(fileId: string): Promise<void> {
