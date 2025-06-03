@@ -13,22 +13,27 @@ import AiInput from "@/components/chat/ai-input";
 
 export default function Home() {
   return (
-    <div className="flex min-h-svh w-full flex-col items-start">
-      Friday - Your Ai Friend!
-      <AiInput />
-      {/* <Chatbot /> */}
-      {/* <ChatPage /> */}
-      {/* Friday */}
-      {/* <Cursor /> */}
+    <div className="flex min-h-svh w-full flex-col items-start space-y-4">
+      <span>
+        Friday - Your Ai Friend!
+      </span>
 
-      {/* <Fluid />
+      <SignUp />
+      <SignIn />
+
+      {/* 
+      <AiInput />
+      <Chatbot />
+      <ChatPage />
+      <Cursor />
+
+      <Fluid />
       <Friday />
 
       <HelloGlow />
-      <SignUp />
-      <SignIn />
-      
-      <User /> */}
+
+      <User /> 
+      */}
     </div>
   )
 }

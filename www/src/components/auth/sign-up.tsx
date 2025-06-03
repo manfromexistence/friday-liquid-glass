@@ -98,7 +98,7 @@ export function SignUp() {
           Enter your information to create an account
         </CardDescription>
       </CardHeader>
-      <CardContent className="py-0 pb-4">
+      <CardContent className="py-0">
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
@@ -236,9 +236,9 @@ export function SignUp() {
           </Button>
 
           <div className="w-full flex flex-row space-x-2 items-center">
-            <Separator className="w-1/3" />
-            <span className="w-1/3 text-center text-sm text-muted-foreground">Or continue with</span>
-            <Separator className="w-1/3" />
+            <Separator className="max-w-1/3" />
+            <span className="text-center text-sm text-muted-foreground flex-1">Or continue with</span>
+            <Separator className="max-w-1/3" />
           </div>
 
           <div className={cn(
@@ -247,9 +247,7 @@ export function SignUp() {
           )}>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -271,9 +269,7 @@ export function SignUp() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -296,9 +292,7 @@ export function SignUp() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -320,9 +314,7 @@ export function SignUp() {
             </Button>
             {/* <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -344,9 +336,7 @@ export function SignUp() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -368,9 +358,7 @@ export function SignUp() {
             </Button> */}
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -392,9 +380,7 @@ export function SignUp() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -416,9 +402,7 @@ export function SignUp() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -440,9 +424,7 @@ export function SignUp() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -466,7 +448,7 @@ export function SignUp() {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="py-0">
         <div className="flex justify-center w-full">
           <p className="text-center text-xs text-muted-foreground">
             Already have an account?{" "}

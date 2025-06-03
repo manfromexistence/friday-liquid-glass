@@ -164,17 +164,17 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     }
 
     // Check if user is authenticated
-    if (!user) {
-      toast.error("Authentication required", {
-        description: "Please sign in to chat with Friday AI",
-        action: {
-          label: isLoggingIn ? "Signing in..." : "Sign In",
-          onClick: handleLogin,
-        },
-        duration: 5000, // Show for 5 seconds
-      });
-      return;
-    }
+    // if (!user) {
+    //   toast.error("Authentication required", {
+    //     description: "Please sign in to chat with Friday AI",
+    //     action: {
+    //       label: isLoggingIn ? "Signing in..." : "Sign In",
+    //       onClick: handleLogin,
+    //     },
+    //     duration: 5000, // Show for 5 seconds
+    //   });
+    //   return;
+    // }
 
     try {
       const chatId = uuidv4()
