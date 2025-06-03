@@ -1,5 +1,5 @@
 import { connectToDatabase } from "./connect";
-import { Table, InferTablePrimaryKey, InferTableSchema } from "@datastax/astra-db-ts";
+import { Table, type InferTablePrimaryKey, type InferTableSchema } from "@datastax/astra-db-ts";
 
 const database = connectToDatabase();
 
