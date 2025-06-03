@@ -30,9 +30,6 @@ export default function Home() {
         Anynomus SignUp
       </Button>
 
-      <SignUp />
-      <SignIn />
-
       {/* 
       <AiInput />
       <Chatbot />
@@ -45,6 +42,9 @@ export default function Home() {
       <HelloGlow />
 
       <User /> 
+      
+      <SignUp />
+      <SignIn />
       */}
     </div>
   )

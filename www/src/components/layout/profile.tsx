@@ -147,10 +147,10 @@ export default function Profile() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
-        <div className="rounded-md hover:bg-primary-foreground p-0.5">
+        <div className="rounded-full hover:bg-primary-foreground p-0.5">
           <Avatar className="size-7 cursor-pointer rounded-full">
             <AvatarImage src={userImage ?? undefined} alt={userName || "User"} />
-            <AvatarFallback className="rounded-full">
+            <AvatarFallback className="rounded-full text-[10px] flex items-center justify-center text-center">
               {fallbackInitial}
             </AvatarFallback>
           </Avatar>
