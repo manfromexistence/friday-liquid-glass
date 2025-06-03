@@ -135,4 +135,22 @@ export const twoFactor = sqliteTable("two_factor", {
     .references(() => user.id, { onDelete: "cascade" }),
 });
 
-export const schema = { user, session, account, verification, passkey, organization, member, invitation, twoFactor };
+export const chats = sqliteTable("chats", {
+  id: text("id").primaryKey(),
+  title: text("title").notNull(),
+  messages: text("messages", { mode: "json" }).notNull(),
+  model: text("model").notNull(),
+  visibility: text("visibility").notNull().$type<"public" | "private">(),
+  createdAt: text("created_at").notNull(),
+  updatedAt: text("updated_at").notNull(),
+  creatorUid: text("creator_uid")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  reactions: text("reactions", { mode: "json" }).notNull(),
+  participants: text("participants", { mode: "json" }).notNull(),
+  views: integer("views").notNull().$defaultFn(() => 0),
+  uniqueViewers: text("unique_viewers", { mode: "json" }).notNull(),
+  isPinned: integer("is_pinned", { mode: "boolean" }).notNull().$defaultFn(() => false),
+});
+
+export const schema = { user, session, account, verification, passkey, organization, member, invitation, twoFactor, chats };
