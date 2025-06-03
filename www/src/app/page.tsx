@@ -28,7 +28,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { FileText, Trash, Folder, Home } from 'lucide-react';
+import { FileText, Trash, Folder, Home, Download } from 'lucide-react';
 
 interface DriveItem {
   id: string;
@@ -41,16 +41,24 @@ interface BreadcrumbPath {
   name: string;
 }
 
+interface FileContent {
+  content?: string;
+  url?: string;
+  mimeType: string;
+  isText: boolean;
+}
+
 export default function HomePage() {
   const [items, setItems] = useState<DriveItem[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [folderName, setFolderName] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [fileContent, setFileContent] = useState<string | null>(null);
+  const [fileContent, setFileContent] = useState<FileContent | null>(null);
   const [deleteItemId, setDeleteItemId] = useState<string | null>(null);
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
   const [breadcrumbPath, setBreadcrumbPath] = useState<BreadcrumbPath[]>([{ id: 'root', name: 'Root' }]);
+  const [isMediaLoading, setIsMediaLoading] = useState(false);
 
   useEffect(() => {
     fetchItems(currentFolderId);
@@ -161,6 +169,7 @@ export default function HomePage() {
       return;
     }
     try {
+      setIsMediaLoading(true);
       const response = await fetch('/api/drive/read', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -169,13 +178,15 @@ export default function HomePage() {
 
       if (response.ok) {
         const data = await response.json();
-        setFileContent(data.content);
+        setFileContent(data);
       } else {
         setError('Failed to read file');
       }
     } catch (err) {
       setError('Error reading file');
       console.error(err);
+    } finally {
+      setIsMediaLoading(false);
     }
   };
 
@@ -213,6 +224,66 @@ export default function HomePage() {
     setCurrentFolderId(index === 0 ? null : newPath[index].id);
     setError(null);
     setFileContent(null);
+  };
+
+  const renderFileContent = (content: FileContent) => {
+    if (content.isText) {
+      return <pre className="text-sm overflow-auto">{content.content}</pre>;
+    }
+
+    if (content.mimeType.startsWith('image/')) {
+      return (
+        <div>
+          {isMediaLoading ? (
+            <p>Loading image...</p>
+          ) : (
+            <>
+              <img
+                src={content.url}
+                alt="File preview"
+                className="max-w-full h-auto"
+                onError={(e:any) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling!.style.display = 'block';
+                }}
+              />
+              <div style={{ display: 'none' }}>
+                <p className="text-red-500">Failed to load image.</p>
+                <a href={content.url} download className="text-blue-500 hover:underline">
+                  <Download className="h-4 w-4 inline mr-1" />
+                  Download image
+                </a>
+              </div>
+            </>
+          )}
+        </div>
+      );
+    }
+
+    if (content.mimeType.startsWith('video/')) {
+      return (
+        <div>
+          {isMediaLoading ? (
+            <p>Loading video...</p>
+          ) : (
+            <video controls className="max-w-full h-auto">
+              <source src={content.url} type={content.mimeType} />
+              Your browser does not support the video tag.
+            </video>
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex items-center space-x-2">
+        <p>Unsupported file type: {content.mimeType}</p>
+        <a href={content.url} download className="text-blue-500 hover:underline">
+          <Download className="h-4 w-4 inline mr-1" />
+          Download file
+        </a>
+      </div>
+    );
   };
 
   return (
@@ -275,7 +346,7 @@ export default function HomePage() {
       {fileContent && (
         <div className="mb-8 p-4 border rounded">
           <h2 className="text-lg font-semibold">File Content</h2>
-          <pre className="text-sm overflow-auto">{fileContent}</pre>
+          {renderFileContent(fileContent)}
           <Button onClick={() => setFileContent(null)} className="mt-2">
             Close
           </Button>

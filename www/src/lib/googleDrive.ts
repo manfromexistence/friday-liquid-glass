@@ -1,5 +1,6 @@
 import { google } from 'googleapis';
 import { JWT } from 'google-auth-library';
+import { Readable } from 'stream';
 
 interface DriveItem {
   id: string;
@@ -23,7 +24,7 @@ export class GoogleDriveService {
     });
   }
 
-  async createFile(fileName: string, content: string, mimeType = 'application/octet-stream', folderId?: string): Promise<DriveItem> {
+  async createFile(fileName: string, content: string | Buffer, mimeType = 'application/octet-stream', folderId?: string): Promise<DriveItem> {
     try {
       const fileMetadata: any = {
         name: fileName,
@@ -34,13 +35,24 @@ export class GoogleDriveService {
         fileMetadata.parents = [folderId || process.env.GOOGLE_DRIVE_FOLDER_ID];
       }
 
+      const media = {
+        mimeType,
+        body: typeof content === 'string' ? content : Readable.from(content),
+      };
+
       const response = await this.driveClient.files.create({
         requestBody: fileMetadata,
-        media: {
-          mimeType,
-          body: content,
-        },
+        media,
         fields: 'id, name, mimeType',
+      });
+
+      // Set file permissions to "Anyone with the link"
+      await this.driveClient.permissions.create({
+        fileId: response.data.id!,
+        requestBody: {
+          role: 'reader',
+          type: 'anyone',
+        },
       });
 
       return response.data as DriveItem;
@@ -92,6 +104,19 @@ export class GoogleDriveService {
       data += chunk;
     }
     return data;
+  }
+
+  async getFileUrl(fileId: string): Promise<{ url: string; mimeType: string }> {
+    const response = await this.driveClient.files.get({
+      fileId,
+      fields: 'mimeType',
+    });
+    // Use direct download URL for media files
+    const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
+    return {
+      url,
+      mimeType: response.data.mimeType || 'application/octet-stream',
+    };
   }
 
   async listItems(folderId?: string): Promise<DriveItem[]> {

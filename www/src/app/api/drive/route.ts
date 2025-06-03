@@ -63,8 +63,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
 
-    const fileContent = fileData.toString('utf-8');
-    const createdFile = await driveService.createFile(fileName, fileContent, mimeType, folderId);
+    const createdFile = await driveService.createFile(fileName, fileData, mimeType, folderId);
 
     return NextResponse.json({ message: 'File created', file: createdFile });
   } catch (error) {
