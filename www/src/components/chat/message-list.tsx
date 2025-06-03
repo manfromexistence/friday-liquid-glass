@@ -159,9 +159,9 @@ export function MessageList({
     const setupImageLoadListeners = () => {
       if (containerRef.current) {
         // Select all images, including those inside AspectRatio components
-        const images = containerRef.current.querySelectorAll('img');
+        const images = containerRef.current.querySelectorAll("img");
         
-        // Log how many images we're tracking
+        // Log how many images we"re tracking
         console.log(`Setting up load listeners for ${images.length} images`);
         
         images.forEach(img => {
@@ -171,12 +171,12 @@ export function MessageList({
             setTimeout(forceScrollToBottom, 100);
           } else {
             // For images still loading, add the event listener
-            img.addEventListener('load', handleImageLoad);
+            img.addEventListener("load", handleImageLoad);
             console.log("Added load listener to image:", img.src);
           }
           
           // Also listen for error events to ensure we still scroll if an image fails
-          img.addEventListener('error', handleImageLoad);
+          img.addEventListener("error", handleImageLoad);
         });
       }
     };
@@ -189,10 +189,10 @@ export function MessageList({
     // Clean up function
     return () => {
       if (currentContainer) {
-        const images = currentContainer.querySelectorAll('img');
+        const images = currentContainer.querySelectorAll("img");
         images.forEach(img => {
-          img.removeEventListener('load', handleImageLoad);
-          img.removeEventListener('error', handleImageLoad);
+          img.removeEventListener("load", handleImageLoad);
+          img.removeEventListener("error", handleImageLoad);
         });
       }
     };

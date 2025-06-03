@@ -18,3 +18,23 @@ export function getComponentName(name: string) {
 export function getRandomIndex(array: any[]) {
   return Math.floor(Math.random() * array.length);
 }
+
+export function stripPrefixes(text: string): string {
+  // Check for all standard prefixes
+  const prefixes = [
+    "Image: ", 
+    "Thinking: ", 
+    "Search: ", 
+    "Research: ", 
+    "Canvas: "
+  ];
+  
+  // Remove the prefix if found at the start of the text
+  for (const prefix of prefixes) {
+    if (text.startsWith(prefix)) {
+      return text.substring(prefix.length);
+    }
+  }
+  
+  return text;
+}

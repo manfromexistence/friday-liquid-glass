@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "En línia",
+      "offline": "Fora de línia",
+      "busy": "Ocupada",
+      "learning": "Actualment aprenent ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Les meves tasques",
+    "integrations": "Integracions",
+    "notifications": "Notificacions"
+  },
+  "authentication": {
+    "magic-link": "Envia Magic Link",
+    "sso": "Inicieu la sessió amb SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Tasques properes",
+    "stats": {
+      "new_notifications": "Noves notificacions"
+    }
+  },
+  "projects": {
+    "archive": "Projecte d’Arxiu",
+    "due_date": "Data de venciment",
+    "assignee": "Assignat",
+    "status": {
+      "archived": "Arxivat",
+      "pending_review": "Revisió pendent"
+    }
+  },
+  "tasks": {
+    "add_task": "Afegiu una nova tasca",
+    "edit_task": "Edició",
+    "mark_complete": "Marca tan complet",
+    "mark_incomplete": "Marca com a incomplet",
+    "delete_task": "Suprimeix la tasca",
+    "task_title_placeholder": "Què cal fer?",
+    "priority": "Prioritat",
+    "priorities": {
+      "high": "Alt",
+      "medium": "Mitjà",
+      "low": "Baix"
+    }
+  },
+  "automations": {
+    "logs": "Veure registres",
+    "schedule": "Programació d'automatització"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Fluxos de treball",
+      "plugins": "Tapins"
+    },
+    "view_details": "Veure detalls"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administradora",
+      "editor": "Director",
+      "viewer": "Espectador"
+    }
+  },
+  "notifications": {
+    "title": "Notificacions",
+    "mark_all_read": "Marca tot com a lectura",
+    "no_new_notifications": "No hi ha noves notificacions.",
+    "clear_all": "Esborrar totes les notificacions",
+    "settings_link": "Configuració de notificació"
+  },
+  "settings": {
+    "account": "Compte",
+    "appearance": "Aparició",
+    "theme": "Tema",
+    "themes": {
+      "light": "Mode de llum",
+      "dark": "Mode fosc",
+      "system": "El sistema per defecte del sistema"
+    },
+    "language": "Llengua",
+    "integrations_settings": "Gestionar les integracions",
+    "api_access": "Accés API",
+    "billing": "Facturació i subscripcions"
+  },
+  "errors": {
+    "timeout": "L'operació es va acabar. Torneu -ho a provar.",
+    "api_limit_exceeded": "El límit API va superar. Torneu -ho a provar més tard."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Marqueu totes les vostres notificacions com a lectura.",
+    "change_theme": "Canvieu l’aspecte de l’aplicació."
+  },
+  "common_actions": {
+    "save": "Estalviar",
+    "cancel": "Cancel·lar",
+    "confirm": "Confirmar",
+    "delete": "Esborrar",
+    "edit": "Preprarar una edició",
+    "add": "Addiccionar",
+    "apply": "Aplicar -se",
+    "close": "Tancar -se",
+    "next": "Pròxim",
+    "previous": "Previ",
+    "learn_more": "Obteniu més informació"
+  },
+  "footer": {
+    "status_page": "Pàgina d'estat",
+    "documentation": "Documentació"
+  }
+}

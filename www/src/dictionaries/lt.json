@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Internete",
+      "offline": "Neprisijungus",
+      "busy": "Užimtas",
+      "learning": "Šiuo metu mokytis ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mano užduotys",
+    "integrations": "Integracijos",
+    "notifications": "Pranešimai"
+  },
+  "authentication": {
+    "magic-link": "Siųsti stebuklingą nuorodą",
+    "sso": "Prisijunkite su SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Būsimos užduotys",
+    "stats": {
+      "new_notifications": "Nauji pranešimai"
+    }
+  },
+  "projects": {
+    "archive": "Archyvo projektas",
+    "due_date": "Terminas",
+    "assignee": "Perėmėjas",
+    "status": {
+      "archived": "Archyvuota",
+      "pending_review": "Laukiama peržiūra"
+    }
+  },
+  "tasks": {
+    "add_task": "Pridėkite naują užduotį",
+    "edit_task": "Redaguoti užduotį",
+    "mark_complete": "Pažymėkite kaip išsami",
+    "mark_incomplete": "Pažymėkite kaip neišsamus",
+    "delete_task": "Ištrinti užduotį",
+    "task_title_placeholder": "Ką reikia padaryti?",
+    "priority": "Prioritetas",
+    "priorities": {
+      "high": "Aukštas",
+      "medium": "Vidutinis",
+      "low": "Žemas"
+    }
+  },
+  "automations": {
+    "logs": "Peržiūrėti žurnalus",
+    "schedule": "Grafiko automatizavimas"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Darbo eigos",
+      "plugins": "Papildiniai"
+    },
+    "view_details": "Peržiūrėti išsamią informaciją"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administratorius",
+      "editor": "Redaktorius",
+      "viewer": "Žiūrovas"
+    }
+  },
+  "notifications": {
+    "title": "Pranešimai",
+    "mark_all_read": "Pažymėkite visus kaip skaitykite",
+    "no_new_notifications": "Nėra naujų pranešimų.",
+    "clear_all": "Išvalykite visus pranešimus",
+    "settings_link": "Pranešimų nustatymai"
+  },
+  "settings": {
+    "account": "Sąskaita",
+    "appearance": "Išvaizda",
+    "theme": "Tema",
+    "themes": {
+      "light": "Šviesos režimas",
+      "dark": "Tamsus režimas",
+      "system": "Sistemos numatytasis"
+    },
+    "language": "Kalba",
+    "integrations_settings": "Tvarkykite integracijas",
+    "api_access": "API prieiga",
+    "billing": "Atsiskaitymas ir prenumeratos"
+  },
+  "errors": {
+    "timeout": "Operacija baigėsi. Prašau bandyti dar kartą.",
+    "api_limit_exceeded": "API riba viršijo. Pabandykite dar kartą vėliau."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Pažymėkite visus savo pranešimus kaip skaitykite.",
+    "change_theme": "Pakeiskite programos išvaizdą."
+  },
+  "common_actions": {
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "confirm": "Patvirtinti",
+    "delete": "Ištrinti",
+    "edit": "Redaguoti",
+    "add": "Pridėti",
+    "apply": "Kreiptis",
+    "close": "Uždaryti",
+    "next": "Kitas",
+    "previous": "Ankstesnis",
+    "learn_more": "Sužinokite daugiau"
+  },
+  "footer": {
+    "status_page": "Būsenos puslapis",
+    "documentation": "Dokumentacija"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Onnet",
+      "offline": "Inforee",
+      "busy": "Keigbambo",
+      "learning": "Ugbu a mmụta ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Ọrụ m",
+    "integrations": "Aguta",
+    "notifications": "Ọkwa"
+  },
+  "authentication": {
+    "magic-link": "Zipu njikọ anwansi",
+    "sso": "Banye na sso"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Ọrụ na-abịanụ",
+    "stats": {
+      "new_notifications": "Ihe ngosi ohuru"
+    }
+  },
+  "projects": {
+    "archive": "Oru nna",
+    "due_date": "Oge ngwụcha",
+    "assignee": "Nnyemaka",
+    "status": {
+      "archived": "Restaputara",
+      "pending_review": "Ntuleghari"
+    }
+  },
+  "tasks": {
+    "add_task": "Tinye Ọrụ Ọhụụ",
+    "edit_task": "Dezie ọrụ",
+    "mark_complete": "Mark dị ka zuru ezu",
+    "mark_incomplete": "Mark ka ezughi oke",
+    "delete_task": "Hichapụ Ọrụ",
+    "task_title_placeholder": "Gịnị kwesịrị ime?",
+    "priority": "Nke buru uzo",
+    "priorities": {
+      "high": "Keelu",
+      "medium": "Keusoro",
+      "low": "Kediala"
+    }
+  },
+  "automations": {
+    "logs": "Lelee ndekọ",
+    "schedule": "Schebe ọrụ akpaaka"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Na-arụ ọrụ",
+      "plugins": "Plugins"
+    },
+    "view_details": "Lelee nkọwa"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Onye ochichi",
+      "editor": "Onye ndezi",
+      "viewer": "Onye nlele"
+    }
+  },
+  "notifications": {
+    "title": "Ọkwa",
+    "mark_all_read": "Akara niile dị ka agụ",
+    "no_new_notifications": "Ọ dịghị ọkwa ọhụụ.",
+    "clear_all": "Kpochapụ ọkwa niile",
+    "settings_link": "Ntọala ngosi"
+  },
+  "settings": {
+    "account": "Akwukwo nkowa ego",
+    "appearance": "Mputa",
+    "theme": "Tiim",
+    "themes": {
+      "light": "Ọnọdụ ọkụ",
+      "dark": "Ọnọdụ ọchịchịrị",
+      "system": "Ndabara ndabara"
+    },
+    "language": "Asusu",
+    "integrations_settings": "Ijikwa Mmekọ",
+    "api_access": "Access API",
+    "billing": "Nkwado na ndenye aha"
+  },
+  "errors": {
+    "timeout": "Ọgwụgwọ ahụ kara aka. Biko nwaa ọzọ.",
+    "api_limit_exceeded": "API quare gafere. Biko nwaa ọzọ."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Akara ngosi gị niile dị ka agụ.",
+    "change_theme": "Gbanwee ọdịdị ngwa."
+  },
+  "common_actions": {
+    "save": "Zoputa",
+    "cancel": "Ikansulu",
+    "confirm": "Ikwete",
+    "delete": "Ihichapụ",
+    "edit": "Idekwa",
+    "add": "Igbako",
+    "apply": "Ide",
+    "close": "Mechie",
+    "next": "Osote",
+    "previous": "Nke mgbe gara aga",
+    "learn_more": "Mụtakwuo"
+  },
+  "footer": {
+    "status_page": "Ihu akwụkwọ",
+    "documentation": "Ideputa akwukwo"
+  }
+}

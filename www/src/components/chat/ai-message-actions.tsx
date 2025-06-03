@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Copy, ThumbsDown, ThumbsUp, Volume2, RotateCcw, Play, Pause, Loader } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
+import { Copy, ThumbsDown, ThumbsUp, Volume2, RotateCcw, Play, Pause, Loader } from "lucide-react";
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 import { MoreActions } from "@/components/chat/chat-more-options";
@@ -36,18 +36,18 @@ type PlaybackProgress = {
 const ttsAudioCache: TTSCache = {};
 
 function createContentHash(content: string): string {
-  const trimmedContent = content?.substring(0, 100) || '';
+  const trimmedContent = content?.substring(0, 100) || "";
   let hash = 0;
   for (let i = 0; i < trimmedContent.length; i++) {
     const char = trimmedContent.charCodeAt(i);
     hash = ((hash << 5) - hash) + char;
     hash = hash & hash;
   }
-  return 'tts_' + Math.abs(hash).toString(16);
+  return "tts_" + Math.abs(hash).toString(16);
 }
 
 function splitTextIntoChunks(text: string, maxLength = 500): string[] {
-  if (!text || typeof text !== 'string') return [];
+  if (!text || typeof text !== "string") return [];
   return [text]; // Single chunk
 }
 
@@ -76,22 +76,22 @@ export default function AiMessage({
   const hasFetchedNext = useRef(false);
 
   const getTextFromContainer = useCallback((): string => {
-    const parentElement = containerRef.current?.closest('.markdown-content');
+    const parentElement = containerRef.current?.closest(".markdown-content");
     if (parentElement) {
-      return (parentElement as HTMLElement).innerText || '';
+      return (parentElement as HTMLElement).innerText || "";
     }
     return content
-      .replace(/[#]+/g, '')
-      .replace(/[*_-]{1,}/g, '')
-      .replace(/`[^`]*`/g, '')
-      .replace(/!\[[^\]]*\]\([^\)]*\)/g, '')
-      .replace(/\[[^\]]*\]\([^\)]*\)/g, '')
-      .replace(/[\n\r]/g, ' ')
+      .replace(/[#]+/g, "")
+      .replace(/[*_-]{1,}/g, "")
+      .replace(/`[^`]*`/g, "")
+      .replace(/!\[[^\]]*\]\([^\)]*\)/g, "")
+      .replace(/\[[^\]]*\]\([^\)]*\)/g, "")
+      .replace(/[\n\r]/g, " ")
       .trim();
   }, [content]);
 
   const fetchTTS = useCallback(async (text: string, chunkIndex: number): Promise<HTMLAudioElement | null> => {
-    if (!isMounted.current || !text || typeof text !== 'string') return null;
+    if (!isMounted.current || !text || typeof text !== "string") return null;
 
     const cacheKey = `${contentHash.current}_${chunkIndex}_${text.length}`;
     if (ttsAudioCache[cacheKey]) {
@@ -102,12 +102,12 @@ export default function AiMessage({
 
     try {
       setIsLoading(true);
-      const response = await fetch('https://friday-backend.vercel.app/tts', {
-        method: 'POST',
+      const response = await fetch("https://friday-backend.vercel.app/tts", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Origin': window.location.origin
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Origin": window.location.origin
         },
         body: JSON.stringify({ text })
       });
@@ -141,12 +141,12 @@ export default function AiMessage({
 
   const handleMetadata = useCallback((e: Event) => {
     const audio = e.target as HTMLAudioElement;
-    console.log('Metadata loaded, duration:', audio.duration);
+    console.log("Metadata loaded, duration:", audio.duration);
     setShowProgress(true);
   }, []);
 
   const handleAudioError = useCallback((e: Event) => {
-    console.error('Audio error:', e);
+    console.error("Audio error:", e);
     setCurrentAudio(null);
     setIsPlaying(false);
     setIsCompleted(true);
@@ -169,7 +169,7 @@ export default function AiMessage({
       });
       setAudioQueue(prev => [...prev, audio]);
     } catch (error) {
-      console.error('Fetch next chunk failed:', error);
+      console.error("Fetch next chunk failed:", error);
       toast.error("Failed to load next audio segment");
     }
   }, [chunks, fetchTTS, fetchedChunks]);
@@ -179,7 +179,7 @@ export default function AiMessage({
     if (!isMounted.current || !audio) return;
 
     if (isNaN(audio.duration) || audio.duration === 0) {
-      console.log('Invalid audio duration:', audio.duration);
+      console.log("Invalid audio duration:", audio.duration);
       return;
     }
 
@@ -211,7 +211,7 @@ export default function AiMessage({
   const handleAudioEnd = useCallback(() => {
     if (!isMounted.current) return;
 
-    console.log('Audio ended for chunk:', currentChunkIndex);
+    console.log("Audio ended for chunk:", currentChunkIndex);
     setIsPlaying(false);
     setPlaybackProgress(100);
     setCurrentAudio(null);
@@ -224,7 +224,7 @@ export default function AiMessage({
       setShowProgress(false);
       onPlayStateChange?.(false, null);
       localStorage.removeItem(`tts_progress_${contentHash.current}`);
-      console.log('Playback fully completed');
+      console.log("Playback fully completed");
     } else if (hasQueuedAudio) {
       playNextAudioRef.current?.();
     } else if (hasMoreChunks) {
@@ -267,20 +267,20 @@ export default function AiMessage({
       }
     }
 
-    audioToPlay.addEventListener('timeupdate', handleTimeUpdate);
+    audioToPlay.addEventListener("timeupdate", handleTimeUpdate);
     // Use the ref version of handleAudioEnd
-    audioToPlay.addEventListener('ended', () => handleAudioEndRef.current?.());
-    audioToPlay.addEventListener('loadedmetadata', handleMetadata);
-    audioToPlay.addEventListener('error', handleAudioError);
+    audioToPlay.addEventListener("ended", () => handleAudioEndRef.current?.());
+    audioToPlay.addEventListener("loadedmetadata", handleMetadata);
+    audioToPlay.addEventListener("error", handleAudioError);
 
     audioToPlay.play()
       .then(() => {
         setIsPlaying(true);
         onPlayStateChange?.(true, audioToPlay);
-        console.log('Playback started for chunk:', currentChunkIndex);
+        console.log("Playback started for chunk:", currentChunkIndex);
       })
       .catch(err => {
-        console.error('Playback failed:', err);
+        console.error("Playback failed:", err);
         toast.error("Failed to play audio");
         setCurrentAudio(null);
         setIsPlaying(false);
@@ -318,10 +318,10 @@ export default function AiMessage({
       isMounted.current = false;
       if (currentAudio) {
         currentAudio.pause();
-        currentAudio.removeEventListener('timeupdate', handleTimeUpdate);
-        currentAudio.removeEventListener('ended', handleAudioEnd);
-        currentAudio.removeEventListener('loadedmetadata', handleMetadata);
-        currentAudio.removeEventListener('error', handleAudioError);
+        currentAudio.removeEventListener("timeupdate", handleTimeUpdate);
+        currentAudio.removeEventListener("ended", handleAudioEnd);
+        currentAudio.removeEventListener("loadedmetadata", handleMetadata);
+        currentAudio.removeEventListener("error", handleAudioError);
       }
       audioQueue.forEach(audio => audio.pause());
       if (window.speechSynthesis && window.speechSynthesis.speaking) {
@@ -346,14 +346,14 @@ export default function AiMessage({
       await navigator.clipboard.writeText(content);
       toast.success("Copied to clipboard");
     } catch (error) {
-      console.error('Failed to copy:', error);
+      console.error("Failed to copy:", error);
     }
   };
 
   const handleDownload = () => {
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `friday-response-${new Date().toISOString()}.txt`;
     document.body.appendChild(a);
@@ -363,21 +363,21 @@ export default function AiMessage({
   };
 
   const detectLanguage = (text: string): string => {
-    if (!text) return 'en-US';
-    if (/[áéíóúñ¿¡]/.test(text)) return 'es-MX';
-    if (/[àâçéèêëîïôûùüÿœ]/.test(text)) return 'fr-FR';
-    if (/[äöüß]/.test(text)) return 'de-DE';
-    if (/[а-яА-Я]/.test(text)) return 'ru-RU';
-    if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text) || /[\u4E00-\u9FFF]/.test(text)) return 'ja-JP';
-    if (/[\u4E00-\u9FFF]/.test(text) && !/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return 'zh-CN';
-    return 'en-US';
+    if (!text) return "en-US";
+    if (/[áéíóúñ¿¡]/.test(text)) return "es-MX";
+    if (/[àâçéèêëîïôûùüÿœ]/.test(text)) return "fr-FR";
+    if (/[äöüß]/.test(text)) return "de-DE";
+    if (/[а-яА-Я]/.test(text)) return "ru-RU";
+    if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text) || /[\u4E00-\u9FFF]/.test(text)) return "ja-JP";
+    if (/[\u4E00-\u9FFF]/.test(text) && !/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return "zh-CN";
+    return "en-US";
   };
 
   const formatToSingleLine = (text: string): string => {
-    if (!text || typeof text !== 'string') return '';
+    if (!text || typeof text !== "string") return "";
     return text
-      .replace(/[\n\r]+/g, ' ')
-      .replace(/\s+/g, ' ')
+      .replace(/[\n\r]+/g, " ")
+      .replace(/\s+/g, " ")
       .trim();
   };
 
@@ -398,7 +398,7 @@ export default function AiMessage({
           setShowProgress(true);
           onPlayStateChange?.(true, currentAudio);
         })
-        .catch(err => console.error('Resume failed:', err));
+        .catch(err => console.error("Resume failed:", err));
       return;
     }
 
@@ -413,7 +413,7 @@ export default function AiMessage({
     const cacheKey = `${contentHash.current}_0_${text.length}`;
 
     if (ttsAudioCache[cacheKey]) {
-      console.log('Reusing cached audio');
+      console.log("Reusing cached audio");
       setChunks(textChunks);
       setFetchedChunks([ttsAudioCache[cacheKey].audio]);
       setCurrentChunkIndex(0);
@@ -446,7 +446,7 @@ export default function AiMessage({
 
       playNextAudio(audio);
     } catch (error) {
-      console.error('TTS error:', error);
+      console.error("TTS error:", error);
       toast.error("Failed to initiate audio playback");
       setIsLoading(false);
 
@@ -458,7 +458,7 @@ export default function AiMessage({
       newUtterance.lang = detectedLang;
 
       const matchingVoice = voices.find(voice => voice.lang === detectedLang) ||
-        voices.find(voice => voice.lang.startsWith(detectedLang.split('-')[0]));
+        voices.find(voice => voice.lang.startsWith(detectedLang.split("-")[0]));
       if (matchingVoice) newUtterance.voice = matchingVoice;
 
       newUtterance.onend = () => {

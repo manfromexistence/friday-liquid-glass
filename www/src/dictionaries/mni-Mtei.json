@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ꯑꯣꯅꯂꯥꯏꯅꯗꯥ ꯂꯩꯕꯥ",
+      "offline": "ꯑꯣꯐꯂꯥꯏꯟ ꯇꯧꯕꯥ",
+      "busy": "ꯊꯕꯛ ꯆꯤꯟꯕ",
+      "learning": "ꯍꯧꯖꯤꯛ ꯇꯝꯂꯤꯕꯥ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ꯑꯩꯒꯤ ꯊꯕꯀꯁꯤꯡ .",
+    "integrations": "ꯏꯟꯇꯤꯒ꯭ꯔꯦꯁꯅꯁꯤꯡ ꯑꯁꯤ .",
+    "notifications": "ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯅꯁꯤꯡ ."
+  },
+  "authentication": {
+    "magic-link": "ꯃꯦꯖꯤꯛ ꯂꯤꯉ꯭ꯛ ꯊꯥꯕꯤꯌꯨ",
+    "sso": "ꯑꯦꯁ.ꯑꯦꯁ.ꯑꯣ.ꯒꯥ ꯂꯣꯌꯅꯅꯥ ꯁꯥꯏꯟ ꯏꯟ ꯇꯧꯕꯥ"
+  },
+  "dashboard": {
+    "upcoming_tasks": "ꯂꯥꯛꯀꯗꯧꯔꯤꯕꯥ ꯊꯕꯀꯁꯤꯡ",
+    "stats": {
+      "new_notifications": "ꯑꯅꯧꯕꯥ ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯅꯁꯤꯡ ."
+    }
+  },
+  "projects": {
+    "archive": "ꯑꯥꯔꯀꯤꯑꯣꯂꯣꯖꯤꯒꯤ ꯄ꯭ꯔꯣꯖꯦꯛꯇ",
+    "due_date": "ꯄꯤꯒꯗꯕꯥ ꯇꯥꯡ",
+    "assignee": "ꯑꯦꯁꯥꯏꯟ ꯇꯧꯕꯥ",
+    "status": {
+      "archived": "ꯑꯥꯔꯀꯤꯑꯣꯂꯣꯖꯤꯀꯦꯜ ꯑꯣꯏꯅꯥ ꯂꯩꯕꯥ",
+      "pending_review": "ꯄꯦꯟꯗꯤꯡ ꯔꯤꯚꯤꯌꯨ ꯇꯧꯕꯥ"
+    }
+  },
+  "tasks": {
+    "add_task": "ꯑꯅꯧꯕꯥ ꯊꯕꯛ ꯑꯃꯥ ꯍꯥꯄꯆꯤꯅꯕꯥ .",
+    "edit_task": "ꯊꯕꯛ ꯑꯦꯗꯤꯠ ꯇꯧꯕꯥ",
+    "mark_complete": "ꯃꯄꯨꯡ ꯐꯥꯅꯥ ꯃꯥꯔꯛ ꯇꯧꯕꯥ .",
+    "mark_incomplete": "ꯃꯄꯨꯡ ꯐꯥꯗꯕꯥ ꯍꯥꯌꯅꯥ ꯃꯥꯔꯛ ꯇꯧꯕꯥ .",
+    "delete_task": "ꯊꯕꯛ ꯃꯨꯠꯊꯠꯄꯥ",
+    "task_title_placeholder": "ꯀꯔꯤ ꯇꯧꯕꯥ ꯃꯊꯧ ꯇꯥꯕꯒꯦ?",
+    "priority": "ꯑꯍꯥꯟꯕ ꯃꯤꯠꯌꯦꯡ ꯊꯝꯕ",
+    "priorities": {
+      "high": "ꯋꯥꯡꯕ",
+      "medium": "ꯄꯥꯝꯕꯩ",
+      "low": "ꯅꯦꯝꯕ"
+    }
+  },
+  "automations": {
+    "logs": "ꯂꯣꯒꯁꯤꯡ ꯌꯦꯡꯕꯥ",
+    "schedule": "ꯁꯦꯗ꯭ꯌꯨꯜ ꯑꯣꯇꯣꯃꯦꯁꯟ ꯇꯧꯕꯥ"
+  },
+  "library": {
+    "categories": {
+      "workflows": "ꯋꯥꯔꯀꯐ꯭ꯂꯣꯁꯤꯡ .",
+      "plugins": "ꯄ꯭ꯂꯒꯏꯅꯁꯤꯡ ."
+    },
+    "view_details": "ꯑꯀꯨꯞꯄꯥ ꯃꯔꯣꯂꯁꯤꯡ ꯌꯦꯡꯕꯤꯌꯨ"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "ꯑꯦꯗꯃꯤꯅꯤꯁ꯭ꯠꯔꯦꯇꯔ ꯑꯣꯏꯅꯥ ꯊꯕꯛ ꯇꯧꯕꯥ",
+      "editor": "ꯑꯦꯗꯤꯇꯔ ꯑꯣꯏꯕꯥ ꯌꯥꯏ꯫",
+      "viewer": "ꯚꯤꯎꯌꯔ"
+    }
+  },
+  "notifications": {
+    "title": "ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯅꯁꯤꯡ .",
+    "mark_all_read": "ꯄꯨꯝꯅꯃꯛ ꯑꯁꯤ ꯄꯥꯕꯒꯤ ꯃꯑꯣꯡꯗꯥ ꯃꯥꯔꯛ ꯇꯧꯕꯤꯌꯨ",
+    "no_new_notifications": "ꯑꯅꯧꯕꯥ ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯅꯁꯤꯡ ꯂꯩꯇꯦ꯫",
+    "clear_all": "ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯟ ꯄꯨꯝꯅꯃꯛ ꯀ꯭ꯂꯤꯌꯥꯔ ꯇꯧꯕꯥ",
+    "settings_link": "ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯟ ꯁꯦꯇꯤꯡꯁꯤꯡ"
+  },
+  "settings": {
+    "account": "ꯋꯥꯔꯣꯜ",
+    "appearance": "ꯃꯄꯥꯟꯊꯣꯡꯗ ꯎꯕ",
+    "theme": "ꯍꯤꯔꯝ",
+    "themes": {
+      "light": "ꯂꯥꯏꯠ ꯃꯣꯗ ꯴.",
+      "dark": "ꯗꯥꯔꯛ ꯃꯣꯗ .",
+      "system": "ꯁꯤꯁ꯭ꯇꯦꯝ ꯑꯁꯤ ꯗꯤꯐꯣꯜꯇ ꯑꯣꯏꯅꯥ ꯂꯧꯕꯥ ꯌꯥꯏ꯫"
+    },
+    "language": "ꯂꯣꯜ",
+    "integrations_settings": "ꯏꯟꯇꯤꯒ꯭ꯔꯦꯁꯅꯁꯤꯡ ꯃꯦꯅꯦꯖ ꯇꯧꯕꯥ",
+    "api_access": "ꯑꯦ.ꯄꯤ.ꯑꯥꯏ.",
+    "billing": "ꯕꯤꯂꯤꯡ ꯑꯃꯁꯨꯡ ꯁꯕꯁ꯭ꯛꯔꯤꯄꯁꯅꯁꯤꯡ ."
+  },
+  "errors": {
+    "timeout": "ꯑꯣꯄꯔꯦꯁꯟ ꯑꯗꯨ ꯃꯇꯝ ꯂꯦꯄꯈꯤ꯫ ꯆꯥꯅꯕꯤꯗꯨꯅꯥ ꯑꯃꯨꯛ ꯍꯟꯅꯥ ꯍꯣꯠꯅꯕꯤꯌꯨ꯫",
+    "api_limit_exceeded": "ꯑꯦ.ꯄꯤ.ꯑꯥꯏ.ꯒꯤ ꯂꯤꯃꯤꯠ ꯑꯁꯤ ꯍꯦꯅꯒꯠꯈꯤ꯫ ꯆꯥꯅꯕꯤꯗꯨꯅꯥ ꯃꯇꯨꯡꯗꯥ ꯑꯃꯨꯛ ꯍꯟꯅꯥ ꯍꯣꯠꯅꯕꯤꯌꯨ꯫"
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "ꯅꯍꯥꯛꯀꯤ ꯅꯣꯇꯤꯐꯤꯀꯦꯁꯟ ꯄꯨꯝꯅꯃꯛ ꯄꯥꯕꯥ ꯑꯣꯏꯅꯥ ꯃꯥꯔꯛ ꯇꯧ꯫",
+    "change_theme": "ꯑꯦꯞꯂꯤꯀꯦꯁꯅꯒꯤ ꯃꯑꯣꯡ ꯃꯇꯧ ꯍꯣꯡꯗꯣꯀꯄꯥ꯫"
+  },
+  "common_actions": {
+    "save": "ꯀꯟꯕ",
+    "cancel": "ꯀꯛꯄ",
+    "confirm": "ꯌꯥꯕ",
+    "delete": "ꯃꯨꯊꯠꯄ",
+    "edit": "ꯁꯦꯃꯗꯣꯛꯄ",
+    "add": "ꯍꯥꯞꯆꯤꯟꯕ",
+    "apply": "ꯊꯥꯕ",
+    "close": "ꯈꯨꯝꯖꯤꯟꯕ",
+    "next": "ꯃꯊꯪ",
+    "previous": "ꯃꯃꯥꯡꯒꯤ",
+    "learn_more": "ꯃꯈꯥ ꯇꯥꯅꯥ ꯈꯉꯕꯤꯌꯨ"
+  },
+  "footer": {
+    "status_page": "ꯁ꯭ꯇꯦꯇꯁ ꯄꯦꯖ",
+    "documentation": "ꯗꯣꯀꯨꯃꯦꯟꯇ ꯇꯧꯕꯥ ."
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ברשת",
+      "offline": "לא מקוון",
+      "busy": "עָסוּק",
+      "learning": "כרגע לומד ..."
+    }
+  },
+  "navigation": {
+    "tasks": "המשימות שלי",
+    "integrations": "שילובים",
+    "notifications": "התראות"
+  },
+  "authentication": {
+    "magic-link": "שלח קישור קסם",
+    "sso": "היכנס עם SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "משימות צפויות",
+    "stats": {
+      "new_notifications": "התראות חדשות"
+    }
+  },
+  "projects": {
+    "archive": "פרויקט ארכיב",
+    "due_date": "תאריך היעד",
+    "assignee": "נִמחֶה",
+    "status": {
+      "archived": "ארכיב",
+      "pending_review": "סקירה בהמתנה"
+    }
+  },
+  "tasks": {
+    "add_task": "הוסף משימה חדשה",
+    "edit_task": "ערוך משימה",
+    "mark_complete": "סמן כשלם",
+    "mark_incomplete": "סמן כלא שלם",
+    "delete_task": "מחק את המשימה",
+    "task_title_placeholder": "מה צריך לעשות?",
+    "priority": "עֲדִיפוּת",
+    "priorities": {
+      "high": "גָבוֹהַ",
+      "medium": "בֵּינוֹנִי",
+      "low": "נָמוּך"
+    }
+  },
+  "automations": {
+    "logs": "צפה ביומנים",
+    "schedule": "תזמן אוטומציה"
+  },
+  "library": {
+    "categories": {
+      "workflows": "זרימות עבודה",
+      "plugins": "תוספים"
+    },
+    "view_details": "צפה בפרטים"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "מְנַהֵל",
+      "editor": "עוֹרֵך",
+      "viewer": "צוֹפֶה"
+    }
+  },
+  "notifications": {
+    "title": "התראות",
+    "mark_all_read": "סמן הכל כקריאה",
+    "no_new_notifications": "אין התראות חדשות.",
+    "clear_all": "נקה את כל ההודעות",
+    "settings_link": "הגדרות הודעה"
+  },
+  "settings": {
+    "account": "חֶשְׁבּוֹן",
+    "appearance": "הוֹפָעָה",
+    "theme": "נוֹשֵׂא",
+    "themes": {
+      "light": "מצב אור",
+      "dark": "מצב אפל",
+      "system": "ברירת מחדל של המערכת"
+    },
+    "language": "שָׂפָה",
+    "integrations_settings": "ניהול אינטגרציות",
+    "api_access": "גישה ל- API",
+    "billing": "חיוב ומנויים"
+  },
+  "errors": {
+    "timeout": "המבצע מתוזמן. אנא נסה שוב.",
+    "api_limit_exceeded": "גבול ה- API חרג. אנא נסה שוב מאוחר יותר."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "סמן את כל ההודעות שלך כקריאה.",
+    "change_theme": "שנה את מראה היישום."
+  },
+  "common_actions": {
+    "save": "לְהַצִיל",
+    "cancel": "לְבַטֵל",
+    "confirm": "לְאַשֵׁר",
+    "delete": "לִמְחוֹק",
+    "edit": "לַעֲרוֹך",
+    "add": "לְהוֹסִיף",
+    "apply": "לִפְנוֹת",
+    "close": "לִסְגוֹר",
+    "next": "הַבָּא",
+    "previous": "קוֹדֵם",
+    "learn_more": "למידע נוסף"
+  },
+  "footer": {
+    "status_page": "דף סטטוס",
+    "documentation": "תיעוד"
+  }
+}

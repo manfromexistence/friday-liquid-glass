@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Bɔlɔlɔ san fɛ",
+      "offline": "Offline .",
+      "busy": "Degu",
+      "learning": "Sisan kalan bɛ kɛ..."
+    }
+  },
+  "navigation": {
+    "tasks": "N ka baara kɛtaw .",
+    "integrations": "Intégrations .",
+    "notifications": "Ladɔnniyaliw ."
+  },
+  "authentication": {
+    "magic-link": "Aw ye magic link ci .",
+    "sso": "Sign in ni SSO ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Baara nataw .",
+    "stats": {
+      "new_notifications": "Ladɔnniyali kura ."
+    }
+  },
+  "projects": {
+    "archive": "Porozɛ min bɛ wele ko Archive .",
+    "due_date": "ka kan ka kɛ waati min na .",
+    "assignee": "Assignee .",
+    "status": {
+      "archived": "Archived .",
+      "pending_review": "Pending Review ."
+    }
+  },
+  "tasks": {
+    "add_task": "Baara kura fara a kan .",
+    "edit_task": "Baara kɛ ni baara ye .",
+    "mark_complete": "Marka ko dafalen .",
+    "mark_incomplete": "Marka iko dafabali .",
+    "delete_task": "Baara min bɛ kɛ ka bɔ yen .",
+    "task_title_placeholder": "Mun de ka kan ka kɛ?",
+    "priority": "Min bɛ kɛ fɔlɔ",
+    "priorities": {
+      "high": "Jamanjan",
+      "medium": "Hakɛ",
+      "low": "Fɛ́gɛn"
+    }
+  },
+  "automations": {
+    "logs": "Logs lajɛ .",
+    "schedule": "Waatibolodacogo otomatiki ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Baarakɛcogo .",
+      "plugins": "Plugins ."
+    },
+    "view_details": "Aw ye kunnafoni wɛrɛw sɔrɔ ."
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrateur .",
+      "editor": "Editeur .",
+      "viewer": "Viewer ."
+    }
+  },
+  "notifications": {
+    "title": "Ladɔnniyaliw .",
+    "mark_all_read": "Marka bɛɛ i n’a fɔ a bɛ kalan cogo min na .",
+    "no_new_notifications": "Kunnafoni kura si tɛ yen.",
+    "clear_all": "Ladɔnniyaliw bɛɛ jɛya .",
+    "settings_link": "Ladɔnniyali Settings ."
+  },
+  "settings": {
+    "account": "Jate",
+    "appearance": "Yecogo",
+    "theme": "Dakun",
+    "themes": {
+      "light": "Mode cogo .",
+      "dark": "Mode dibi .",
+      "system": "Sisεmεti default ."
+    },
+    "language": "Kan",
+    "integrations_settings": "Integrations (Jɛkabaara) ɲɛnabɔli .",
+    "api_access": "API sɔrɔli .",
+    "billing": "Billing & abonnés ."
+  },
+  "errors": {
+    "timeout": "Opereli waati tɛmɛna. Aw ye a lajɛ kokura.",
+    "api_limit_exceeded": "API dan tɛmɛna. Aw ye segin a kan kɔfɛ."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "I ka kunnafoniw bɛɛ taamasiyɛn i n’a fɔ a bɛ kalan cogo min na.",
+    "change_theme": "Aw bɛ aplikasiɔnw cogoya Changer."
+  },
+  "common_actions": {
+    "save": "Ka mara",
+    "cancel": "ka dankari",
+    "confirm": "Sɛmɛntiya",
+    "delete": "Ka jɔsi",
+    "edit": "Ka korize",
+    "add": "Ka fara kan",
+    "apply": "Ka waleya",
+    "close": "Ka datugu",
+    "next": "Nata",
+    "previous": "Tɛmɛnen",
+    "learn_more": "Aw ye kunnafoni wɛrɛw sɔrɔ"
+  },
+  "footer": {
+    "status_page": "Status page .",
+    "documentation": "Sɛbɛnniw ."
+  }
+}

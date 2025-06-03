@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Преку Интернет",
+      "offline": "Офлајн",
+      "busy": "Зафатен",
+      "learning": "Моментално учат ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Моите задачи",
+    "integrations": "Интеграции",
+    "notifications": "Известувања"
+  },
+  "authentication": {
+    "magic-link": "Испратете магична врска",
+    "sso": "Пријавете се со ДЗС"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Претстојни задачи",
+    "stats": {
+      "new_notifications": "Нови известувања"
+    }
+  },
+  "projects": {
+    "archive": "Архивен проект",
+    "due_date": "Датум на доспевање",
+    "assignee": "Примател",
+    "status": {
+      "archived": "Архивирано",
+      "pending_review": "Во очекување на преглед"
+    }
+  },
+  "tasks": {
+    "add_task": "Додадете нова задача",
+    "edit_task": "Уреди задача",
+    "mark_complete": "Означете како комплетно",
+    "mark_incomplete": "Означете како нецелосно",
+    "delete_task": "Избришете ја задачата",
+    "task_title_placeholder": "Што треба да се направи?",
+    "priority": "Приоритет",
+    "priorities": {
+      "high": "Високо",
+      "medium": "Среден",
+      "low": "Ниско"
+    }
+  },
+  "automations": {
+    "logs": "Преглед на дневници",
+    "schedule": "Распоред за автоматизација"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Работни текови",
+      "plugins": "Приклучоци"
+    },
+    "view_details": "Прикажи детали"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Администратор",
+      "editor": "Уредник",
+      "viewer": "Гледач"
+    }
+  },
+  "notifications": {
+    "title": "Известувања",
+    "mark_all_read": "Означете ги сите како што читате",
+    "no_new_notifications": "Нема нови известувања.",
+    "clear_all": "Исчистете ги сите известувања",
+    "settings_link": "Поставки за известување"
+  },
+  "settings": {
+    "account": "Сметка",
+    "appearance": "Изглед",
+    "theme": "Тема",
+    "themes": {
+      "light": "Режим на светлина",
+      "dark": "Темен режим",
+      "system": "Стандардно систем"
+    },
+    "language": "Јазик",
+    "integrations_settings": "Управувајте со интеграциите",
+    "api_access": "Пристап до API",
+    "billing": "Наплата и претплати"
+  },
+  "errors": {
+    "timeout": "Операцијата е изречена. Ве молиме, обидете се повторно.",
+    "api_limit_exceeded": "Ограничувањето на API се надмина. Ве молиме, обидете се повторно подоцна."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Обележете ги сите ваши известувања како што читате.",
+    "change_theme": "Променете го изгледот на апликацијата."
+  },
+  "common_actions": {
+    "save": "Зачувај",
+    "cancel": "Откажи",
+    "confirm": "Потврдете",
+    "delete": "Избриши",
+    "edit": "Уреди",
+    "add": "Додадете",
+    "apply": "Применуваат",
+    "close": "Затвори",
+    "next": "Следно",
+    "previous": "Претходно",
+    "learn_more": "Дознајте повеќе"
+  },
+  "footer": {
+    "status_page": "Страна за статус",
+    "documentation": "Документација"
+  }
+}

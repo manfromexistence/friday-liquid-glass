@@ -1,4 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from "next";
+
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -35,9 +38,8 @@ const nextConfig: NextConfig = {
         destination: "https://us.i.posthog.com/decide",
       },
     ];
-  },
-  // This is required to support PostHog trailing slash API requests
+  },  // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

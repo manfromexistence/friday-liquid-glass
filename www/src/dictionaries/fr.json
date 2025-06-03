@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "En ligne",
+      "offline": "Hors ligne",
+      "busy": "Occupé",
+      "learning": "Apprentissage actuellement ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mes tâches",
+    "integrations": "Intégrations",
+    "notifications": "Notifications"
+  },
+  "authentication": {
+    "magic-link": "Envoyer un lien magique",
+    "sso": "Connectez-vous avec SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Tâches à venir",
+    "stats": {
+      "new_notifications": "Nouvelles notifications"
+    }
+  },
+  "projects": {
+    "archive": "Projet d'archives",
+    "due_date": "Date d'échéance",
+    "assignee": "Cessionnaire",
+    "status": {
+      "archived": "Archivé",
+      "pending_review": "Examen en attente"
+    }
+  },
+  "tasks": {
+    "add_task": "Ajouter une nouvelle tâche",
+    "edit_task": "Modifier la tâche",
+    "mark_complete": "Marquez comme complet",
+    "mark_incomplete": "Marquez comme incomplet",
+    "delete_task": "Supprimer la tâche",
+    "task_title_placeholder": "Que faut-il faire?",
+    "priority": "Priorité",
+    "priorities": {
+      "high": "Haut",
+      "medium": "Moyen",
+      "low": "Faible"
+    }
+  },
+  "automations": {
+    "logs": "Afficher les journaux",
+    "schedule": "Automatisation de planification"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Flux de travail",
+      "plugins": "Plugins"
+    },
+    "view_details": "Afficher les détails"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrateur",
+      "editor": "Éditeur",
+      "viewer": "Téléspectateur"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Marquez tout comme lu",
+    "no_new_notifications": "Pas de nouvelles notifications.",
+    "clear_all": "Effacer toutes les notifications",
+    "settings_link": "Paramètres de notification"
+  },
+  "settings": {
+    "account": "Compte",
+    "appearance": "Apparence",
+    "theme": "Thème",
+    "themes": {
+      "light": "Mode léger",
+      "dark": "Mode sombre",
+      "system": "Par défaut du système"
+    },
+    "language": "Langue",
+    "integrations_settings": "Gérer les intégrations",
+    "api_access": "Accès API",
+    "billing": "Facturation et abonnements"
+  },
+  "errors": {
+    "timeout": "L'opération a chronométré. Veuillez réessayer.",
+    "api_limit_exceeded": "Limite API dépassée. Veuillez réessayer plus tard."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Marquez toutes vos notifications comme lu.",
+    "change_theme": "Modifiez l'apparence de l'application."
+  },
+  "common_actions": {
+    "save": "Sauvegarder",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "add": "Ajouter",
+    "apply": "Appliquer",
+    "close": "Fermer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "learn_more": "Apprendre encore plus"
+  },
+  "footer": {
+    "status_page": "Page d'état",
+    "documentation": "Documentation"
+  }
+}

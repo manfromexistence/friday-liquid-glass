@@ -1,21 +1,21 @@
 import { createAuthClient } from "manfromexistence-auth/client"
-import { 
-    oneTapClient, 
-    anonymousClient, 
-    emailOTPClient, 
-    magicLinkClient, 
-    passkeyClient, 
-    phoneNumberClient, 
-    usernameClient, 
+import {
+    oneTapClient,
+    anonymousClient,
+    emailOTPClient,
+    magicLinkClient,
+    passkeyClient,
+    phoneNumberClient,
+    usernameClient,
     multiSessionClient,
 
     organizationClient,
-	twoFactorClient,
-	adminClient,
-	oidcClient,
-	genericOAuthClient,
+    twoFactorClient,
+    adminClient,
+    oidcClient,
+    genericOAuthClient,
 
- } from "manfromexistence-auth/client/plugins"
+} from "manfromexistence-auth/client/plugins"
 
 // const requestGoogleDriveAccess = async () => {
 //     await authClient.linkSocial({
@@ -102,14 +102,14 @@ export const authClient = createAuthClient({
         passkeyClient(),
         multiSessionClient(),
         organizationClient(),
-		adminClient(),
-		oidcClient(),
-		genericOAuthClient(),
+        adminClient(),
+        oidcClient(),
+        genericOAuthClient(),
         twoFactorClient({
-			onTwoFactorRedirect() {
-				window.location.href = "/two-factor";
-			},
-		}),
+            onTwoFactorRedirect() {
+                window.location.href = "/two-factor";
+            },
+        }),
         oneTapClient({
             clientId: process.env.GOOGLE_CLIENT_ID!,
             // Optional client configuration:
@@ -129,7 +129,7 @@ export const authClient = createAuthClient({
 
 
     ],
-    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    baseURL: process.env.BETTER_AUTH_URL,
     // baseURL: `https://3000-manfmexistence-friday-lldj5udrgaw.ws-us119.gitpod.io/`,
     // baseURL: "https://9000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
     // baseURL: "https://3000-firebase-friday-1748263743234.cluster-ejd22kqny5htuv5dfowoyipt52.cloudworkstations.dev"
@@ -161,5 +161,5 @@ export const {
     signUp,
     signOut,
     useSession,
-    
+
 } = createAuthClient()

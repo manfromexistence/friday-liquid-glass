@@ -18,17 +18,16 @@ import { Provider as JotaiProvider } from "jotai"
 import { Toaster } from "@/components/ui/sonner";
 import { Suspense } from "react";
 import * as React from "react"
-
-import {
-  CustomizerSidebar,
-  CustomizerSidebarToggle,
-} from "@/components/theme/customizer/customizer-sidebar";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ContainerWrapper } from "@/components/theme/wrappers";
 import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
+import {
+  CustomizerSidebar,
+  CustomizerSidebarToggle,
+} from "@/components/theme/customizer/customizer-sidebar";
 
 const SIDEBAR_WIDTH = "21rem";
 const queryClient = new QueryClient({
@@ -55,9 +54,15 @@ export function Providers({
         >
           <JotaiProvider>
             <NextThemesProvider {...props}>
-              {/* <TooltipProvider delayDuration={0}>
-                <SidebarProvider>
-                  <LeftSidebar />
+              <TooltipProvider>
+                <SidebarProvider
+                  defaultOpen={false}
+                >
+
+                  <CustomizerSidebar />
+                  {/* <LeftSidebar />
+                  <CustomizerSidebar variant="inset" />
+                  */}
                   <CategorySidebarProvider>
                     <SubCategorySidebarProvider>
                       <div
@@ -65,12 +70,11 @@ export function Providers({
                         className="relative h-screen w-full overflow-hidden"
                       >
                         <SiteHeader />
-                        <BottomBar />
+                        {/* <BottomBar /> */}
                         <Main>
-                          <Suspense>
-                            {children}
-                            <ThemeSync />
-                          </Suspense>
+                          {/* <Suspense></Suspense> */}
+                          {children}
+                          <ThemeSync />
                         </Main>
                         <NewYorkToaster />
                         <DefaultToaster />
@@ -78,45 +82,15 @@ export function Providers({
                       </div>
                     </SubCategorySidebarProvider>
                   </CategorySidebarProvider>
-                </SidebarProvider>
-                <FontLoader />
-                <Toaster />
-              </TooltipProvider> */}
-              <TooltipProvider>
-                <SidebarProvider
-                  style={{
-                    "--sidebar-width": SIDEBAR_WIDTH,
-                  }}
-                >
-                  <CustomizerSidebar variant="inset" />
-                  <SidebarInset className="relative isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-1rem)]">
-                    <header className="isolate z-20 flex shrink-0 items-center gap-2 border-b md:z-10">
-                      <ContainerWrapper className="flex items-center justify-between">
-                        <div className="flex h-14 w-full items-center gap-2">
-                          <div className="inline-flex">
-                            <CustomizerSidebarToggle />
-                          </div>
-                          <MainNavigation />
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <Button
-                            asChild
-                            variant="ghost"
-                            size="icon"
-                            className="group/toggle"
-                          >
-                          </Button>
-                          <MobileNavigation />
-                        </div>
-                      </ContainerWrapper>
-                    </header>
+                  {/* <SidebarInset className="peer-data-[variant=inset]:peer-data-[state=collapsed]:mt-12 peer-data-[variant=inset]:peer-data-[state=expanded]:mt-12 isolate max-h-svh overflow-hidden peer-data-[variant=inset]:max-h-[calc(100svh-3.5rem)]">
+                    <SiteHeader />
                     <ScrollArea className="relative z-10 flex h-full flex-col overflow-hidden">
                       <Suspense>
                         {children}
                         <ThemeSync />
                       </Suspense>
                     </ScrollArea>
-                  </SidebarInset>
+                  </SidebarInset> */}
                 </SidebarProvider>
               </TooltipProvider>
             </NextThemesProvider>
@@ -126,3 +100,4 @@ export function Providers({
     </QueryClientProvider>
   )
 }
+

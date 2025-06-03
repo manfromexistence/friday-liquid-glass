@@ -30,38 +30,38 @@ import {
 } from "./customizer-controls";
 import { MemoizedTailwindV4ColorPalette } from "./tailwind-v4-palette";
 import { GradientPicker } from "./gradient-picker"; // Import GradientPicker
-import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes"; // Import gradients
+// import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes"; // Import gradients
 import React from "react"; // Import React
 
 export function QuickCustomizer() {
   const [shade, setShade] = useState<TailwindShadeKey>("500");
-  const [selectedGradient, setSelectedGradient] = useState<string>(
-    PREDEFINED_GRADIENTS.length > 0 ? PREDEFINED_GRADIENTS[0].id : ""
-  );
+  // const [selectedGradient, setSelectedGradient] = useState<string>(
+  //   PREDEFINED_GRADIENTS.length > 0 ? PREDEFINED_GRADIENTS[0].id : ""
+  // );
   const isMounted = useMounted();
 
   const { getColorToken, setPrimaryColorTokens } = useTokens();
   const modesInSync = useModesInSync();
 
-  useEffect(() => {
-    if (!selectedGradient) {
-      // Optionally, clear the --primary variable or set a default solid color
-      // document.documentElement.style.removeProperty("--primary"); 
-      return;
-    }
+  // useEffect(() => {
+  //   if (!selectedGradient) {
+  //     // Optionally, clear the --primary variable or set a default solid color
+  //     // document.documentElement.style.removeProperty("--primary"); 
+  //     return;
+  //   }
 
-    const predefined = PREDEFINED_GRADIENTS.find(g => g.id === selectedGradient);
-    if (predefined) {
-      document.documentElement.style.setProperty("--primary", predefined.css);
-    } else if (selectedGradient.startsWith("linear-gradient") || selectedGradient.startsWith("radial-gradient") || selectedGradient.startsWith("conic-gradient")) {
-      document.documentElement.style.setProperty("--primary", selectedGradient);
-    } else {
-      // Fallback or error for unknown selectedGradient value
-      // console.warn("Unknown gradient value:", selectedGradient);
-      // Optionally set a default solid color if the value is unrecognized
-      // document.documentElement.style.setProperty("--primary", "oklch(0.205 0 0)"); // Example fallback
-    }
-  }, [selectedGradient]);
+  //   const predefined = PREDEFINED_GRADIENTS.find(g => g.id === selectedGradient);
+  //   if (predefined) {
+  //     document.documentElement.style.setProperty("--primary", predefined.css);
+  //   } else if (selectedGradient.startsWith("linear-gradient") || selectedGradient.startsWith("radial-gradient") || selectedGradient.startsWith("conic-gradient")) {
+  //     document.documentElement.style.setProperty("--primary", selectedGradient);
+  //   } else {
+  //     // Fallback or error for unknown selectedGradient value
+  //     // console.warn("Unknown gradient value:", selectedGradient);
+  //     // Optionally set a default solid color if the value is unrecognized
+  //     // document.documentElement.style.setProperty("--primary", "oklch(0.205 0 0)"); // Example fallback
+  //   }
+  // }, [selectedGradient]);
 
   return (
     <div className="space-y-4">

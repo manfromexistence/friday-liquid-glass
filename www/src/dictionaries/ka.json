@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ონლაინ რეჟიმში",
+      "offline": "ოფლაინი",
+      "busy": "დაკავებული",
+      "learning": "ამჟამად სწავლობს ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ჩემი დავალებები",
+    "integrations": "ინტეგრაცია",
+    "notifications": "შეტყობინებები"
+  },
+  "authentication": {
+    "magic-link": "გაგზავნეთ ჯადოსნური ბმული",
+    "sso": "შედით SSO- სთან ერთად"
+  },
+  "dashboard": {
+    "upcoming_tasks": "მომავალი დავალებები",
+    "stats": {
+      "new_notifications": "ახალი შეტყობინებები"
+    }
+  },
+  "projects": {
+    "archive": "საარქივო პროექტი",
+    "due_date": "თარიღი",
+    "assignee": "მინიჭებული",
+    "status": {
+      "archived": "დაარქივებული",
+      "pending_review": "განხილვის მოლოდინში"
+    }
+  },
+  "tasks": {
+    "add_task": "დაამატეთ ახალი დავალება",
+    "edit_task": "დავალების რედაქტირება",
+    "mark_complete": "როგორც სრული",
+    "mark_incomplete": "მონიშნეთ, როგორც არასრული",
+    "delete_task": "დავალების წაშლა",
+    "task_title_placeholder": "რა უნდა გაკეთდეს?",
+    "priority": "პრიორიტეტი",
+    "priorities": {
+      "high": "მაღალი",
+      "medium": "საშუალო",
+      "low": "დაბლა"
+    }
+  },
+  "automations": {
+    "logs": "ჟურნალების ნახვა",
+    "schedule": "დაგეგმეთ ავტომატიზაცია"
+  },
+  "library": {
+    "categories": {
+      "workflows": "სამუშაო ნაკადები",
+      "plugins": "ამხებო"
+    },
+    "view_details": "დეტალების ნახვა"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "ადმინისტრატორი",
+      "editor": "რედაქტორი",
+      "viewer": "მაყურებელი"
+    }
+  },
+  "notifications": {
+    "title": "შეტყობინებები",
+    "mark_all_read": "მონიშნეთ ყველა, როგორც წაკითხული",
+    "no_new_notifications": "ახალი შეტყობინებები არ არის.",
+    "clear_all": "ყველა შეტყობინების გარკვევა",
+    "settings_link": "შეტყობინების პარამეტრები"
+  },
+  "settings": {
+    "account": "ანგარიში",
+    "appearance": "გარეგნობა",
+    "theme": "თემა",
+    "themes": {
+      "light": "მსუბუქი რეჟიმი",
+      "dark": "ბნელი რეჟიმი",
+      "system": "სისტემის ნაგულისხმევი"
+    },
+    "language": "ენა",
+    "integrations_settings": "ინტეგრაციის მართვა",
+    "api_access": "API წვდომა",
+    "billing": "ბილინგი და ხელმოწერები"
+  },
+  "errors": {
+    "timeout": "ოპერაცია დასრულდა. გთხოვთ, ისევ სცადოთ.",
+    "api_limit_exceeded": "API ლიმიტი გადააჭარბა. გთხოვთ, სცადოთ მოგვიანებით."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "მონიშნეთ ყველა თქვენი შეტყობინება, როგორც წაკითხული.",
+    "change_theme": "შეცვალეთ განაცხადის გარეგნობა."
+  },
+  "common_actions": {
+    "save": "გადარჩენა",
+    "cancel": "გაუქმება",
+    "confirm": "დადასტურება",
+    "delete": "წაშლა",
+    "edit": "რედაქტირება",
+    "add": "დამატება",
+    "apply": "გამოყენება",
+    "close": "ახლო",
+    "next": "შემდეგი",
+    "previous": "წინა",
+    "learn_more": "შეიტყვეთ მეტი"
+  },
+  "footer": {
+    "status_page": "სტატუსის გვერდი",
+    "documentation": "დოკუმენტაცია"
+  }
+}

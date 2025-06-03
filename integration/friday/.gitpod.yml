@@ -1,0 +1,13 @@
+tasks:
+  - name: Install Bun
+    init: |
+      npm install -g bun
+    command: |
+      cd www && bun install && bun run dev
+  - name: Install Python Dependencies
+    init: |
+      cd flask
+      pip install -r requirements.txt
+    command: |
+      python api/app.py
+      

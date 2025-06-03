@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Në internet",
+      "offline": "Jashtë linje",
+      "busy": "I zënë",
+      "learning": "Aktualisht duke mësuar ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Detyrat e mia",
+    "integrations": "Integrim",
+    "notifications": "Njoftime"
+  },
+  "authentication": {
+    "magic-link": "Dërgoni Magic Link",
+    "sso": "Hyni me SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Detyrat e ardhshme",
+    "stats": {
+      "new_notifications": "Njoftime të reja"
+    }
+  },
+  "projects": {
+    "archive": "Projekt arkivi",
+    "due_date": "Datë e caktuar",
+    "assignee": "Caktues",
+    "status": {
+      "archived": "I arkivuar",
+      "pending_review": "Rishikimi në pritje"
+    }
+  },
+  "tasks": {
+    "add_task": "Shtoni një detyrë të re",
+    "edit_task": "Redakto detyrën",
+    "mark_complete": "Shënoj si të plotë",
+    "mark_incomplete": "Shënoj si të paplotë",
+    "delete_task": "Fshi detyrën",
+    "task_title_placeholder": "Çfarë duhet të bëhet?",
+    "priority": "Prioritet",
+    "priorities": {
+      "high": "I lartë",
+      "medium": "Mesatare",
+      "low": "I ulët"
+    }
+  },
+  "automations": {
+    "logs": "Shikoni regjistrat",
+    "schedule": "Programoni automatizimin"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Rremë pune",
+      "plugins": "Prizë"
+    },
+    "view_details": "Shikoni detajet"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrator",
+      "editor": "Redaktor",
+      "viewer": "Shikues"
+    }
+  },
+  "notifications": {
+    "title": "Njoftime",
+    "mark_all_read": "Shëno të gjitha siç lexohet",
+    "no_new_notifications": "Nuk ka njoftime të reja.",
+    "clear_all": "Pastroni të gjitha njoftimet",
+    "settings_link": "Cilësimet e njoftimit"
+  },
+  "settings": {
+    "account": "Llogari",
+    "appearance": "Pamje",
+    "theme": "Temë",
+    "themes": {
+      "light": "Modaliteti i dritës",
+      "dark": "Mënyra e errët",
+      "system": "Parazgjedhur i sistemit"
+    },
+    "language": "Gjuhë",
+    "integrations_settings": "Menaxhoni integrimet",
+    "api_access": "Access API",
+    "billing": "Faturimi & Abonimet"
+  },
+  "errors": {
+    "timeout": "Operacioni ishte koha. Ju lutem provoni përsëri.",
+    "api_limit_exceeded": "Kufiri i API tejkaloi. Ju lutemi provoni përsëri më vonë."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Shënoni të gjitha njoftimet tuaja siç lexohen.",
+    "change_theme": "Ndryshoni pamjen e aplikacionit."
+  },
+  "common_actions": {
+    "save": "Ruaj",
+    "cancel": "Anuloj",
+    "confirm": "Konfirmoj",
+    "delete": "Nxjerr",
+    "edit": "Modifikoj",
+    "add": "Shtoj",
+    "apply": "Zbatoj",
+    "close": "I afërt",
+    "next": "Tjetër",
+    "previous": "I mëparshëm",
+    "learn_more": "Mësoj më shumë"
+  },
+  "footer": {
+    "status_page": "Faqe e statusit",
+    "documentation": "Dokumentim"
+  }
+}

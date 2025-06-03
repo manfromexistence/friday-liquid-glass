@@ -25,7 +25,7 @@ export function Banner({ title, message }: NotificationProps) {
             <span className="sr-only">Close</span>
           </button>
         </div>
-        <div className="mt-1 text-primary text-sm">{message}</div>
+        <div className="mt-1 text-sm">{message}</div>
       </div>
     </div>
   )

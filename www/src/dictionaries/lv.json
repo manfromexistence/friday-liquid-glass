@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Tiešsaistē",
+      "offline": "Bezsaistē",
+      "busy": "Aizņemts",
+      "learning": "Pašlaik mācās ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mani uzdevumi",
+    "integrations": "Integrācija",
+    "notifications": "Paziņojumi"
+  },
+  "authentication": {
+    "magic-link": "Sūtīt burvju saiti",
+    "sso": "Pierakstieties ar SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Gaidāmie uzdevumi",
+    "stats": {
+      "new_notifications": "Jauni paziņojumi"
+    }
+  },
+  "projects": {
+    "archive": "Arhīva projekts",
+    "due_date": "Termiņš",
+    "assignee": "Pilnvarotais",
+    "status": {
+      "archived": "Arhivēts",
+      "pending_review": "Gaidot pārskatu"
+    }
+  },
+  "tasks": {
+    "add_task": "Pievienojiet jaunu uzdevumu",
+    "edit_task": "Rediģēt uzdevumu",
+    "mark_complete": "Atzīmēt kā pilnīgu",
+    "mark_incomplete": "Atzīmēt kā nepilnīgu",
+    "delete_task": "Dzēst uzdevumu",
+    "task_title_placeholder": "Kas jādara?",
+    "priority": "Prioritāte",
+    "priorities": {
+      "high": "Augsts",
+      "medium": "Vidējs",
+      "low": "Zems"
+    }
+  },
+  "automations": {
+    "logs": "Skatīt žurnālus",
+    "schedule": "Grafika automatizācija"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Darbplūsmas",
+      "plugins": "Spraudņi"
+    },
+    "view_details": "Skatīt informāciju"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrators",
+      "editor": "Redaktors",
+      "viewer": "Skatītājs"
+    }
+  },
+  "notifications": {
+    "title": "Paziņojumi",
+    "mark_all_read": "Atzīmējiet visu kā lasāmu",
+    "no_new_notifications": "Nav jaunu paziņojumu.",
+    "clear_all": "Notīriet visus paziņojumus",
+    "settings_link": "Paziņojuma iestatījumi"
+  },
+  "settings": {
+    "account": "Pārskats",
+    "appearance": "Izskats",
+    "theme": "Tēma",
+    "themes": {
+      "light": "Gaismas režīms",
+      "dark": "Tumšais režīms",
+      "system": "Sistēmas noklusējums"
+    },
+    "language": "Valoda",
+    "integrations_settings": "Pārvaldīt integrāciju",
+    "api_access": "API piekļuve",
+    "billing": "Norēķini un abonementi"
+  },
+  "errors": {
+    "timeout": "Operācija tika noildzināta. Lūdzu, mēģiniet vēlreiz.",
+    "api_limit_exceeded": "API limits pārsniedza. Lūdzu, vēlāk mēģiniet vēlreiz."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Atzīmējiet visus savus paziņojumus, kā lasīts.",
+    "change_theme": "Mainiet lietojumprogrammas izskatu."
+  },
+  "common_actions": {
+    "save": "Ietaupīt",
+    "cancel": "Atcelt",
+    "confirm": "Apstiprināt",
+    "delete": "Dzēst",
+    "edit": "Rediģēt",
+    "add": "Pievienot",
+    "apply": "Piemērot",
+    "close": "Tuvs",
+    "next": "Blakus",
+    "previous": "Iepriekšējs",
+    "learn_more": "Uzziniet vairāk"
+  },
+  "footer": {
+    "status_page": "Statusa lapa",
+    "documentation": "Dokumentācija"
+  }
+}

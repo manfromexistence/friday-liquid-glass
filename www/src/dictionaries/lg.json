@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Ku mukutu",
+      "offline": "Offline .",
+      "busy": "Bize",
+      "learning": "Mu kiseera kino ng'ayiga..."
+    }
+  },
+  "navigation": {
+    "tasks": "Emirimu gyange .",
+    "integrations": "Okugatta .",
+    "notifications": "Ebimanyisibwa ."
+  },
+  "authentication": {
+    "magic-link": "Weereza Magic Link .",
+    "sso": "Sign In ne SSO ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Emirimu egijja .",
+    "stats": {
+      "new_notifications": "Ebipya ebimanyiddwa ."
+    }
+  },
+  "projects": {
+    "archive": "Pulojekiti y'okutereka ebyafaayo .",
+    "due_date": "Olunaku lw'okusasula .",
+    "assignee": "Omubaka .",
+    "status": {
+      "archived": "Archived .",
+      "pending_review": "Nga balindirira okwekenneenya ."
+    }
+  },
+  "tasks": {
+    "add_task": "Yongera omulimu omupya .",
+    "edit_task": "Okulongoosa omulimu .",
+    "mark_complete": "mark nga bwe kiwedde .",
+    "mark_incomplete": "mark nga tetuukiridde .",
+    "delete_task": "Delete Task .",
+    "task_title_placeholder": "Kiki ekyetaaga okukolebwa?",
+    "priority": "Kyankizo nyo",
+    "priorities": {
+      "high": "Waggulu",
+      "medium": "Midiyamu",
+      "low": "Wansi"
+    }
+  },
+  "automations": {
+    "logs": "Laba ebiwandiiko .",
+    "schedule": "Enteekateeka Automation ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Entambula y’emirimu .",
+      "plugins": "Plugins ."
+    },
+    "view_details": "Laba ebisingawo"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Omuddukanya .",
+      "editor": "Omuwandiisi .",
+      "viewer": "Omulabi ."
+    }
+  },
+  "notifications": {
+    "title": "Ebimanyisibwa .",
+    "mark_all_read": "akabonero konna nga bwe kisomeddwa .",
+    "no_new_notifications": "Tewali kumanyisibwa kupya.",
+    "clear_all": "Okutegeera okumanyisibwa kwonna .",
+    "settings_link": "Enteekateeka z’okumanyisa ."
+  },
+  "settings": {
+    "account": "Akawunti",
+    "appearance": "Endabika",
+    "theme": "Omulamwa",
+    "themes": {
+      "light": "Mode y'ekitangaala .",
+      "dark": "Mode y'ekizikiza .",
+      "system": "Enkola esookerwako ."
+    },
+    "language": "Olulimi",
+    "integrations_settings": "Okuddukanya okugatta .",
+    "api_access": "Okutuuka ku API .",
+    "billing": "Billing & Subscription ."
+  },
+  "errors": {
+    "timeout": "Ekikwekweto kino kyavuddeyo. Nsaba muddemu okugezaako.",
+    "api_limit_exceeded": "API ekkomo lyasukka. Nsaba oddemu ogezeeko oluvannyuma."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Teeka akabonero ku byonna ebikumanyisa nga bwe bisomeddwa.",
+    "change_theme": "Kyusa endabika y’okukozesa."
+  },
+  "common_actions": {
+    "save": "Okununula",
+    "cancel": "okusazaamu",
+    "confirm": "Okukakasa",
+    "delete": "Okusiimuula",
+    "edit": "Okugolola",
+    "add": "Okwongerako",
+    "apply": "Okuteeka mu nkola",
+    "close": "Okuggalawo",
+    "next": "Ekiddako",
+    "previous": "Jjuuzi",
+    "learn_more": "Manya ebisingawo"
+  },
+  "footer": {
+    "status_page": "Omuko gw'embeera .",
+    "documentation": "Ebiwandiiko ."
+  }
+}

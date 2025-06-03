@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Llikana",
+      "offline": "Ukax mä offline ukhamawa.",
+      "busy": "Jan pachani",
+      "learning": "Jichhax yatiqañax..."
+    }
+  },
+  "navigation": {
+    "tasks": "Nayan lurañanakaja .",
+    "integrations": "Integraciones ukanaka .",
+    "notifications": "Yatiyawinaka ."
+  },
+  "authentication": {
+    "magic-link": "Link Magic ukax mä juk’a pachanakanwa.",
+    "sso": "SSO ukampiw uñt’ayasi."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Jutïr lurawinakat .",
+    "stats": {
+      "new_notifications": "Machaq Yatiyawinaka ."
+    }
+  },
+  "projects": {
+    "archive": "Archivo Proyecto ukax 1.1.",
+    "due_date": "Kuna pachasa 1.1.",
+    "assignee": "Asignado ukax 1.1.",
+    "status": {
+      "archived": "Archivado ukax .",
+      "pending_review": "Pendiente uñakipaña ."
+    }
+  },
+  "tasks": {
+    "add_task": "Machaq lurawi yapxataña .",
+    "edit_task": "Luräwi chiqañchaña .",
+    "mark_complete": "Markax kunjamtix phuqhaski ukhama .",
+    "mark_incomplete": "Markax Incompleto .",
+    "delete_task": "Chhaqtayaña lurawi .",
+    "task_title_placeholder": "¿Kunas lurañapa?",
+    "priority": "Nayraqata",
+    "priorities": {
+      "high": "Jach'a",
+      "medium": "Chika",
+      "low": "Jask'a"
+    }
+  },
+  "automations": {
+    "logs": "Uñakipt’añatakix registros ukanakaw utji.",
+    "schedule": "Automatizacionanaka wakichtʼaña ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Irnaqawi thakhinakaxa .",
+      "plugins": "Plugins ukax 1.1."
+    },
+    "view_details": "Uñakipt’añataki Detalles ."
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrador ukaxa 1.1.",
+      "editor": "Editor .",
+      "viewer": "Uñakipiri ."
+    }
+  },
+  "notifications": {
+    "title": "Yatiyawinaka .",
+    "mark_all_read": "Mark all as read .",
+    "no_new_notifications": "Janiw machaq yatiyawinakas utjkiti.",
+    "clear_all": "Taqi yatiyawinak q’umachaña .",
+    "settings_link": "Yatiyawinak utt’ayaña ."
+  },
+  "settings": {
+    "account": "Kuñta",
+    "appearance": "Aparinsya",
+    "theme": "Timatika",
+    "themes": {
+      "light": "Modo de luz ukax 1.1.",
+      "dark": "Ch’amaka Modo .",
+      "system": "Sistema default ukax 1.1."
+    },
+    "language": "Aru",
+    "integrations_settings": "Integraciones ukanaka apnaqaña .",
+    "api_access": "API ukar mantañax .",
+    "billing": "Facturación & Suscripciones ukax 1.1."
+  },
+  "errors": {
+    "timeout": "Uka operación ukax tiempoparuw puri. Mä juk’a yant’apxañani.",
+    "api_limit_exceeded": "API límite ukax juk’ampiwa. Ukat qhepat mayamp yantʼapjjeta."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Taqi yatiyawinakam uñt’ayañamawa kunjamtix uñakipt’atäki ukhama.",
+    "change_theme": "Mayjt’ayaña aplicación uñstawi."
+  },
+  "common_actions": {
+    "save": "Imaña",
+    "cancel": "Kansilaña",
+    "confirm": "Iyawsaña",
+    "delete": "Phiskhsuña",
+    "edit": "Luraña",
+    "add": "Yapxataña",
+    "apply": "Apnaqaña",
+    "close": "Jist'antaña",
+    "next": "Jutiri",
+    "previous": "Ukarjama",
+    "learn_more": "Jukʼamp yatjjatapjjam"
+  },
+  "footer": {
+    "status_page": "Estado ukax 1.1.",
+    "documentation": "Documentación ukax 1.1."
+  }
+}

@@ -3,7 +3,33 @@ npx drizzle-kit generate
 npx drizzle-kit push
 
 ```
-
+              {/* <TooltipProvider delayDuration={0}>
+                <SidebarProvider>
+                  <LeftSidebar />
+                  <CategorySidebarProvider>
+                    <SubCategorySidebarProvider>
+                      <div
+                        vaul-drawer-wrapper=""
+                        className="relative h-screen w-full overflow-hidden"
+                      >
+                        <SiteHeader />
+                        <BottomBar />
+                        <Main>
+                          <Suspense>
+                            {children}
+                            <ThemeSync />
+                          </Suspense>
+                        </Main>
+                        <NewYorkToaster />
+                        <DefaultToaster />
+                        <NewYorkSonner />
+                      </div>
+                    </SubCategorySidebarProvider>
+                  </CategorySidebarProvider>
+                </SidebarProvider>
+                <FontLoader />
+                <Toaster />
+              </TooltipProvider> */}
 
 
 {/* <Friday orbSize={100} shapeSize={90} />  */ }

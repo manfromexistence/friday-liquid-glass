@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Dalam talian",
+      "offline": "Di luar talian",
+      "busy": "Sibuk",
+      "learning": "Kini belajar ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Tugas saya",
+    "integrations": "Integrasi",
+    "notifications": "Pemberitahuan"
+  },
+  "authentication": {
+    "magic-link": "Hantar pautan sihir",
+    "sso": "Log masuk dengan SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Tugas yang akan datang",
+    "stats": {
+      "new_notifications": "Pemberitahuan baru"
+    }
+  },
+  "projects": {
+    "archive": "Projek Arkib",
+    "due_date": "Tarikh yang ditetapkan",
+    "assignee": "Penerima",
+    "status": {
+      "archived": "Diarkibkan",
+      "pending_review": "TINJAUAN YANG TINGGI"
+    }
+  },
+  "tasks": {
+    "add_task": "Tambah tugas baru",
+    "edit_task": "Edit tugas",
+    "mark_complete": "Tandakan sebagai lengkap",
+    "mark_incomplete": "Tandakan sebagai tidak lengkap",
+    "delete_task": "Padam tugas",
+    "task_title_placeholder": "Apa yang perlu dilakukan?",
+    "priority": "Keutamaan",
+    "priorities": {
+      "high": "Tinggi",
+      "medium": "Medium",
+      "low": "Rendah"
+    }
+  },
+  "automations": {
+    "logs": "Lihat log",
+    "schedule": "Jadual Automasi"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Alur kerja",
+      "plugins": "Plugin"
+    },
+    "view_details": "Lihat butiran"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Pentadbir",
+      "editor": "Editor",
+      "viewer": "Penonton"
+    }
+  },
+  "notifications": {
+    "title": "Pemberitahuan",
+    "mark_all_read": "Tandakan semua sebagai Baca",
+    "no_new_notifications": "Tiada pemberitahuan baru.",
+    "clear_all": "Kosongkan semua pemberitahuan",
+    "settings_link": "Tetapan pemberitahuan"
+  },
+  "settings": {
+    "account": "Akaun",
+    "appearance": "Penampilan",
+    "theme": "Tema",
+    "themes": {
+      "light": "Mod cahaya",
+      "dark": "Mod gelap",
+      "system": "Lalai sistem"
+    },
+    "language": "Bahasa",
+    "integrations_settings": "Menguruskan integrasi",
+    "api_access": "Akses API",
+    "billing": "Pengebilan & Langganan"
+  },
+  "errors": {
+    "timeout": "Operasi itu ditetapkan. Sila cuba lagi.",
+    "api_limit_exceeded": "Had API melebihi. Sila cuba lagi kemudian."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Tandakan semua pemberitahuan anda seperti yang dibaca.",
+    "change_theme": "Tukar Rupa Aplikasi."
+  },
+  "common_actions": {
+    "save": "Simpan",
+    "cancel": "Batalkan",
+    "confirm": "Mengesahkan",
+    "delete": "Padam",
+    "edit": "Edit",
+    "add": "Tambah",
+    "apply": "Memohon",
+    "close": "Tutup",
+    "next": "Seterusnya",
+    "previous": "Sebelumnya",
+    "learn_more": "Ketahui lebih lanjut"
+  },
+  "footer": {
+    "status_page": "Halaman status",
+    "documentation": "Dokumentasi"
+  }
+}

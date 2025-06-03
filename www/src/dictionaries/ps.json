@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "آنلاین",
+      "offline": "نالیکی",
+      "busy": "بوخت",
+      "learning": "اوس مهال زده کړه ..."
+    }
+  },
+  "navigation": {
+    "tasks": "زما دندې",
+    "integrations": "ادغامونه",
+    "notifications": "خبرتیاوې"
+  },
+  "authentication": {
+    "magic-link": "جادو لینک واستوئ",
+    "sso": "د SSO سره ننوتل"
+  },
+  "dashboard": {
+    "upcoming_tasks": "امکارونه",
+    "stats": {
+      "new_notifications": "نوي خبرتیاوې"
+    }
+  },
+  "projects": {
+    "archive": "آرشیف پروژه",
+    "due_date": "د نیټې نیټې",
+    "assignee": "پلورونکی",
+    "status": {
+      "archived": "آرشیف شوی",
+      "pending_review": "د"
+    }
+  },
+  "tasks": {
+    "add_task": "نوې دنده اضافه کړئ",
+    "edit_task": "کار",
+    "mark_complete": "په بشپړ ډول نښه کړئ",
+    "mark_incomplete": "نښه د نیمګړتیا په توګه نښه کړئ",
+    "delete_task": "دنده حذف کړئ",
+    "task_title_placeholder": "څه باید وشي؟",
+    "priority": "لمړیتوب",
+    "priorities": {
+      "high": "لوړ",
+      "medium": "متوسط",
+      "low": "ټیټ"
+    }
+  },
+  "automations": {
+    "logs": "خبانې ته وګورئ",
+    "schedule": "مهالویش اتومات"
+  },
+  "library": {
+    "categories": {
+      "workflows": "کاري څرخونه",
+      "plugins": "فلګونه"
+    },
+    "view_details": "توضیحات وګورئ"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "مدیر",
+      "editor": "سمونګر",
+      "viewer": "لیدونکی"
+    }
+  },
+  "notifications": {
+    "title": "خبرتیاوې",
+    "mark_all_read": "ټول د لوستلو په توګه نښه کړئ",
+    "no_new_notifications": "نوي خبرتیاوې نشته.",
+    "clear_all": "ټول خبرتیاوې پاک کړئ",
+    "settings_link": "د خبرتیا امستنې"
+  },
+  "settings": {
+    "account": "ګڼون",
+    "appearance": "ظاهري ب .ه",
+    "theme": "موضوع",
+    "themes": {
+      "light": "رڼا اکر",
+      "dark": "تیاره حالت",
+      "system": "سیسټم ډیفالټ"
+    },
+    "language": "ژبه",
+    "integrations_settings": "مدغم کول",
+    "api_access": "API لاسرسی",
+    "billing": "بلینګ او ګډونونه"
+  },
+  "errors": {
+    "timeout": "دا عملیه وخت پای ته ورسیده. مهرباني وکړئ بیا هڅه وکړئ.",
+    "api_limit_exceeded": "د API حد څخه زیات شوی. مهرباني وکړئ وروسته بیا هڅه وکړئ."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "د لوستلو په توګه خپل ټول خبرتیاوې په نښه کړئ.",
+    "change_theme": "د غوښتنلیک ظهور بدل کړئ."
+  },
+  "common_actions": {
+    "save": "خوندي کړئ",
+    "cancel": "لغوه کول",
+    "confirm": "تصدیق وکړئ",
+    "delete": "حذف کول",
+    "edit": "سمون",
+    "add": "اضافه کول",
+    "apply": "غوښتنه وکړئ",
+    "close": "بندول",
+    "next": "بل",
+    "previous": "تېر",
+    "learn_more": "نور زده کړئ"
+  },
+  "footer": {
+    "status_page": "د حالت پا .ه",
+    "documentation": "لاسوند"
+  }
+}

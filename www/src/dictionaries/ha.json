@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Kan layi",
+      "offline": "A layi",
+      "busy": "M",
+      "learning": "A halin yanzu koya ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Da ayuna",
+    "integrations": "Haɗin kai",
+    "notifications": "Fadakarwa"
+  },
+  "authentication": {
+    "magic-link": "Aika hanyar zane",
+    "sso": "Shiga ciki tare da SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Ayyuka masu zuwa",
+    "stats": {
+      "new_notifications": "Sabbin sanarwar"
+    }
+  },
+  "projects": {
+    "archive": "Aikin Amincewa",
+    "due_date": "Ranar haihuwa",
+    "assignee": "Assignee",
+    "status": {
+      "archived": "Harhaya",
+      "pending_review": "A lokacin dubawa"
+    }
+  },
+  "tasks": {
+    "add_task": "Sanya sabon aiki",
+    "edit_task": "Gyara aiki",
+    "mark_complete": "Alama kamar kammala",
+    "mark_incomplete": "Alama kamar yadda ba ta cika ba",
+    "delete_task": "Share aiki",
+    "task_title_placeholder": "Me ake bukatar yin?",
+    "priority": "Fifiko",
+    "priorities": {
+      "high": "M",
+      "medium": "Matsakaici",
+      "low": "M"
+    }
+  },
+  "automations": {
+    "logs": "Duba rajistan ayyukan",
+    "schedule": "Jadawalin kai tsaye"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Aiki",
+      "plugins": "Solins"
+    },
+    "view_details": "Duba cikakkun bayanai"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Shugaba",
+      "editor": "Edita",
+      "viewer": "Mai kallo"
+    }
+  },
+  "notifications": {
+    "title": "Fadakarwa",
+    "mark_all_read": "Alama duk kamar yadda aka karanta",
+    "no_new_notifications": "Babu sabon sanarwar.",
+    "clear_all": "Share duk sanarwar",
+    "settings_link": "Saitunan sanarwa"
+  },
+  "settings": {
+    "account": "Ajiya",
+    "appearance": "Bayyanawa",
+    "theme": "Batu",
+    "themes": {
+      "light": "Yanayin haske",
+      "dark": "Yanayin duhu",
+      "system": "Tsarin tsoho"
+    },
+    "language": "Harshe",
+    "integrations_settings": "Gudanar da hadewar",
+    "api_access": "Samun damar API",
+    "billing": "Lissafi & Biyan kuɗi"
+  },
+  "errors": {
+    "timeout": "Aikin ya ƙare. Da fatan za a sake gwadawa.",
+    "api_limit_exceeded": "Iyaka api ya wuce. Da fatan za a sake gwadawa nan gaba."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Yi alama duk sanarwarku kamar yadda aka karanta.",
+    "change_theme": "Canza bayyanar aikace-aikacen."
+  },
+  "common_actions": {
+    "save": "Ceta",
+    "cancel": "Warware",
+    "confirm": "Tabbata",
+    "delete": "Share",
+    "edit": "Shirya",
+    "add": "Haɗa",
+    "apply": "Nema",
+    "close": "Rufa",
+    "next": "Daga nan",
+    "previous": "Na baya",
+    "learn_more": "Moreara koyo"
+  },
+  "footer": {
+    "status_page": "Shafin matsayi",
+    "documentation": "Bayanan"
+  }
+}

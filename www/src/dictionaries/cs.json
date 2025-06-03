@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Zaneprázdněný",
+      "learning": "V současné době se učí ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Moje úkoly",
+    "integrations": "Integrace",
+    "notifications": "Oznámení"
+  },
+  "authentication": {
+    "magic-link": "Odeslat magický odkaz",
+    "sso": "Přihlaste se s SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Nadcházející úkoly",
+    "stats": {
+      "new_notifications": "Nová oznámení"
+    }
+  },
+  "projects": {
+    "archive": "Archivní projekt",
+    "due_date": "Datum splatnosti",
+    "assignee": "Nabyvatel",
+    "status": {
+      "archived": "Archivované",
+      "pending_review": "Čekající recenze"
+    }
+  },
+  "tasks": {
+    "add_task": "Přidejte nový úkol",
+    "edit_task": "Upravit úlohu",
+    "mark_complete": "Mark As Complete",
+    "mark_incomplete": "Mark jako neúplné",
+    "delete_task": "Odstranit úlohu",
+    "task_title_placeholder": "Co je třeba udělat?",
+    "priority": "Přednost",
+    "priorities": {
+      "high": "Vysoký",
+      "medium": "Střední",
+      "low": "Nízký"
+    }
+  },
+  "automations": {
+    "logs": "Zobrazit protokoly",
+    "schedule": "Automatizace plánu"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Pracovní postupy",
+      "plugins": "Pluginy"
+    },
+    "view_details": "Zobrazit podrobnosti"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Správce",
+      "editor": "Editor",
+      "viewer": "Divák"
+    }
+  },
+  "notifications": {
+    "title": "Oznámení",
+    "mark_all_read": "Označte vše jako čtení",
+    "no_new_notifications": "Žádná nová oznámení.",
+    "clear_all": "Vymažte všechna oznámení",
+    "settings_link": "Nastavení oznámení"
+  },
+  "settings": {
+    "account": "Účet",
+    "appearance": "Vzhled",
+    "theme": "Téma",
+    "themes": {
+      "light": "Režim světla",
+      "dark": "Tmavý režim",
+      "system": "Výchozí systém"
+    },
+    "language": "Jazyk",
+    "integrations_settings": "Správa integrací",
+    "api_access": "Přístup API",
+    "billing": "Fakturace a předplatné"
+  },
+  "errors": {
+    "timeout": "Operace vypršela. Zkuste to prosím znovu.",
+    "api_limit_exceeded": "Překročil limit API. Zkuste to prosím znovu později."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Označte všechna svá oznámení jako čtení.",
+    "change_theme": "Změňte vzhled aplikace."
+  },
+  "common_actions": {
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "confirm": "Potvrdit",
+    "delete": "Vymazat",
+    "edit": "Upravit",
+    "add": "Přidat",
+    "apply": "Aplikovat",
+    "close": "Blízko",
+    "next": "Další",
+    "previous": "Předchozí",
+    "learn_more": "Další informace"
+  },
+  "footer": {
+    "status_page": "Stránka stavu",
+    "documentation": "Dokumentace"
+  }
+}

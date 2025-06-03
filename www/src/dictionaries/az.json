@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Onlayn",
+      "offline": "Xətdənsiz",
+      "busy": "Mişar",
+      "learning": "Hal-hazırda öyrənmək ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mənim vəzifələrim",
+    "integrations": "İnteqrasiya",
+    "notifications": "Bildirişlər"
+  },
+  "authentication": {
+    "magic-link": "Sehrli link göndərin",
+    "sso": "SSO ilə daxil olun"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Qarşıdakı vəzifələr",
+    "stats": {
+      "new_notifications": "Yeni bildirişlər"
+    }
+  },
+  "projects": {
+    "archive": "Arxiv layihəsi",
+    "due_date": "Müvafiq tarix",
+    "assignee": "Təyinatçı",
+    "status": {
+      "archived": "Arxivli",
+      "pending_review": "Gözləyən rəy"
+    }
+  },
+  "tasks": {
+    "add_task": "Yeni tapşırıq əlavə edin",
+    "edit_task": "Tapşırıq tapşırığı",
+    "mark_complete": "Tamamilə qeyd edin",
+    "mark_incomplete": "Natamam kimi qeyd edin",
+    "delete_task": "Tapşırığı silmək",
+    "task_title_placeholder": "Nə etmək lazımdır?",
+    "priority": "Prioritet",
+    "priorities": {
+      "high": "Yüksək",
+      "medium": "Mühit",
+      "low": "Alçaq"
+    }
+  },
+  "automations": {
+    "logs": "Girişlərə baxın",
+    "schedule": "Cədvəl avtomatlaşdırılması"
+  },
+  "library": {
+    "categories": {
+      "workflows": "İş axınları",
+      "plugins": "Plaginlər"
+    },
+    "view_details": "Ətraflı məlumat"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "İdarəçi",
+      "editor": "Redaktor",
+      "viewer": "Tamaşaçı"
+    }
+  },
+  "notifications": {
+    "title": "Bildirişlər",
+    "mark_all_read": "Hamısını oxunduğu kimi qeyd edin",
+    "no_new_notifications": "Yeni bildiriş yoxdur.",
+    "clear_all": "Bütün bildirişləri təmizləyin",
+    "settings_link": "Bildiriş parametrləri"
+  },
+  "settings": {
+    "account": "Hesab",
+    "appearance": "Görünüş",
+    "theme": "Mövzu",
+    "themes": {
+      "light": "İşıq rejimi",
+      "dark": "Qaranlıq rejim",
+      "system": "Sistem Defolt"
+    },
+    "language": "Dil",
+    "integrations_settings": "İnteqrasiyaları idarə edin",
+    "api_access": "API giriş",
+    "billing": "Hesablama və abunə"
+  },
+  "errors": {
+    "timeout": "Əməliyyat vaxtı bitdi. Xahiş edirəm yenidən cəhd edin.",
+    "api_limit_exceeded": "API həddi aşdı. Xahiş edirəm daha sonra yenidən cəhd edin."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Bütün bildirişlərinizi oxu kimi qeyd edin.",
+    "change_theme": "Tətbiq görünüşünü dəyişdirin."
+  },
+  "common_actions": {
+    "save": "Qurtarmaq",
+    "cancel": "Ləğv etmək",
+    "confirm": "Təsdiq etmək",
+    "delete": "Silmək",
+    "edit": "Redaktə etmək",
+    "add": "Əlavə etmək",
+    "apply": "Tətbiq etmək",
+    "close": "Yaxın",
+    "next": "Sonrakı",
+    "previous": "Əvvəlki",
+    "learn_more": "Daha çox məlumat əldə edin"
+  },
+  "footer": {
+    "status_page": "Status səhifəsi",
+    "documentation": "Sənədləşdirmə"
+  }
+}

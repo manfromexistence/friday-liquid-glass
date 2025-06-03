@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
-import { InlineMath, BlockMath } from 'react-katex'
-import { Check, Copy, ChevronDown, ChevronUp } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import React, { useState } from "react"
+import ReactMarkdown from "react-markdown"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism"
+import remarkGfm from "remark-gfm"
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
+import { InlineMath, BlockMath } from "react-katex"
+import { Check, Copy, ChevronDown, ChevronUp } from "lucide-react"
+import { cn } from "@/lib/utils"
 import {
     Table,
     TableBody,
@@ -25,35 +25,35 @@ import {
     CollapsibleTrigger
 } from "@/components/ui/collapsible"
 import { Button } from "@/components/ui/button"
-import 'katex/dist/katex.min.css'
-import type { Components } from 'react-markdown'
+import "katex/dist/katex.min.css"
+import type { Components } from "react-markdown"
 
 // Extend Components type to include math components
-declare module 'react-markdown' {
+declare module "react-markdown" {
     interface ComponentPropsWithoutRef<T> {
         value?: string;
     }
 }
 
-type CustomComponents = Omit<Components, 'code'> & {
+type CustomComponents = Omit<Components, "code"> & {
     code: React.ComponentType<{ inline?: boolean; className?: string; children?: React.ReactNode } & BasicComponentProps>;
     math: React.ComponentType<{ value: string }>;
     inlineMath: React.ComponentType<{ value: string }>;
 }
 
 // Custom theme extensions for coldarkDark
-const codeTheme = {
-    ...coldarkDark,
-    'pre[class*="language-"]': {
-        ...coldarkDark['pre[class*="language-"]'],
-        backgroundColor: 'hsl(var(--background))',
-        borderRadius: '0 0 0.5rem 0.5rem',
-    },
-    'code[class*="language-"]': {
-        ...coldarkDark['code[class*="language-"]'],
-        backgroundColor: 'transparent',
-    }
-}
+// const codeTheme = {
+//     ...coldarkDark,
+//     "pre[class*="language-"]": {
+//         ...coldarkDark["pre[class*="language-"]"],
+//         backgroundColor: "hsl(var(--background))",
+//         borderRadius: "0 0 0.5rem 0.5rem",
+//     },
+//     "code[class*="language-"]": {
+//         ...coldarkDark["code[class*="language-"]"],
+//         backgroundColor: "transparent",
+//     }
+// }
 
 interface CodeBlockProps {
     language: string
@@ -77,7 +77,7 @@ function CodeBlock({ language, value }: CodeBlockProps) {
                 isCollapsed ? "" : "border-b"
             )}>
                 <div className="flex items-center gap-2">
-                    <span className='h-full text-center text-sm'>{language}</span>
+                    <span className="h-full text-center text-sm">{language}</span>
                     <button
                         onClick={() => setIsCollapsed(!isCollapsed)}
                         className="hover:text-primary text-muted-foreground h-full"
@@ -111,15 +111,15 @@ function CodeBlock({ language, value }: CodeBlockProps) {
                 >
                     <div className="min-w-full p-2">
                         <SyntaxHighlighter
-                            style={codeTheme}
+                            // style={codeTheme}
                             language={language}
                             PreTag="div"
                             customStyle={{
                                 margin: 0,
-                                background: 'transparent',
-                                minWidth: '100%',
-                                width: 'fit-content',
-                                whiteSpace: 'pre',
+                                background: "transparent",
+                                minWidth: "100%",
+                                width: "fit-content",
+                                whiteSpace: "pre",
                             }}
                         >
                             {value}
@@ -155,24 +155,24 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
         // More aggressive cleaning approach
         return text
             // Remove lines that are just list markers with optional whitespace
-            .replace(/^(\s*[-*+][ \t]*|\s*\d+\.[ \t]*)$/gm, '')
+            .replace(/^(\s*[-*+][ \t]*|\s*\d+\.[ \t]*)$/gm, "")
             
             // Remove lines with list markers followed by only whitespace characters or HTML entities
-            .replace(/^(\s*[-*+][ \t]+)([ \t\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]|&nbsp;)*$/gm, '')
-            .replace(/^(\s*\d+\.[ \t]+)([ \t\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]|&nbsp;)*$/gm, '')
+            .replace(/^(\s*[-*+][ \t]+)([ \t\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]|&nbsp;)*$/gm, "")
+            .replace(/^(\s*\d+\.[ \t]+)([ \t\u00A0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000\uFEFF]|&nbsp;)*$/gm, "")
             
             // Handle common HTML entities and invisible Unicode characters
-            .replace(/^(\s*[-*+][ \t]+)([^\S\r\n]|&[a-z0-9#]+;|[\u200B-\u200D\uFEFF])*$/gmi, '')
-            .replace(/^(\s*\d+\.[ \t]+)([^\S\r\n]|&[a-z0-9#]+;|[\u200B-\u200D\uFEFF])*$/gmi, '')
+            .replace(/^(\s*[-*+][ \t]+)([^\S\r\n]|&[a-z0-9#]+;|[\u200B-\u200D\uFEFF])*$/gmi, "")
+            .replace(/^(\s*\d+\.[ \t]+)([^\S\r\n]|&[a-z0-9#]+;|[\u200B-\u200D\uFEFF])*$/gmi, "")
             
             // Normalize multiple newlines to prevent excessive spacing
-            .replace(/\n{3,}/g, '\n\n');
+            .replace(/\n{3,}/g, "\n\n");
     };
 
     // Add this helper function
     const removeEmptyListItems = (markdown: string): string => {
         // Split the markdown into lines
-        const lines = markdown.split('\n');
+        const lines = markdown.split("\n");
         
         // Filter out lines that are just list markers
         const filteredLines = lines.filter(line => {
@@ -181,7 +181,7 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
         });
         
         // Join the filtered lines back into a string
-        return filteredLines.join('\n');
+        return filteredLines.join("\n");
     };
 
     // Split content into thinking and answer sections
@@ -223,10 +223,10 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
 
         // Clean up thinking and answer text by removing headers
         // Remove "Thinking Process:" and similar headers from thinking section
-        thinking = thinking.replace(/^(?:#{1,6}\s*)?Thinking\s*(?:Process)?:?/im, '').trim()
+        thinking = thinking.replace(/^(?:#{1,6}\s*)?Thinking\s*(?:Process)?:?/im, "").trim()
         
         // Remove answer headers from answer section
-        answer = answer.replace(/^(?:#{1,6}\s*)?(?:Answer|Conclusion|Final Answer):?/im, '').trim()
+        answer = answer.replace(/^(?:#{1,6}\s*)?(?:Answer|Conclusion|Final Answer):?/im, "").trim()
 
         return { thinking, answer }
     }
@@ -234,18 +234,18 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
     const { thinking, answer } = splitContent()
 
     const splitIntoTokens = (text: string) => {
-        return text.match(/[a-zA-Z0-9']+|[^\s\w']+|\s+/g) || []
+        return text.match(/[a-zA-Z0-9"]+|[^\s\w"]+|\s+/g) || []
     }
 
     // Helper function to safely convert ReactNode to string
     const getTextFromChildren = (children: React.ReactNode): string => {
-        if (children === undefined || children === null) return '';
-        if (typeof children === 'string') return children;
-        if (typeof children === 'number') return String(children);
+        if (children === undefined || children === null) return "";
+        if (typeof children === "string") return children;
+        if (typeof children === "number") return String(children);
         if (Array.isArray(children)) {
-            return children.map(getTextFromChildren).join('');
+            return children.map(getTextFromChildren).join("");
         }
-        return '';
+        return "";
     }
 
     const TextRenderer = ({ children }: TextRendererProps) => {
@@ -256,7 +256,7 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
         return (
             <>
                 {tokens.map((token, index) => {
-                    const isWord = /[a-zA-Z0-9']+/.test(token);
+                    const isWord = /[a-zA-Z0-9"]+/.test(token);
                     const tokenIndex = isWord ? wordIndex++ : -1;
                     return (
                         <span
@@ -274,12 +274,12 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
     // Build markdown components with proper typing
     const markdownComponents: CustomComponents = {
         code({ inline, className, children, ...props }: { inline?: boolean, className?: string, children?: React.ReactNode } & BasicComponentProps) {
-            const match = /language-(\w+)/.exec(className || '')
+            const match = /language-(\w+)/.exec(className || "")
             if (!inline && match && children) {
                 return (
                     <CodeBlock
                         language={match[1]}
-                        value={String(children).replace(/\n$/, '')}
+                        value={String(children).replace(/\n$/, "")}
                     />
                 )
             }
@@ -296,7 +296,7 @@ export function ReasoningPreview({ content, currentWordIndex = -1 }: ReasoningPr
             </p>
         ),
         li: ({ children, ...props }: BasicComponentProps) => {
-            // If children is empty or contains only whitespace, don't render the list item
+            // If children is empty or contains only whitespace, don"t render the list item
             const content = getTextFromChildren(children);
             if (!content || /^\s*$/.test(content)) {
                 return null;

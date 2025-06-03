@@ -9,6 +9,7 @@
     pkgs.yarn
     pkgs.nodePackages.pnpm
     pkgs.bun
+    pkgs.python3 # Added Python 3
   ];
   # Sets environment variables in the workspace
   env = { };
