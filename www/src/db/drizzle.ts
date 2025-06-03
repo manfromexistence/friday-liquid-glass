@@ -1,5 +1,7 @@
-import { neon } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-http';
-
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql });
+import { drizzle } from 'drizzle-orm/libsql';
+import { createClient } from '@libsql/client';
+const client = createClient({ 
+  url: "https://app.turso.tech/manfrexistence/databases/better-auth",
+  authToken: process.env.DATABASE_AUTH_TOKEN
+});
+export const db = drizzle({ client });

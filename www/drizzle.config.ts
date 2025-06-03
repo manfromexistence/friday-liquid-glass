@@ -2,23 +2,11 @@ import 'dotenv/config';
 import { defineConfig } from 'drizzle-kit';
 
 export default defineConfig({
-  out: './src/db/drizzle',
+  out: './drizzle',
   schema: './src/db/schema.ts',
-  dialect: 'postgresql',
+  dialect: 'turso',
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: process.env.TURSO_DATABASE_URL,
+    authToken: process.env.TURSO_AUTH_TOKEN,
   },
 });
-
-// import { getDbConnectionString } from "@/lib/db";
-// import "dotenv/config";
-// import { defineConfig } from "drizzle-kit";
-
-// export default defineConfig({
-//   out: "./src/lib/db/migrations",
-//   schema: "./src/lib/db/schema.ts",
-//   dialect: "postgresql",
-//   dbCredentials: {
-//     url: getDbConnectionString(),
-//   },
-// });
