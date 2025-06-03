@@ -10,6 +10,8 @@ import { Cursor } from "@/app/cursor";
 import ChatPage from "@/app/chat/[slug]/page";
 import Chatbot from "@/app/chat";
 import AiInput from "@/components/chat/ai-input";
+import { authClient } from "@/lib/auth/auth-client";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
@@ -17,6 +19,16 @@ export default function Home() {
       <span>
         Friday - Your Ai Friend!
       </span>
+
+      <Button
+        onClick={
+          async () => {
+            await authClient.signIn.anonymous()
+          }
+        }
+        className="p-4 border rounded-md">
+        Anynomus SignUp
+      </Button>
 
       <SignUp />
       <SignIn />
