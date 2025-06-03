@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Inthaneteng",
+      "offline": "Offline .",
+      "busy": "Tsene fase",
+      "learning": "Ga bjale o ithuta..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mešomo ya ka .",
+    "integrations": "Dikopano tša .",
+    "notifications": "Ditsebišo ."
+  },
+  "authentication": {
+    "magic-link": "Romela kgokagano ya boselamose .",
+    "sso": "Tsena ka SSO ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Mešomo ye e tlago .",
+    "stats": {
+      "new_notifications": "Ditsebišo tše mpsha ."
+    }
+  },
+  "projects": {
+    "archive": "Protšeke ya Bobolokelo .",
+    "due_date": "Letšatšikgwedi la go lefelwa .",
+    "assignee": "Moabi wa .",
+    "status": {
+      "archived": "E bolokilwego .",
+      "pending_review": "Go sa lebeletšwe tlhahlobo ."
+    }
+  },
+  "tasks": {
+    "add_task": "Oketša mošomo o mofsa .",
+    "edit_task": "Edita mošomo .",
+    "mark_complete": "Letshwao bjalo ka le le feletšego .",
+    "mark_incomplete": "Letshwao bjalo ka le le sa felelago .",
+    "delete_task": "Phimola mošomo .",
+    "task_title_placeholder": "Go swanetše go dirwa’ng?",
+    "priority": "Bohlokwa",
+    "priorities": {
+      "high": "Godimo",
+      "medium": "Dirišwago",
+      "low": "Fase"
+    }
+  },
+  "automations": {
+    "logs": "Lebelela Dilog .",
+    "schedule": "Rulaganya go itirela ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Ditshepetšo tša mošomo .",
+      "plugins": "Di-plugin ."
+    },
+    "view_details": "Bona dintlha ka botlalo ."
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Molaodi .",
+      "editor": "Morulaganyi .",
+      "viewer": "Mobogedi ."
+    }
+  },
+  "notifications": {
+    "title": "Ditsebišo .",
+    "mark_all_read": "Swaya ka moka bjalo ka ge go balwa .",
+    "no_new_notifications": "Ga go na ditsebišo tše mpsha.",
+    "clear_all": "Hlakola ditsebišo ka moka .",
+    "settings_link": "Dipeakanyo tša tsebišo ."
+  },
+  "settings": {
+    "account": "Akhaonte",
+    "appearance": "Ponagalo",
+    "theme": "Tabataba",
+    "themes": {
+      "light": "Mokgwa wa Lesedi .",
+      "dark": "Mokgwa wa lefifi .",
+      "system": "Tshepedišo ya go se fetoge ya tshepedišo ."
+    },
+    "language": "Polelo",
+    "integrations_settings": "Laola Dikopano .",
+    "api_access": "Phihlelelo ya API .",
+    "billing": "Billing & Dipeeletšo ."
+  },
+  "errors": {
+    "timeout": "Tshebetso e ile ya fela. Ke kgopela le leke gape.",
+    "api_limit_exceeded": "Moedi wa API o ile wa feta. Ke kgopela le leke gape ka morago."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Swaya ditsebišo tša gago ka moka bjalo ka ge di balwa.",
+    "change_theme": "Fetoša ponagalo ya tirišo."
+  },
+  "common_actions": {
+    "save": "Boloka",
+    "cancel": "Khansela",
+    "confirm": "Tiišetša",
+    "delete": "Phumola",
+    "edit": "Rulaganya",
+    "add": "Hlakanya",
+    "apply": "Diriša",
+    "close": "Tswalela",
+    "next": "Latelago",
+    "previous": "Peleng",
+    "learn_more": "Ithute ka botlalo"
+  },
+  "footer": {
+    "status_page": "Letlakala la Maemo .",
+    "documentation": "Ditokomane ."
+  }
+}

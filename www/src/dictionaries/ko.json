@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "온라인",
+      "offline": "오프라인",
+      "busy": "바쁘다",
+      "learning": "현재 학습 ..."
+    }
+  },
+  "navigation": {
+    "tasks": "내 임무",
+    "integrations": "통합",
+    "notifications": "알림"
+  },
+  "authentication": {
+    "magic-link": "Magic Link를 보내십시오",
+    "sso": "SSO로 로그인하십시오"
+  },
+  "dashboard": {
+    "upcoming_tasks": "다가오는 작업",
+    "stats": {
+      "new_notifications": "새로운 알림"
+    }
+  },
+  "projects": {
+    "archive": "아카이브 프로젝트",
+    "due_date": "마감일",
+    "assignee": "양수인",
+    "status": {
+      "archived": "보관 된",
+      "pending_review": "보류중인 검토"
+    }
+  },
+  "tasks": {
+    "add_task": "새로운 작업을 추가하십시오",
+    "edit_task": "작업 편집",
+    "mark_complete": "마크를 완료하십시오",
+    "mark_incomplete": "불완전한 것으로 표시하십시오",
+    "delete_task": "작업 삭제",
+    "task_title_placeholder": "무엇을해야합니까?",
+    "priority": "우선 사항",
+    "priorities": {
+      "high": "높은",
+      "medium": "중간",
+      "low": "낮은"
+    }
+  },
+  "automations": {
+    "logs": "로그를 봅니다",
+    "schedule": "자동화 일정"
+  },
+  "library": {
+    "categories": {
+      "workflows": "워크 플로",
+      "plugins": "플러그인"
+    },
+    "view_details": "자세한 내용을보십시오"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "관리자",
+      "editor": "편집자",
+      "viewer": "뷰어"
+    }
+  },
+  "notifications": {
+    "title": "알림",
+    "mark_all_read": "읽은대로 표시하십시오",
+    "no_new_notifications": "새로운 알림이 없습니다.",
+    "clear_all": "모든 알림을 지우십시오",
+    "settings_link": "알림 설정"
+  },
+  "settings": {
+    "account": "계정",
+    "appearance": "모습",
+    "theme": "주제",
+    "themes": {
+      "light": "라이트 모드",
+      "dark": "다크 모드",
+      "system": "시스템 기본값"
+    },
+    "language": "언어",
+    "integrations_settings": "통합 관리",
+    "api_access": "API 액세스",
+    "billing": "청구 및 구독"
+  },
+  "errors": {
+    "timeout": "작업이 시간이 초과되었습니다. 다시 시도하십시오.",
+    "api_limit_exceeded": "API 제한이 초과되었습니다. 나중에 다시 시도하십시오."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "모든 알림을 읽은 것으로 표시하십시오.",
+    "change_theme": "응용 프로그램 모양을 변경하십시오."
+  },
+  "common_actions": {
+    "save": "구하다",
+    "cancel": "취소",
+    "confirm": "확인하다",
+    "delete": "삭제",
+    "edit": "편집하다",
+    "add": "추가하다",
+    "apply": "적용하다",
+    "close": "닫다",
+    "next": "다음",
+    "previous": "이전의",
+    "learn_more": "자세히 알아보십시오"
+  },
+  "footer": {
+    "status_page": "상태 페이지",
+    "documentation": "선적 서류 비치"
+  }
+}

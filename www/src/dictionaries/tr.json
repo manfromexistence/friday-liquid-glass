@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Çevrimiçi",
+      "offline": "Çevrimdışı",
+      "busy": "Meşgul",
+      "learning": "Şu anda öğreniyor ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Görevlerim",
+    "integrations": "Entegrasyonlar",
+    "notifications": "Bildirimler"
+  },
+  "authentication": {
+    "magic-link": "Magic Link Gönder",
+    "sso": "SSO ile oturum açın"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Yaklaşan Görevler",
+    "stats": {
+      "new_notifications": "Yeni Bildirimler"
+    }
+  },
+  "projects": {
+    "archive": "Arşiv Projesi",
+    "due_date": "Bitiş tarihi",
+    "assignee": "Görevli",
+    "status": {
+      "archived": "Arşivlenmiş",
+      "pending_review": "Bekleyen İnceleme"
+    }
+  },
+  "tasks": {
+    "add_task": "Yeni Görev Ekle",
+    "edit_task": "Görev düzenleme",
+    "mark_complete": "Tam olarak işaretle",
+    "mark_incomplete": "Eksik olarak işaretleyin",
+    "delete_task": "Görevi sil",
+    "task_title_placeholder": "Ne yapılması gerekiyor?",
+    "priority": "Öncelik",
+    "priorities": {
+      "high": "Yüksek",
+      "medium": "Orta",
+      "low": "Düşük"
+    }
+  },
+  "automations": {
+    "logs": "Günlükleri Görüntüle",
+    "schedule": "Program Otomasyonu"
+  },
+  "library": {
+    "categories": {
+      "workflows": "İş akışları",
+      "plugins": "Eklentiler"
+    },
+    "view_details": "Ayrıntıları Görüntüle"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Yönetici",
+      "editor": "Editör",
+      "viewer": "İzleyici"
+    }
+  },
+  "notifications": {
+    "title": "Bildirimler",
+    "mark_all_read": "Hepsini okuduğunu işaretle",
+    "no_new_notifications": "Yeni bildirim yok.",
+    "clear_all": "Tüm Bildirimleri Temizle",
+    "settings_link": "Bildirim Ayarları"
+  },
+  "settings": {
+    "account": "Hesap",
+    "appearance": "Dış görünüş",
+    "theme": "Tema",
+    "themes": {
+      "light": "Işık Modu",
+      "dark": "Karanlık mod",
+      "system": "Sistem Varsayılan"
+    },
+    "language": "Dil",
+    "integrations_settings": "Entegrasyonları Yönetin",
+    "api_access": "API erişimi",
+    "billing": "Faturalandırma ve Abonelikler"
+  },
+  "errors": {
+    "timeout": "Operasyon zaman aşımına uğradı. Lütfen tekrar deneyin.",
+    "api_limit_exceeded": "API sınırı aşıldı. Lütfen daha sonra tekrar deneyin."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Tüm bildirimlerinizi okunur gibi işaretleyin.",
+    "change_theme": "Uygulama görünümünü değiştirin."
+  },
+  "common_actions": {
+    "save": "Kaydetmek",
+    "cancel": "İptal etmek",
+    "confirm": "Onaylamak",
+    "delete": "Silmek",
+    "edit": "Düzenlemek",
+    "add": "Eklemek",
+    "apply": "Uygula",
+    "close": "Kapalı",
+    "next": "Sonraki",
+    "previous": "Öncesi",
+    "learn_more": "Daha fazla bilgi edin"
+  },
+  "footer": {
+    "status_page": "Durum sayfası",
+    "documentation": "Belgeler"
+  }
+}

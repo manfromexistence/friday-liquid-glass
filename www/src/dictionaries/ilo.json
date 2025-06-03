@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline .",
+      "busy": "Adu ar-aramidenna",
+      "learning": "Agdama nga agsursuro..."
+    }
+  },
+  "navigation": {
+    "tasks": "Dagiti trabahok .",
+    "integrations": "Dagiti panagtipon .",
+    "notifications": "Dagiti pakaammo ."
+  },
+  "authentication": {
+    "magic-link": "Ipatulod ti Magic Link .",
+    "sso": "Sign In sa SSO ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "Umay nga aramid .",
+    "stats": {
+      "new_notifications": "Dagiti baro a pakaammo ."
+    }
+  },
+  "projects": {
+    "archive": "Proyekto ti Arkibo .",
+    "due_date": "Petsa ti panagbayad .",
+    "assignee": "Naituding nga .",
+    "status": {
+      "archived": "Na-archive .",
+      "pending_review": "Pending a repaso ."
+    }
+  },
+  "tasks": {
+    "add_task": "Inayon ti baro nga aramid .",
+    "edit_task": "Urnosen ti Aramiden .",
+    "mark_complete": "Markaam kas kompleto .",
+    "mark_incomplete": "Markaam kas saan a kompleto .",
+    "delete_task": "Ikkaten ti Aramiden .",
+    "task_title_placeholder": "Ania ti masapul nga aramiden?",
+    "priority": "Prioridad",
+    "priorities": {
+      "high": "Nangato",
+      "medium": "Medio",
+      "low": "Ababa"
+    }
+  },
+  "automations": {
+    "logs": "Kitaen dagiti logs .",
+    "schedule": "Iskediul ti automation ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "Dagiti panagayus ti trabaho .",
+      "plugins": "Dagiti plugin ."
+    },
+    "view_details": "Kitaen dagiti detalye ."
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrador .",
+      "editor": "editor .",
+      "viewer": "managbuya ."
+    }
+  },
+  "notifications": {
+    "title": "Dagiti pakaammo .",
+    "mark_all_read": "Markaam amin kas mabasa .",
+    "no_new_notifications": "Awan ti baro a pakaammo.",
+    "clear_all": "Ilawlawag amin a pakaammo .",
+    "settings_link": "Dagiti setting ti pakaammo ."
+  },
+  "settings": {
+    "account": "Account",
+    "appearance": "Langa",
+    "theme": "Amad",
+    "themes": {
+      "light": "Modo ti lawag .",
+      "dark": "Nasipnget nga Modo .",
+      "system": "Sistema ti default ."
+    },
+    "language": "Lengguahe",
+    "integrations_settings": "Imanehar dagiti panagtipon .",
+    "api_access": "API nga pag-access .",
+    "billing": "Panagsingil & Suskrision ."
+  },
+  "errors": {
+    "timeout": "Ti operasion ket na-time out. Pangngaasiyo ta padasenyo manen.",
+    "api_limit_exceeded": "Nalab-awan ti limitasion ti API. Pangngaasiyo ta padasenyo manen inton agangay."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Markaam amin a pakaammom kas mabasa.",
+    "change_theme": "Baliwan ti langa ti aplikasion."
+  },
+  "common_actions": {
+    "save": "Ispalen",
+    "cancel": "Ikansela",
+    "confirm": "Kumpirmaen",
+    "delete": "Ikkaten",
+    "edit": "Sabalian",
+    "add": "Agnayon",
+    "apply": "Iyaplikar",
+    "close": "Iserra",
+    "next": "Sumaruno",
+    "previous": "Napalabas",
+    "learn_more": "Ammuen ti ad-adu pay"
+  },
+  "footer": {
+    "status_page": "Panid ti Kasasaad .",
+    "documentation": "Dokumentasion ."
+  }
+}

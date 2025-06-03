@@ -53,7 +53,7 @@ export function SignIn() {
           Enter your email below to login to your account
         </CardDescription>
       </CardHeader>
-      <CardContent className="py-0 pb-4">
+      <CardContent className="py-0">
         <div className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
@@ -123,9 +123,9 @@ export function SignIn() {
           </Button>
 
           <div className="w-full flex flex-row space-x-2 items-center">
-            <Separator className="w-1/3" />
-            <span className="w-1/3 text-center text-sm text-muted-foreground">Or continue with</span>
-            <Separator className="w-1/3" />
+            <Separator className="max-w-1/3" />
+            <span className="text-center text-sm text-muted-foreground flex-1">Or continue with</span>
+            <Separator className="max-w-1/3" />
           </div>
 
           <div className={cn(
@@ -134,9 +134,7 @@ export function SignIn() {
           )}>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -158,9 +156,7 @@ export function SignIn() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -183,9 +179,7 @@ export function SignIn() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -207,9 +201,7 @@ export function SignIn() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -231,9 +223,7 @@ export function SignIn() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -255,9 +245,7 @@ export function SignIn() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -279,9 +267,7 @@ export function SignIn() {
             </Button>
             <Button
               variant="outline"
-              className={cn(
-                "w-full gap-2"
-              )}
+
               disabled={loading}
               onClick={async () => {
                 await signIn.social(
@@ -305,7 +291,7 @@ export function SignIn() {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="py-0">
         <div className="flex justify-center w-full">
           <p className="text-center text-xs text-muted-foreground">
             Don't have any account?{" "}

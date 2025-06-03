@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Онлайн",
+      "offline": "Окшегі",
+      "busy": "Бос емес",
+      "learning": "Қазіргі уақытта ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Менің тапсырмаларым",
+    "integrations": "Интеграция",
+    "notifications": "Хабарландырулар"
+  },
+  "authentication": {
+    "magic-link": "Сиқырлы сілтемені жіберіңіз",
+    "sso": "SSO-мен кіріңіз"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Алдағы тапсырмалар",
+    "stats": {
+      "new_notifications": "Жаңа хабарландырулар"
+    }
+  },
+  "projects": {
+    "archive": "Мұрағат жобасы",
+    "due_date": "Мерзімі өткен күн",
+    "assignee": "Сілтеме алушы",
+    "status": {
+      "archived": "Мұрағатталған",
+      "pending_review": "Қарауды күту"
+    }
+  },
+  "tasks": {
+    "add_task": "Жаңа тапсырма қосыңыз",
+    "edit_task": "Тапсырманы өңдеу",
+    "mark_complete": "Маркты аяқтаңыз",
+    "mark_incomplete": "Аяқталмаған ретінде белгілеңіз",
+    "delete_task": "Тапсырманы жою",
+    "task_title_placeholder": "Не істеу керек?",
+    "priority": "Артықшылық",
+    "priorities": {
+      "high": "Биік",
+      "medium": "Амал",
+      "low": "Аласа"
+    }
+  },
+  "automations": {
+    "logs": "Журналдарды қарау",
+    "schedule": "Автоматтандыру кестесі"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Жұмыс процестері",
+      "plugins": "Плагиндер"
+    },
+    "view_details": "Мәліметтерді қарау"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Ікімші",
+      "editor": "Редактор",
+      "viewer": "Қараушы"
+    }
+  },
+  "notifications": {
+    "title": "Хабарландырулар",
+    "mark_all_read": "Барлығын оқылған деп белгілеңіз",
+    "no_new_notifications": "Жаңа хабарлама жоқ.",
+    "clear_all": "Барлық хабарландыруларды өшіріңіз",
+    "settings_link": "Хабарландыру параметрлері"
+  },
+  "settings": {
+    "account": "Шот",
+    "appearance": "Көрінос",
+    "theme": "Тақырып",
+    "themes": {
+      "light": "Жеңіл режим",
+      "dark": "Қараңғы режим",
+      "system": "Жүйе әдепкі"
+    },
+    "language": "Тіл",
+    "integrations_settings": "Интеграцияларды басқарыңыз",
+    "api_access": "API қатынасы",
+    "billing": "Төлем және жазылымдар"
+  },
+  "errors": {
+    "timeout": "Жұмыс уақыты аяқталды. Қайталап көріңіз.",
+    "api_limit_exceeded": "API шегі асып кетті. Тағы жасауды сәл кейінірек көріңізді өтінеміз."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Барлық хабарландыруларыңызды оқылған деп белгілеңіз.",
+    "change_theme": "Бағдарламаның пайда болуын өзгертіңіз."
+  },
+  "common_actions": {
+    "save": "Жинау",
+    "cancel": "Күшін жою",
+    "confirm": "Растау",
+    "delete": "Жою",
+    "edit": "Редакциялау",
+    "add": "Қосу",
+    "apply": "Өтініш беру",
+    "close": "Жабу",
+    "next": "Сосын",
+    "previous": "Алдыңғы",
+    "learn_more": "Көбірек білу үшін"
+  },
+  "footer": {
+    "status_page": "Күй беті",
+    "documentation": "Құжаттама"
+  }
+}

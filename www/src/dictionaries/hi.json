@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ऑनलाइन",
+      "offline": "ऑफलाइन",
+      "busy": "व्यस्त",
+      "learning": "वर्तमान में सीखना ..."
+    }
+  },
+  "navigation": {
+    "tasks": "मेरे कार्य",
+    "integrations": "एकीकरण",
+    "notifications": "अधिसूचना"
+  },
+  "authentication": {
+    "magic-link": "मैजिक लिंक भेजें",
+    "sso": "SSO के साथ साइन इन करें"
+  },
+  "dashboard": {
+    "upcoming_tasks": "आगामी कार्य",
+    "stats": {
+      "new_notifications": "नई सूचनाएँ"
+    }
+  },
+  "projects": {
+    "archive": "संग्रह प्रोजेक्ट",
+    "due_date": "नियत तारीख",
+    "assignee": "संपत्ति-भागी",
+    "status": {
+      "archived": "संग्रहीत",
+      "pending_review": "लंबित समीक्षा"
+    }
+  },
+  "tasks": {
+    "add_task": "नया कार्य जोड़ें",
+    "edit_task": "कार्य को संपादित करें",
+    "mark_complete": "पूर्ण के रूप में चिह्नित करें",
+    "mark_incomplete": "अधूरा के रूप में चिह्नित करें",
+    "delete_task": "कार्य को हटा दें",
+    "task_title_placeholder": "क्या किया जाने की जरूरत है?",
+    "priority": "प्राथमिकता",
+    "priorities": {
+      "high": "उच्च",
+      "medium": "मध्यम",
+      "low": "कम"
+    }
+  },
+  "automations": {
+    "logs": "लॉग देखें",
+    "schedule": "अनुसूची स्वचालन"
+  },
+  "library": {
+    "categories": {
+      "workflows": "वर्कफ़्लो",
+      "plugins": "प्लग-इन"
+    },
+    "view_details": "विवरण देखें"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "प्रशासक",
+      "editor": "संपादक",
+      "viewer": "दर्शक"
+    }
+  },
+  "notifications": {
+    "title": "अधिसूचना",
+    "mark_all_read": "सभी को पढ़ा हुआ मार्क करें",
+    "no_new_notifications": "कोई नए संदेश नहीं।",
+    "clear_all": "सभी सूचनाओं को साफ करें",
+    "settings_link": "अधिसूचना सेटिंग्स"
+  },
+  "settings": {
+    "account": "खाता",
+    "appearance": "उपस्थिति",
+    "theme": "विषय",
+    "themes": {
+      "light": "प्रकाश विधा",
+      "dark": "डार्क मोड",
+      "system": "प्रणालीगत चूक"
+    },
+    "language": "भाषा",
+    "integrations_settings": "एकीकरण प्रबंधित करें",
+    "api_access": "एपीआई अभिगम",
+    "billing": "बिलिंग और सदस्यता"
+  },
+  "errors": {
+    "timeout": "संचालन का समय समाप्त हुआ। कृपया पुन: प्रयास करें।",
+    "api_limit_exceeded": "एपीआई सीमा पार हो गई। कृपया बाद में पुन: प्रयास करें।"
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "पढ़ने के रूप में अपने सभी सूचनाओं को चिह्नित करें।",
+    "change_theme": "आवेदन उपस्थिति बदलें।"
+  },
+  "common_actions": {
+    "save": "बचाना",
+    "cancel": "रद्द करना",
+    "confirm": "पुष्टि करना",
+    "delete": "मिटाना",
+    "edit": "संपादन करना",
+    "add": "जोड़ना",
+    "apply": "आवेदन करना",
+    "close": "बंद करना",
+    "next": "अगला",
+    "previous": "पहले का",
+    "learn_more": "और अधिक जानें"
+  },
+  "footer": {
+    "status_page": "स्थिति पृष्ठ",
+    "documentation": "प्रलेखन"
+  }
+}

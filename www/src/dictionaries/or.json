@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ଅନଲାଇନ୍ |",
+      "offline": "ଅଫଲାଇନ୍",
+      "busy": "ବ୍ୟସ୍ତ",
+      "learning": "ସମ୍ପ୍ରାଲି ଶିଖିବା ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ମୋର କାର୍ଯ୍ୟ",
+    "integrations": "ଇଣ୍ଟିଗ୍ରେସନ୍",
+    "notifications": "ବିଜ୍ଞପ୍ତିଗୁଡିକ"
+  },
+  "authentication": {
+    "magic-link": "ମ୍ୟାଜିକ୍ ଲିଙ୍କ୍ ପଠାନ୍ତୁ |",
+    "sso": "SSO ସହିତ ସାଇନ୍ ଇନ୍ କରନ୍ତୁ |"
+  },
+  "dashboard": {
+    "upcoming_tasks": "ଆଗାମୀ କାର୍ଯ୍ୟଗୁଡିକ |",
+    "stats": {
+      "new_notifications": "ନୂତନ ବିଜ୍ଞପ୍ତିଗୁଡିକ |"
+    }
+  },
+  "projects": {
+    "archive": "ଅଭିଲେଖାଗାର ପ୍ରୋଜେକ୍ଟ",
+    "due_date": "ଧାର୍ଯ୍ୟ ତାରିଖ",
+    "assignee": "ଆସିଜେ",
+    "status": {
+      "archived": "ଆର୍କାଇଭ୍",
+      "pending_review": "ବିଚାରାଧୀନ ସମୀକ୍ଷା"
+    }
+  },
+  "tasks": {
+    "add_task": "ନୂତନ କାର୍ଯ୍ୟ ଯୋଗ କରନ୍ତୁ |",
+    "edit_task": "କାର୍ଯ୍ୟ ସଂପାଦନ କରନ୍ତୁ |",
+    "mark_complete": "ସଂପୂର୍ଣ୍ଣ ଭାବରେ ଚିହ୍ନିତ |",
+    "mark_incomplete": "ଅସମ୍ପୂର୍ଣ୍ଣ ଭାବରେ ଚିହ୍ନିତ |",
+    "delete_task": "କାର୍ଯ୍ୟ ବିଲୋପ କରନ୍ତୁ |",
+    "task_title_placeholder": "କ'ଣ କରିବା ଆବଶ୍ୟକ?",
+    "priority": "ପ୍ରାଥମିକତା",
+    "priorities": {
+      "high": "ଉଚ୍ଚ",
+      "medium": "ମଧ୍ୟମ",
+      "low": "ନିମ୍ନ"
+    }
+  },
+  "automations": {
+    "logs": "ଲଗ୍ ଦର୍ଶନ କରନ୍ତୁ |",
+    "schedule": "ସ୍ୱୟଂଚାଳିତ ଭାବରେ ସ୍ୱୟଂଚାଳିତ ପଦକ୍ଷେପ |"
+  },
+  "library": {
+    "categories": {
+      "workflows": "ୱାର୍କଫ୍ଲୋ |",
+      "plugins": "ପ୍ଲଗଇନ୍ |"
+    },
+    "view_details": "ବିବରଣୀ ଦେଖନ୍ତୁ |"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "ପ୍ରଶାସକ",
+      "editor": "ସମ୍ପାଦକ",
+      "viewer": "ଦର୍ଶକ"
+    }
+  },
+  "notifications": {
+    "title": "ବିଜ୍ଞପ୍ତିଗୁଡିକ",
+    "mark_all_read": "ସମସ୍ତ ପ read ିବାକୁ ଚିହ୍ନିତ କର |",
+    "no_new_notifications": "କ new ଣସି ନୂତନ ବିଜ୍ଞପ୍ତି ନାହିଁ |",
+    "clear_all": "ସମସ୍ତ ବିଜ୍ଞପ୍ତିଗୁଡିକ ସଫା କରନ୍ତୁ |",
+    "settings_link": "ବିଜ୍ଞପ୍ତି ସେଟିଂସମୂହ |"
+  },
+  "settings": {
+    "account": "ଖାତା",
+    "appearance": "ରୂପ",
+    "theme": "ଥିମ୍",
+    "themes": {
+      "light": "ହାଲୁକା ମୋଡ୍",
+      "dark": "ଅନ୍ଧା ମୋଡ୍",
+      "system": "ସିଷ୍ଟମ୍ ଡିଫଲ୍ଟ |"
+    },
+    "language": "ଭାଷା",
+    "integrations_settings": "ଇଣ୍ଟିଗ୍ରେସନ୍ ପରିଚାଳନା କରନ୍ତୁ |",
+    "api_access": "API ପ୍ରବେଶ",
+    "billing": "ବିଲିଂ ଏବଂ ସଦସ୍ୟତା |"
+  },
+  "errors": {
+    "timeout": "ଅପରେସନ୍ ସମୟ ସମାପ୍ତ ହୋଇଛି | ଦୟାକରି ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |",
+    "api_limit_exceeded": "API ସୀମା ଅତିକ୍ରମ କଲା | ଦୟାକରି ପରେ ପୁନର୍ବାର ଚେଷ୍ଟା କରନ୍ତୁ |"
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "ତୁମର ସମସ୍ତ ବିଜ୍ଞପ୍ତିକୁ ପ read ିବାକୁ ଚିହ୍ନିତ କର |",
+    "change_theme": "ପ୍ରୟୋଗ ଦୃଶ୍ୟ ପରିବର୍ତ୍ତନ କରନ୍ତୁ |"
+  },
+  "common_actions": {
+    "save": "ସଞ୍ଚୟ କରନ୍ତୁ |",
+    "cancel": "ବାତିଲ୍ କରନ୍ତୁ |",
+    "confirm": "ନିଶ୍ଚିତ କର |",
+    "delete": "ବିଲୋପ କରନ୍ତୁ |",
+    "edit": "ସଂପାଦନ କରନ୍ତୁ |",
+    "add": "ଯୋଡନ୍ତୁ |",
+    "apply": "ପ୍ରୟୋଗ କରନ୍ତୁ |",
+    "close": "ବନ୍ଦ",
+    "next": "ପରବର୍ତ୍ତୀ",
+    "previous": "ପୂର୍ବ",
+    "learn_more": "ଅଧିକ ସିଖନ୍ତୁ"
+  },
+  "footer": {
+    "status_page": "ସ୍ଥିତି ପୃଷ୍ଠା",
+    "documentation": "ଡକ୍ୟୁମେଣ୍ଟେସନ୍"
+  }
+}

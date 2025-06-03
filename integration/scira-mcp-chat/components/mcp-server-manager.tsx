@@ -24,7 +24,10 @@ import {
     Cog,
     Edit2,
     Eye,
-    EyeOff
+    EyeOff,
+    AlertTriangle,
+    RefreshCw,
+    Power
 } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -33,7 +36,13 @@ import {
     AccordionItem,
     AccordionTrigger
 } from "./ui/accordion";
-import { KeyValuePair, MCPServer } from "@/lib/context/mcp-context";
+import { KeyValuePair, MCPServer, ServerStatus, useMCP } from "@/lib/context/mcp-context";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "./ui/tooltip";
 
 // Default template for a new MCP server
 const INITIAL_NEW_SERVER: Omit<MCPServer, 'id'> = {
@@ -76,6 +85,69 @@ const maskValue = (value: string): string => {
     return value.substring(0, 3) + '•'.repeat(Math.min(10, value.length - 4)) + value.substring(value.length - 1);
 };
 
+// Update the StatusIndicator to use Tooltip component
+const StatusIndicator = ({ status, onClick, hoverInfo }: { 
+    status?: ServerStatus, 
+    onClick?: () => void,
+    hoverInfo?: string
+}) => {
+    const isClickable = !!onClick;
+    const hasHoverInfo = !!hoverInfo;
+    
+    const className = `flex-shrink-0 flex items-center gap-1 ${isClickable ? 'cursor-pointer' : ''}`;
+    
+    const statusIndicator = (status: ServerStatus | undefined) => {
+        switch (status) {
+            case 'connected':
+                return (
+                    <div className={className} onClick={onClick}>
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                        <span className="text-xs text-green-500 hover:underline">Connected</span>
+                    </div>
+                );
+            case 'connecting':
+                return (
+                    <div className={className} onClick={onClick}>
+                        <RefreshCw className="w-3 h-3 text-amber-500 animate-spin" />
+                        <span className="text-xs text-amber-500">Connecting</span>
+                    </div>
+                );
+            case 'error':
+                return (
+                    <div className={className} onClick={onClick}>
+                        <AlertTriangle className="w-3 h-3 text-red-500" />
+                        <span className="text-xs text-red-500 hover:underline">Error</span>
+                    </div>
+                );
+            case 'disconnected':
+            default:
+                return (
+                    <div className={className} onClick={onClick}>
+                        <div className="w-2 h-2 rounded-full bg-gray-400" />
+                        <span className="text-xs text-muted-foreground">Disconnected</span>
+                    </div>
+                );
+        }
+    };
+    
+    // Use Tooltip if we have hover info
+    if (hasHoverInfo) {
+        return (
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    {statusIndicator(status)}
+                </TooltipTrigger>
+                <TooltipContent side="top" align="center" className="max-w-[300px] break-all text-wrap">
+                    {hoverInfo}
+                </TooltipContent>
+            </Tooltip>
+        );
+    }
+    
+    // Otherwise just return the status indicator
+    return statusIndicator(status);
+};
+
 export const MCPServerManager = ({
     servers,
     onServersChange,
@@ -95,6 +167,9 @@ export const MCPServerManager = ({
     const [editingHeaderIndex, setEditingHeaderIndex] = useState<number | null>(null);
     const [editedEnvValue, setEditedEnvValue] = useState<string>('');
     const [editedHeaderValue, setEditedHeaderValue] = useState<string>('');
+    
+    // Add access to the MCP context for server control
+    const { startServer, stopServer, updateServerStatus } = useMCP();
 
     const resetAndClose = () => {
         setView('list');
@@ -152,16 +227,18 @@ export const MCPServerManager = ({
 
     const toggleServer = (id: string) => {
         if (selectedServers.includes(id)) {
-            // Remove from selected servers
+            // Remove from selected servers but DON'T stop the server
             onSelectedServersChange(selectedServers.filter(serverId => serverId !== id));
             const server = servers.find(s => s.id === id);
+            
             if (server) {
                 toast.success(`Disabled MCP server: ${server.name}`);
             }
         } else {
-            // Add to selected servers
+            // Add to selected servers but DON'T auto-start
             onSelectedServersChange([...selectedServers, id]);
             const server = servers.find(s => s.id === id);
+            
             if (server) {
                 toast.success(`Enabled MCP server: ${server.name}`);
             }
@@ -170,6 +247,7 @@ export const MCPServerManager = ({
 
     const clearAllServers = () => {
         if (selectedServers.length > 0) {
+            // Just deselect all servers without stopping them
             onSelectedServersChange([]);
             toast.success("All MCP servers disabled");
             resetAndClose();
@@ -356,6 +434,90 @@ export const MCPServerManager = ({
         setShowSensitiveHeaderValues({});
     };
 
+    // Update functions to control servers
+    const toggleServerStatus = async (server: MCPServer, e: React.MouseEvent) => {
+        e.stopPropagation();
+        
+        if (!server.status || server.status === 'disconnected' || server.status === 'error') {
+            try {
+                updateServerStatus(server.id, 'connecting');
+                const success = await startServer(server.id);
+                
+                if (success) {
+                    toast.success(`Started server: ${server.name}`);
+                } else {
+                    toast.error(`Failed to start server: ${server.name}`);
+                }
+            } catch (error) {
+                updateServerStatus(server.id, 'error', 
+                    `Error: ${error instanceof Error ? error.message : String(error)}`);
+                toast.error(`Error starting server: ${error instanceof Error ? error.message : String(error)}`);
+            }
+        } else {
+            try {
+                const success = await stopServer(server.id);
+                if (success) {
+                    toast.success(`Stopped server: ${server.name}`);
+                } else {
+                    toast.error(`Failed to stop server: ${server.name}`);
+                }
+            } catch (error) {
+                toast.error(`Error stopping server: ${error instanceof Error ? error.message : String(error)}`);
+            }
+        }
+    };
+
+    // Update function to restart a server
+    const restartServer = async (server: MCPServer, e: React.MouseEvent) => {
+        e.stopPropagation();
+        
+        try {
+            // First stop it
+            if (server.status === 'connected' || server.status === 'connecting') {
+                await stopServer(server.id);
+            }
+            
+            // Then start it again (with delay to ensure proper cleanup)
+            setTimeout(async () => {
+                updateServerStatus(server.id, 'connecting');
+                const success = await startServer(server.id);
+                
+                if (success) {
+                    toast.success(`Restarted server: ${server.name}`);
+                } else {
+                    toast.error(`Failed to restart server: ${server.name}`);
+                }
+            }, 500);
+        } catch (error) {
+            updateServerStatus(server.id, 'error', 
+                `Error: ${error instanceof Error ? error.message : String(error)}`);
+            toast.error(`Error restarting server: ${error instanceof Error ? error.message : String(error)}`);
+        }
+    };
+
+    // UI element to display the correct server URL
+    const getServerDisplayUrl = (server: MCPServer): string => {
+        // Always show the configured URL or command, not the sandbox URL
+        return server.type === 'sse' 
+            ? server.url 
+            : `${server.command} ${server.args?.join(' ')}`;
+    };
+
+    // Update the hover info function to return richer content
+    const getServerStatusHoverInfo = (server: MCPServer): string | undefined => {
+        // For connected stdio servers, show the sandbox URL as hover info
+        if (server.type === 'stdio' && server.status === 'connected' && server.sandboxUrl) {
+            return `Running at: ${server.sandboxUrl}`;
+        }
+        
+        // For error status, show the error message
+        if (server.status === 'error' && server.errorMessage) {
+            return `Error: ${server.errorMessage}`;
+        }
+        
+        return undefined;
+    };
+
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent className="sm:max-w-[480px] max-h-[85vh] overflow-hidden flex flex-col">
@@ -396,6 +558,8 @@ export const MCPServerManager = ({
                                             })
                                             .map((server) => {
                                             const isActive = selectedServers.includes(server.id);
+                                            const isRunning = server.status === 'connected' || server.status === 'connecting';
+
                                             return (
                                                 <div
                                                     key={server.id}
@@ -406,7 +570,7 @@ export const MCPServerManager = ({
                                                             : 'border-border hover:border-primary/30 hover:bg-primary/5'}
                           `}
                                                 >
-                                                    {/* Server Header with Type Badge and Delete Button */}
+                                                    {/* Server Header with Type Badge and Actions */}
                                                     <div className="flex items-center justify-between mb-2">
                                                         <div className="flex items-center gap-2">
                                                             {server.type === 'sse' ? (
@@ -414,7 +578,7 @@ export const MCPServerManager = ({
                                                             ) : (
                                                                 <Terminal className={`h-4 w-4 ${isActive ? 'text-primary' : 'text-muted-foreground'} flex-shrink-0`} />
                                                             )}
-                                                            <h4 className="text-sm font-medium truncate max-w-[220px]">{server.name}</h4>
+                                                            <h4 className="text-sm font-medium truncate max-w-[160px]">{server.name}</h4>
                                                             {hasAdvancedConfig(server) && (
                                                                 <span className="flex-shrink-0">
                                                                     <Cog className="h-3 w-3 text-muted-foreground" />
@@ -425,29 +589,59 @@ export const MCPServerManager = ({
                                                             <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
                                                                 {server.type.toUpperCase()}
                                                             </span>
-                                                            <button
-                                                                onClick={(e) => removeServer(server.id, e)}
-                                                                className="p-1 rounded-full hover:bg-muted/70"
-                                                                aria-label="Remove server"
-                                                            >
-                                                                <Trash2 className="h-3.5 w-3.5 text-muted-foreground" />
-                                                            </button>
-                                                            <button
-                                                                onClick={() => startEditing(server)}
-                                                                className="p-1 rounded-full hover:bg-muted/50"
-                                                                aria-label="Edit server"
-                                                            >
-                                                                <Edit2 className="h-3.5 w-3.5 text-muted-foreground" />
-                                                            </button>
+                                                            
+                                                            {/* Status indicator */}
+                                                            <StatusIndicator 
+                                                                status={server.status} 
+                                                                onClick={() => server.errorMessage && toast.error(server.errorMessage)}
+                                                                hoverInfo={getServerStatusHoverInfo(server)}
+                                                            />
+                                                            
+                                                            {/* Server actions */}
+                                                            <div className="flex items-center">
+                                                                <button
+                                                                    onClick={(e) => toggleServerStatus(server, e)}
+                                                                    className="p-1 rounded-full hover:bg-muted/70"
+                                                                    aria-label={isRunning ? "Stop server" : "Start server"}
+                                                                    title={isRunning ? "Stop server" : "Start server"}
+                                                                >
+                                                                    <Power className={`h-3.5 w-3.5 ${isRunning ? 'text-red-500' : 'text-green-500'}`} />
+                                                                </button>
+                                                                
+                                                                <button
+                                                                    onClick={(e) => restartServer(server, e)}
+                                                                    className="p-1 rounded-full hover:bg-muted/70"
+                                                                    aria-label="Restart server"
+                                                                    title="Restart server"
+                                                                    disabled={server.status === 'connecting'}
+                                                                >
+                                                                    <RefreshCw className={`h-3.5 w-3.5 text-muted-foreground ${server.status === 'connecting' ? 'opacity-50' : ''}`} />
+                                                                </button>
+                                                                
+                                                                <button
+                                                                    onClick={(e) => removeServer(server.id, e)}
+                                                                    className="p-1 rounded-full hover:bg-muted/70"
+                                                                    aria-label="Remove server"
+                                                                    title="Remove server"
+                                                                >
+                                                                    <Trash2 className="h-3.5 w-3.5 text-muted-foreground" />
+                                                                </button>
+                                                                
+                                                                <button
+                                                                    onClick={() => startEditing(server)}
+                                                                    className="p-1 rounded-full hover:bg-muted/50"
+                                                                    aria-label="Edit server"
+                                                                    title="Edit server"
+                                                                >
+                                                                    <Edit2 className="h-3.5 w-3.5 text-muted-foreground" />
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
 
                                                     {/* Server Details */}
                                                     <p className="text-xs text-muted-foreground mb-2.5 truncate">
-                                                        {server.type === 'sse'
-                                                            ? server.url
-                                                            : `${server.command} ${server.args?.join(' ')}`
-                                                        }
+                                                        {getServerDisplayUrl(server)}
                                                     </p>
 
                                                     {/* Action Button */}

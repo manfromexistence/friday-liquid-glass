@@ -1,4 +1,4 @@
-import { Download, Share2, EllipsisVertical } from 'lucide-react'
+import { Download, Share2, EllipsisVertical } from "lucide-react"
 import * as React from "react"
 import {
   Bell,

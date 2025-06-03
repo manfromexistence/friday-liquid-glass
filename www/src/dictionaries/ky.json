@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Онлайн",
+      "offline": "Offline",
+      "busy": "Бош эмес",
+      "learning": "Учурда үйрөнүү ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Менин тапшырмаларым",
+    "integrations": "Интеграция",
+    "notifications": "Эскертмелер"
+  },
+  "authentication": {
+    "magic-link": "Сыйкырдуу шилтеме жөнөтүү",
+    "sso": "SSO менен кириңиз"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Алдыдагы тапшырмалар",
+    "stats": {
+      "new_notifications": "Жаңы эскертмелер"
+    }
+  },
+  "projects": {
+    "archive": "Архив долбоору",
+    "due_date": "Бүтүмдүк дата",
+    "assignee": "Assignee",
+    "status": {
+      "archived": "Архивделген",
+      "pending_review": "Кароо"
+    }
+  },
+  "tasks": {
+    "add_task": "Жаңы тапшырманы кошуу",
+    "edit_task": "Тапшырманы түзөтүү",
+    "mark_complete": "Белгилөө",
+    "mark_incomplete": "Толук эмес деп белгилөө",
+    "delete_task": "Тапшырманы жок кылуу",
+    "task_title_placeholder": "Эмне кылуу керек?",
+    "priority": "Артыкчылык",
+    "priorities": {
+      "high": "Бийик",
+      "medium": "Орто",
+      "low": "Төмөн"
+    }
+  },
+  "automations": {
+    "logs": "Журналдарды көрүү",
+    "schedule": "Расписаниени автоматташтыруу"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Workflows",
+      "plugins": "Плагиндер"
+    },
+    "view_details": "Чоо-жайын көрүү"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Администратор",
+      "editor": "Редактор",
+      "viewer": "Көрүүчү"
+    }
+  },
+  "notifications": {
+    "title": "Эскертмелер",
+    "mark_all_read": "Окуу үчүн бардыгын белгилеңиз",
+    "no_new_notifications": "Жаңы эскертмелер жок.",
+    "clear_all": "Бардык эскертмелерди тазалоо",
+    "settings_link": "Эскертме жөндөөлөрү"
+  },
+  "settings": {
+    "account": "Эсеп",
+    "appearance": "Көрүнүшү",
+    "theme": "Тема",
+    "themes": {
+      "light": "Жеңил режим",
+      "dark": "Караңгы режим",
+      "system": "Тутуму"
+    },
+    "language": "Тил",
+    "integrations_settings": "Интеграцияны башкаруу",
+    "api_access": "API мүмкүнчүлүгү",
+    "billing": "Эсеп-кысап жана жазылуулар"
+  },
+  "errors": {
+    "timeout": "Операция мөөнөтү аяктады. Сураныч, дагы бир жолу аракет кылып көрүңүз.",
+    "api_limit_exceeded": "API чеги ашып кетти. Сураныч, кийинчерээк аракет кылып көрүңүз."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Эскертмелерди окуу сыяктуу белгилерди белгилеңиз.",
+    "change_theme": "Колдонмо көрүнүшүн өзгөртүү."
+  },
+  "common_actions": {
+    "save": "Сактоо",
+    "cancel": "Жокко чыгаруу",
+    "confirm": "Ыраста",
+    "delete": "Жок кылуу",
+    "edit": "Түзөтүү",
+    "add": "Кошуу",
+    "apply": "Колдонуу",
+    "close": "Жабуу",
+    "next": "Кийинки",
+    "previous": "Мурунку",
+    "learn_more": "Көбүрөөк билүү"
+  },
+  "footer": {
+    "status_page": "Status Page",
+    "documentation": "Документ"
+  }
+}

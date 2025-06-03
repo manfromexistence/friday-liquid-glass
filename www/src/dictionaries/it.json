@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Occupato",
+      "learning": "Attualmente impara ..."
+    }
+  },
+  "navigation": {
+    "tasks": "I miei compiti",
+    "integrations": "Integrazioni",
+    "notifications": "Notifiche"
+  },
+  "authentication": {
+    "magic-link": "Invia link magico",
+    "sso": "Accedi con SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Compiti imminenti",
+    "stats": {
+      "new_notifications": "Nuove notifiche"
+    }
+  },
+  "projects": {
+    "archive": "Progetto di archivio",
+    "due_date": "Scadenza",
+    "assignee": "Cessionario",
+    "status": {
+      "archived": "Archiviato",
+      "pending_review": "Recensione in sospeso"
+    }
+  },
+  "tasks": {
+    "add_task": "Aggiungi un nuovo compito",
+    "edit_task": "Modifica attività",
+    "mark_complete": "Segna come completo",
+    "mark_incomplete": "Contrassegnare come incompleto",
+    "delete_task": "Elimina attività",
+    "task_title_placeholder": "Cosa deve essere fatto?",
+    "priority": "Priorità",
+    "priorities": {
+      "high": "Alto",
+      "medium": "Medio",
+      "low": "Basso"
+    }
+  },
+  "automations": {
+    "logs": "Visualizza i registri",
+    "schedule": "Automazione del programma"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Flussi di lavoro",
+      "plugins": "Plugin"
+    },
+    "view_details": "Visualizza i dettagli"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Amministratore",
+      "editor": "Editore",
+      "viewer": "Spettatore"
+    }
+  },
+  "notifications": {
+    "title": "Notifiche",
+    "mark_all_read": "Segna tutto come letto",
+    "no_new_notifications": "Nessuna nuova notifica.",
+    "clear_all": "Cancella tutte le notifiche",
+    "settings_link": "Impostazioni di notifica"
+  },
+  "settings": {
+    "account": "Account",
+    "appearance": "Aspetto",
+    "theme": "Tema",
+    "themes": {
+      "light": "Modalità di luce",
+      "dark": "Modalità oscura",
+      "system": "Predefinito del sistema"
+    },
+    "language": "Lingua",
+    "integrations_settings": "Gestisci integrazioni",
+    "api_access": "Accesso API",
+    "billing": "Fatturazione e abbonamenti"
+  },
+  "errors": {
+    "timeout": "L'operazione è scaduta. Per favore riprova.",
+    "api_limit_exceeded": "Limite API superato. Per favore riprova più tardi."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Segna tutte le notifiche come lette.",
+    "change_theme": "Cambia l'aspetto dell'applicazione."
+  },
+  "common_actions": {
+    "save": "Salva",
+    "cancel": "Cancellare",
+    "confirm": "Confermare",
+    "delete": "Eliminare",
+    "edit": "Modificare",
+    "add": "Aggiungere",
+    "apply": "Fare domanda a",
+    "close": "Vicino",
+    "next": "Prossimo",
+    "previous": "Precedente",
+    "learn_more": "Saperne di più"
+  },
+  "footer": {
+    "status_page": "Pagina di stato",
+    "documentation": "Documentazione"
+  }
+}

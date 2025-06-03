@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "متصل",
+      "offline": "دون اتصال",
+      "busy": "مشغول",
+      "learning": "تعلم حاليا ..."
+    }
+  },
+  "navigation": {
+    "tasks": "مهاماتي",
+    "integrations": "التكامل",
+    "notifications": "إشعارات"
+  },
+  "authentication": {
+    "magic-link": "أرسل الرابط السحري",
+    "sso": "تسجيل الدخول مع SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "المهام القادمة",
+    "stats": {
+      "new_notifications": "إشعارات جديدة"
+    }
+  },
+  "projects": {
+    "archive": "مشروع الأرشيف",
+    "due_date": "تاريخ الاستحقاق",
+    "assignee": "المحاليل",
+    "status": {
+      "archived": "أرشفة",
+      "pending_review": "مراجعة معلقة"
+    }
+  },
+  "tasks": {
+    "add_task": "أضف مهمة جديدة",
+    "edit_task": "تحرير المهمة",
+    "mark_complete": "علامة على أنها كاملة",
+    "mark_incomplete": "علامة على أنها غير مكتملة",
+    "delete_task": "حذف المهمة",
+    "task_title_placeholder": "ما الذي يجب القيام به؟",
+    "priority": "أولوية",
+    "priorities": {
+      "high": "عالي",
+      "medium": "واسطة",
+      "low": "قليل"
+    }
+  },
+  "automations": {
+    "logs": "عرض سجلات",
+    "schedule": "جدولة الأتمتة"
+  },
+  "library": {
+    "categories": {
+      "workflows": "مهام سير العمل",
+      "plugins": "الإضافات"
+    },
+    "view_details": "عرض التفاصيل"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "المسؤول",
+      "editor": "محرر",
+      "viewer": "مشاهد"
+    }
+  },
+  "notifications": {
+    "title": "إشعارات",
+    "mark_all_read": "ضع علامة على كل ما يقرأ",
+    "no_new_notifications": "لا توجد إشعارات جديدة.",
+    "clear_all": "مسح جميع الإخطارات",
+    "settings_link": "إعدادات الإخطار"
+  },
+  "settings": {
+    "account": "حساب",
+    "appearance": "مظهر",
+    "theme": "سمة",
+    "themes": {
+      "light": "وضع الضوء",
+      "dark": "الوضع المظلم",
+      "system": "النظام الافتراضي"
+    },
+    "language": "لغة",
+    "integrations_settings": "إدارة التكامل",
+    "api_access": "وصول API",
+    "billing": "الفواتير والاشتراكات"
+  },
+  "errors": {
+    "timeout": "عملية التوقيت. من فضلك حاول مرة أخرى.",
+    "api_limit_exceeded": "تم تجاوز حد API. يرجى المحاولة مرة أخرى لاحقًا."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "ضع علامة على كل إخطاراتك كما هو القراءة.",
+    "change_theme": "تغيير مظهر التطبيق."
+  },
+  "common_actions": {
+    "save": "يحفظ",
+    "cancel": "يلغي",
+    "confirm": "يتأكد",
+    "delete": "يمسح",
+    "edit": "يحرر",
+    "add": "يضيف",
+    "apply": "يتقدم",
+    "close": "يغلق",
+    "next": "التالي",
+    "previous": "سابق",
+    "learn_more": "يتعلم أكثر"
+  },
+  "footer": {
+    "status_page": "صفحة الحالة",
+    "documentation": "الوثائق"
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Optaget",
+      "learning": "Læring i øjeblikket ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mine opgaver",
+    "integrations": "Integrationer",
+    "notifications": "Underretninger"
+  },
+  "authentication": {
+    "magic-link": "Send magisk link",
+    "sso": "Log ind med SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Kommende opgaver",
+    "stats": {
+      "new_notifications": "Nye meddelelser"
+    }
+  },
+  "projects": {
+    "archive": "Arkivprojekt",
+    "due_date": "Forfaldsdato",
+    "assignee": "Ansøger",
+    "status": {
+      "archived": "Arkiveret",
+      "pending_review": "Afventende gennemgang"
+    }
+  },
+  "tasks": {
+    "add_task": "Tilføj ny opgave",
+    "edit_task": "Rediger opgave",
+    "mark_complete": "Mark som komplet",
+    "mark_incomplete": "Mark som ufuldstændig",
+    "delete_task": "Slet opgave",
+    "task_title_placeholder": "Hvad skal der gøres?",
+    "priority": "Prioritet",
+    "priorities": {
+      "high": "Høj",
+      "medium": "Medium",
+      "low": "Lav"
+    }
+  },
+  "automations": {
+    "logs": "Se logfiler",
+    "schedule": "Planlæg automatisering"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Arbejdsgange",
+      "plugins": "Plugins"
+    },
+    "view_details": "Se detaljer"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrator",
+      "editor": "Redaktør",
+      "viewer": "Seer"
+    }
+  },
+  "notifications": {
+    "title": "Underretninger",
+    "mark_all_read": "Marker alle som læst",
+    "no_new_notifications": "Ingen nye meddelelser.",
+    "clear_all": "Ryd alle meddelelser",
+    "settings_link": "Meddelelsesindstillinger"
+  },
+  "settings": {
+    "account": "Konto",
+    "appearance": "Udseende",
+    "theme": "Tema",
+    "themes": {
+      "light": "Let tilstand",
+      "dark": "Mørk tilstand",
+      "system": "Systemstandard"
+    },
+    "language": "Sprog",
+    "integrations_settings": "Administrer integrationer",
+    "api_access": "API -adgang",
+    "billing": "Fakturering og abonnementer"
+  },
+  "errors": {
+    "timeout": "Operationen udtømte. Prøv igen.",
+    "api_limit_exceeded": "API -grænsen overskredet. Prøv igen senere."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Marker alle dine meddelelser som læst.",
+    "change_theme": "Skift applikationsudseende."
+  },
+  "common_actions": {
+    "save": "Spare",
+    "cancel": "Ophæve",
+    "confirm": "Bekræfte",
+    "delete": "Slet",
+    "edit": "Redigere",
+    "add": "Tilføje",
+    "apply": "Anvende",
+    "close": "Tæt",
+    "next": "Næste",
+    "previous": "Tidligere",
+    "learn_more": "Lær mere"
+  },
+  "footer": {
+    "status_page": "Statusside",
+    "documentation": "Dokumentation"
+  }
+}

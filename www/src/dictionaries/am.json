@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "በመስመር ላይ",
+      "offline": "ከመስመር ውጭ",
+      "busy": "ስራ የበዛበት",
+      "learning": "በአሁኑ ጊዜ መማር ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ተግባሬ",
+    "integrations": "ውህደቶች",
+    "notifications": "ማሳወቂያዎች"
+  },
+  "authentication": {
+    "magic-link": "አስማት አገናኝን ይላኩ",
+    "sso": "ከ SSO ጋር ይግቡ"
+  },
+  "dashboard": {
+    "upcoming_tasks": "መጪ ተግባራት",
+    "stats": {
+      "new_notifications": "አዲስ ማስታወቂያዎች"
+    }
+  },
+  "projects": {
+    "archive": "መዝገብ ቤት",
+    "due_date": "ቀን",
+    "assignee": "Asignee",
+    "status": {
+      "archived": "ገብቷል",
+      "pending_review": "በመጠባበቅ ላይ ያለ ግምገማ"
+    }
+  },
+  "tasks": {
+    "add_task": "አዲስ ተግባር ያክሉ",
+    "edit_task": "ሥራን ያርትዑ",
+    "mark_complete": "ምልክት ተደርጎበታል",
+    "mark_incomplete": "ምልክት ተደርጎበታል",
+    "delete_task": "ሥራ ሰርዝ",
+    "task_title_placeholder": "ምን መደረግ አለበት?",
+    "priority": "ቅድሚያ መስጠት",
+    "priorities": {
+      "high": "ከፍተኛ",
+      "medium": "መካከለኛ",
+      "low": "ዝቅተኛ"
+    }
+  },
+  "automations": {
+    "logs": "ምዝግብ ማስታወሻዎችን ይመልከቱ",
+    "schedule": "መርሃግብሩ ራስ-ሰር ያውጡ"
+  },
+  "library": {
+    "categories": {
+      "workflows": "የስራ ፍሰት",
+      "plugins": "ተሰኪዎች"
+    },
+    "view_details": "ዝርዝሮችን ይመልከቱ"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "አስተዳዳሪ",
+      "editor": "አርታኢ",
+      "viewer": "ተመልካች"
+    }
+  },
+  "notifications": {
+    "title": "ማሳወቂያዎች",
+    "mark_all_read": "ሁሉንም እንደ ንባብ ምልክት ያድርጉበት",
+    "no_new_notifications": "አዲስ ማስታወቂያዎች የሉም.",
+    "clear_all": "ሁሉንም ማሳወቂያዎች ያፅዱ",
+    "settings_link": "የማሳወቂያ ቅንጅቶች"
+  },
+  "settings": {
+    "account": "መለያ",
+    "appearance": "መልክ",
+    "theme": "ጭብጥ",
+    "themes": {
+      "light": "ቀላል ሁኔታ",
+      "dark": "ጨለማ ሁነታን",
+      "system": "ስርዓት ነባሪ"
+    },
+    "language": "ቋንቋ",
+    "integrations_settings": "ውህደቶችን ያቀናብሩ",
+    "api_access": "ኤ.ፒ.አይ.",
+    "billing": "የክፍያ መጠየቂያ እና ምዝገባዎች"
+  },
+  "errors": {
+    "timeout": "ክወናው ጊዜው አልፎበታል. እባክዎ እንደገና ይሞክሩ.",
+    "api_limit_exceeded": "ኤፒአይ ወሰን አል ed ል. እባክዎ ቆይተው እንደገና ይሞክሩ."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "ሁሉንም ማሳወቂያዎችዎን እንደነበቡ ምልክት ያድርጉበት.",
+    "change_theme": "የማመልከቻውን ገጽ ይለውጡ."
+  },
+  "common_actions": {
+    "save": "አስቀምጥ",
+    "cancel": "ይቅር",
+    "confirm": "አረጋግጥ",
+    "delete": "ሰርዝ",
+    "edit": "አርትዕ",
+    "add": "ጨምር",
+    "apply": "ይተግብሩ",
+    "close": "ገጠመ",
+    "next": "ቀጥሎም",
+    "previous": "ቀዳሚ",
+    "learn_more": "ተጨማሪ ለመረዳት"
+  },
+  "footer": {
+    "status_page": "የሁኔታ ገጽ",
+    "documentation": "ሰነዶች"
+  }
+}

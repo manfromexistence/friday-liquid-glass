@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Bikar",
+      "learning": "Hînbûna niha ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Karên min",
+    "integrations": "Entegrasyon",
+    "notifications": "Notifications"
+  },
+  "authentication": {
+    "magic-link": "Girêdana Magic bişînin",
+    "sso": "Bi SSO re têkevin"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Karên Pêşîn",
+    "stats": {
+      "new_notifications": "Nîşaneyên nû"
+    }
+  },
+  "projects": {
+    "archive": "Projeya Arşîvê",
+    "due_date": "Serdem",
+    "assignee": "Askarne",
+    "status": {
+      "archived": "Arşîv kirin",
+      "pending_review": "Li benda nêrîn"
+    }
+  },
+  "tasks": {
+    "add_task": "Karê nû zêde bikin",
+    "edit_task": "Peywirê biguherînin",
+    "mark_complete": "Mark wekî temam",
+    "mark_incomplete": "Mark wekî tevlihev",
+    "delete_task": "Task jêbirin",
+    "task_title_placeholder": "Pêwîste çi were kirin?",
+    "priority": "Pêşeyî",
+    "priorities": {
+      "high": "Bilind",
+      "medium": "Medya",
+      "low": "Nizm"
+    }
+  },
+  "automations": {
+    "logs": "Nexşeyan bibînin",
+    "schedule": "Otomobîla SCHEDULE"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Karên kar",
+      "plugins": "Pêçanin"
+    },
+    "view_details": "Detayên bibînin"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Birêvebir",
+      "editor": "Weşanvan",
+      "viewer": "Dîtinî"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Hemî wekî bixwînin nîşan bikin",
+    "no_new_notifications": "No notifications nû.",
+    "clear_all": "Hemî agahdariyan paqij bikin",
+    "settings_link": "Mîhengên agahdariyê"
+  },
+  "settings": {
+    "account": "Konto",
+    "appearance": "Xuyabûnî",
+    "theme": "Mijad",
+    "themes": {
+      "light": "Mode Light",
+      "dark": "Moda tarî",
+      "system": "Pergala Default"
+    },
+    "language": "Ziman",
+    "integrations_settings": "Hevgirtinan birêve bibin",
+    "api_access": "Gihîştina API",
+    "billing": "Billing & Abondaran"
+  },
+  "errors": {
+    "timeout": "Operasyon qediya. Ji kerema xwe careke din biceribîne.",
+    "api_limit_exceeded": "Sînorê API-yê zêde bû. Ji kerema xwe paşê paşê biceribînin."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Hemî notifications xwe wekî xwendin nîşan bikin.",
+    "change_theme": "Xuyangê serîlêdanê biguherînin."
+  },
+  "common_actions": {
+    "save": "Rizgarkirin",
+    "cancel": "Bişûndekirin",
+    "confirm": "Tesdîqkirin",
+    "delete": "Lûleêkirin",
+    "edit": "Weşandin",
+    "add": "Lêzêdekirin",
+    "apply": "Bikaranîn",
+    "close": "Nêzîkî",
+    "next": "Piştî",
+    "previous": "Pêşî",
+    "learn_more": "Bêtir hîn bibin"
+  },
+  "footer": {
+    "status_page": "Rûpelê Rewşa",
+    "documentation": "Belgekirin"
+  }
+}

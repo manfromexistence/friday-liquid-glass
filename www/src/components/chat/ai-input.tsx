@@ -3,18 +3,18 @@
 import { useEffect, useRef, useState, useCallback, forwardRef, useImperativeHandle } from "react"
 import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar"
 import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar"
-import { useAutoResizeTextarea } from '@/hooks/use-auto-resize-textarea'
-import { ChatInput } from '@/components/chat/chat-input'
+import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea"
+import { ChatInput } from "@/components/chat/chat-input"
 import { useQueryClient } from "@tanstack/react-query"
 import type { Message } from "@/types/chat"
 import { cn } from "@/lib/utils"
 import { useRouter } from "next/navigation"
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from "uuid"
 import { doc, setDoc } from "firebase/firestore"
-// import { db } from "@/lib/firebase/config"
-// import { useAuth } from "@/contexts/auth-context"
+import { db } from "@/lib/firebase/config"
+import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useAIModelStore } from "@/store/ai-model-store"
 
 // Update the ChatState interface to match the one in chat-input.tsx
@@ -37,7 +37,7 @@ export interface AiInputRef {
 const MIN_HEIGHT = 48
 const MAX_HEIGHT = 164
 
-const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
+export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   { onInputChange, onSubmit }, 
   ref
 ) {
@@ -46,13 +46,7 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   const { statesubcategorysidebar } = useSubCategorySidebar()
   const router = useRouter()
   const { currentModel, setModel } = useAIModelStore()
-  // const { user } = useAuth()
-  const user = {
-    uid: 'test-user-uid',
-    photoURL: 'https://via.placeholder.com/150',
-    displayName: 'Test User',
-    email: 'test@example.com',
-  };
+  const { user } = useAuth()
 
   const [value, setValue] = useState("")
   const [isMaxHeight, setIsMaxHeight] = useState(false)
@@ -78,10 +72,10 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       toast.success("Successfully logged in")
 
       // If we had stored a pending message, we could retrieve it here
-      // const pendingMessage = sessionStorage.getItem('pendingMessage')
+      // const pendingMessage = sessionStorage.getItem("pendingMessage")
     } catch (error) {
-      console.error('Error signing in:', error)
-      toast.error('Failed to log in. Please try again.')
+      console.error("Error signing in:", error)
+      toast.error("Failed to log in. Please try again.")
     } finally {
       setIsLoggingIn(false)
     }
@@ -154,7 +148,7 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     }
 
     // Combine URLs and prompt
-    const fullPrompt = `${prompt}: ${urls.join(', ')}`;
+    const fullPrompt = `${prompt}: ${urls.join(", ")}`;
     handleValueChange(fullPrompt);
 
     // Auto-submit if desired
@@ -170,17 +164,17 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     }
 
     // Check if user is authenticated
-    if (!user) {
-      toast.error("Authentication required", {
-        description: "Please sign in to chat with Friday AI",
-        action: {
-          label: isLoggingIn ? "Signing in..." : "Sign In",
-          onClick: handleLogin,
-        },
-        duration: 5000, // Show for 5 seconds
-      });
-      return;
-    }
+    // if (!user) {
+    //   toast.error("Authentication required", {
+    //     description: "Please sign in to chat with Friday AI",
+    //     action: {
+    //       label: isLoggingIn ? "Signing in..." : "Sign In",
+    //       onClick: handleLogin,
+    //     },
+    //     duration: 5000, // Show for 5 seconds
+    //   });
+    //   return;
+    // }
 
     try {
       const chatId = uuidv4()
@@ -190,17 +184,17 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       const initialMessage = {
         id: uuidv4(),
         content: trimmedValue,
-        role: 'user',
+        role: "user",
         timestamp: new Date().toISOString()
       }
 
       // Create initial chat data
       const chatData = {
         id: chatId,
-        title: trimmedValue.slice(0, 50) + (trimmedValue.length > 50 ? '...' : ''),
+        title: trimmedValue.slice(0, 50) + (trimmedValue.length > 50 ? "..." : ""),
         messages: [initialMessage],
         model: currentModel, // Use currentModel from Zustand store instead of selectedAI
-        visibility: 'public',
+        visibility: "public",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         creatorUid: user.uid, // Add user ID to the chat data
@@ -215,13 +209,13 @@ const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       }
 
       // Store chat data in Firestore
-      // await setDoc(doc(db, "chats", chatId), chatData)
+      await setDoc(doc(db, "chats", chatId), chatData)
 
       // Store the input value and selected AI model in sessionStorage
-      sessionStorage.setItem('initialPrompt', trimmedValue)
-      sessionStorage.setItem('selectedAI', currentModel) // Use currentModel instead of selectedAI
-      sessionStorage.setItem('chatId', chatId)
-      sessionStorage.setItem('autoSubmit', 'true')
+      sessionStorage.setItem("initialPrompt", trimmedValue)
+      sessionStorage.setItem("selectedAI", currentModel) // Use currentModel instead of selectedAI
+      sessionStorage.setItem("chatId", chatId)
+      sessionStorage.setItem("autoSubmit", "true")
 
       // Navigate to the new chat page
       router.push(`/chat/${chatId}`)

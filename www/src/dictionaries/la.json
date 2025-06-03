@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "busy": "Occupatus",
+      "learning": "Currently Doctrina ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mihi tasks",
+    "integrations": "Integrations",
+    "notifications": "Notificationes"
+  },
+  "authentication": {
+    "magic-link": "Mitte Magia Link",
+    "sso": "Sign in SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Upcoming tasks",
+    "stats": {
+      "new_notifications": "Novum Vicimediorum"
+    }
+  },
+  "projects": {
+    "archive": "Archive Project",
+    "due_date": "Due Date",
+    "assignee": "Assignatus",
+    "status": {
+      "archived": "Archived",
+      "pending_review": "Pendente recensionem"
+    }
+  },
+  "tasks": {
+    "add_task": "Addere novum negotium",
+    "edit_task": "Recensere negotium",
+    "mark_complete": "Marcam ut completum",
+    "mark_incomplete": "Mark ut imperfecta",
+    "delete_task": "DELETE",
+    "task_title_placeholder": "Quid opus?",
+    "priority": "Prioritas",
+    "priorities": {
+      "high": "Altum",
+      "medium": "Medium",
+      "low": "Humilis"
+    }
+  },
+  "automations": {
+    "logs": "View Acta",
+    "schedule": "Automation schedule"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Workflows",
+      "plugins": "Plugins"
+    },
+    "view_details": "Details Details"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrator",
+      "editor": "Editor",
+      "viewer": "Vis"
+    }
+  },
+  "notifications": {
+    "title": "Notificationes",
+    "mark_all_read": "Mark omnes ut legitur",
+    "no_new_notifications": "Nulla novus notificationes.",
+    "clear_all": "Patet omnia notificationes",
+    "settings_link": "Notification Occasus"
+  },
+  "settings": {
+    "account": "Ratio",
+    "appearance": "Species",
+    "theme": "Theme",
+    "themes": {
+      "light": "Lux modus",
+      "dark": "Tenebris modus",
+      "system": "Ratio default"
+    },
+    "language": "LENTITUDO",
+    "integrations_settings": "Curo Integrations",
+    "api_access": "API Access",
+    "billing": "Billing & Subcriptio"
+  },
+  "errors": {
+    "timeout": "Quod operatio opportuno. Aliquam iterum.",
+    "api_limit_exceeded": "API terminus exceditur. Aliquam iterum conare."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Mark omnia notificationes ut legitur.",
+    "change_theme": "Mutare applicationem specie."
+  },
+  "common_actions": {
+    "save": "Salve",
+    "cancel": "Inrito",
+    "confirm": "Confirmo",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Addo",
+    "apply": "Compages",
+    "close": "Propinquus",
+    "next": "Next",
+    "previous": "Prior",
+    "learn_more": "DISCIPIO"
+  },
+  "footer": {
+    "status_page": "Statum page",
+    "documentation": "Documenta"
+  }
+}

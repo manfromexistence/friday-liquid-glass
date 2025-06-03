@@ -44,7 +44,7 @@ const STARTER_PRICE_ID = {
 export const auth = betterAuth({
   appName: "Better Auth Demo",
   database: drizzleAdapter(db, {
-    provider: "pg",
+    provider: "sqlite",
     schema: schema,
   }),
   plugins: [

@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ਆਨਲਾਈਨ",
+      "offline": "Offline ਫਲਾਈਨ",
+      "busy": "ਰੁੱਝੇ ਹੋਏ",
+      "learning": "ਇਸ ਵੇਲੇ ਸਿੱਖ ਰਹੇ ਹਾਂ ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ਮੇਰੇ ਕੰਮ",
+    "integrations": "ਏਕੀਕਰਣ",
+    "notifications": "ਸੂਚਨਾਵਾਂ"
+  },
+  "authentication": {
+    "magic-link": "ਜਾਦੂ ਲਿੰਕ ਭੇਜੋ",
+    "sso": "ਐਸਐਸਓ ਦੇ ਨਾਲ ਸਾਈਨ ਇਨ ਕਰੋ"
+  },
+  "dashboard": {
+    "upcoming_tasks": "ਆਗਾਮੀ ਕੰਮ",
+    "stats": {
+      "new_notifications": "ਨਵੀਆਂ ਨੋਟੀਫਿਕੇਸ਼ਨ"
+    }
+  },
+  "projects": {
+    "archive": "ਪੁਰਾਲੇਖ ਪ੍ਰੋਜੈਕਟ",
+    "due_date": "ਅਦਾਇਗੀ ਤਾਰੀਖ",
+    "assignee": "Assigneee",
+    "status": {
+      "archived": "ਪੁਰਾਲੇਖ",
+      "pending_review": "ਬਕਾਇਆ ਸਮੀਖਿਆ"
+    }
+  },
+  "tasks": {
+    "add_task": "ਨਵਾਂ ਕਾਰਜ ਸ਼ਾਮਲ ਕਰੋ",
+    "edit_task": "ਕੰਮ ਸੰਪਾਦਿਤ ਕਰੋ",
+    "mark_complete": "ਸੰਪੂਰਨ ਦੇ ਤੌਰ ਤੇ ਮਾਰਕ",
+    "mark_incomplete": "ਅਧੂਰੇ ਵਜੋਂ ਮਾਰਕ ਕਰੋ",
+    "delete_task": "ਟਾਸਕ ਨੂੰ ਮਿਟਾਓ",
+    "task_title_placeholder": "ਕੀ ਕਰਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ?",
+    "priority": "ਤਰਜੀਹ",
+    "priorities": {
+      "high": "ਉੱਚ",
+      "medium": "ਮਾਧਿਅਮ",
+      "low": "ਘੱਟ"
+    }
+  },
+  "automations": {
+    "logs": "ਲਾਗ ਵੇਖੋ",
+    "schedule": "ਤਹਿ ਸਵੈਚਾਲਨ"
+  },
+  "library": {
+    "categories": {
+      "workflows": "ਵਰਕਫਲੋਜ਼",
+      "plugins": "ਪਲੱਗਇਨ"
+    },
+    "view_details": "ਵੇਰਵੇ ਵੇਖੋ"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "ਪ੍ਰਬੰਧਕ",
+      "editor": "ਸੰਪਾਦਕ",
+      "viewer": "ਦਰਸ਼ਕ"
+    }
+  },
+  "notifications": {
+    "title": "ਸੂਚਨਾਵਾਂ",
+    "mark_all_read": "ਸਾਰੇ ਪੜ੍ਹੋ",
+    "no_new_notifications": "ਕੋਈ ਨਵੀਂ ਨੋਟੀਫਿਕੇਸ਼ਨ ਨਹੀਂ.",
+    "clear_all": "ਸਾਰੀਆਂ ਸੂਚਨਾਵਾਂ ਸਾਫ਼ ਕਰੋ",
+    "settings_link": "ਸੂਚਨਾ ਸੈਟਿੰਗ"
+  },
+  "settings": {
+    "account": "ਖਾਤਾ",
+    "appearance": "ਦਿੱਖ",
+    "theme": "ਥੀਮ",
+    "themes": {
+      "light": "ਲਾਈਟ ਮੋਡ",
+      "dark": "ਡਾਰਕ ਮੋਡ",
+      "system": "ਸਿਸਟਮ ਡਿਫਾਲਟ"
+    },
+    "language": "ਭਾਸ਼ਾ",
+    "integrations_settings": "ਏਕੀਕਰਣ ਦਾ ਪ੍ਰਬੰਧਨ",
+    "api_access": "ਏਪੀਆਈ ਐਕਸੈਸ",
+    "billing": "ਬਿਲਿੰਗ ਅਤੇ ਗਾਹਕੀ"
+  },
+  "errors": {
+    "timeout": "ਓਪਰੇਸ਼ਨ ਦਾ ਸਮਾਂ ਸਮਾਪਤ. ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ.",
+    "api_limit_exceeded": "ਏਪੀਆਈ ਸੀਮਾ ਵਧ ਗਈ. ਕਿਰਪਾ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਸੂਚਨਾਵਾਂ ਨੂੰ ਪੜ੍ਹੋ.",
+    "change_theme": "ਐਪਲੀਕੇਸ਼ਨ ਦੀ ਦਿੱਖ ਬਦਲੋ."
+  },
+  "common_actions": {
+    "save": "ਸੇਵ",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "confirm": "ਪੁਸ਼ਟੀ ਕਰੋ",
+    "delete": "ਮਿਟਾਓ",
+    "edit": "ਸੋਧ",
+    "add": "ਸ਼ਾਮਲ ਕਰੋ",
+    "apply": "ਲਾਗੂ ਕਰੋ",
+    "close": "ਨੇੜੇ",
+    "next": "ਅਗਲਾ",
+    "previous": "ਪਿਛਲਾ",
+    "learn_more": "ਜਿਆਦਾ ਜਾਣੋ"
+  },
+  "footer": {
+    "status_page": "ਸਥਿਤੀ ਦਾ ਪੰਨਾ",
+    "documentation": "ਦਸਤਾਵੇਜ਼"
+  }
+}

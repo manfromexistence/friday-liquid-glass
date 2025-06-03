@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ອອນລາຍ",
+      "offline": "ອອບໄລ",
+      "busy": "ຄາວຽກ",
+      "learning": "ປະຈຸບັນຮຽນຮູ້ແລ້ວ ..."
+    }
+  },
+  "navigation": {
+    "tasks": "ວຽກຂອງຂ້ອຍ",
+    "integrations": "ວິຫາ",
+    "notifications": "ແຈ້ງການ"
+  },
+  "authentication": {
+    "magic-link": "ສົ່ງການເຊື່ອມຕໍ່ magic",
+    "sso": "ເຂົ້າສູ່ລະບົບກັບ SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "ຫນ້າທີ່ກໍາລັງຈະມາ",
+    "stats": {
+      "new_notifications": "ແຈ້ງການໃຫມ່"
+    }
+  },
+  "projects": {
+    "archive": "ໂຄງການຮວບຮວມ",
+    "due_date": "ວັນທີກໍານົດ",
+    "assignee": "ຜູ້ຮັບມອບກັມ",
+    "status": {
+      "archived": "ຮວບຮວມ",
+      "pending_review": "ການທົບທວນທີ່ຍັງຄ້າງ"
+    }
+  },
+  "tasks": {
+    "add_task": "ເພີ່ມວຽກງານໃຫມ່",
+    "edit_task": "ແກ້ໄຂວຽກ",
+    "mark_complete": "ເຄື່ອງຫມາຍສໍາເລັດ",
+    "mark_incomplete": "ຫມາຍວ່າບໍ່ຄົບຖ້ວນ",
+    "delete_task": "ລົບ Task",
+    "task_title_placeholder": "ສິ່ງທີ່ຕ້ອງເຮັດ?",
+    "priority": "ບຸລິມະສິດ",
+    "priorities": {
+      "high": "ສູງ",
+      "medium": "ກາງ",
+      "low": "ຕ່ໍາ"
+    }
+  },
+  "automations": {
+    "logs": "ເບິ່ງບັນທຶກ",
+    "schedule": "ກໍານົດອັດຕະໂນມັດ"
+  },
+  "library": {
+    "categories": {
+      "workflows": "ກະແສໄຟຟ້າ",
+      "plugins": "Plugins"
+    },
+    "view_details": "ເບິ່ງລາຍລະອຽດ"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "ຜູ້ຢິງບໍລິຫານ",
+      "editor": "ບັນນາທິການ",
+      "viewer": "ຜູ້ເບິ່ງ"
+    }
+  },
+  "notifications": {
+    "title": "ແຈ້ງການ",
+    "mark_all_read": "ຫມາຍທັງຫມົດທີ່ອ່ານ",
+    "no_new_notifications": "ບໍ່ມີການແຈ້ງເຕືອນໃຫມ່.",
+    "clear_all": "ລ້າງການແຈ້ງເຕືອນທັງຫມົດ",
+    "settings_link": "ການຕັ້ງຄ່າແຈ້ງການ"
+  },
+  "settings": {
+    "account": "ບັນຊີ",
+    "appearance": "ຮູບລັກສະນະ",
+    "theme": "ຫົວຂໍ້",
+    "themes": {
+      "light": "ຮູບແບບແສງສະຫວ່າງ",
+      "dark": "ຮູບແບບຊ້ໍາ",
+      "system": "ລະບົບຄ່າເລີ່ມຕົ້ນ"
+    },
+    "language": "ພາສາ",
+    "integrations_settings": "ຈັດການການເຊື່ອມໂຍງ",
+    "api_access": "ການເຂົ້າເຖິງ API",
+    "billing": "ໃບບິນແລະການສະຫມັກສະມາຊິກ"
+  },
+  "errors": {
+    "timeout": "ການປະຕິບັດງານຫມົດເວລາ. ກະລຸນາລອງໃຫມ່ອີກຄັ້ງ.",
+    "api_limit_exceeded": "ຂອບເຂດຈໍາກັດ API. ກະລຸນາລອງໃຫມ່ໃນພາຍຫຼັງ."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "ຫມາຍເອົາການແຈ້ງເຕືອນທັງຫມົດຂອງທ່ານໃນຖານະທີ່ອ່ານ.",
+    "change_theme": "ປ່ຽນຮູບລັກສະນະສະຫມັກ."
+  },
+  "common_actions": {
+    "save": "ປະຢັດ",
+    "cancel": "ຍົກເລີກ",
+    "confirm": "ຢືນຢັນ",
+    "delete": "ລົບ",
+    "edit": "ແກ້ໄຂ",
+    "add": "ເພີ່ມ",
+    "apply": "ສະຫມັກ",
+    "close": "ປິດ",
+    "next": "ຕໍ່ໄປ",
+    "previous": "ທີ່ຜ່ານມາ",
+    "learn_more": "ຮຽນຮູ້ເພີ່ມເຕີມ"
+  },
+  "footer": {
+    "status_page": "ຫນ້າສະຖານະພາບ",
+    "documentation": "ເອກະສານ"
+  }
+}

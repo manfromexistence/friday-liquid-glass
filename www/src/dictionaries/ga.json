@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Ar fud",
+      "offline": "As líne",
+      "busy": "Gnóthach",
+      "learning": "Ag foghlaim faoi láthair ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Mo thascanna",
+    "integrations": "Comhtháthú",
+    "notifications": "Fógraí"
+  },
+  "authentication": {
+    "magic-link": "Seol nasc draíochta",
+    "sso": "Sínigh isteach le SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Tascanna atá le teacht",
+    "stats": {
+      "new_notifications": "Fógraí Nua"
+    }
+  },
+  "projects": {
+    "archive": "Tionscadal cartlainne",
+    "due_date": "Dáta dlite",
+    "assignee": "Sannaí",
+    "status": {
+      "archived": "Cartlainne",
+      "pending_review": "Athbhreithniú ar feitheamh"
+    }
+  },
+  "tasks": {
+    "add_task": "Cuir tasc nua leis",
+    "edit_task": "Cuir an tasc in eagar",
+    "mark_complete": "Marcáil chomh hiomlán",
+    "mark_incomplete": "Marcáil mar neamhiomlán",
+    "delete_task": "Scrios an tasc",
+    "task_title_placeholder": "Cad is gá a dhéanamh?",
+    "priority": "Tosaíocht",
+    "priorities": {
+      "high": "In airde",
+      "medium": "Meánach",
+      "low": "Ar bheagán"
+    }
+  },
+  "automations": {
+    "logs": "Féach ar logaí",
+    "schedule": "Uathoibriú sceidil"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Sreafaí oibre",
+      "plugins": "Forlíontáin"
+    },
+    "view_details": "Féach sonraí"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Riarthóir",
+      "editor": "Eagarthóir",
+      "viewer": "Lucht féachana"
+    }
+  },
+  "notifications": {
+    "title": "Fógraí",
+    "mark_all_read": "Marcáil go léir mar atá léite",
+    "no_new_notifications": "Gan aon fhógraí nua.",
+    "clear_all": "Glan gach fógra",
+    "settings_link": "Socruithe Fógra"
+  },
+  "settings": {
+    "account": "Bheith den tuairim",
+    "appearance": "Dealramh",
+    "theme": "Téama",
+    "themes": {
+      "light": "Modh solais",
+      "dark": "Modh dorcha",
+      "system": "Mainneachtain an chórais"
+    },
+    "language": "Teanga",
+    "integrations_settings": "Comhtháthú a bhainistiú",
+    "api_access": "Rochtain API",
+    "billing": "Billeáil & Síntiúis"
+  },
+  "errors": {
+    "timeout": "D'imigh an oibríocht amach. Bain triail eile as.",
+    "api_limit_exceeded": "Sháraigh teorainn API. Bain triail eile as níos déanaí."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Marcáil do chuid fógraí go léir mar atá léite.",
+    "change_theme": "Athraigh cuma an iarratais."
+  },
+  "common_actions": {
+    "save": "Spáráil",
+    "cancel": "Cealaigh",
+    "confirm": "Daingnigh",
+    "delete": "Scrios amach",
+    "edit": "Eagar a chur ar",
+    "add": "Cuir le",
+    "apply": "Feidhmigh",
+    "close": "Críoch a chur le",
+    "next": "Ar aghaidh",
+    "previous": "Roimhe seo",
+    "learn_more": "Níos mó a fhoghlaim"
+  },
+  "footer": {
+    "status_page": "Leathanach stádais",
+    "documentation": "Doiciméadú"
+  }
+}

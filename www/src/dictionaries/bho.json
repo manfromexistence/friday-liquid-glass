@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "ऑनलाइन",
+      "offline": "ऑफलाइन के बा .",
+      "busy": "व्यस्त",
+      "learning": "अभी सीख रहल बानी..."
+    }
+  },
+  "navigation": {
+    "tasks": "हमार काम बा .",
+    "integrations": "एकीकरण के बारे में बतावल गइल बा।",
+    "notifications": "सूचना दिहल गइल बा ."
+  },
+  "authentication": {
+    "magic-link": "जादू के लिंक भेजीं",
+    "sso": "एसएसओ के साथ साइन इन करीं"
+  },
+  "dashboard": {
+    "upcoming_tasks": "आवे वाला काम के बारे में बतावल गईल बा .",
+    "stats": {
+      "new_notifications": "नया सूचना दिहल गइल बा ."
+    }
+  },
+  "projects": {
+    "archive": "संग्रह परियोजना के बा .",
+    "due_date": "नियत तिथि के बा .",
+    "assignee": "असाइन करे वाला",
+    "status": {
+      "archived": "संग्रहीत कइल गइल बा .",
+      "pending_review": "समीक्षा लंबित बा ."
+    }
+  },
+  "tasks": {
+    "add_task": "नया काम जोड़ल जाव .",
+    "edit_task": "काम के संपादित करीं .",
+    "mark_complete": "पूरा के रूप में निशान लगाईं .",
+    "mark_incomplete": "अधूरा के रूप में चिन्हित करीं",
+    "delete_task": "टास्क के हटावल जाव .",
+    "task_title_placeholder": "का करे के जरूरत बा?",
+    "priority": "परधानता",
+    "priorities": {
+      "high": "ऊँच",
+      "medium": "माध्यम",
+      "low": "कम"
+    }
+  },
+  "automations": {
+    "logs": "लॉग देखल जाव",
+    "schedule": "शेड्यूल ऑटोमेशन के बा ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "कार्यप्रवाह के बा .",
+      "plugins": "प्लगइन के बा ."
+    },
+    "view_details": "विवरण देखल जाव"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "प्रशासक के बा .",
+      "editor": "संपादक बानी .",
+      "viewer": "दर्शक 1999 के बा।"
+    }
+  },
+  "notifications": {
+    "title": "सूचना दिहल गइल बा .",
+    "mark_all_read": "पढ़ल के रूप में सब कुछ चिन्हित करीं .",
+    "no_new_notifications": "कवनो नया सूचना ना मिलल.",
+    "clear_all": "सभ अधिसूचना के साफ करीं",
+    "settings_link": "सूचना सेटिंग्स के बा ."
+  },
+  "settings": {
+    "account": "खाता",
+    "appearance": "भेख",
+    "theme": "विषय",
+    "themes": {
+      "light": "लाइट मोड के बा .",
+      "dark": "डार्क मोड के बा .",
+      "system": "सिस्टम के डिफ़ॉल्ट बा ."
+    },
+    "language": "भाखा",
+    "integrations_settings": "एकीकरण के प्रबंधन करीं .",
+    "api_access": "एपीआई के पहुँच 100 बा।",
+    "billing": "बिलिंग अउर सदस्यता के"
+  },
+  "errors": {
+    "timeout": "ऑपरेशन टाइम आउट हो गइल. कृपया एक बार फिर से कोशिश करीं।",
+    "api_limit_exceeded": "एपीआई सीमा से अधिका हो गइल. कृपया बाद में फेर से कोशिश करीं।"
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "अपना सभ सूचना के पढ़ल के रूप में चिन्हित करीं।",
+    "change_theme": "आवेदन के रूप बदले के बा।"
+  },
+  "common_actions": {
+    "save": "बचावल",
+    "cancel": "मना कइ दीं",
+    "confirm": "पक्का कयिल",
+    "delete": "हटाईं",
+    "edit": "संपादन कईल",
+    "add": "जोड़ल",
+    "apply": "लागू करीं",
+    "close": "बंद करीं",
+    "next": "अगिला",
+    "previous": "पिछिला",
+    "learn_more": "अउरी जाने खातिर देखीं"
+  },
+  "footer": {
+    "status_page": "स्टेटस पेज के बारे में जानकारी दिहल गइल बा।",
+    "documentation": "दस्तावेजीकरण के बारे में बतावल गइल बा।"
+  }
+}

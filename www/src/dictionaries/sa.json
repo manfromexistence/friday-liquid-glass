@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "लब्धसम्पर्क",
+      "offline": "अफलाइन 1 .",
+      "busy": "व्यस्तः",
+      "learning": "सम्प्रति शिक्षणम्..."
+    }
+  },
+  "navigation": {
+    "tasks": "मम कार्याणि .",
+    "integrations": "एकीकरण 1 .",
+    "notifications": "सूचनाएँ 1 ."
+  },
+  "authentication": {
+    "magic-link": "जादू लिंक भेजें",
+    "sso": "SSO के साथ साइन इन करें ."
+  },
+  "dashboard": {
+    "upcoming_tasks": "आगामि कार्यम् .",
+    "stats": {
+      "new_notifications": "नवीन अधिसूचना 1 ."
+    }
+  },
+  "projects": {
+    "archive": "अभिलेखागार परियोजना 1 .",
+    "due_date": "दैनिक तिथि 1 .",
+    "assignee": "असाइनी 1 .",
+    "status": {
+      "archived": "संग्रहीत 1 .",
+      "pending_review": "लम्बित समीक्षा ."
+    }
+  },
+  "tasks": {
+    "add_task": "नवीन कार्य जोड़ें .",
+    "edit_task": "कार्य सम्पादित करें .",
+    "mark_complete": "यथा पूर्णं रूपेण चिह्नितम् .",
+    "mark_incomplete": "अपूर्ण के रूप में चिह्नित करें .",
+    "delete_task": "कार्य को विलोप करें .",
+    "task_title_placeholder": "किं कर्तव्यम् ?",
+    "priority": "पूर्ववर्तिता",
+    "priorities": {
+      "high": "उच्चैः",
+      "medium": "मध्यम",
+      "low": "न्यूनम्‌"
+    }
+  },
+  "automations": {
+    "logs": "लॉग देखें 1 .",
+    "schedule": "समयसूची स्वचालन 1 ."
+  },
+  "library": {
+    "categories": {
+      "workflows": "कार्यप्रवाहाः २.",
+      "plugins": "प्लगिन्स् 1 ."
+    },
+    "view_details": "विवरण देखें"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "प्रशासक 1 .",
+      "editor": "सम्पादक 1 .",
+      "viewer": "दर्शकः २."
+    }
+  },
+  "notifications": {
+    "title": "सूचनाएँ 1 .",
+    "mark_all_read": "सर्वं यथा पठन्तु इति चिह्नयन्तु .",
+    "no_new_notifications": "न नूतनानि सूचनानि न।",
+    "clear_all": "सर्वाणि सूचनानि स्पष्टं कुर्वन्तु .",
+    "settings_link": "अधिसूचना सेटिंग्स 1 ."
+  },
+  "settings": {
+    "account": "वृतांत्तः",
+    "appearance": "स्वरूपम्‌",
+    "theme": "विषयवस्तु",
+    "themes": {
+      "light": "प्रकाश मोड 1 .",
+      "dark": "कृष्ण मोड 1 .",
+      "system": "प्रणाली पूर्वनिर्धारित 1 ."
+    },
+    "language": "भाषा",
+    "integrations_settings": "एकीकरणों का प्रबंधन 1 .",
+    "api_access": "API अभिगम 1 .",
+    "billing": "बिलिंग एवं सदस्यता 1 ."
+  },
+  "errors": {
+    "timeout": "क्रियायाः समयः बहिः अभवत् । कृपया पुनः प्रयास करें।",
+    "api_limit_exceeded": "API सीमा अतिक्रान्त। कृपया पश्चात् पुनः प्रयास करें।"
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "यथा पठन्ति तथा भवतः सर्वाणि सूचनानि चिह्नयन्तु।",
+    "change_theme": "अनुप्रयोगस्य रूपं परिवर्तयन्तु।"
+  },
+  "common_actions": {
+    "save": "रक्ष्",
+    "cancel": "निरसयतु",
+    "confirm": "दृढी करोतु",
+    "delete": "लुप्",
+    "edit": "सम्पादन",
+    "add": "संयोजयति",
+    "apply": "आचरतु",
+    "close": "पिधानं करोतु",
+    "next": "अग्रिम",
+    "previous": "पूर्वतनम्‌",
+    "learn_more": "अधिकं ज्ञातव्यम् ."
+  },
+  "footer": {
+    "status_page": "स्थिति पृष्ठ 1 .",
+    "documentation": "दस्तावेजीकरण 1 ."
+  }
+}

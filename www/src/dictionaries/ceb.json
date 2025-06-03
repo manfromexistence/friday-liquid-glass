@@ -1,0 +1,112 @@
+{
+  "friday": {
+    "status": {
+      "online": "Dinhi sa online",
+      "offline": "Offline",
+      "busy": "Nagkapuliki",
+      "learning": "Karon Natun-an ..."
+    }
+  },
+  "navigation": {
+    "tasks": "Akong mga buluhaton",
+    "integrations": "Panagkahiusa",
+    "notifications": "Mga Pahibalo"
+  },
+  "authentication": {
+    "magic-link": "Ipadala ang Magic Sumpay",
+    "sso": "Pag-sign in sa SSO"
+  },
+  "dashboard": {
+    "upcoming_tasks": "Umaabot nga mga gimbuhaton",
+    "stats": {
+      "new_notifications": "Bag-ong mga Pahibalo"
+    }
+  },
+  "projects": {
+    "archive": "Proyekto sa Archive",
+    "due_date": "GIPAKITA NGA PANAHON",
+    "assignee": "Assignee",
+    "status": {
+      "archived": "Gi-arista",
+      "pending_review": "Pending nga pagribyu"
+    }
+  },
+  "tasks": {
+    "add_task": "Pagdugang bag-ong buluhaton",
+    "edit_task": "I-edit ang Task",
+    "mark_complete": "Markahi kung kompleto",
+    "mark_incomplete": "Markahan ingon dili kompleto",
+    "delete_task": "Pagwagtang sa Task",
+    "task_title_placeholder": "Unsa ang kinahanglan buhaton?",
+    "priority": "Pagkauna",
+    "priorities": {
+      "high": "Taas",
+      "medium": "Tungatunga",
+      "low": "Ubos"
+    }
+  },
+  "automations": {
+    "logs": "Tan-awa ang mga troso",
+    "schedule": "Iskedyul nga automation"
+  },
+  "library": {
+    "categories": {
+      "workflows": "Workflows",
+      "plugins": "Plugins"
+    },
+    "view_details": "Tan-awa ang mga Detalye"
+  },
+  "spaces": {
+    "roles": {
+      "admin": "Administrador",
+      "editor": "Editor",
+      "viewer": "Tigtan-aw"
+    }
+  },
+  "notifications": {
+    "title": "Mga Pahibalo",
+    "mark_all_read": "Markahan ang tanan sama sa pagbasa",
+    "no_new_notifications": "Walay bag-ong mga pahibalo.",
+    "clear_all": "Hayag ang tanan nga mga pahibalo",
+    "settings_link": "Mga Setting sa Pagpahibalo"
+  },
+  "settings": {
+    "account": "Kwarta sa bangko",
+    "appearance": "Hitsura",
+    "theme": "Dugokan",
+    "themes": {
+      "light": "Kahayag mode",
+      "dark": "Itom nga mode",
+      "system": "Default sa sistema"
+    },
+    "language": "Sinultihan",
+    "integrations_settings": "Pagdumala sa mga Pag-apil",
+    "api_access": "API Pag-access",
+    "billing": "Pagsalakay ug mga suskrisyon"
+  },
+  "errors": {
+    "timeout": "Ang operasyon nag-edad. Palihug sulayi pag-usab.",
+    "api_limit_exceeded": "Milapas ang limitasyon sa API. Palihug sulayi pag-usab sa ulahi."
+  },
+  "tooltips": {
+    "mark_all_read_notifications": "Markahi ang tanan nimong mga pahibalo sama sa pagbasa.",
+    "change_theme": "Pag-usab sa hitsura sa aplikasyon."
+  },
+  "common_actions": {
+    "save": "Magtigom",
+    "cancel": "Kanselahon",
+    "confirm": "Pamatud-an",
+    "delete": "Mobiya",
+    "edit": "Hikayon aron ipatik",
+    "add": "Modugang",
+    "apply": "Idapat",
+    "close": "Sirhan",
+    "next": "Sunod",
+    "previous": "Nangagi",
+    "learn_more": "Pagkat-on og dugang"
+  },
+  "footer": {
+    "status_page": "Panid sa Estado",
+    "documentation": "Dokumentasyon"
+  }
+}
