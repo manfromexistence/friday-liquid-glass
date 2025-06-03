@@ -3,6 +3,12 @@
 //     "secret": "OmaxsxA6OUPSfeQYxc7juuzHuDBASnIqj61,tZZn9pU_mADPfcB8xpKmW3Cspa-CFpPdMEfRN4srl,9ULE7rZAjCU1Tlzh,7ePmK_ZWGSU+eg+Nl1pk8nI6vETMm1RcQ",
 //     "token": "AstraCS:CwjeYSbqkTQrrbYifaDKLUIH:95c479346714000b3ff8d42da7367ec31a8f8db4136e6fd66092b3eac9a0b519"
 //   }
+
+// export ASTRA_DB_ID=1221286c-c08e-41ba-a94d-37a0b3e22e81
+// export ASTRA_DB_REGION=eu-west-1
+// export ASTRA_DB_KEYSPACE=friday
+// export ASTRA_DB_APPLICATION_TOKEN=AstraCS:CwjeYSbqkTQrrbYifaDKLUIH:95c479346714000b3ff8d42da7367ec31a8f8db4136e6fd66092b3eac9a0b519
+
 const { createClient } = require("@astrajs/rest");
   
 async function main() {
