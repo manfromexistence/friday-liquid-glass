@@ -1,13 +1,9 @@
 
-// Import React for hooks
-import React from 'react';
-
-// Locale text utilities
-import { useLocaleStore } from '@/store/locale-store';
-import { usePathname } from 'next/navigation';
-import { Locale, i18n } from '@/i18n-config';
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+
+// Locale text utilities
+import { Locale, i18n } from '@/i18n-config';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -107,8 +103,7 @@ function getNestedValue(obj: any, path: string): string {
 }
 
 /**
- * Locale Text (lt) function - similar to cn but for localized text
- * Simple, synchronous access to locale data
+ * Locale Text (lt) function - simple utility like cn() but for localized text
  * 
  * @param key - Dot notation key (e.g., 'friday.title')
  * @param fallback - Fallback text if key not found
@@ -137,57 +132,6 @@ export async function lta(key: string, fallback?: string): Promise<string> {
   
   const value = getNestedValue(localeData, key);
   return value !== undefined ? value : (fallback || key.split('.').pop() || key);
-}
-
-/**
- * Hook version of lt for React components
- */
-export function useLt() {
-  const { currentLocale } = useLocaleStore();
-  const pathname = usePathname();
-  
-  // Get route locale
-  const routeLocale = React.useMemo(() => {
-    const segments = pathname.split('/').filter(Boolean);
-    const firstSegment = segments[0];
-    return i18n.locales.includes(firstSegment as Locale) ? (firstSegment as Locale) : i18n.defaultLocale;
-  }, [pathname]);
-  
-  // Use route locale as primary, store locale as fallback
-  const activeLocale = routeLocale || currentLocale;
-  
-  const [localeData, setLocaleData] = React.useState<LocaleKeys | null>(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  
-  React.useEffect(() => {
-    let mounted = true;
-    setIsLoading(true);
-    
-    loadLocaleData(activeLocale).then(data => {
-      if (mounted) {
-        setLocaleData(data);
-        setIsLoading(false);
-      }
-    });
-    
-    return () => { mounted = false; };
-  }, [activeLocale]);
-  
-  const lt = React.useCallback((key: string, fallback?: string) => {
-    if (!localeData) {
-      return fallback || key.split('.').pop() || key;
-    }
-    
-    const value = getNestedValue(localeData, key);
-    return value !== undefined ? value : (fallback || key.split('.').pop() || key);
-  }, [localeData]);
-  
-  return {
-    lt,
-    locale: activeLocale,
-    isLoading,
-    localeData
-  };
 }
 
 /**
