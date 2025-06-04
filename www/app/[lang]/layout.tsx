@@ -1,8 +1,40 @@
-import { i18n, type Locale } from "../../i18n-config";
+import { i18n, type Locale } from "@/i18n-config";
+import { LoadTheme } from "@/components/theme/load-theme";
+import { Providers } from "@/components/providers";
+import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
+import "@/styles/globals.css";
 
-export const metadata = {
-  title: "i18n within app router - Vercel Examples",
-  description: "How to do i18n in Next.js 15 within app router",
+export const metadata: Metadata = {
+  title: {
+    default: "Friday",
+    template: "%s | Friday",
+  },
+  description: "Your AI Friend.",
+  keywords: [
+    "friday",
+    "manfromexistence",
+    "multiverse",
+    "aladdin",
+    "better",
+    "dx",
+    "manfromexistence-auth",
+    "manfromexistence-ui",
+    "manfromexistence-ux",
+  ],
+  authors: [
+    {
+      name: "manfromexistence",
+      url: "https://manfromexistence.vercel.app",
+    },
+  ],
+  creator: "manfromexistence",
+  metadataBase: new URL("https://themux.vercel.app"),
+  openGraph: {
+    title: "Friday | More than just your AI assistant",
+    description: "Your AI Friend.",
+  },
+  generator: "Next.js",
 };
 
 export async function generateStaticParams() {
@@ -19,7 +51,12 @@ export default async function Root(props: {
 
   return (
     <html lang={params.lang}>
-      <body>{children}</body>
+      <head>
+        <LoadTheme />
+      </head>
+      <body className={cn(`antialiased`)}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

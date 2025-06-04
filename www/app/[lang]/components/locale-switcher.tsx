@@ -3,14 +3,14 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Globe } from "lucide-react";
-import { i18n, type Locale } from "../../../i18n-config";
-import { Button } from "../../../components/ui/button";
+import { i18n, type Locale } from "@/i18n-config";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 export default function LocaleSwitcher() {
   const pathname = usePathname();
