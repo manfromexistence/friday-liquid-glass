@@ -1,3 +1,11 @@
+
+// Import React for hooks
+import React from 'react';
+
+// Locale text utilities
+import { useLocaleStore } from '@/store/locale-store';
+import { usePathname } from 'next/navigation';
+import { Locale, i18n } from '@/i18n-config';
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -17,6 +25,192 @@ export function getComponentName(name: string) {
 
 export function getRandomIndex(array: any[]) {
   return Math.floor(Math.random() * array.length);
+}
+
+// Type definitions for locale text structure
+type LocaleKeys = {
+  friday: {
+    title: string;
+    welcome: string;
+    prompt: string;
+    help: string;
+  };
+  navigation: {
+    new: string;
+    home: string;
+    automations: string;
+    varients: string;
+    projects: string;
+    spaces: string;
+    library: string;
+    more: string;
+    settings: string;
+    profile: string;
+    dashboard: string;
+    analytics: string;
+  };
+  [key: string]: any;
+};
+
+// Global locale cache for client-side usage
+let localeCache: Partial<Record<Locale, LocaleKeys>> = {};
+
+/**
+ * Load locale data dynamically
+ */
+async function loadLocaleData(locale: Locale): Promise<LocaleKeys> {
+  if (localeCache[locale]) {
+    return localeCache[locale]!;
+  }
+
+  try {
+    const localeData = await import(`@/locales/${locale}.json`);
+    localeCache[locale] = localeData.default;
+    return localeData.default;
+  } catch (error) {
+    console.warn(`Failed to load locale ${locale}, falling back to English`);
+    // Fallback to English
+    if (!localeCache.en) {
+      const fallback = await import('@/locales/en.json');
+      localeCache.en = fallback.default;
+    }
+    return localeCache.en!;
+  }
+}
+
+/**
+ * Get current locale from route or store
+ */
+function getCurrentLocale(): Locale {
+  if (typeof window !== 'undefined') {
+    // Client-side: try to get from URL first, then store
+    const pathname = window.location.pathname;
+    const segments = pathname.split('/').filter(Boolean);
+    const routeLocale = segments[0];
+    
+    if (i18n.locales.includes(routeLocale as Locale)) {
+      return routeLocale as Locale;
+    }
+    
+    // Fallback to store
+    try {
+      const storeState = useLocaleStore.getState();
+      return storeState.currentLocale;
+    } catch {
+      return i18n.defaultLocale;
+    }
+  }
+  
+  return i18n.defaultLocale;
+}
+
+/**
+ * Get nested value from object using dot notation
+ */
+function getNestedValue(obj: any, path: string): string {
+  return path.split('.').reduce((current, key) => {
+    return current && current[key] !== undefined ? current[key] : undefined;
+  }, obj);
+}
+
+/**
+ * Locale Text (lt) function - similar to cn but for localized text
+ * Usage: lt('friday.title') or lt('navigation.home')
+ * 
+ * @param key - Dot notation key for the translation (e.g., 'friday.title')
+ * @param fallback - Optional fallback text if translation not found
+ * @param locale - Optional specific locale to use (otherwise uses current)
+ */
+export function lt(key: string, fallback?: string, locale?: Locale): string {
+  const currentLocale = locale || getCurrentLocale();
+  const cachedData = localeCache[currentLocale];
+  
+  if (cachedData) {
+    const value = getNestedValue(cachedData, key);
+    if (value !== undefined) {
+      return value;
+    }
+  }
+  
+  // If not in cache, return the key or fallback for now
+  // In a real app, you might want to load it asynchronously
+  return fallback || key.split('.').pop() || key;
+}
+
+/**
+ * Async version of lt that ensures locale data is loaded
+ */
+export async function lta(key: string, fallback?: string, locale?: Locale): Promise<string> {
+  const currentLocale = locale || getCurrentLocale();
+  const localeData = await loadLocaleData(currentLocale);
+  
+  const value = getNestedValue(localeData, key);
+  return value !== undefined ? value : (fallback || key.split('.').pop() || key);
+}
+
+/**
+ * Hook version of lt for React components
+ */
+export function useLt() {
+  const { currentLocale } = useLocaleStore();
+  const pathname = usePathname();
+  
+  // Get route locale
+  const routeLocale = React.useMemo(() => {
+    const segments = pathname.split('/').filter(Boolean);
+    const firstSegment = segments[0];
+    return i18n.locales.includes(firstSegment as Locale) ? (firstSegment as Locale) : i18n.defaultLocale;
+  }, [pathname]);
+  
+  // Use route locale as primary, store locale as fallback
+  const activeLocale = routeLocale || currentLocale;
+  
+  const [localeData, setLocaleData] = React.useState<LocaleKeys | null>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  
+  React.useEffect(() => {
+    let mounted = true;
+    setIsLoading(true);
+    
+    loadLocaleData(activeLocale).then(data => {
+      if (mounted) {
+        setLocaleData(data);
+        setIsLoading(false);
+      }
+    });
+    
+    return () => { mounted = false; };
+  }, [activeLocale]);
+  
+  const lt = React.useCallback((key: string, fallback?: string) => {
+    if (!localeData) {
+      return fallback || key.split('.').pop() || key;
+    }
+    
+    const value = getNestedValue(localeData, key);
+    return value !== undefined ? value : (fallback || key.split('.').pop() || key);
+  }, [localeData]);
+  
+  return {
+    lt,
+    locale: activeLocale,
+    isLoading,
+    localeData
+  };
+}
+
+/**
+ * Preload locale data for better performance
+ */
+export async function preloadLocale(locale: Locale): Promise<void> {
+  await loadLocaleData(locale);
+}
+
+/**
+ * Clear locale cache (useful for development)
+ */
+export function clearLocaleCache(): void {
+  localeCache = {};
 }
 
 export function stripPrefixes(text: string): string {

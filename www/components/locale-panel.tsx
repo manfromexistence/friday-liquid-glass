@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from '@/store/locale-store';
+import { useLt } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -12,6 +13,7 @@ import { Locale, i18n } from '@/i18n-config';
 export function LocalePanel() {
   const router = useRouter();
   const pathname = usePathname();
+  const { lt, locale: activeLocale, isLoading: ltLoading } = useLt();
   
   const {
     currentLocale,
@@ -87,18 +89,17 @@ export function LocalePanel() {
     };
     return names[locale] || locale.toUpperCase();
   };
-
   return (
     <Card className="w-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Globe className="h-5 w-5" />
-          Languages
+          {lt('navigation.settings', 'Languages')}
         </CardTitle>
         <CardDescription>
-          Information about your language and location
+          {lt('friday.help', 'Information about your language and location')}
         </CardDescription>
-      </CardHeader>      <CardContent className="space-y-4">
+      </CardHeader><CardContent className="space-y-4">
         {/* Current Status */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
