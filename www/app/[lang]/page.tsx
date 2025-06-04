@@ -1,6 +1,5 @@
 import { getLocale } from "@/get-locales";
 import { Locale } from "@/i18n-config";
-import { LocalePanel } from "@/components/locale-panel";
 import { LtDemo } from "@/components/lt-demo";
 import { preloadLocale } from "@/lib/utils";
 
@@ -26,7 +25,7 @@ export default async function IndexPage(props: {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12">
         <LtDemo />
-        <LocalePanel />
+        {/* <LocalePanel /> */}
       </div>
     </div>
   );
