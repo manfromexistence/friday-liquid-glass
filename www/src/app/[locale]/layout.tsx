@@ -7,11 +7,14 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }>) {
+  // Await params to access locale
+  const { locale } = await params;
+
   // Validate locale
   if (!locales.includes(locale as any)) {
     notFound(); // This is allowed in nested layouts

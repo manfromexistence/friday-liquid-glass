@@ -1,3 +1,4 @@
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <button>{tNav('automations')}</button>
         <button>{tNav('projects')}</button>
       </nav>
+      <LanguageSwitcher />
     </main>
   );
 }
