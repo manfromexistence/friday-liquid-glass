@@ -4,7 +4,8 @@ import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { NextIntlClientProvider } from 'next-intl';
-import { locales, defaultLocale } from '../../i18n';
+import { notFound } from 'next/navigation';
+import { locales } from '../../www/i18n';
 
 export const metadata: Metadata = {
   title: {
@@ -49,12 +50,14 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  // Validate locale
+  if (!locales.includes(locale as any)) notFound();
+
   let messages;
   try {
     messages = (await import(`@/locales/${locale}.json`)).default;
   } catch (error) {
-    // Fallback to default locale silently instead of notFound()
-    messages = (await import(`@/locales/${defaultLocale}.json`)).default;
+    notFound();
   }
 
   return (
