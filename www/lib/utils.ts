@@ -75,7 +75,7 @@ async function loadLocaleData(locale: Locale): Promise<LocaleKeys> {
 }
 
 /**
- * Get current locale from route or store
+ * Get current locale from route
  */
 function getCurrentLocale(): Locale {
   if (typeof window !== 'undefined') {
@@ -87,6 +87,10 @@ function getCurrentLocale(): Locale {
     if (i18n.locales.includes(routeLocale as Locale)) {
       return routeLocale as Locale;
     }
+  } else {
+    // Server-side: try to get from global context or use default
+    // This won't work perfectly but provides a fallback
+    return i18n.defaultLocale;
   }
   
   // Fallback to default locale
@@ -110,8 +114,20 @@ function getNestedValue(obj: any, path: string): string {
  */
 export function lt(key: string, fallback?: string): string {
   const currentLocale = getCurrentLocale();
-  const cachedData = localeCache[currentLocale];
   
+  // Try to get from window cache first (set by LocaleInitializer)
+  if (typeof window !== 'undefined' && (window as any).__LOCALE_CACHE__) {
+    const windowCache = (window as any).__LOCALE_CACHE__;
+    if (windowCache[currentLocale]) {
+      const value = getNestedValue(windowCache[currentLocale], key);
+      if (value !== undefined) {
+        return value;
+      }
+    }
+  }
+  
+  // Fallback to module cache
+  const cachedData = localeCache[currentLocale];
   if (cachedData) {
     const value = getNestedValue(cachedData, key);
     if (value !== undefined) {
