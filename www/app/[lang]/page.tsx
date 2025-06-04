@@ -1,12 +1,11 @@
-import { getDictionary } from "@/get-locales";
+import { getLocale } from "@/get-locales";
 import { Locale } from "@/i18n-config";
 
 export default async function IndexPage(props: {
   params: Promise<{ lang: Locale }>;
 }) {
   const { lang } = await props.params;
-
-  const dictionary = await getDictionary(lang);
+  const locale = await getLocale(lang);
 
   return (
     <div>
@@ -14,9 +13,9 @@ export default async function IndexPage(props: {
         <p>Current locale: {lang}</p>
         <p>
           This text is rendered on the server:{" "}
-          {dictionary["friday"].welcome}
+          {locale["friday"].welcome}
         </p>
-        {dictionary["friday"].title}
+        {locale["friday"].title}
       </div>
     </div>
   );
