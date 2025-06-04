@@ -86,7 +86,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { LocalePanel } from "@/components/locale-panel";
 
 // Language names mapping for better UX
 const languageNames: Record<string, string> = {
@@ -221,7 +220,6 @@ const languageNames: Record<string, string> = {
   zu: "isiZulu",
 };
 
-
 export function CustomizerSidebar({
   className,
   ...props
@@ -339,7 +337,7 @@ export function CustomizerSidebar({
   return (
     <Sidebar collapsible="icon" className="overflow-hidden" {...props}>
       <Tabs
-        defaultValue="languages"
+        defaultValue="sidebar"
         className="flex flex-1 flex-col gap-0 overflow-hidden"
       >
         <SidebarHeader>
@@ -568,38 +566,40 @@ export function CustomizerSidebar({
             >
               <Command className="bg-background">
                 <CommandInput className="!h-14" placeholder="Search languages..." />
-                <CommandList className="min-h-[80vh]">
+                <CommandList className="min-h-[80vh] lg:min-h-[72.5vh]">
                   <CommandEmpty>No language found.</CommandEmpty>
                   <CommandGroup>
                     {i18n.locales.map((locale) => (
-                      <CommandItem
+                      <Link
                         key={locale}
-                        value={`${locale} ${languageNames[locale] || locale}`}
-                        onSelect={() => {
-                          // setOpen(false);
-                          // Navigate to the new locale
-                          window.location.href = redirectedPathname(locale);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            currentLocale === locale ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        <div className="flex flex-1 items-center justify-between">
-                          <span>{languageNames[locale] || locale}</span>
-                          <span className="text-xs text-muted-foreground">
-                            {locale.toUpperCase()}
-                          </span>
-                        </div>
-                      </CommandItem>
+                        href={locale}>
+                        <CommandItem
+                          value={`${locale} ${languageNames[locale] || locale}`}
+                        // onSelect={() => {
+                        //   // Navigate to the new locale
+                        //   window.location.href = redirectedPathname(locale);
+                        // }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              currentLocale === locale ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          <div className="flex flex-1 items-center justify-between">
+                            <span>{languageNames[locale] || locale}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {locale.toUpperCase()}
+                            </span>
+                          </div>
+                        </CommandItem>
+                      </Link>
                     ))}
                   </CommandGroup>
                 </CommandList>
               </Command>
 
-        {/* <LocalePanel /> */}
+              {/* <LocalePanel /> */}
 
             </TabsContent>
 

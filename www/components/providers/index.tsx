@@ -57,6 +57,9 @@ export function Providers({
               <TooltipProvider>
                 <SidebarProvider
                   defaultOpen={false}
+                  // style={{
+                  //   "--sidebar-width": SIDEBAR_WIDTH,
+                  // }}
                 >
 
                   <CustomizerSidebar />
