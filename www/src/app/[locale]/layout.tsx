@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { locales, defaultLocale } from '../../../i18n';
+import { locales } from '../../../i18n';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -7,25 +7,18 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params,
+  params: { locale }, // Destructure locale directly
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string }; // Define params type directly
 }>) {
-  // Await params to access locale
-  const { locale } = await params;
-
   // Validate locale
   if (!locales.includes(locale as any)) {
-    notFound(); // This is allowed in nested layouts
+    notFound();
   }
 
-  let messages;
-  try {
-    messages = (await import(`@/locales/${locale}.json`)).default;
-  } catch (error) {
-    notFound(); // Trigger 404 if translation file is missing
-  }
-
-  return children; // Messages are already passed via root layout
+  // The RootLayout (c:\\Users\\OS\\gitlab\\friday\\www\\src\\app\\layout.tsx)
+  // is already providing NextIntlClientProvider and messages.
+  // This layout just needs to ensure the locale is valid and render children.
+  return <>{children}</>;
 }
