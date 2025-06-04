@@ -83,7 +83,7 @@ async function loadLocaleData(locale: Locale): Promise<LocaleKeys> {
  */
 function getCurrentLocale(): Locale {
   if (typeof window !== 'undefined') {
-    // Client-side: try to get from URL first, then store
+    // Client-side: get from URL
     const pathname = window.location.pathname;
     const segments = pathname.split('/').filter(Boolean);
     const routeLocale = segments[0];
@@ -91,16 +91,9 @@ function getCurrentLocale(): Locale {
     if (i18n.locales.includes(routeLocale as Locale)) {
       return routeLocale as Locale;
     }
-    
-    // Fallback to store
-    try {
-      const storeState = useLocaleStore.getState();
-      return storeState.currentLocale;
-    } catch {
-      return i18n.defaultLocale;
-    }
   }
   
+  // Fallback to default locale
   return i18n.defaultLocale;
 }
 
@@ -115,14 +108,13 @@ function getNestedValue(obj: any, path: string): string {
 
 /**
  * Locale Text (lt) function - similar to cn but for localized text
- * Usage: lt('friday.title') or lt('navigation.home')
+ * Simple, synchronous access to locale data
  * 
- * @param key - Dot notation key for the translation (e.g., 'friday.title')
- * @param fallback - Optional fallback text if translation not found
- * @param locale - Optional specific locale to use (otherwise uses current)
+ * @param key - Dot notation key (e.g., 'friday.title')
+ * @param fallback - Fallback text if key not found
  */
-export function lt(key: string, fallback?: string, locale?: Locale): string {
-  const currentLocale = locale || getCurrentLocale();
+export function lt(key: string, fallback?: string): string {
+  const currentLocale = getCurrentLocale();
   const cachedData = localeCache[currentLocale];
   
   if (cachedData) {
@@ -132,16 +124,15 @@ export function lt(key: string, fallback?: string, locale?: Locale): string {
     }
   }
   
-  // If not in cache, return the key or fallback for now
-  // In a real app, you might want to load it asynchronously
   return fallback || key.split('.').pop() || key;
 }
 
 /**
- * Async version of lt that ensures locale data is loaded
+ * Async version that ensures locale data is loaded
+ * Use this for server-side or when you need guaranteed fresh data
  */
-export async function lta(key: string, fallback?: string, locale?: Locale): Promise<string> {
-  const currentLocale = locale || getCurrentLocale();
+export async function lta(key: string, fallback?: string): Promise<string> {
+  const currentLocale = getCurrentLocale();
   const localeData = await loadLocaleData(currentLocale);
   
   const value = getNestedValue(localeData, key);
@@ -200,7 +191,16 @@ export function useLt() {
 }
 
 /**
- * Preload locale data for better performance
+ * Preload current locale data for instant lt() access
+ * Call this in your app initialization
+ */
+export async function preloadCurrentLocale(): Promise<void> {
+  const currentLocale = getCurrentLocale();
+  await loadLocaleData(currentLocale);
+}
+
+/**
+ * Preload specific locale data
  */
 export async function preloadLocale(locale: Locale): Promise<void> {
   await loadLocaleData(locale);
