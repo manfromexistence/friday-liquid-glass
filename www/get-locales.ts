@@ -79,7 +79,7 @@ const locales = {
   mi: () => import("./locales/mi.json").then((module) => module.default),
   mk: () => import("./locales/mk.json").then((module) => module.default),
   ml: () => import("./locales/ml.json").then((module) => module.default),
- "mni-Mtei": () => import("./locales/mni-Mtei.json").then((module) => module.default),
+  "mni-Mtei": () => import("./locales/mni-Mtei.json").then((module) => module.default),
   mn: () => import("./locales/mn.json").then((module) => module.default),
   mr: () => import("./locales/mr.json").then((module) => module.default),
   ms: () => import("./locales/ms.json").then((module) => module.default),
