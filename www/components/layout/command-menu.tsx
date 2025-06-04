@@ -6,7 +6,7 @@ import { type DialogProps } from "@radix-ui/react-dialog"
 import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { docsConfig } from "../../config/docs"
+import { docsConfig } from "../../lib/config/docs"
 import { cn } from "../../lib/utils"
 import { Button } from "../ui/button"
 import {

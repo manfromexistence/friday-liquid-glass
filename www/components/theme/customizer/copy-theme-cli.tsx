@@ -24,7 +24,7 @@ import {
 } from "../../ui/drawer";
 import { ToggleGroup, ToggleGroupItem } from "../../ui/toggle-group";
 
-import { generateThemeRegistryItemFromThemeObject } from "@/actions/registry";
+import { generateThemeRegistryItemFromThemeObject } from "@/lib/actions/registry";
 import { usePackageManager } from "../../../store/preferences-store";
 import { ThemeObject } from "../../../types/theme";
 import { toast } from "sonner";

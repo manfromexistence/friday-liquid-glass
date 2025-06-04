@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, useContext, ReactNode } from 'react'
-import { auth, db } from '../lib/firebase/config'
+import { auth, db } from '../firebase/config'
 
 interface FirebaseContextType {
   auth: typeof auth

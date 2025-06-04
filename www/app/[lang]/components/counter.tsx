@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { type getDictionary } from "../../../get-dictionary";
+import { type getDictionary } from "../../../get-locales";
 
 export default function Counter({
   dictionary,

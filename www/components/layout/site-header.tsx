@@ -64,7 +64,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { CommandMenu } from "./command-menu"
 import { type DialogProps } from "@radix-ui/react-dialog"
 import { Circle, File, Laptop, Moon, Sun } from "lucide-react"
-import { docsConfig } from "../../config/command-palettle"
+import { docsConfig } from "../../lib/config/command-palettle"
 import {
   CommandDialog,
   CommandEmpty,

@@ -1,8 +1,8 @@
 "use server";
 
 import { createRegistryItem } from "../db/data/r/themes";
-import { ThemeObject } from "../types/theme";
-import { buildThemeRegistryItem } from "../lib/utils/registry/themes";
+import { ThemeObject } from "../../types/theme";
+import { buildThemeRegistryItem } from "../utils/registry/themes";
 
 export async function generateThemeRegistryItemFromThemeObject(
   themeObject: ThemeObject,

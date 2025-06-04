@@ -2,7 +2,7 @@ import { Message } from "../../types/chat";
 import { cn } from "../../lib/utils";
 import { Sparkles, Play, Pause, Volume2, ImageIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useAuth } from "../../contexts/auth-context";
+import { useAuth } from "../../lib/contexts/auth-context";
 import { User as FirebaseUser } from "firebase/auth";
 import React, { useState, useEffect, useRef, memo } from "react";
 import AiMessage from "./ai-message-actions";
