@@ -26,10 +26,10 @@ export function LocaleDebugPanel() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Globe className="h-5 w-5" />
-          Language Detection Debug Panel
+          Languages
         </CardTitle>
         <CardDescription>
-          Information about your detected language and location
+          Information about your language and location
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
