@@ -32,7 +32,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <Select value={currentLocale} onValueChange={handleChange}>
+    <Select key={currentLocale} value={currentLocale} onValueChange={handleChange}>
       <SelectTrigger className="w-[120px] bg-background text-foreground border border-input hover:bg-accent hover:text-accent-foreground focus:ring-2 focus:ring-ring focus:ring-offset-2">
         <SelectValue placeholder="Language" />
       </SelectTrigger>

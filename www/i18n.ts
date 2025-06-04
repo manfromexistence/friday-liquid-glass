@@ -136,7 +136,7 @@ export const locales = [
 "zu",
 ] as const; // Add all supported locales here
 export type Locale = (typeof locales)[number];
-export const defaultLocale = 'en' as const;
+export const defaultLocale = "bn" as const;
 
 export default getRequestConfig(async ({ locale: incomingLocale }) => {
   // Ensure locale is a valid string from our supported locales
