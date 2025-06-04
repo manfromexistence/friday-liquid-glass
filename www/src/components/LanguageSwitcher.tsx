@@ -20,6 +20,7 @@ export function LanguageSwitcher() {
   const handleChange = (newLocale: string) => {
     const newPath = pathname.replace(/^\/[^\/]+/, `/${newLocale}`);
     router.push(newPath);
+    router.refresh(); // Add this line to refresh server components
   };
 
   return (
