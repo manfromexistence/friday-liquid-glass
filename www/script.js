@@ -1,6 +1,5 @@
-export const i18n = {
-  defaultLocale: "en",
-  locales: [
+// Input array of language codes
+const locales = [
     "af",
     "ak",
     "am",
@@ -134,7 +133,26 @@ export const i18n = {
     "zh-CN",
     "zh-TW",
     "zu",
-  ],
-} as const;
-
-export type Locale = (typeof i18n)["locales"][number];
+    ];
+  
+  // Transform into dictionary object
+  const createDictionaries = (locales) => {
+    const dictionaries = {};
+    
+    locales.forEach(locale => {
+      dictionaries[locale] = () => import(`./dictionaries/${locale}.json`).then((module) => module.default);
+    });
+    
+    return dictionaries;
+  };
+  
+  // Generate the dictionary object
+  const dictionaries = createDictionaries(locales);
+  
+  // Output the result
+  console.log('const dictionaries = {');
+  Object.keys(dictionaries).forEach((key, index, array) => {
+    const comma = index === array.length - 1 ? '' : ',';
+    console.log(`  ${key}: () => import("./dictionaries/${key}.json").then((module) => module.default)${comma}`);
+  });
+  console.log('};');

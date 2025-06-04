@@ -17,9 +17,9 @@ export default async function IndexPage(props: {
         <p>Current locale: {lang}</p>
         <p>
           This text is rendered on the server:{" "}
-          {dictionary["server-component"].welcome}
+          {dictionary["friday"].welcome}
         </p>
-        <Counter dictionary={dictionary.counter} />
+        {dictionary["friday"].title}
       </div>
     </div>
   );
