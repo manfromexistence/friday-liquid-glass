@@ -14,13 +14,21 @@ import { locales } from '../../i18n';
 
 export function LanguageSwitcher() {
   const router = useRouter();
-  const pathname = usePathname();
-  const currentLocale = useLocale();
+  const pathname = usePathname(); // e.g., /en/about or /en
+  const currentLocale = useLocale(); // e.g., en
 
   const handleChange = (newLocale: string) => {
-    const newPath = pathname.replace(/^\/[^\/]+/, `/${newLocale}`);
-    router.push(newPath);
-    router.refresh(); // Add this line to refresh server components
+    // Remove the current locale prefix and the leading slash from the pathname.
+    // currentLocale.length for "en" is 2.
+    // pathname.substring(currentLocale.length + 1)
+    // if pathname = "/en/about", result is "/about"
+    // if pathname = "/en", result is ""
+    const pathWithoutLocale = pathname.substring(currentLocale.length + 1);
+
+    const newPath = `/${newLocale}${pathWithoutLocale}`;
+
+    router.replace(newPath); // Use replace to avoid multiple history entries
+    router.refresh(); // Refresh server components for the new locale
   };
 
   return (
