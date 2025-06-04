@@ -76,8 +76,9 @@ import {
 } from "../ui/command"
 import { v4 as uuidv4 } from "uuid"
 import { Separator } from "../ui/separator"
-import Profile from "./profile"
+import {Profile} from "./profile"
 import { CustomizerSidebarToggle } from "../theme/customizer/customizer-sidebar"
+
 
 type ChatVisibility = "public" | "private" | "unlisted"
 
@@ -778,7 +779,7 @@ export function SiteHeader() {
             </CommandList>
           </CommandDialog>
         </div>
-        {/* <Profile /> */}
+        <Profile />
 
         {/* {user ? (
         ) : (

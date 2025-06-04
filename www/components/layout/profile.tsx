@@ -33,7 +33,7 @@ import { useTheme } from "next-themes";
 import router from "next/router";
 import Link from "next/link";
 
-export default function Profile() {
+export function Profile() {
   const [user, setUser] = useState<any>(null);
   const [betterauth, setBetterAuth] = useState<any>(null); // Keep if used, or remove
   const [isLoading, setIsLoading] = useState(true);

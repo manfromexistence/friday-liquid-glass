@@ -69,7 +69,6 @@ import { v4 as uuidv4 } from "uuid"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { Banner } from "@/components/layout/banner"
-
 import { usePathname } from "next/navigation";
 import { Globe, Check } from "lucide-react";
 import { useState } from "react";
@@ -87,7 +86,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
+import { LocalePanel } from "@/components/locale-panel";
 
 // Language names mapping for better UX
 const languageNames: Record<string, string> = {
@@ -340,7 +339,7 @@ export function CustomizerSidebar({
   return (
     <Sidebar collapsible="icon" className="overflow-hidden" {...props}>
       <Tabs
-        defaultValue="sidebar"
+        defaultValue="languages"
         className="flex flex-1 flex-col gap-0 overflow-hidden"
       >
         <SidebarHeader>
@@ -565,13 +564,8 @@ export function CustomizerSidebar({
 
             <TabsContent
               value="languages"
-              className="mx-2.5 mb-2"
+              className="mx-2.5 mb-2 gap-4"
             >
-              {/* <section className="flex-1 space-y-1.5 max-sm:w-full max-sm:max-w-full">
-                <Label className="flex items-center gap-1 pb-2">
-                  <LanguagesIcon className="size-4" /> Languages
-                </Label>
-              </section> */}
               <Command className="bg-background">
                 <CommandInput className="!h-14" placeholder="Search languages..." />
                 <CommandList className="min-h-[80vh]">
@@ -604,6 +598,9 @@ export function CustomizerSidebar({
                   </CommandGroup>
                 </CommandList>
               </Command>
+
+        {/* <LocalePanel /> */}
+
             </TabsContent>
 
             <TabsContent

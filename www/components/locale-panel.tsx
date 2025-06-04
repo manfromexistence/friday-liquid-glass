@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Loader2, MapPin, Globe, Monitor, RotateCcw } from 'lucide-react';
 
-export function LocaleDebugPanel() {
+export function LocalePanel() {
   const {
     currentLocale,
     detectedLocale,
@@ -22,7 +22,7 @@ export function LocaleDebugPanel() {
   } = useLocale();
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-auto">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Globe className="h-5 w-5" />
@@ -46,9 +46,13 @@ export function LocaleDebugPanel() {
                 {isAutoDetected ? "Yes" : "No"}
               </Badge>
             </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">Detected Locale:</span>
+              <Badge variant="outline">{detectedLocale || "None"}</Badge>
+            </div>
           </div>
           
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Detected Locale:</span>
               <Badge variant="outline">{detectedLocale || "None"}</Badge>
@@ -59,7 +63,7 @@ export function LocaleDebugPanel() {
                 {isLoading ? "Yes" : "No"}
               </Badge>
             </div>
-          </div>
+          </div> */}
         </div>
 
         {/* Browser Information */}
