@@ -1,0 +1,184 @@
+{
+  "projectName": "next-i18next",
+  "projectOwner": "i18next",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "capellini",
+      "name": "Rob Capellini",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/75311?v=4",
+      "profile": "https://github.com/capellini",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "kachkaev",
+      "name": "Alexander Kachkaev",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/608862?v=4",
+      "profile": "https://en.kachkaev.ru",
+      "contributions": [
+        "talk",
+        "question",
+        "ideas",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "MathiasKandelborg",
+      "name": "Mathias Wøbbe",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33042011?v=4",
+      "profile": "https://kandelborg.dk",
+      "contributions": [
+        "code",
+        "ideas",
+        "test"
+      ]
+    },
+    {
+      "login": "lucasfeliciano",
+      "name": "Lucas Feliciano",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/968014?v=4",
+      "profile": "http://lucasfeliciano.com",
+      "contributions": [
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "minocys",
+      "name": "Ryan Leung",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/6932550?v=4",
+      "profile": "http://www.fifteenprospects.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nathanfriemel",
+      "name": "Nathan Friemel",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1325835?v=4",
+      "profile": "http://nathanfriemel.com",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "ideas"
+      ]
+    },
+    {
+      "login": "isaachinman",
+      "name": "Isaac Hinman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10575782?v=4",
+      "profile": "https://isaachinman.com/",
+      "contributions": [
+        "a11y",
+        "question",
+        "audio",
+        "blog",
+        "bug",
+        "business",
+        "code",
+        "content",
+        "data",
+        "design",
+        "doc",
+        "eventOrganizing",
+        "example",
+        "financial",
+        "fundingFinding",
+        "ideas",
+        "infra",
+        "maintenance",
+        "mentoring",
+        "platform",
+        "plugin",
+        "projectManagement",
+        "research",
+        "review",
+        "security",
+        "talk",
+        "test",
+        "tool",
+        "translation",
+        "tutorial",
+        "userTesting",
+        "video"
+      ]
+    },
+    {
+      "login": "adrai",
+      "name": "Adriano Raiano",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1086194?v=4",
+      "profile": "https://locize.com/",
+      "contributions": [
+        "a11y",
+        "question",
+        "audio",
+        "blog",
+        "bug",
+        "business",
+        "code",
+        "content",
+        "data",
+        "design",
+        "doc",
+        "eventOrganizing",
+        "example",
+        "financial",
+        "fundingFinding",
+        "ideas",
+        "infra",
+        "maintenance",
+        "mentoring",
+        "platform",
+        "plugin",
+        "projectManagement",
+        "research",
+        "review",
+        "security",
+        "talk",
+        "test",
+        "tool",
+        "translation",
+        "tutorial",
+        "userTesting",
+        "video"
+      ]
+    },
+    {
+      "login": "felixmosh",
+      "name": "Felix Mosheev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9304194?v=4",
+      "profile": "https://github.com/felixmosh",
+      "contributions": [
+        "question",
+        "code",
+        "talk",
+        "test"
+      ]
+    },
+    {
+      "login": "belgattitude",
+      "name": "Sébastien Vanvelthem",
+      "avatar_url": "https://avatars.githubusercontent.com/u/259798?v=4",
+      "profile": "https://soluble.io/pro",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "maintenance",
+        "userTesting"
+      ]
+    }
+  ],
+  "commitConvention": "none"
+}
