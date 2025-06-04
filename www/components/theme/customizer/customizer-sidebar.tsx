@@ -340,7 +340,7 @@ export function CustomizerSidebar({
   return (
     <Sidebar collapsible="icon" className="overflow-hidden" {...props}>
       <Tabs
-        defaultValue="languages"
+        defaultValue="sidebar"
         className="flex flex-1 flex-col gap-0 overflow-hidden"
       >
         <SidebarHeader>
