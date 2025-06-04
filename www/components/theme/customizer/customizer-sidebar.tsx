@@ -1,12 +1,12 @@
 "use client";
 
-import { useMounted } from "../../../hooks/use-mounted";
-import { cn } from "../../../lib/utils";
+import { useMounted } from "@/hooks/use-mounted";
+import { cn } from "@/lib/utils";
 import { FileSliders, LetterText, Menu, PaintBucket, Palette, PanelLeftDashed, SlidersHorizontal, SwatchBook, X } from "lucide-react";
 import * as React from "react";
-import { Button } from "../../ui/button";
-import { Label } from "../../ui/label";
-import { ScrollArea } from "../../ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sidebar,
   SidebarContent,
@@ -14,12 +14,12 @@ import {
   SidebarHeader,
   SidebarRail,
   useSidebar,
-} from "../../ui/sidebar";
-import { Skeleton } from "../../ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import { ActionButtons } from "./action-buttons";
-import { ColorTokens } from "./color-tokens";
-import { ComingSoon } from "./coming-soon";
+} from "@/components/ui/sidebar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ActionButtons } from "@/components/theme/customizer/action-buttons";
+import { ColorTokens } from "@/components/theme/customizer/color-tokens";
+import { ComingSoon } from "@/components/theme/customizer/coming-soon";
 import {
   AllPresetsControl,
   ControlSection,
@@ -27,9 +27,9 @@ import {
   RadiusSliderControl,
   ShadowsControl,
   SurfaceShadesControl,
-} from "./customizer-controls";
+} from "@/components/theme/customizer/customizer-controls";
 
-import { Typography } from "./typography";
+import { Typography } from "@/components/theme/customizer/typography";
 import Link from "next/link"
 import {
   AudioWaveform,
@@ -60,15 +60,15 @@ import {
 import {
   SidebarMenuButton,
   SidebarMenuItem,
-} from "../../ui/sidebar"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../../ui/tooltip"
-import { History } from "../../layout/sidebar/history"
-import { TeamSwitcher } from "../../layout/sidebar/team-switcher"
+} from "@/components/ui/sidebar"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { History } from "@/components/layout/sidebar/history"
+import { TeamSwitcher } from "@/components/layout/sidebar/team-switcher"
 import { useCallback } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import { Banner } from "../../layout/banner"
+import { Banner } from "@/components/layout/banner"
 
 
 // This is sample data.
@@ -336,7 +336,6 @@ export function CustomizerSidebar({
             <TabsContent
               value="sidebar"
               className="mx-1 mb-2 flex flex-col space-y-4"
-
             >
               <div className="flex flex-col gap-1 w-full">
                 <TooltipProvider>
@@ -477,11 +476,11 @@ export function CustomizerSidebar({
 
               </section>
             </TabsContent>
+
             <TabsContent value="typography" className="mx-2.5 mb-2">
               <Typography />
             </TabsContent>
           </ScrollArea>
-
         </SidebarContent>
 
         <SidebarFooter className="px-2">
@@ -556,7 +555,6 @@ export function CustomizerSidebar({
           )}
           {/* <ActionButtons /> */}
         </SidebarFooter>
-
       </Tabs>
       <SidebarRail />
     </Sidebar>

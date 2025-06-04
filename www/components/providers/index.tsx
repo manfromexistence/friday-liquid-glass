@@ -23,7 +23,7 @@ import { ScrollArea } from "../ui/scroll-area";
 import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { TooltipProvider } from "../ui/tooltip";
 import { ContainerWrapper } from "../theme/wrappers";
-import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
+// import { MainNavigation, MobileNavigation } from "@/app/themes/navigation";
 import {
   CustomizerSidebar,
   CustomizerSidebarToggle,
