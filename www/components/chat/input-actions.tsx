@@ -1013,7 +1013,6 @@ export function InputActions({
             <div
               className={cn(
                 "flex h-8 items-center justify-center gap-1.5 rounded-md transition-all text-xs border text-muted-foreground hover:bg-primary-foreground hover:text-primary",
-                isLoading && "cursor-not-allowed opacity-50"
               )}
             >
               <div className="px-2 h-full w-full flex items-center justify-center">
