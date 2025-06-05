@@ -21,6 +21,14 @@ import { cn } from "@/lib/utils";
 import { useAIModelStore } from "@/store/ai-model-store";
 import { useChatInputStore } from "@/store/chat-store";
 import { v4 as uuidv4 } from "uuid";
+import { eq } from "drizzle-orm"; // Import eq from drizzle-orm
+
+// Define ChatState interface to match the one expected by ChatInput
+interface ChatState {
+  messages: Message[];
+  isLoading: boolean;
+  error: string | null;
+}
 
 const MIN_HEIGHT = 48;
 const MAX_HEIGHT = 164;
@@ -118,12 +126,18 @@ export default function ChatPage() {
   const { 
     value, setValue,
     inputHeight, setInputHeight,
-    showSearch, setShowSearch, toggleSearch,
-    showResearch, setShowResearch, toggleResearch,
-    showThinking, setShowThinking, toggleThinking,
+    showSearch, toggleSearch,
+    showResearch, toggleResearch,
+    showThinking, toggleThinking,
     imagePreview, setImagePreview,
-    chatState, setChatState
   } = useChatInputStore();
+
+  // Local state for chat state management with proper React setState
+  const [chatState, setChatState] = React.useState<ChatState>({
+    messages: [],
+    isLoading: false,
+    error: null
+  });
 
   // Local state for session-specific variables
   const messagesEndRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
@@ -157,29 +171,30 @@ export default function ChatPage() {
     if (!chatId) return;
     const fetchChat = async () => {
       try {
-        const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(chatId));
+        // Use eq from drizzle-orm for column comparisons
+        const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
         if (chatRows.length > 0) {
           const chat = chatRows[0];
           const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
-          useChatInputStore.getState().setChatState({
-            ...chatState,
+          setChatState(prevState => ({
+            ...prevState,
             messages,
-          });
+          }));
           if (chat.model && currentModel !== chat.model) {
             setModel(chat.model);
           }
         }
       } catch (error) {
         console.error("Error fetching chat:", error);
-        useChatInputStore.getState().setChatState({
-          ...chatState,
+        setChatState(prevState => ({
+          ...prevState,
           error: "Failed to load chat"
-        });
+        }));
         toast.error("Failed to load chat");
       }
     };
     fetchChat();
-  }, [chatId, currentModel, setModel, chatState]);
+  }, [chatId, currentModel, setModel]);
 
   useEffect(() => {
     const shouldGenerateResponse = sessionStorage.getItem("autoSubmit") === "true";
@@ -194,22 +209,22 @@ export default function ChatPage() {
     ) {
       const generateInitialResponse = async () => {
         try {
-          // Use Zustand's state management
-          useChatInputStore.getState().setChatState({
-            ...chatState,
+          // Use React's setState with function form
+          setChatState(prevState => ({
+            ...prevState,
             isLoading: true,
             error: null
-          });
+          }));
           sessionStorage.removeItem("autoSubmit");
           sessionStorage.removeItem("initialPrompt");
           setInitialResponseGenerated(true);
 
           const lastMessage = chatState.messages[chatState.messages.length - 1];
           if (lastMessage.role !== "user") {
-            useChatInputStore.getState().setChatState({
-              ...chatState,
+            setChatState(prevState => ({
+              ...prevState,
               isLoading: false
-            });
+            }));
             return;
           }
 
@@ -243,8 +258,8 @@ export default function ChatPage() {
             throw new Error("Invalid assistant message structure");
           }
 
-          // Fetch current messages from DB
-          const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(sessionId));
+          // Fetch current messages from DB using eq
+          const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, sessionId));
           if (chatRows.length === 0) {
             throw new Error("Chat not found");
           }
@@ -253,34 +268,34 @@ export default function ChatPage() {
           const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
           const updatedMessages = [...currentMessages, sanitizedMessage];
           
-          // Update the chat with new message
+          // Update the chat with new message using eq
           await db.update(chatsTable)
             .set({
               messages: JSON.stringify(updatedMessages),
               updatedAt: new Date().toISOString(),
             })
-            .where(chatsTable.id.eq(sessionId));
+            .where(eq(chatsTable.id, sessionId));
 
           // Update local state with the new message
-          useChatInputStore.getState().setChatState({
-            ...chatState,
+          setChatState(prevState => ({
+            ...prevState,
             messages: updatedMessages,
             isLoading: false
-          });
+          }));
         } catch (error) {
           console.error("Error generating initial response:", error);
-          useChatInputStore.getState().setChatState({
-            ...chatState,
+          setChatState(prevState => ({
+            ...prevState,
             isLoading: false,
             error: "Failed to generate AI response"
-          });
+          }));
           toast.error("Failed to generate initial AI response");
         }
       };
 
       generateInitialResponse();
     }
-  }, [sessionId, chatState, initialResponseGenerated, setModel]);
+  }, [sessionId, chatState.messages, chatState.isLoading, initialResponseGenerated, setModel]);
 
   const handleSubmit = async () => {
     if (!value.trim() || !chatId || chatState.isLoading) return;
@@ -292,11 +307,11 @@ export default function ChatPage() {
       return;
     }
     try {
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: true,
         error: null
-      });
+      }));
       
       const processedValue = stripPrefixes(value.trim());
       const userMessage: Message = {
@@ -311,8 +326,8 @@ export default function ChatPage() {
         throw new Error("Invalid user message structure");
       }
       
-      // Fetch current chat messages
-      const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(chatId));
+      // Fetch current chat messages using eq
+      const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
       if (chatRows.length === 0) {
         throw new Error("Chat not found");
       }
@@ -321,20 +336,19 @@ export default function ChatPage() {
       const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...messages, sanitizedUserMessage];
       
-      // Update the chat with new message
+      // Update the chat with new message using eq
       await db.update(chatsTable)
         .set({
           messages: JSON.stringify(updatedMessages),
           updatedAt: new Date().toISOString(),
         })
-        .where(chatsTable.id.eq(chatId));
+        .where(eq(chatsTable.id, chatId));
       
       // Update local state
-      useChatInputStore.getState().setChatState({
-        ...chatState,
-        messages: updatedMessages,
-        isLoading: false
-      });
+      setChatState(prevState => ({
+        ...prevState,
+        messages: updatedMessages
+      }));
       
       setValue("");
       
@@ -342,11 +356,11 @@ export default function ChatPage() {
       await handleAIResponse(processedValue);
     } catch (error) {
       console.error("Error submitting message:", error);
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: false,
         error: "Failed to send message"
-      });
+      }));
       toast.error("Failed to send message");
     }
   };
@@ -354,13 +368,15 @@ export default function ChatPage() {
   // New function to handle AI response generation
   const handleAIResponse = async (userInput: string) => {
     try {
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: true
-      });
+      }));
 
+      // Call AI service with proper typing
       const aiResponse = await aiService.generateResponse(userInput);
       
+      // Create assistant message from response
       const assistantMessageBase = {
         id: uuidv4(),
         role: "assistant" as const,
@@ -380,8 +396,8 @@ export default function ChatPage() {
         throw new Error("Invalid assistant message structure");
       }
 
-      // Fetch current messages
-      const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(chatId));
+      // Fetch current messages using eq
+      const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
       if (chatRows.length === 0) {
         throw new Error("Chat not found");
       }
@@ -390,27 +406,27 @@ export default function ChatPage() {
       const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...messages, sanitizedMessage];
       
-      // Update chat with AI response
+      // Update chat with AI response using eq
       await db.update(chatsTable)
         .set({
           messages: JSON.stringify(updatedMessages),
           updatedAt: new Date().toISOString(),
         })
-        .where(chatsTable.id.eq(chatId));
+        .where(eq(chatsTable.id, chatId));
       
       // Update local state
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         messages: updatedMessages,
         isLoading: false
-      });
+      }));
     } catch (error) {
       console.error("Error generating AI response:", error);
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: false,
         error: "Failed to generate AI response"
-      });
+      }));
       toast.error("Failed to generate AI response");
     }
   };
@@ -421,11 +437,11 @@ export default function ChatPage() {
     type: string = "url_analysis"
   ): Promise<void> => {
     try {
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: true,
         error: null
-      });
+      }));
 
       const userMessage: Message = {
         id: uuidv4(),
@@ -439,8 +455,8 @@ export default function ChatPage() {
         throw new Error("Invalid user message structure for URL analysis");
       }
 
-      // Fetch current messages
-      const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(sessionId));
+      // Fetch current messages using eq
+      const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, sessionId));
       if (chatRows.length === 0) {
         throw new Error("Chat not found");
       }
@@ -449,19 +465,19 @@ export default function ChatPage() {
       const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...currentMessages, sanitizedUserMessage];
       
-      // Update chat with user message
+      // Update chat with user message using eq
       await db.update(chatsTable)
         .set({
           messages: JSON.stringify(updatedMessages),
           updatedAt: new Date().toISOString(),
         })
-        .where(chatsTable.id.eq(sessionId));
+        .where(eq(chatsTable.id, sessionId));
 
       // Update local state
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         messages: updatedMessages
-      });
+      }));
       
       setValue("");
       if (textareaRef.current) {
@@ -495,8 +511,8 @@ export default function ChatPage() {
         throw new Error("Invalid assistant message structure for URL analysis");
       }
 
-      // Get updated messages after user message was added
-      const updatedChatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(sessionId));
+      // Get updated messages after user message was added using eq
+      const updatedChatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, sessionId));
       if (updatedChatRows.length === 0) {
         throw new Error("Chat not found");
       }
@@ -505,27 +521,27 @@ export default function ChatPage() {
       const latestMessages = Array.isArray(updatedChat.messages) ? updatedChat.messages : JSON.parse(updatedChat.messages);
       const finalMessages = [...latestMessages, sanitizedMessage];
       
-      // Update chat with AI response
+      // Update chat with AI response using eq
       await db.update(chatsTable)
         .set({
           messages: JSON.stringify(finalMessages),
           updatedAt: new Date().toISOString(),
         })
-        .where(chatsTable.id.eq(sessionId));
+        .where(eq(chatsTable.id, sessionId));
       
       // Update local state
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         messages: finalMessages,
         isLoading: false
-      });
+      }));
     } catch (error) {
       console.error("Error in URL analysis:", error);
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: false,
         error: error instanceof Error ? error.message : "Failed to analyze URL content"
-      });
+      }));
       toast.error("Failed to analyze content");
     }
   };
@@ -533,10 +549,10 @@ export default function ChatPage() {
   // Add AI generation function using the AI service
   const handleAIGenerate = useCallback(async (prompt: string, messages: any[] = []) => {
     try {
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: true
-      });
+      }));
       
       // Call AI service to generate response
       const aiResponse = await aiService.generateResponse(prompt);
@@ -546,23 +562,23 @@ export default function ChatPage() {
         ? aiResponse 
         : aiResponse.text_response;
       
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: false
-      });
+      }));
       
       return formattedResponse;
     } catch (error) {
       console.error("Error generating AI response:", error);
-      useChatInputStore.getState().setChatState({
-        ...chatState,
+      setChatState(prevState => ({
+        ...prevState,
         isLoading: false,
         error: "Failed to generate AI response"
-      });
+      }));
       toast.error("Failed to generate AI response");
       return null;
     }
-  }, [chatState]);
+  }, []);
 
   const handleAdjustHeight = useCallback(
     (reset = false) => {
