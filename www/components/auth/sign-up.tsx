@@ -11,7 +11,7 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Loader2, X } from "lucide-react";
 import { signUp } from "../../lib/auth/auth-client";
@@ -60,6 +60,15 @@ export function SignUp() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -91,7 +100,8 @@ export function SignUp() {
   }
 
   return (
-    <Card className="rounded-md max-w-md">      <CardHeader>
+    <Card className="rounded-md max-w-md">
+      <CardHeader>
         <CardTitle className="text-lg md:text-xl">{lt("authentication.sign-up")}</CardTitle>
         <CardDescription className="text-xs md:text-sm">
           {lt("authentication.enter-info-to-create-account")}

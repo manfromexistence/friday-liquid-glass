@@ -259,15 +259,16 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
         parts: [{ text: msg.content }]
       }));
 
+      // const formattedMessages = messages.map((msg) => ({
+      //   role: msg.role === 'user' ? 'user' : 'model',
+      //   parts: [{ text: msg.content }]
+      // }));
       // Add current prompt
       formattedMessages.push({
         role: 'user',
         parts: [{ text: prompt }]
       });      // Use Google GenAI service for streaming response
-      const formattedMessages = messages.map((msg) => ({
-        role: msg.role === 'user' ? 'user' : 'model',
-        parts: [{ text: msg.content }]
-      }));
+
       const response = await googleGenAIService.generateContentStream(
         currentModel,
         formattedMessages

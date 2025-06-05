@@ -1,4 +1,4 @@
-import { SignIn } from "components/auth/sign-in";
+import { SignIn } from "@/components/auth/sign-in";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default function SignInPage() {
-    return <SignIn />;
+    return (
+        <div className="h-full w-full flex items-center justify-center">
+            <SignIn />
+        </div>
+    );
 }

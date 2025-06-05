@@ -1,4 +1,4 @@
-import { SignUp } from "components/auth/sign-up";
+import { SignUp } from "@/components/auth/sign-up";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,6 +6,10 @@ export const metadata: Metadata = {
     description: "Create Your Account",
 };
 
-export default function SignInPage() {
-    return <SignUp />;
+export default function SignUpPage() {
+    return (
+        <div className="h-full w-full flex items-center justify-center">
+            <SignUp />
+        </div>
+    );
 }

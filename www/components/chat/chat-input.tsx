@@ -515,13 +515,13 @@ export function ChatInput({
                   setContentWithoutPrefix("");
 
                   // Call the appropriate toggle functions when command is removed
-                  if (activeCommand === "research-mode" && onResearchToggle) {
-                    onResearchToggle();
-                  } else if (activeCommand === "thinking-mode" && onThinkingToggle) {
-                    onThinkingToggle();
-                  } else if (activeCommand === "search-mode" && onSearchToggle) {
-                    onSearchToggle();
-                  }
+                  // if (activeCommand === "research-mode" && onResearchToggle) {
+                  //   onResearchToggle();
+                  // } else if (activeCommand === "thinking-mode" && onThinkingToggle) {
+                  //   onThinkingToggle();
+                  // } else if (activeCommand === "search-mode" && onSearchToggle) {
+                  //   onSearchToggle();
+                  // }
                 }
               }
 
@@ -557,7 +557,7 @@ export function ChatInput({
           onSubmit={onSubmit}
           onImageUpload={(file: File | null) => onImageChange && onImageChange(file)}
           onUrlAnalysis={onUrlAnalysis}
-          onImageGeneration={onImageGeneration}
+          // onImageGeneration={onImageGeneration}
           onInsertText={handleInsertText}
           onAIGenerate={onAIGenerate}
         />

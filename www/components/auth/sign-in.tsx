@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Loader2, Key, CircleDotDashed } from "lucide-react";
 import { signIn } from "../../lib/auth/auth-client";
 import Link from "next/link";
@@ -34,9 +34,6 @@ const Roblox = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org
   maskType: "luminance"
 }}><path fill="#fff" d="M26 10h512v94.72H26V10z" /></mask><g mask="url(#prefix__a)"><path fill="#000" d="M87.73 71.45l14.73 26.97H75.13L62.68 75.37h-11.8v23.05H26V16.7h45.52c18.83 0 30.78 10.45 30.78 29.24 0 12.1-5.57 20.76-14.57 25.5zm-36.84-33.5v16.17h17.68c5.24 0 8.52-3.1 8.52-8.17 0-5.06-3.28-8-8.52-8H50.9zm130.66 66.51l-74.5-20.1L127.03 10l37.24 10.05 37.25 10.05-19.97 74.36zm-14.08-54.75L146.67 44l-5.56 20.76 20.79 5.72 5.57-20.76zm119.36 25.66c0 15.69-9.99 23.05-25.54 23.05h-48.8V16.7h47.16c15.56 0 25.54 8 25.54 22.06 0 8.83-3.27 14.71-9.5 18.8 7.05 3.1 11.14 9.3 11.14 17.8zm-50.1-39.05v12.1h16.2c4.42 0 7.04-1.97 7.04-6.22 0-3.92-2.62-5.88-7.04-5.88h-16.2zm0 42.49h18.17c4.26 0 6.72-2.29 6.72-6.21 0-4.25-2.45-6.21-6.72-6.21h-18.17V78.8zm62.38-62.1h24.88v57.52h35.7v24.19H299.1V16.71zm152.11 40.86a42.43 42.43 0 01-26.28 39.25 42.64 42.64 0 01-46.4-9.21 42.46 42.46 0 0130.1-72.53 42.56 42.56 0 0130.13 12.41 42.38 42.38 0 0112.45 30.07zm-24.89 0c0-10.14-8.02-18.15-17.68-18.15s-17.69 8.01-17.69 18.15c0 10.13 8.03 18.14 17.69 18.14 9.66 0 17.68-8.02 17.68-18.15zm84.82-1.31L538 98.42h-29.64l-14.73-24.03-15.23 24.03h-30.13l28-41.18-25.7-40.53h29.63l13.59 22.06 13.1-22.06h29.47l-25.21 39.55z" /></g></svg>;
 const Spotify = (props: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 256 256" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" {...props}><path d="M128 0C57.308 0 0 57.309 0 128c0 70.696 57.309 128 128 128 70.697 0 128-57.304 128-128C256 57.314 198.697.007 127.998.007l.001-.006Zm58.699 184.614c-2.293 3.76-7.215 4.952-10.975 2.644-30.053-18.357-67.885-22.515-112.44-12.335a7.981 7.981 0 0 1-9.552-6.007 7.968 7.968 0 0 1 6-9.553c48.76-11.14 90.583-6.344 124.323 14.276 3.76 2.308 4.952 7.215 2.644 10.975Zm15.667-34.853c-2.89 4.695-9.034 6.178-13.726 3.289-34.406-21.148-86.853-27.273-127.548-14.92-5.278 1.594-10.852-1.38-12.454-6.649-1.59-5.278 1.386-10.842 6.655-12.446 46.485-14.106 104.275-7.273 143.787 17.007 4.692 2.89 6.175 9.034 3.286 13.72v-.001Zm1.345-36.293C162.457 88.964 94.394 86.71 55.007 98.666c-6.325 1.918-13.014-1.653-14.93-7.978-1.917-6.328 1.65-13.012 7.98-14.935C93.27 62.027 168.434 64.68 215.929 92.876c5.702 3.376 7.566 10.724 4.188 16.405-3.362 5.69-10.73 7.565-16.4 4.187h-.006Z" fill="#1ED760" /></svg>;
-const VK = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 256 256" width="1em" height="1em" {...props}><g clipPath="url(#prefix__a)"><mask id="prefix__a" width={256} height={256} x={0} y={0} maskUnits="userSpaceOnUse" style={{
-  maskType: "luminance"
-}}><path fill="#fff" d="M256 0H0v256h256V0z" /></mask><g mask="url(#prefix__a)"><path fill="#07F" d="M0 122.88C0 64.95 0 35.99 18 18 36 0 64.95 0 122.88 0h10.24C191.05 0 220.01 0 238 18c18 18 18 46.95 18 104.88v10.24c0 57.93 0 86.89-18 104.88-18 18-46.95 18-104.88 18h-10.24c-57.93 0-86.89 0-104.88-18C0 220 0 191.06 0 133.13v-10.24z" /><path fill="#fff" d="M136.21 184.43c-58.34 0-91.62-40-93.01-106.56h29.23c.96 48.85 22.5 69.54 39.57 73.81V77.87h27.52V120c16.85-1.81 34.56-21.01 40.53-42.13h27.52c-4.58 26.02-23.78 45.22-37.44 53.12 13.66 6.4 35.52 23.14 43.84 53.44h-30.29c-6.5-20.27-22.72-35.95-44.16-38.08v38.08h-3.3z" /></g></g><defs><clipPath id="prefix__a"><path fill="#fff" d="M0 0h256v256H0z" /></clipPath></defs></svg>;
 const Zoom = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256" {...props}><defs><linearGradient id="a" x1="23.666%" x2="76.334%" y1="95.6118%" y2="4.3882%"><stop offset=".00006%" stopColor="#0845BF" /><stop offset="19.11%" stopColor="#0950DE" /><stop offset="38.23%" stopColor="#0B59F6" /><stop offset="50%" stopColor="#0B5CFF" /><stop offset="67.32%" stopColor="#0E5EFE" /><stop offset="77.74%" stopColor="#1665FC" /><stop offset="86.33%" stopColor="#246FF9" /><stop offset="93.88%" stopColor="#387FF4" /><stop offset="100%" stopColor="#4F90EE" /></linearGradient></defs><path fill="url(#a)" d="M256 128c0 13.568-1.024 27.136-3.328 40.192-6.912 43.264-41.216 77.568-84.48 84.48C155.136 254.976 141.568 256 128 256c-13.568 0-27.136-1.024-40.192-3.328-43.264-6.912-77.568-41.216-84.48-84.48C1.024 155.136 0 141.568 0 128c0-13.568 1.024-27.136 3.328-40.192 6.912-43.264 41.216-77.568 84.48-84.48C100.864 1.024 114.432 0 128 0c13.568 0 27.136 1.024 40.192 3.328 43.264 6.912 77.568 41.216 84.48 84.48C254.976 100.864 256 114.432 256 128Z" /><path fill="#FFF" d="M204.032 207.872H75.008c-8.448 0-16.64-4.608-20.48-12.032-4.608-8.704-2.816-19.2 4.096-26.112l89.856-89.856H83.968c-17.664 0-32-14.336-32-32h118.784c8.448 0 16.64 4.608 20.48 12.032 4.608 8.704 2.816 19.2-4.096 26.112l-89.6 90.112h74.496c17.664 0 32 14.08 32 31.744Z" /></svg>;
 
 export function SignIn() {
@@ -44,9 +41,19 @@ export function SignIn() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
-    <Card className="w-full max-w-md">      <CardHeader>
+    <Card className="w-full max-w-md">
+      <CardHeader>
       <CardTitle className="text-lg md:text-xl">{lt("authentication.sign-in")}</CardTitle>
       <CardDescription className="text-xs md:text-sm">
         {lt("authentication.enter-email-to-login")}
