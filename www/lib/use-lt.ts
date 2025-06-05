@@ -30,8 +30,23 @@ type LocaleKeys = {
     dashboard: string;
     analytics: string;
   };
+  auth: {
+    "sign-in": string;
+    "sign-up": string;
+    "forgot-password": string;
+    "remember-me": string;
+    "or-continue-with": string;
+    "no-account": string;
+    "already-have-account": string;
+    "create-account": string;
+    "enter-login-details": string;
+    "enter-signup-details": string;
+    "sign-up-success": string;
+    "upload-failed": string;
+  };
   [key: string]: any;
 };
+
 
 /**
  * Hook version of lt for React components
