@@ -3,13 +3,12 @@
 import { useState } from "react"
 import { FileText, Heart, SmilePlus, User, FileCheck, X, Brain, Search, Tag, Zap, BarChart2, Code } from "lucide-react"
 import { v4 as uuidv4 } from 'uuid'
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase/config"
+import { db, chats } from "@/lib/db"
 import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { useAIModelStore } from "@/lib/store/ai-model-store"
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { authClient } from "@/lib/auth-client"
 
 export default function PersonaSelector() {
   const [view, setView] = useState<"personas" | "suggestions">("personas")
@@ -81,14 +80,14 @@ export default function PersonaSelector() {
         return "I'd like to chat about something interesting."
     }
   }
-
   // Handle login
   const handleLogin = async () => {
     try {
       setIsLoggingIn(true)
-      const auth = getAuth()
-      const provider = new GoogleAuthProvider()
-      await signInWithPopup(auth, provider)
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      })
       toast.success("Successfully logged in")
     } catch (error) {
       console.error('Error signing in:', error)
@@ -122,30 +121,28 @@ export default function PersonaSelector() {
         content: trimmedPrompt,
         role: 'user',
         timestamp: new Date().toISOString()
-      }
-
-      // Create initial chat data
+      }      // Create initial chat data
       const chatData = {
         id: chatId,
         title: trimmedPrompt.slice(0, 50) + (trimmedPrompt.length > 50 ? '...' : ''),
-        messages: [initialMessage],
+        messages: JSON.stringify([initialMessage]),
         model: currentModel,
         visibility: 'public',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        creatorUid: user.uid,
-        reactions: {
+        creatorUid: user.user.id,
+        reactions: JSON.stringify({
           likes: {},
           dislikes: {}
-        },
-        participants: [user.uid],
+        }),
+        participants: JSON.stringify([user.user.id]),
         views: 0,
-        uniqueViewers: [],
+        uniqueViewers: JSON.stringify([]),
         isPinned: false
       }
 
-      // Store chat data in Firestore
-      await setDoc(doc(db, "chats", chatId), chatData)
+      // Store chat data in database
+      await db.insert(chats).values(chatData)
 
       // Store session data for auto-submission
       sessionStorage.setItem('initialPrompt', trimmedPrompt)

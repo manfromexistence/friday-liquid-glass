@@ -207,28 +207,28 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
         content: trimmedValue,
         role: "user",
         timestamp: new Date().toISOString()
-      }      // Create initial chat data
+      }      // Create initial chat data matching Drizzle schema
       const chatData = {
         id: chatId,
         title: trimmedValue.slice(0, 50) + (trimmedValue.length > 50 ? "..." : ""),
-        messages: [initialMessage],
+        messages: JSON.stringify([initialMessage]), // JSON string for Drizzle
         model: currentModel,
-        visibility: "public",
+        visibility: "public" as const,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         creatorUid: user.user.id, // Use Better Auth user ID
-        reactions: {
+        reactions: JSON.stringify({ // JSON string for Drizzle
           likes: {},
           dislikes: {}
-        },
-        participants: [user.user.id], // Use Better Auth user ID
+        }),
+        participants: JSON.stringify([user.user.id]), // JSON string for Drizzle
         views: 0,
-        uniqueViewers: [],
+        uniqueViewers: JSON.stringify([]), // JSON string for Drizzle
         isPinned: false
       }
 
-      // Store chat data in Firestore
-      await db.insert(chatsTable).values(chatData).execute()
+      // Store chat data in Drizzle/Turso database
+      await db.insert(chatsTable).values(chatData)
       sessionStorage.setItem("initialPrompt", trimmedValue)
       sessionStorage.setItem("selectedAI", currentModel)
       sessionStorage.setItem("chatId", chatId)

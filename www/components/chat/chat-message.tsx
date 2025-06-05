@@ -2,8 +2,7 @@ import { Message } from "../../types/chat";
 import { cn } from "../../lib/utils";
 import { Sparkles, Play, Pause, Volume2, ImageIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { useAuth } from "../../lib/contexts/auth-context";
-import { User as FirebaseUser } from "firebase/auth";
+import { authClient } from "@/lib/auth-client";
 import React, { useState, useEffect, useRef, memo } from "react";
 import AiMessage from "./ai-message-actions";
 import UserMessage from "./user-message-actions";
@@ -31,9 +30,9 @@ export const ChatMessage = memo(
     className,
     isFadingOut,
     onTransitionEnd,
-    selectedAI = "",
-  }: ChatMessageProps) => {
-    const { user } = useAuth();
+    selectedAI = "",  }: ChatMessageProps) => {
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
     const isAssistant = message.role === "assistant";
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
@@ -42,9 +41,9 @@ export const ChatMessage = memo(
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const contentHash = useRef<string>("");
 
-    const userImage = (user as FirebaseUser)?.photoURL;
-    const userName = (user as FirebaseUser)?.displayName;
-    const userEmail = (user as FirebaseUser)?.email;
+    const userImage = user?.image;
+    const userName = user?.name;
+    const userEmail = user?.email;
     const fallbackInitial = userName?.[0] || userEmail?.[0]?.toUpperCase() || "U";
 
     const [currentWordIndex, setCurrentWordIndex] = useState(-1);

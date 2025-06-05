@@ -4,8 +4,7 @@ import { useState, useEffect } from "react"
 import { Search } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from 'uuid'
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase/config"
+import { db, chats } from "@/lib/db"
 import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
 import { useAIModelStore } from "@/lib/store/ai-model-store"
@@ -49,7 +48,6 @@ export default function SearchRecommendations({ userInput = "" }: SearchRecommen
       ])
     }
   }, [userInput])
-
   const handleRecommendationClick = async (query: string) => {
     if (!user) {
       toast.error("Please sign in to start a chat")
@@ -71,24 +69,24 @@ export default function SearchRecommendations({ userInput = "" }: SearchRecommen
       const chatData = {
         id: chatId,
         title: query.slice(0, 50) + (query.length > 50 ? '...' : ''),
-        messages: [initialMessage],
+        messages: JSON.stringify([initialMessage]),
         model: currentModel,
         visibility: 'public',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        creatorUid: user.uid,
-        reactions: {
+        creatorUid: user.user.id,
+        reactions: JSON.stringify({
           likes: {},
           dislikes: {}
-        },
-        participants: [user.uid],
+        }),
+        participants: JSON.stringify([user.user.id]),
         views: 0,
-        uniqueViewers: [],
+        uniqueViewers: JSON.stringify([]),
         isPinned: false
       }
 
-      // Store chat data in Firestore
-      await setDoc(doc(db, "chats", chatId), chatData)
+      // Store chat data in database
+      await db.insert(chats).values(chatData)
 
       // Store session data for auto-submission
       sessionStorage.setItem('initialPrompt', query)
