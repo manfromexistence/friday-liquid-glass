@@ -56,16 +56,16 @@ export function SignIn() {
       <CardHeader>
       <CardTitle className="text-lg md:text-xl">{lt("authentication.sign-in")}</CardTitle>
       <CardDescription className="text-xs md:text-sm">
-        {lt("authentication.enter-email-to-login")}
+        {lt("authentication.enter-login-details")}
       </CardDescription>
     </CardHeader>
       <CardContent className="py-0">
         <div className="grid gap-4">          <div className="grid gap-2">
-          <Label htmlFor="email" ref={undefined} className={undefined}>{lt("authentication.email-label")}</Label>
+          <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
           <Input
             id="email"
             type="email"
-            placeholder={lt("authentication.email-placeholder")}
+            placeholder="Email"
             required
             onChange={(e) => {
               setEmail(e.target.value);
@@ -74,7 +74,7 @@ export function SignIn() {
         </div>
           <div className="grid gap-2">
             <div className="flex items-center">
-              <Label htmlFor="password" ref={undefined} className={undefined}>{lt("authentication.password-label")}</Label>
+              <Label htmlFor="password" ref={undefined} className={undefined}>Password</Label>
               <Link
                 href="#"
                 className="ml-auto inline-block text-sm underline"
@@ -86,7 +86,7 @@ export function SignIn() {
             <Input
               id="password"
               type="password"
-              placeholder={lt("authentication.password-placeholder")}
+              placeholder="Password"
               autoComplete="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} ref={undefined} />
@@ -122,7 +122,7 @@ export function SignIn() {
           >            {loading ? (
             <Loader2 size={16} className="animate-spin" />
           ) : (
-            <p>{lt("authentication.login")}</p>
+            <p>{lt("authentication.sign-in")}</p>
           )}
           </Button>          <div className="w-full flex flex-row space-x-2 items-center">
             <Separator className="max-w-1/3" />
@@ -300,7 +300,7 @@ export function SignIn() {
             href="/signup"
             className="hover:underline"
           >
-            <span className="text-primary">{lt("authentication.sign-up-link")}</span>
+            <span className="text-primary">{lt("authentication.create-account")}</span>
           </Link>
         </p>
       </div>

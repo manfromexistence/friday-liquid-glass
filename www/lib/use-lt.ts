@@ -30,7 +30,7 @@ type LocaleKeys = {
     dashboard: string;
     analytics: string;
   };
-  auth: {
+  authentication: {
     "sign-in": string;
     "sign-up": string;
     "forgot-password": string;
