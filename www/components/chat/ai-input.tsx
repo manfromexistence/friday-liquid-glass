@@ -10,14 +10,12 @@ import type { Message } from "../../types/chat"
 import { cn, lt } from "../../lib/utils"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from "uuid"
-import { authClient } from "@/lib/auth-client"
+import { authClient } from "@/lib/auth/auth-client"
 import { db } from "@/lib/db"
 import { chats as chatsTable } from "@/lib/db/schema"
 import { toast } from "sonner"
 import { useAIModelStore } from "../../store/ai-model-store"
-// Import Zustand stores
 import { useChatInputStore } from "../../store/chat-store"
-// Import Google GenAI service
 import { googleGenAIService } from "../../lib/services/google-genai-service"
 
 
@@ -127,7 +125,8 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
 
     const scrollHeight = textareaRef.current.scrollHeight
     const newHeight = Math.min(scrollHeight, MAX_HEIGHT)
-    textareaRef.current.style.height = `${newHeight}px`    setInputHeight(newHeight)
+    textareaRef.current.style.height = `${newHeight}px`;
+    setInputHeight(newHeight)
   }, [textareaRef])
 
   // Remove local state - now handled by Zustand stores
@@ -229,7 +228,7 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       }
 
       // Store chat data in Firestore
-      await db.insert(chatsTable).values(chatData).execute()      // Store the input value and selected AI model in sessionStorage
+      await db.insert(chatsTable).values(chatData).execute()
       sessionStorage.setItem("initialPrompt", trimmedValue)
       sessionStorage.setItem("selectedAI", currentModel)
       sessionStorage.setItem("chatId", chatId)

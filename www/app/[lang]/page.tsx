@@ -1,7 +1,7 @@
 import { getLocale } from "@/get-locales";
 import { Locale } from "@/i18n-config";
-import { LtDemo } from "@/components/lt-demo";
 import { LocaleInitializer } from "@/components/locale-initializer";
+import AiInput from "@/components/chat/ai-input";
 
 export default async function IndexPage(props: {
   params: Promise<{ lang: Locale }>;
@@ -19,6 +19,8 @@ export default async function IndexPage(props: {
             {locale["friday"].welcome}
           </p>
         </div>
+
+        <AiInput />
       </div>
     </>
   );
