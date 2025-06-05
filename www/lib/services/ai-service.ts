@@ -43,7 +43,7 @@ export const aiService = {
   async generateResponse(question: string): Promise<AIServiceResponse> {
     try {
       const model = this.currentModel;
-      const ai = new GoogleGenAI({ apiKey: "AIzaSyC9uEv9VcBB_jTMEd5T81flPXFMzuaviy0" });
+      const ai = new GoogleGenAI({ apiKey: "AIzaSyCEWKmjmbmnrNvzxVizTGWlSo1iRACReew" });
       const config = {
         responseMimeType: "text/plain",
       };

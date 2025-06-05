@@ -16,7 +16,7 @@ export class GoogleGenAIService {
   private apiKey: string;
 
   constructor(apiKey?: string) {
-    this.apiKey = apiKey || process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY || "AIzaSyC9uEv9VcBB_jTMEd5T81flPXFMzuaviy0";
+    this.apiKey = apiKey || process.env.GEMINI || "AIzaSyCEWKmjmbmnrNvzxVizTGWlSo1iRACReew";
     this.ai = new GoogleGenAI({ apiKey: this.apiKey });
   }
 
