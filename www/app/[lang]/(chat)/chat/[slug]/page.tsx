@@ -314,7 +314,7 @@ export default function ChatPage() {
       isLoading: true,
       error: null
     }));
-    toggleThinking(true); // Set global thinking state
+    setShowThinking(true); // Use setShowThinking instead of toggleThinking
     
     try {
       const processedValue = stripPrefixes(value.trim());
@@ -374,7 +374,7 @@ export default function ChatPage() {
           ...prevState,
           isLoading: false
         }));
-        toggleThinking(false); // Clear global thinking state
+        setShowThinking(false); // Use setShowThinking instead of toggleThinking
       }
     }
   };
@@ -387,7 +387,7 @@ export default function ChatPage() {
         ...prevState,
         isLoading: true
       }));
-      toggleThinking(true); // Ensure global thinking state is set
+      setShowThinking(true); // Use setShowThinking instead of toggleThinking
       
       // Call AI service with proper typing
       const aiResponse = await aiService.generateResponse(userInput);
@@ -436,7 +436,7 @@ export default function ChatPage() {
         messages: updatedMessages,
         isLoading: false
       }));
-      toggleThinking(false); // Clear global thinking state
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
     } catch (error) {
       console.error("Error generating AI response:", error);
       setChatState(prevState => ({
@@ -447,7 +447,7 @@ export default function ChatPage() {
       toast.error("Failed to generate AI response");
     } finally {
       // Ensure thinking state is cleared even if there's an error
-      toggleThinking(false); // Clear global thinking state
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
       setChatState(prevState => ({
         ...prevState,
         isLoading: false
@@ -467,7 +467,7 @@ export default function ChatPage() {
         isLoading: true,
         error: null
       }));
-      toggleThinking(true); // Set global thinking state
+      setShowThinking(true); // Use setShowThinking instead of toggleThinking
       
       const userMessage: Message = {
         id: uuidv4(),
@@ -561,7 +561,7 @@ export default function ChatPage() {
         messages: finalMessages,
         isLoading: false
       }));
-      toggleThinking(false); // Clear global thinking state
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
     } catch (error) {
       console.error("Error in URL analysis:", error);
       setChatState(prevState => ({
@@ -572,7 +572,7 @@ export default function ChatPage() {
       toast.error("Failed to analyze content");
     } finally {
       // Ensure thinking state is cleared even if there's an error
-      toggleThinking(false); // Clear global thinking state
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
     }
   };
 
@@ -584,7 +584,7 @@ export default function ChatPage() {
         ...prevState,
         isLoading: true
       }));
-      toggleThinking(true); // Set global thinking state
+      setShowThinking(true); // Use setShowThinking instead of toggleThinking
       
       // Call AI service to generate response
       const aiResponse = await aiService.generateResponse(prompt);
@@ -598,7 +598,7 @@ export default function ChatPage() {
         ...prevState,
         isLoading: false
       }));
-      toggleThinking(false); // Clear global thinking state
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
       
       return formattedResponse;
     } catch (error) {
@@ -612,7 +612,7 @@ export default function ChatPage() {
       return null;
     } finally {
       // Ensure thinking state is cleared even if there's an error
-      toggleThinking(false); // Clear global thinking state
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
     }
   }, []);
 
