@@ -291,7 +291,8 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   return (
     <div className={cn(
       "relative flex w-full flex-col items-center justify-center transition-[left,right,width,margin-right] duration-200 ease-linear",
-    )}>      <ChatInput
+    )}>
+      <ChatInput
         value={value}
         chatState={chatState}
         setChatState={setChatState}
