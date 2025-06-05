@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { useToast } from "../../hooks/use-toast";
 import { Button } from "../ui/button";
 import { aiService } from "../../lib/services/ai-service";
+import { googleGenAIService } from "../../lib/services/google-genai-service";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -27,6 +28,12 @@ import { Message, Chat } from "../../types/chat";
 import { generateChatCompletion, generateImage, transcribeAudio } from "../../lib/ai-actions";
 import { bebidasDisponibles, herramientasDisponibles, modelosDisponibles, personasDisponibles } from "../../lib/available-options";
 import { authClient } from "@/lib/auth-client";
+// Import Zustand stores
+import { useChatInputStore } from "../../store/chat-store";
+import { useAIModelStore } from "../../store/ai-model-store";
+// Import sidebar hooks
+import { useCategorySidebar } from "../layout/sidebar/category-sidebar";
+import { useSubCategorySidebar } from "../layout/sidebar/subcategory-sidebar";
 
 interface AIModel {
   value: string;
@@ -38,25 +45,18 @@ interface AIModel {
 
 const ais: AIModel[] = [
   {
-    value: "gemini-2.5-pro-exp-03-25",
-    label: "Gemini 2.5 Pro (Experimental)",
+    value: "gemini-2.5-pro-preview-05-06",
+    label: "Gemini 2.5 Pro (Preview)",
     hasSearch: true,
     hasThinking: true,
     hasImageGen: false
   },
   {
-    value: "gemini-2.0-flash-thinking-exp-01-21",
-    label: "Gemini 2.0 Flash Thinking",
-    hasSearch: false,
-    hasThinking: true,
-    hasImageGen: false
-  },
-  {
-    value: "gemini-2.0-flash-exp-image-generation",
-    label: "Gemini 2.0 Flash Image Gen",
-    hasSearch: false,
+    value: "gemini-2.5-flash-preview-04-17",
+    label: "Gemini 2.5 Flash (Preview)",
+    hasSearch: true,
     hasThinking: false,
-    hasImageGen: true
+    hasImageGen: false
   },
   {
     value: "gemini-2.0-flash",
@@ -73,11 +73,11 @@ const ais: AIModel[] = [
     hasImageGen: false
   },
   {
-    value: "learnlm-1.5-pro-experimental",
-    label: "LearnLM 1.5 Pro",
+    value: "gemini-2.0-flash-preview-image-generation",
+    label: "Gemini 2.0 Flash Image Gen",
     hasSearch: false,
     hasThinking: false,
-    hasImageGen: false
+    hasImageGen: true
   },
   {
     value: "gemini-1.5-pro",
@@ -99,6 +99,34 @@ const ais: AIModel[] = [
     hasSearch: false,
     hasThinking: false,
     hasImageGen: false
+  },
+  {
+    value: "learnlm-2.0-flash-experimental",
+    label: "LearnLM 2.0 Flash",
+    hasSearch: false,
+    hasThinking: false,
+    hasImageGen: false
+  },
+  {
+    value: "gemma-3-27b-it",
+    label: "Gemma 3 27B",
+    hasSearch: false,
+    hasThinking: false,
+    hasImageGen: false
+  },
+  {
+    value: "gemma-3-12b-it",
+    label: "Gemma 3 12B",
+    hasSearch: false,
+    hasThinking: false,
+    hasImageGen: false
+  },
+  {
+    value: "gemma-3-4b-it",
+    label: "Gemma 3 4B",
+    hasSearch: false,
+    hasThinking: false,
+    hasImageGen: false
   }
 ];
 
@@ -111,22 +139,12 @@ interface MegaFile {
   timestamp?: number;
 }
 
+// Simplified props interface - remove props drilling
 interface InputActionsProps {
-  isLoading: boolean;
-  showSearch: boolean;
-  showResearch: boolean;
-  showThinking: boolean;
-  value: string;
-  selectedAI: string;
-  imagePreview: string | null;
   onSubmit: () => void;
-  onSearchToggle: () => void;
-  onResearchToggle: () => void;
-  onThinkingToggle: () => void;
   onImageUpload: (file: File | null) => void;
   onUrlAnalysis?: (urls: string[], prompt: string, type?: string) => void;
   onImageGeneration?: (response: { text_responses: string[]; images: { image: string; mime_type: string }[]; model_used: string }) => void;
-  onAIChange?: (model: string) => void;
   onInsertText?: (text: string, type: string) => void;
 }
 
@@ -137,29 +155,34 @@ interface Project {
 }
 
 export function InputActions({
-  isLoading,
-  showSearch,
-  showResearch,
-  showThinking,
-  value,
-  selectedAI,
-  imagePreview,
   onSubmit,
-  onSearchToggle,
-  onResearchToggle,
-  onThinkingToggle,
   onImageUpload,
   onUrlAnalysis,
   onImageGeneration,
-  onAIChange,
   onInsertText,
 }: InputActionsProps) {
+  // Use Zustand stores instead of props
+  const {
+    showSearch,
+    showResearch,
+    showThinking,
+    value,
+    imagePreview,
+    chatState,
+    toggleSearch,
+    toggleResearch,
+    toggleThinking,
+    setImagePreview,
+    isStreaming
+  } = useChatInputStore();
+
+  const { currentModel, setModel } = useAIModelStore();
+
   const [youtubeUrl, setYoutubeUrl] = React.useState("");
   const [aiOpen, setAiOpen] = React.useState(false);
   const [youtubeDialogOpen, setYoutubeDialogOpen] = React.useState(false);
   const [mediaUrl, setMediaUrl] = React.useState("");
   const [mediaDialogOpen, setMediaDialogOpen] = React.useState(false);
-  const [localSelectedAI, setLocalSelectedAI] = React.useState<string>(selectedAI || aiService.currentModel);
   const [filePopoverOpen, setFilePopoverOpen] = React.useState(false);
   const [attachUrl, setAttachUrl] = React.useState("");
   const { toast } = useToast();
