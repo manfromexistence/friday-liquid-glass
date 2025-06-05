@@ -15,7 +15,7 @@ import {
   Search // Add Search icon
 } from "lucide-react"
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { authClient } from '@/lib/auth-client';
+import { authClient } from '@/lib/auth/auth-client';
 import { db } from '@/lib/db'; // Added Drizzle db
 import { chats as chatsTable } from '@/lib/db/schema'; // Added chats schema
 import { eq, and, desc, asc } from 'drizzle-orm'; // Added Drizzle operators
@@ -161,10 +161,10 @@ export function History() {
   const [isCommandOpen, setIsCommandOpen] = useState(false)
 
   // Debug rendered state
-  useEffect(() => {
-    // console.log('Rendered chats:', chats)
-    // console.log('Is loading:', isLoading)
-  }, [chats, isLoading])
+  // useEffect(() => {
+  //   // console.log('Rendered chats:', chats)
+  //   // console.log('Is loading:', isLoading)
+  // }, [chats, isLoading])
 
   const handleRename = async (chatId: string, currentTitle: string) => {
     setSelectedChat({ id: chatId, title: currentTitle })
@@ -247,40 +247,40 @@ export function History() {
   }
 
   // Update prefetchChat to use strict UID checking
-  const prefetchChat = async (chatId: string) => {
-    await queryClient.prefetchQuery({
-      queryKey: ['chat', chatId],
-      queryFn: async () => {
-        // const chatRef = doc(db, "chats", chatId)
-        // const chatDoc = await getDoc(chatRef)
+  // const prefetchChat = async (chatId: string) => {
+  //   await queryClient.prefetchQuery({
+  //     queryKey: ['chat', chatId],
+  //     queryFn: async () => {
+  //       // const chatRef = doc(db, "chats", chatId)
+  //       // const chatDoc = await getDoc(chatRef)
 
-        // if (!chatDoc.exists()) return null
+  //       // if (!chatDoc.exists()) return null
 
-        // const data = chatDoc.data()
-        // if (data.creatorUid !== userUid) {
-        //   console.warn(`Unauthorized access attempt to chat ${chatId}`)
-        //   return null
-        // }
+  //       // const data = chatDoc.data()
+  //       // if (data.creatorUid !== userUid) {
+  //       //   console.warn(`Unauthorized access attempt to chat ${chatId}`)
+  //       //   return null
+  //       // }
 
-        // return {
-        //   id: chatDoc.id,
-        //   ...data
-        // }
-        // console.log(`Simulating prefetch for chat ${chatId}`);
-        await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async fetch
-        // Return a hardcoded chat object or null if not found in a simulated list
-        const simulatedChat = chats.find((c: Chat) => c.id === chatId); // Added explicit type for c
-        if (simulatedChat && simulatedChat.creatorUid === userUid) {
-          return { ...simulatedChat };
-        }
-        if (chatId === 'chat1' && userUid === 'test-user-uid') {
-          return { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url: '/chat/chat1', emoji: '😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true, visibility: 'public' };
-        }
-        return null;
-      },
-      staleTime: 1000 * 30
-    })
-  }
+  //       // return {
+  //       //   id: chatDoc.id,
+  //       //   ...data
+  //       // }
+  //       // console.log(`Simulating prefetch for chat ${chatId}`);
+  //       await new Promise(resolve => setTimeout(resolve, 100)); // Simulate async fetch
+  //       // Return a hardcoded chat object or null if not found in a simulated list
+  //       const simulatedChat = chats.find((c: Chat) => c.id === chatId); // Added explicit type for c
+  //       if (simulatedChat && simulatedChat.creatorUid === userUid) {
+  //         return { ...simulatedChat };
+  //       }
+  //       if (chatId === 'chat1' && userUid === 'test-user-uid') {
+  //         return { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url: '/chat/chat1', emoji: '😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true, visibility: 'public' };
+  //       }
+  //       return null;
+  //     },
+  //     staleTime: 1000 * 30
+  //   })
+  // }
 
   // Function to handle search
   const handleSearch = (chatId: string) => {
@@ -367,8 +367,8 @@ export function History() {
               {pinnedChats.map((chat) => (
                 <SidebarMenuItem
                   key={chat.id}
-                  chatId={chat.id}
-                  href={`/chat/${chat.id}`}
+                  // chatId={chat.id}
+                  // href={`/chat/${chat.id}`}
                   title={chat.title || chat.name || "Untitled Chat"}
                   emoji={chat.emoji || "💬"}
                   isActive={currentChatId === chat.id}
@@ -390,10 +390,10 @@ export function History() {
               {unpinnedChats.map((chat) => (
                 <SidebarMenuItem
                   key={chat.id}
-                  chatId={chat.id}
-                  href={`/chat/${chat.id}`}
+                  // chatId={chat.id}
+                  // href={`/chat/${chat.id}`}
                   title={chat.title || chat.name || "Untitled Chat"}
-                  emoji={chat.emoji || "💬"}
+                  // emoji={chat.emoji || "💬"}
                   isActive={currentChatId === chat.id}
                   isMobile={isMobile}
                   isPinned={false} // Pass isPinned status
