@@ -38,7 +38,7 @@ import {
   AnimationVariant,
   createAnimation,
 } from "../../ui/theme-animations"
-import { cn } from "../../../lib/utils"
+import { cn, lt } from "../../../lib/utils"
 
 
 export function NavUser() {
@@ -112,12 +112,11 @@ export function NavUser() {
       setIsLoggingOut(true)
       // await signOut(getAuth())
       console.log('Simulating logout');
-      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
-      router.push("/") // Redirect to home page
-      toast.success("Successfully logged out (simulated)")
+      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation      router.push("/") // Redirect to home page
+      toast.success(lt("authentication.successfully-logged-out-simulated"))
     } catch (error) {
       console.error("Error signing out:", error)
-      toast.error("Failed to log out. Please try again.")
+      toast.error(lt("authentication.failed-to-logout"))
     } finally {
       setIsLoggingOut(false)
     }
@@ -128,13 +127,12 @@ export function NavUser() {
       setIsLoggingIn(true)
       // const auth = getAuth()
       // const provider = new GoogleAuthProvider()
-      // await signInWithPopup(auth, provider)
-      console.log('Simulating login');
+      // await signInWithPopup(auth, provider)      console.log('Simulating login');
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
-      toast.success("Successfully logged in (simulated)")
+      toast.success(lt("authentication.successfully-logged-in-simulated"))
     } catch (error) {
       console.error("Error signing in:", error)
-      toast.error("Failed to log in. Please try again.")
+      toast.error(lt("authentication.failed-to-login"))
     } finally {
       setIsLoggingIn(false)
     }
@@ -154,7 +152,7 @@ export function NavUser() {
             <div className="flex items-center justify-center rounded-lg">
               <Key className="size-4" />
             </div>
-            {isLoggingIn ? "Signing in..." : "Sign in with Google"}
+            {isLoggingIn ? lt("authentication.signing-in") : lt("authentication.sign-in-with-google")}
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>

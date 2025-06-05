@@ -7,7 +7,7 @@ import { useAutoResizeTextarea } from "../../hooks/use-auto-resize-textarea"
 import { ChatInput } from "./chat-input"
 import { useQueryClient } from "@tanstack/react-query"
 import type { Message } from "../../types/chat"
-import { cn } from "../../lib/utils"
+import { cn, lt } from "../../lib/utils"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from "uuid"
 import { doc, setDoc } from "firebase/firestore"
@@ -67,15 +67,14 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     try {
       setIsLoggingIn(true)
       const auth = getAuth()
-      const provider = new GoogleAuthProvider()
-      await signInWithPopup(auth, provider)
-      toast.success("Successfully logged in")
+      const provider = new GoogleAuthProvider()      await signInWithPopup(auth, provider)
+      toast.success(lt("authentication.successfully-logged-in"))
 
       // If we had stored a pending message, we could retrieve it here
       // const pendingMessage = sessionStorage.getItem("pendingMessage")
     } catch (error) {
       console.error("Error signing in:", error)
-      toast.error("Failed to log in. Please try again.")
+      toast.error(lt("authentication.failed-to-login"))
     } finally {
       setIsLoggingIn(false)
     }

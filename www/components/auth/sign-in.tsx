@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Loader2, Key, CircleDotDashed } from "lucide-react";
 import { signIn } from "../../lib/auth/auth-client";
 import Link from "next/link";
-import { cn } from "../../lib/utils";
+import { cn, lt } from "../../lib/utils";
 import { Separator } from "../ui/separator";
 import * as React from "react";
 import type { SVGProps } from "react";
@@ -46,42 +46,40 @@ export function SignIn() {
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle className="text-lg md:text-xl">Sign In</CardTitle>
-        <CardDescription className="text-xs md:text-sm">
-          Enter your email below to login to your account
-        </CardDescription>
-      </CardHeader>
+    <Card className="w-full max-w-md">      <CardHeader>
+      <CardTitle className="text-lg md:text-xl">{lt("authentication.sign-in")}</CardTitle>
+      <CardDescription className="text-xs md:text-sm">
+        {lt("authentication.enter-email-to-login")}
+      </CardDescription>
+    </CardHeader>
       <CardContent className="py-0">
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="m@example.com"
-              required
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              value={email} />
-          </div>
+        <div className="grid gap-4">          <div className="grid gap-2">
+          <Label htmlFor="email" ref={undefined} className={undefined}>{lt("authentication.email-label")}</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder={lt("authentication.email-placeholder")}
+            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            value={email} />
+        </div>
           <div className="grid gap-2">
             <div className="flex items-center">
-              <Label htmlFor="password" ref={undefined} className={undefined}>Password</Label>
+              <Label htmlFor="password" ref={undefined} className={undefined}>{lt("authentication.password-label")}</Label>
               <Link
                 href="#"
                 className="ml-auto inline-block text-sm underline"
               >
-                Forgot your password?
+                {lt("authentication.forgot-password")}
               </Link>
             </div>
 
             <Input
               id="password"
               type="password"
-              placeholder="password"
+              placeholder={lt("authentication.password-placeholder")}
               autoComplete="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} ref={undefined} />
@@ -92,7 +90,7 @@ export function SignIn() {
               onClick={() => {
                 setRememberMe(!rememberMe);
               }} ref={undefined} />
-            <Label htmlFor="remember" ref={undefined} className={undefined}>Remember me</Label>
+            <Label htmlFor="remember" ref={undefined} className={undefined}>{lt("authentication.remember-me")}</Label>
           </div>
           <Button
             type="submit"
@@ -114,17 +112,14 @@ export function SignIn() {
                 },
               );
             }}
-          >
-            {loading ? (
-              <Loader2 size={16} className="animate-spin" />
-            ) : (
-              <p> Login </p>
-            )}
-          </Button>
-
-          <div className="w-full flex flex-row space-x-2 items-center">
+          >            {loading ? (
+            <Loader2 size={16} className="animate-spin" />
+          ) : (
+            <p>{lt("authentication.login")}</p>
+          )}
+          </Button>          <div className="w-full flex flex-row space-x-2 items-center">
             <Separator className="max-w-1/3" />
-            <span className="text-center text-sm text-muted-foreground flex-1">Or continue with</span>
+            <span className="text-center text-sm text-muted-foreground flex-1">{lt("authentication.or-continue-with")}</span>
             <Separator className="max-w-1/3" />
           </div>
 
@@ -291,18 +286,17 @@ export function SignIn() {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="py-0">
-        <div className="flex justify-center w-full">
-          <p className="text-center text-xs text-muted-foreground">
-            Don't have any account?{" "}
-            <Link
-              href="/signup"
-              className="hover:underline"
-            >
-              <span className="text-primary">Sign Up</span>
-            </Link>
-          </p>
-        </div>
+      <CardFooter className="py-0">        <div className="flex justify-center w-full">
+        <p className="text-center text-xs text-muted-foreground">
+          {lt("authentication.no-account")}{" "}
+          <Link
+            href="/signup"
+            className="hover:underline"
+          >
+            <span className="text-primary">{lt("authentication.sign-up-link")}</span>
+          </Link>
+        </p>
+      </div>
       </CardFooter>
     </Card>
   );

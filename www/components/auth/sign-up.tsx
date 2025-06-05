@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Checkbox } from "../ui/checkbox";
 import { signIn } from "../../lib/auth/auth-client";
-import { cn } from "../../lib/utils";
+import { cn, lt } from "../../lib/utils";
 import { Separator } from "../ui/separator";
 import * as React from "react";
 import type { SVGProps } from "react";
@@ -91,21 +91,19 @@ export function SignUp() {
   }
 
   return (
-    <Card className="rounded-md max-w-md">
-      <CardHeader>
-        <CardTitle className="text-lg md:text-xl">Sign Up</CardTitle>
+    <Card className="rounded-md max-w-md">      <CardHeader>
+        <CardTitle className="text-lg md:text-xl">{lt("authentication.sign-up")}</CardTitle>
         <CardDescription className="text-xs md:text-sm">
-          Enter your information to create an account
+          {lt("authentication.enter-info-to-create-account")}
         </CardDescription>
       </CardHeader>
       <CardContent className="py-0">
-        <div className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-4">          <div className="grid grid-cols-2 gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="first-name">First name</Label>
+              <Label htmlFor="first-name">{lt("authentication.first-name")}</Label>
               <Input
                 id="first-name"
-                placeholder="Max"
+                placeholder={lt("authentication.first-name-placeholder")}
                 required
                 onChange={(e) => {
                   setFirstName(e.target.value);
@@ -114,10 +112,10 @@ export function SignUp() {
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="last-name">Last name</Label>
+              <Label htmlFor="last-name">{lt("authentication.last-name")}</Label>
               <Input
                 id="last-name"
-                placeholder="Robinson"
+                placeholder={lt("authentication.last-name-placeholder")}
                 required
                 onChange={(e) => {
                   setLastName(e.target.value);
@@ -127,11 +125,11 @@ export function SignUp() {
             </div>
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{lt("authentication.email-label")}</Label>
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder={lt("authentication.email-placeholder")}
               required
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -140,35 +138,35 @@ export function SignUp() {
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{lt("authentication.password-label")}</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
-              placeholder="Password"
+              placeholder={lt("authentication.password-placeholder-signup")}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="password">Confirm Password</Label>
+            <Label htmlFor="password">{lt("authentication.confirm-password")}</Label>
             <Input
               id="password_confirmation"
               type="password"
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
               autoComplete="new-password"
-              placeholder="Confirm Password"
+              placeholder={lt("authentication.confirm-password-placeholder")}
             />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="image">Profile Image (optional)</Label>
+            <Label htmlFor="image">{lt("authentication.profile-image-optional")}</Label>
             <div className="flex items-end gap-4">
               {imagePreview && (
                 <div className="relative w-16 h-16 rounded-sm overflow-hidden">
                   <Image
                     src={imagePreview}
-                    alt="Profile preview"
+                    alt={lt("authentication.profile-preview-alt")}
                     layout="fill"
                     objectFit="cover"
                   />
@@ -215,29 +213,24 @@ export function SignUp() {
                     onError: (ctx) => {
                       toast.error(ctx.error.message);
                       setLoading(false);
-                    },
-                    onSuccess: async () => {
-                      toast.info("Sign Up Successful");
+                    },                    onSuccess: async () => {
+                      toast.info(lt("authentication.sign-up-successful"));
                       setLoading(false);
                     },
                   },
-                });
-              } catch (error) {
-                toast.error("Failed to upload image");
+                });              } catch (error) {
+                toast.error(lt("authentication.failed-to-upload-image"));
                 setLoading(false);
               }
             }}
-          >
-            {loading ? (
+          >            {loading ? (
               <Loader2 size={16} className="animate-spin" />
             ) : (
-              "Create an account"
+              lt("authentication.create-an-account")
             )}
-          </Button>
-
-          <div className="w-full flex flex-row space-x-2 items-center">
+          </Button>          <div className="w-full flex flex-row space-x-2 items-center">
             <Separator className="max-w-1/3" />
-            <span className="text-center text-sm text-muted-foreground flex-1">Or continue with</span>
+            <span className="text-center text-sm text-muted-foreground flex-1">{lt("authentication.or-continue-with")}</span>
             <Separator className="max-w-1/3" />
           </div>
 
@@ -447,13 +440,12 @@ export function SignUp() {
             {/* <CircleDotDashed className="w-4 h-4" /> */}
           </div>
         </div>
-      </CardContent>
-      <CardFooter className="py-0">
+      </CardContent>      <CardFooter className="py-0">
         <div className="flex justify-center w-full">
           <p className="text-center text-xs text-muted-foreground">
-            Already have an account?{" "}
+            {lt("authentication.already-have-account")}{" "}
             <Link href="/signin" className="hover:underline">
-              <span className="text-primary">Sign In</span>
+              <span className="text-primary">{lt("authentication.sign-in-link")}</span>
             </Link>
           </p>
         </div>

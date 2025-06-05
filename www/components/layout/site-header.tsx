@@ -29,6 +29,7 @@ import {
 } from "../ui/dropdown-menu"
 import { useSidebar } from "../ui/sidebar"
 import { SidebarMenuButton } from "../ui/sidebar"
+import { lt } from "../../lib/utils"
 import {
   BadgeCheck,
   Bell,
@@ -319,12 +320,11 @@ export function SiteHeader() {
       setIsLoggingOut(true)
       // await signOut(getAuth())
       console.log("Simulating logout");
-      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
-      router.push("/") // Redirect to home page
-      toast.success("Successfully logged out (simulated)")
+      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation      router.push("/") // Redirect to home page
+      toast.success(lt("authentication.successfully-logged-out-simulated"))
     } catch (error) {
       console.error("Error signing out:", error)
-      toast.error("Failed to log out. Please try again.")
+      toast.error(lt("authentication.failed-to-logout"))
     } finally {
       setIsLoggingOut(false)
     }
@@ -335,13 +335,12 @@ export function SiteHeader() {
       setIsLoggingIn(true)
       // const auth = getAuth()
       // const provider = new GoogleAuthProvider()
-      // await signInWithPopup(auth, provider)
-      console.log("Simulating login");
+      // await signInWithPopup(auth, provider)      console.log("Simulating login");
       await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async operation
-      toast.success("Successfully logged in (simulated)")
+      toast.success(lt("authentication.successfully-logged-in-simulated"))
     } catch (error) {
       console.error("Error signing in:", error)
-      toast.error("Failed to log in. Please try again.")
+      toast.error(lt("authentication.failed-to-login"))
     } finally {
       setIsLoggingIn(false)
     }
