@@ -5,19 +5,23 @@ import { cn } from "../../lib/utils";
 import { Input } from "../ui/input";
 import { useToast } from "../../hooks/use-toast";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 import { aiService } from "../../lib/services/ai-service";
 import { googleGenAIService } from "../../lib/services/google-genai-service";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool, Images } from "lucide-react";
+import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool, Images, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { db as drizzleDb } from "@/lib/db"; // Drizzle client
 import { chats as chatsTable, user as userTable } from "@/lib/db/schema"; // Drizzle schemas
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from 'uuid';
+// Firebase imports
+import { db } from "../../lib/firebase";
+import { doc, updateDoc, collection, getDocs, addDoc } from "firebase/firestore";
 import ImagePreview from "./image-preview";
 import MarkdownPreview from "./markdown-preview";
 import { modelos } from "../../lib/models";
@@ -146,6 +150,7 @@ interface InputActionsProps {
   onUrlAnalysis?: (urls: string[], prompt: string, type?: string) => void;
   onImageGeneration?: (response: { text_responses: string[]; images: { image: string; mime_type: string }[]; model_used: string }) => void;
   onInsertText?: (text: string, type: string) => void;
+  onAIGenerate?: (prompt: string, messages?: any[]) => Promise<any>; // Add AI generation callback
 }
 
 interface Project {
@@ -160,6 +165,7 @@ export function InputActions({
   onUrlAnalysis,
   onImageGeneration,
   onInsertText,
+  onAIGenerate,
 }: InputActionsProps) {
   // Use Zustand stores instead of props
   const {
@@ -177,6 +183,10 @@ export function InputActions({
   } = useChatInputStore();
 
   const { currentModel, setModel } = useAIModelStore();
+
+  // Add local state for managing AI model switching
+  const [localSelectedAI, setLocalSelectedAI] = React.useState(currentModel);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [youtubeUrl, setYoutubeUrl] = React.useState("");
   const [aiOpen, setAiOpen] = React.useState(false);
@@ -217,7 +227,6 @@ export function InputActions({
       toggleCategorySidebar()
     }
   }
-
   useEffect(() => {
     const savedCommand = localStorage.getItem("activeCommand");
     if (savedCommand) {
@@ -226,15 +235,16 @@ export function InputActions({
   }, []);
 
   useEffect(() => {
-    if (selectedAI) {
-      setLocalSelectedAI(selectedAI);
+    if (currentModel) {
+      setLocalSelectedAI(currentModel);
     }
-  }, [selectedAI]);
+  }, [currentModel]);
 
   useEffect(() => {
     console.log("Setting AI model to:", localSelectedAI);
     aiService.setModel(localSelectedAI);
-  }, [localSelectedAI]);
+    setModel(localSelectedAI); // Update the store as well
+  }, [localSelectedAI, setModel]);
 
   useEffect(() => {
     if (showThinking && activeCommandMode !== "thinking-mode") {
@@ -570,6 +580,47 @@ export function InputActions({
       });
     }
   };
+  // Add AI generation function using Google GenAI service
+  const generateAIResponse = async (prompt: string, messages: any[] = []) => {
+    try {
+      setIsLoading(true);
+      
+      // Use the callback if provided, otherwise use local generation
+      if (onAIGenerate) {
+        return await onAIGenerate(prompt, messages);
+      }
+      
+      // Convert messages to Google GenAI format
+      const formattedMessages = messages.map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.content }]
+      }));
+
+      // Add current prompt
+      formattedMessages.push({
+        role: 'user',
+        parts: [{ text: prompt }]
+      });
+
+      // Use Google GenAI service for streaming response
+      const response = await googleGenAIService.generateContentStream(
+        formattedMessages,
+        localSelectedAI
+      );
+
+      return response;
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      toast({
+        title: "Error generating response",
+        description: "Failed to generate AI response. Please try again.",
+        variant: "destructive",
+      });
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const prefixes = {
     "image-gen": "Image",
@@ -578,9 +629,8 @@ export function InputActions({
     "research-mode": "Research",
     "canvas-mode": "Canvas"
   };
-
   const handleImageSelect = async () => {
-    const imageGenModel = "gemini-2.0-flash-exp-image-generation";
+    const imageGenModel = "gemini-2.0-flash-preview-image-generation";
 
     setLocalSelectedAI(imageGenModel);
 
@@ -589,15 +639,11 @@ export function InputActions({
 
     aiService.setModel(imageGenModel);
 
-    if (onAIChange) {
-      onAIChange(imageGenModel);
-    }
-
     if (onInsertText) {
       onInsertText(`${prefixes["image-gen"]}:`, "image-gen");
     }
 
-    localStorage.setItem("previousModel", selectedAI || "gemini-2.0-flash");
+    localStorage.setItem("previousModel", currentModel || "gemini-2.0-flash");
 
     try {
       const currentChatId = window.location.pathname.split("/").pop();
@@ -700,15 +746,14 @@ export function InputActions({
       variant: "default",
     });
   };
-
   const handleSearchToggle = async () => {
     const newSearchState = !showSearch;
-    onSearchToggle();
+    toggleSearch(); // Use Zustand action
 
     if (newSearchState) {
       localStorage.setItem("previousModel", localSelectedAI);
-      const thinkingModel = "gemini-2.5-pro-exp-03-25";
-      setLocalSelectedAI(thinkingModel);
+      const searchModel = "gemini-2.5-pro-preview-05-06";
+      setLocalSelectedAI(searchModel);
 
       setActiveCommandMode("search-mode");
       localStorage.setItem("activeCommand", "search-mode");
@@ -721,8 +766,8 @@ export function InputActions({
         const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
           const chatRef = doc(db, "chats", currentChatId);
-          await updateDoc(chatRef, { model: thinkingModel });
-          console.log("Firestore model updated to:", thinkingModel);
+          await updateDoc(chatRef, { model: searchModel });
+          console.log("Firestore model updated to:", searchModel);
         }
       } catch (error) {
         console.error("Failed to update Firestore model:", error);
@@ -764,9 +809,9 @@ export function InputActions({
       });
     }
   };
-
   const handleThinkingSelect = async () => {
     const newResearchState = !showResearch;
+    toggleResearch(); // Use Zustand action
 
     if (newResearchState) {
       localStorage.setItem("previousModel", localSelectedAI);
@@ -979,9 +1024,7 @@ export function InputActions({
               </>
             )}
           </DropdownMenuContent>
-        </DropdownMenu>
-
-        {/* <TooltipProvider>
+        </DropdownMenu>        <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
               <motion.button
@@ -1028,7 +1071,7 @@ export function InputActions({
               <p>Smart Search with Web Access</p>
             </TooltipContent>
           </Tooltip>
-        </TooltipProvider> */}
+        </TooltipProvider>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild disabled={isLoading}>
@@ -1232,21 +1275,19 @@ export function InputActions({
               </div>
             </div>
           </DialogContent>
-        </Dialog>
-
-        <motion.button
+        </Dialog>        <motion.button
           type="button"
           onClick={onSubmit}
-          disabled={!value.trim()}
+          disabled={!value.trim() || isLoading}
           className={cn(
             "bg-primary text-primary-foreground hover:text-background hover:bg-foreground flex size-8 items-center justify-center rounded-full border border-none transition-colors",
-            value ? "" : "cursor-not-allowed",
+            value && !isLoading ? "" : "cursor-not-allowed",
             !isLoading && "p-2"
           )}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
-          {isLoading ? (
+          {isLoading || isStreaming ? (
             <StopCircle className="size-4" />
           ) : (
             <Radio className="size-4" />
