@@ -18,9 +18,6 @@ export interface ChatInputProps {
   value: string
   chatState: ChatState
   setChatState?: React.Dispatch<React.SetStateAction<ChatState>>
-  showSearch?: boolean
-  showResearch?: boolean
-  showThinking?: boolean
   imagePreview?: string | null
   inputHeight?: number
   textareaRef: React.RefObject<HTMLTextAreaElement>
@@ -28,11 +25,9 @@ export interface ChatInputProps {
   onChange: (value: string) => void
   onHeightChange?: (reset?: boolean) => void
   onImageChange?: (file: File | null) => void
-  onSearchToggle?: () => void
-  onResearchToggle?: () => void
-  onThinkingToggle?: () => void
   onUrlAnalysis?: (urls: string[], prompt: string, type?: string) => void
   onImageGeneration?: (response: { text: string; image: string; model_used: string; file_path: string }) => void
+  onAIGenerate?: (prompt: string, messages?: any[]) => Promise<any>; // Add AI generation callback
 }
 
 interface ImagePreviewProps {
@@ -45,9 +40,6 @@ export function ChatInput({
   className,
   value,
   chatState,
-  showSearch,
-  showResearch,
-  showThinking,
   imagePreview,
   inputHeight,
   textareaRef,
@@ -55,14 +47,9 @@ export function ChatInput({
   onChange,
   onHeightChange,
   onImageChange,
-  onSearchToggle,
-  onResearchToggle,
-  onThinkingToggle,
-  // Remove selectedAI and onAIChange from props
-  // selectedAI,
-  // onAIChange,
   onUrlAnalysis,
   onImageGeneration,
+  onAIGenerate,
 }: ChatInputProps) {
   // Use the Zustand store directly
   const { currentModel } = useAIModelStore();
@@ -566,22 +553,13 @@ export function ChatInput({
               lineHeight: "1.5",
             }}
           />
-        </div>
-        <InputActions
-          isLoading={chatState.isLoading}
-          showSearch={showSearch || false}
-          showThinking={showThinking || false}
-          showResearch={showResearch || false}
-          value={value}
-          selectedAI={currentModel}
-          imagePreview={imagePreview || null}
+        </div>        <InputActions
           onSubmit={onSubmit}
-          onSearchToggle={onSearchToggle || (() => { })}
-          onResearchToggle={onResearchToggle || (() => { })}
-          onThinkingToggle={onThinkingToggle || (() => { })}
           onImageUpload={(file: File | null) => onImageChange && onImageChange(file)}
           onUrlAnalysis={onUrlAnalysis}
+          onImageGeneration={onImageGeneration}
           onInsertText={handleInsertText}
+          onAIGenerate={onAIGenerate}
         />
       </div>
     </div>

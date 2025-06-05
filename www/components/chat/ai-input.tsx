@@ -17,6 +17,10 @@ import { useAuth } from "../../hooks/use-auth"
 import { toast } from "sonner"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useAIModelStore } from "../../store/ai-model-store"
+// Import Zustand stores
+import { useChatInputStore } from "../../store/chat-store"
+// Import Google GenAI service
+import { googleGenAIService } from "../../lib/services/google-genai-service"
 
 // Update the ChatState interface to match the one in chat-input.tsx
 interface ChatState {
@@ -49,7 +53,17 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   const { currentModel, setModel } = useAIModelStore()
   const { user } = useAuth()
 
-  const [value, setValue] = useState("")
+  // Use Zustand stores instead of local state
+  const {
+    showSearch,
+    showResearch, 
+    showThinking,
+    value,
+    imagePreview,
+    setValue,
+    setImagePreview
+  } = useChatInputStore()
+
   const [isMaxHeight, setIsMaxHeight] = useState(false)
   const [isLoggingIn, setIsLoggingIn] = useState(false)
 
@@ -101,14 +115,14 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
 
     const scrollHeight = textareaRef.current.scrollHeight
     const newHeight = Math.min(scrollHeight, MAX_HEIGHT)
-    textareaRef.current.style.height = `${newHeight}px`
-    setInputHeight(newHeight)
+    textareaRef.current.style.height = `${newHeight}px`    setInputHeight(newHeight)
   }, [textareaRef])
 
-  const [showSearch, setShowSearch] = useState(false)
-  const [showResearch, setShowReSearch] = useState(false)
-  const [showThinking, setShowThinking] = useState(false)
-  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  // Remove local state - now handled by Zustand stores
+  // const [showSearch, setShowSearch] = useState(false)
+  // const [showResearch, setShowReSearch] = useState(false)
+  // const [showThinking, setShowThinking] = useState(false)
+  // const [imagePreview, setImagePreview] = useState<string | null>(null)
 
   // Add chat state management
   const [chatState, setChatState] = useState<ChatState>({
@@ -127,10 +141,9 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
 
     return () => clearTimeout(timer);
   }, [value, onInputChange]);
-
   // Update setValue function to be simpler since we debounce above
   const handleValueChange = (newValue: string) => {
-    setValue(newValue);
+    setValue(newValue); // This now uses Zustand's setValue
   };
 
   // Add URL analysis handler
@@ -231,17 +244,55 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     }
   }
 
+  // Add AI generation function using Google GenAI service  
+  const generateAIResponse = async (prompt: string, messages: any[] = []) => {
+    try {
+      setChatState(prev => ({ ...prev, isLoading: true }));
+      
+      // Convert messages to Google GenAI format
+      const formattedMessages = messages.map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.content }]
+      }));
+
+      // Add current prompt
+      formattedMessages.push({
+        role: 'user',
+        parts: [{ text: prompt }]
+      });
+
+      // Use Google GenAI service for streaming response
+      const response = await googleGenAIService.generateContentStream(
+        formattedMessages,
+        currentModel
+      );
+
+      return response;
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      setChatState(prev => ({ 
+        ...prev, 
+        error: 'Failed to generate AI response. Please try again.',
+        isLoading: false 
+      }));
+      throw error;
+    } finally {
+      setChatState(prev => ({ ...prev, isLoading: false }));
+    }
+  };
+
+  // Export the AI generation function for use by parent components
+  const handleAIGenerate = async (prompt: string, messages: any[] = []) => {
+    return await generateAIResponse(prompt, messages);
+  };
+
   return (
     <div className={cn(
       "relative flex w-full flex-col items-center justify-center transition-[left,right,width,margin-right] duration-200 ease-linear",
-    )}>
-      <ChatInput
+    )}>      <ChatInput
         value={value}
         chatState={chatState}
         setChatState={setChatState}
-        showSearch={showSearch}
-        showResearch={showResearch}
-        showThinking={showThinking}
         imagePreview={imagePreview}
         inputHeight={inputHeight}
         textareaRef={textareaRef as React.RefObject<HTMLTextAreaElement>}
@@ -251,10 +302,8 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
         onImageChange={(file) =>
           file ? setImagePreview(URL.createObjectURL(file)) : setImagePreview(null)
         }
-        onSearchToggle={() => setShowSearch(!showSearch)}
-        onResearchToggle={() => setShowReSearch(!showResearch)}
-        onThinkingToggle={() => setShowThinking(!showThinking)}
         onUrlAnalysis={handleUrlAnalysis}
+        onAIGenerate={handleAIGenerate}
       />
     </div>
   )
