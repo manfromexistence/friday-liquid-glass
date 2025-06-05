@@ -42,14 +42,15 @@ const MIN_HEIGHT = 48
 const MAX_HEIGHT = 164
 
 export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
-  { onInputChange, onSubmit }, 
+  { onInputChange, onSubmit },
   ref
-) {  const queryClient = useQueryClient()
+) {
+  const queryClient = useQueryClient()
   const { statecategorysidebar } = useCategorySidebar()
   const { statesubcategorysidebar } = useSubCategorySidebar()
   const router = useRouter()
   const { currentModel, setModel } = useAIModelStore()
-  
+
   // Better Auth user state management
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -57,7 +58,7 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   // Use Zustand stores instead of local state
   const {
     showSearch,
-    showResearch, 
+    showResearch,
     showThinking,
     value,
     imagePreview,
@@ -93,19 +94,14 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       }, 0);
     }
   }));
-
   const handleLogin = async () => {
     try {
       setIsLoggingIn(true)
-      const auth = getAuth()
-      const provider = new GoogleAuthProvider()      await signInWithPopup(auth, provider)
-      toast.success(lt("authentication.successfully-logged-in"))
-
-      // If we had stored a pending message, we could retrieve it here
-      // const pendingMessage = sessionStorage.getItem("pendingMessage")
+      // Redirect to Better Auth sign-in page
+      router.push("/sign-in")
     } catch (error) {
-      console.error("Error signing in:", error)
-      toast.error(lt("authentication.failed-to-login"))
+      console.error("Error redirecting to login:", error)
+      toast.error("Failed to redirect to login page")
     } finally {
       setIsLoggingIn(false)
     }
@@ -161,10 +157,9 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   const handleValueChange = (newValue: string) => {
     setValue(newValue); // This now uses Zustand's setValue
   };
-
   // Add URL analysis handler
   const handleUrlAnalysis = (urls: string[], prompt: string) => {
-    if (!user) {
+    if (!user || !user.user) {
       toast.error("Authentication required", {
         description: "Please sign in to analyze URLs",
         action: {
@@ -190,20 +185,18 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     // Notify parent component about submission
     if (onSubmit) {
       onSubmit();
+    }    // Check if user is authenticated
+    if (!user || !user.user) {
+      toast.error("Authentication required", {
+        description: "Please sign in to chat with Friday AI",
+        action: {
+          label: isLoggingIn ? "Signing in..." : "Sign In",
+          onClick: handleLogin,
+        },
+        duration: 5000, // Show for 5 seconds
+      });
+      return;
     }
-
-    // Check if user is authenticated
-    // if (!user) {
-    //   toast.error("Authentication required", {
-    //     description: "Please sign in to chat with Friday AI",
-    //     action: {
-    //       label: isLoggingIn ? "Signing in..." : "Sign In",
-    //       onClick: handleLogin,
-    //     },
-    //     duration: 5000, // Show for 5 seconds
-    //   });
-    //   return;
-    // }
 
     try {
       const chatId = uuidv4()
@@ -215,34 +208,30 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
         content: trimmedValue,
         role: "user",
         timestamp: new Date().toISOString()
-      }
-
-      // Create initial chat data
+      }      // Create initial chat data
       const chatData = {
         id: chatId,
         title: trimmedValue.slice(0, 50) + (trimmedValue.length > 50 ? "..." : ""),
         messages: [initialMessage],
-        model: currentModel, // Use currentModel from Zustand store instead of selectedAI
+        model: currentModel,
         visibility: "public",
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-        creatorUid: user.uid, // Add user ID to the chat data
+        creatorUid: user.user.id, // Use Better Auth user ID
         reactions: {
           likes: {},
           dislikes: {}
         },
-        participants: [user.uid],
+        participants: [user.user.id], // Use Better Auth user ID
         views: 0,
         uniqueViewers: [],
         isPinned: false
       }
 
       // Store chat data in Firestore
-      await db.insert(chatsTable).values(chatData).execute()
-
-      // Store the input value and selected AI model in sessionStorage
+      await db.insert(chatsTable).values(chatData).execute()      // Store the input value and selected AI model in sessionStorage
       sessionStorage.setItem("initialPrompt", trimmedValue)
-      sessionStorage.setItem("selectedAI", currentModel) // Use currentModel instead of selectedAI
+      sessionStorage.setItem("selectedAI", currentModel)
       sessionStorage.setItem("chatId", chatId)
       sessionStorage.setItem("autoSubmit", "true")
 
@@ -264,7 +253,7 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   const generateAIResponse = async (prompt: string, messages: any[] = []) => {
     try {
       setChatState(prev => ({ ...prev, isLoading: true }));
-      
+
       // Convert messages to Google GenAI format
       const formattedMessages = messages.map(msg => ({
         role: msg.role === 'user' ? 'user' : 'model',
@@ -275,21 +264,19 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       formattedMessages.push({
         role: 'user',
         parts: [{ text: prompt }]
-      });
-
-      // Use Google GenAI service for streaming response
+      });      // Use Google GenAI service for streaming response
       const response = await googleGenAIService.generateContentStream(
-        formattedMessages,
-        currentModel
+        currentModel,
+        formattedMessages
       );
 
       return response;
     } catch (error) {
       console.error('Error generating AI response:', error);
-      setChatState(prev => ({ 
-        ...prev, 
+      setChatState(prev => ({
+        ...prev,
         error: 'Failed to generate AI response. Please try again.',
-        isLoading: false 
+        isLoading: false
       }));
       throw error;
     } finally {
@@ -315,11 +302,11 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
         onSubmit={handleSubmit}
         onChange={handleValueChange}
         onHeightChange={handleAdjustHeight}
+        onUrlAnalysis={handleUrlAnalysis}
+        onAIGenerate={handleAIGenerate}
         onImageChange={(file) =>
           file ? setImagePreview(URL.createObjectURL(file)) : setImagePreview(null)
         }
-        onUrlAnalysis={handleUrlAnalysis}
-        onAIGenerate={handleAIGenerate}
       />
     </div>
   )
