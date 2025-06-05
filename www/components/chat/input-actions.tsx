@@ -13,18 +13,20 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool, Images } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { doc, updateDoc, collection, addDoc, getDocs } from "firebase/firestore";
-import { db } from "../../lib/firebase/config";
-import { Separator } from "../ui/separator"
-import { useCategorySidebar } from "../layout/sidebar/category-sidebar"
-import { useSubCategorySidebar } from "../layout/sidebar/subcategory-sidebar"
-import CategorySidebar from "../layout/sidebar/category-app-sidebar"
-import SubCategorySidebar from "../layout/sidebar/subcategory-app-sidebar"
-
-import {
-  MessageCircle,
-  Type,
-} from "lucide-react"
+import { db as drizzleDb } from "@/lib/db"; // Drizzle client
+import { chats as chatsTable, user as userTable } from "@/lib/db/schema"; // Drizzle schemas
+import { eq } from "drizzle-orm";
+import { v4 as uuidv4 } from 'uuid';
+import ImagePreview from "./image-preview";
+import MarkdownPreview from "./markdown-preview";
+import { modelos } from "../../lib/models";
+import { bebidas } from "../../lib/models";
+import { herramientas } from "../../lib/models";
+import { personas } from "../../lib/models";
+import { Message, Chat } from "../../types/chat";
+import { generateChatCompletion, generateImage, transcribeAudio } from "../../lib/ai-actions";
+import { bebidasDisponibles, herramientasDisponibles, modelosDisponibles, personasDisponibles } from "../../lib/available-options";
+import { authClient } from "@/lib/auth-client";
 
 interface AIModel {
   value: string;

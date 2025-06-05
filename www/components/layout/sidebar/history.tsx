@@ -1,8 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-// import { db } from "@/lib/firebase/config"
-// import { User as FirebaseUser } from "firebase/auth" // FirebaseUser might not be needed if useAuth is fully mocked
 import { useRouter, usePathname } from 'next/navigation'
 import { toast } from 'sonner'
 import {
@@ -16,6 +14,12 @@ import {
   Loader,
   Search // Add Search icon
 } from "lucide-react"
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { authClient } from '@/lib/auth-client';
+import { db } from '@/lib/db'; // Added Drizzle db
+import { chats as chatsTable } from '@/lib/db/schema'; // Added chats schema
+import { eq, and, desc, asc } from 'drizzle-orm'; // Added Drizzle operators
+
 
 import {
   Dialog,
@@ -52,141 +56,103 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "../../ui/sidebar"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
-// import { collection, query, getDocs, onSnapshot, doc, deleteDoc, updateDoc, getDoc, where } from "firebase/firestore"
-// import { useAuth } from "@/contexts/auth-context"
-import { cn } from "../../../lib/utils"
+
 // Modify the Chat interface to include isPinned
 interface Chat {
-  id: string;
-  name: string;
+  id: string; // Kept as string, assuming it will be string from Drizzle
+  name: string; // Ensure this maps to a field in your Drizzle 'chats' schema or adapt
   title: string;
-  url: string;
-  emoji: string;
+  url: string; // This might need to be constructed or stored if not directly in schema
+  emoji: string; // Ensure this maps or adapt
   creatorUid: string;
-  lastMessage?: string;
-  timestamp?: number;
+  lastMessage?: string; // Ensure this maps or adapt
+  timestamp?: number; // Drizzle schema uses text for createdAt, updatedAt. Need conversion.
   isPinned?: boolean;
+  // Add other fields from your Drizzle 'chats' schema if needed
+  // e.g., messages, model, visibility, reactions, participants, views, uniqueViewers
+  // For simplicity, keeping the interface minimal for now.
 }
 
 export function History() {
-  // const { user } = useAuth()
-  // Hardcoded user for now
-  const user = {
-    uid: 'test-user-uid',
-    photoURL: 'https://via.placeholder.com/150',
-    displayName: 'Test User',
-    email: 'test@example.com',
-  }
+  const [authUser, setAuthUser] = useState<any>(null);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
   const queryClient = useQueryClient()
   const router = useRouter()
   const pathname = usePathname()
   const { isMobile } = useSidebar()
 
-  // Extract the current chat ID from pathname
+  useEffect(() => {
+    const fetchUserSession = async () => {
+      setIsAuthLoading(true);
+      try {
+        const session = await authClient.getSession();
+        setAuthUser(session?.data);
+      } catch (error) {
+        toast.error("Failed to fetch user session.");
+        // console.error("Failed to fetch user session:", error);
+      } finally {
+        setIsAuthLoading(false);
+      }
+    };
+    fetchUserSession();
+  }, []);
+
   const currentChatId = pathname?.startsWith('/chat/')
     ? pathname.replace('/chat/', '')
     : null
 
-  // Firebase user data with type safety
-  // const userUid = (user as FirebaseUser)?.uid
-  const userUid = user?.uid // Use the hardcoded user's uid
+  const userUid = authUser?.user?.id;
 
-  const { data: chats = [], isLoading } = useQuery<Chat[]>({
+  const { data: fetchedChats = [], isLoading, error: chatsError } = useQuery<Chat[]>({
     queryKey: ['chats', userUid],
     queryFn: async () => {
       if (!userUid) return []
 
-      // Try to get from cache first
-      // const cachedData = queryClient.getQueryData(['chats', userUid])
-      // if (cachedData) return cachedData as Chat[]
-
-      // const q = query(
-      //   collection(db, "chats"),
-      //   where("creatorUid", "==", userUid)
-      // )
-      // const snapshot = await getDocs(q)
-      // const chats = snapshot.docs.map(doc => ({
-      //   id: doc.id,
-      //   ...doc.data()
-      // } as Chat))
-
-      // // Sort the chats by pinned status first, then by timestamp
-      // return chats.sort((a, b) => {
-      //   // First sort by pinned status
-      //   if (a.isPinned && !b.isPinned) return -1;
-      //   if (!a.isPinned && b.isPinned) return 1;
-      //   // Then sort by timestamp
-      //   return (b.timestamp || 0) - (a.timestamp || 0);
-      // })
-
-      // Hardcoded chats for now
-      await new Promise(resolve => setTimeout(resolve, 500)); // Simulate async fetch
-      return [
-        { id: 'chat1', title: 'Hardcoded Chat 1', name: 'HC Chat 1', url: '/chat/chat1', emoji: '😀', creatorUid: userUid, lastMessage: 'Hello', timestamp: Date.now(), isPinned: true },
-        { id: 'chat2', title: 'Another Hardcoded Chat', name: 'HC Chat 2', url: '/chat/chat2', emoji: '🎉', creatorUid: userUid, lastMessage: 'World', timestamp: Date.now() - 100000, isPinned: false },
-      ].sort((a: Chat, b: Chat) => { // Added explicit types for a and b
-        if (a.isPinned && !b.isPinned) return -1;
-        if (!a.isPinned && b.isPinned) return 1;
-        return (b.timestamp || 0) - (a.timestamp || 0);
-      });
+      const results = await db.select()
+        .from(chatsTable)
+        .where(eq(chatsTable.creatorUid, userUid))
+        .orderBy(desc(chatsTable.isPinned), desc(chatsTable.updatedAt)) // Order by pinned then by date
+        .execute();
+      
+      // Map Drizzle results to Chat interface
+      return results.map(chat => ({
+        id: chat.id,
+        title: chat.title,
+        name: chat.title, // Assuming title can be used as name for now
+        url: `/chat/${chat.id}`, // Construct URL
+        emoji: "💬", // Placeholder emoji, consider adding to schema or deriving
+        creatorUid: chat.creatorUid,
+        // Convert string dates to timestamp numbers if your Chat interface expects numbers
+        // For Drizzle, createdAt and updatedAt are text. If you need a number timestamp:
+        timestamp: chat.updatedAt ? new Date(chat.updatedAt).getTime() : undefined,
+        isPinned: chat.isPinned || false,
+        // lastMessage: chat.messages ? chat.messages[chat.messages.length-1]?.content : undefined // Example if messages is an array of objects
+      }));
     },
-    enabled: !!userUid,
-    staleTime: 1000 * 60 * 5, // Consider data fresh for 5 minutes
-    gcTime: 1000 * 60 * 30, // Keep unused data for 30 minutes
+    enabled: !!userUid && !isAuthLoading,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 30,
     refetchOnWindowFocus: false,
-    refetchOnMount: false // Prevent refetch when component mounts
+    refetchOnMount: true
   })
 
-  // Add real-time updates
+  // Real-time updates with Drizzle are more complex and typically require a separate subscription mechanism
+  // (e.g., WebSockets, server-sent events, or a service like Pusher/Ably)
+  // For now, this useEffect for real-time updates will be commented out or removed
+  // as Drizzle ORM itself doesn't provide real-time subscription out-of-the-box like Firestore.
+  /*
   useEffect(() => {
-    if (!userUid) return
+    if (!userUid || isAuthLoading) return;
 
-    // const q = query(
-    //   collection(db, "chats"),
-    //   where("creatorUid", "==", userUid)
-    // )
+    // Placeholder for potential real-time update logic if you implement one
+    // This would involve setting up a listener to your backend that pushes updates
+    // and then invalidating the queryClient cache for ['chats', userUid]
 
-    // const unsubscribe = onSnapshot(q, (snapshot) => {
-    //   queryClient.setQueryData(['chats', userUid], (oldData: Chat[] = []) => {
-    //     const newData = [...oldData]
-
-    //     snapshot.docChanges().forEach((change) => {
-    //       const data = change.doc.data()
-    //       const chatData = {
-    //         id: change.doc.id,
-    //         ...data
-    //       } as Chat
-
-    //       if (change.type === 'added' || change.type === 'modified') {
-    //         const index = newData.findIndex(chat => chat.id === change.doc.id)
-    //         if (index > -1) {
-    //           newData[index] = chatData
-    //         } else {
-    //           newData.push(chatData)
-    //         }
-    //       } else if (change.type === 'removed') {
-    //         const index = newData.findIndex(chat => chat.id === change.doc.id)
-    //         if (index > -1) {
-    //           newData.splice(index, 1)
-    //         }
-    //       }
-    //     })
-
-    //     return newData.sort((a, b) => {
-    //       // First sort by pinned status
-    //       if (a.isPinned && !b.isPinned) return -1;
-    //       if (!a.isPinned && b.isPinned) return 1;
-    //       // Then sort by timestamp
-    //       return (b.timestamp || 0) - (a.timestamp || 0);
-    //     })
-    //   })
-    // })
-
-    // return () => unsubscribe()
-    // No-op for now, as Firebase is commented out
-    return () => { };
-  }, [queryClient, userUid])
+    return () => {
+      // Cleanup listener if any
+    };
+  }, [queryClient, userUid, isAuthLoading]);
+  */
 
   const [isRenameOpen, setIsRenameOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
@@ -213,15 +179,12 @@ export function History() {
     }
 
     try {
-      // const chatRef = doc(db, "chats", selectedChat.id)
-      // await updateDoc(chatRef, {
-      //   title: newTitle
-      // })
-      // console.log(`Simulating rename of chat ${selectedChat.id} to "${newTitle}"`);
-      await new Promise(resolve => setTimeout(resolve, 300)); // Simulate async operation
-
-      queryClient.invalidateQueries({ queryKey: ['chats'] })
-      toast.success("Chat renamed successfully (simulated)")
+      await db.update(chatsTable)
+        .set({ title: newTitle, updatedAt: new Date().toISOString() })
+        .where(eq(chatsTable.id, selectedChat.id))
+        .execute();
+      queryClient.invalidateQueries({ queryKey: ['chats', userUid] })
+      toast.success("Chat renamed successfully")
     } catch (error) {
       console.error("Error renaming chat:", error)
       toast.error("Failed to rename chat")
@@ -238,11 +201,14 @@ export function History() {
     if (!selectedChat) return
 
     try {
-      // await deleteDoc(doc(db, "chats", selectedChat.id))
-      // console.log(`Simulating delete of chat ${selectedChat.id}`);
-      await new Promise(resolve => setTimeout(resolve, 300)); // Simulate async operation
-      queryClient.invalidateQueries({ queryKey: ['chats'] }); // Refresh list after simulated delete
-      toast.success("Chat deleted successfully (simulated)")
+      await db.delete(chatsTable)
+        .where(eq(chatsTable.id, selectedChat.id))
+        .execute();
+      queryClient.invalidateQueries({ queryKey: ['chats', userUid] })
+      toast.success("Chat deleted successfully")
+      if (currentChatId === selectedChat.id) {
+        router.push('/')
+      }
     } catch (error) {
       console.error("Error deleting chat:", error)
       toast.error("Failed to delete chat")
@@ -263,20 +229,20 @@ export function History() {
 
   // Modify the handleTogglePin function to also update the timestamp
   const handleTogglePin = async (chatId: string, currentPinned: boolean) => {
+    if (!userUid) {
+      toast.error("User not authenticated.");
+      return;
+    }
     try {
-      // const chatRef = doc(db, "chats", chatId)
-      // await updateDoc(chatRef, {
-      //   isPinned: !currentPinned,
-      //   timestamp: Date.now() // Update timestamp to current time when pin status changes
-      // })
-      // console.log(`Simulating toggle pin for chat ${chatId} to ${!currentPinned}`);
-      await new Promise(resolve => setTimeout(resolve, 300)); // Simulate async operation
-
-      toast.success(currentPinned ? "Chat unpinned (simulated)" : "Chat pinned (simulated)")
-      queryClient.invalidateQueries({ queryKey: ['chats'] }); // Refresh list
+      await db.update(chatsTable)
+        .set({ isPinned: !currentPinned, updatedAt: new Date().toISOString() })
+        .where(eq(chatsTable.id, chatId))
+        .execute();
+      queryClient.invalidateQueries({ queryKey: ['chats', userUid] });
+      toast.success(`Chat ${!currentPinned ? "pinned" : "unpinned"} successfully`);
     } catch (error) {
-      console.error("Error updating pin status:", error)
-      toast.error("Failed to update pin status")
+      console.error("Error toggling pin status:", error);
+      toast.error("Failed to toggle pin status.");
     }
   }
 
@@ -322,171 +288,151 @@ export function History() {
     setIsCommandOpen(false)
   }
 
+  if (isAuthLoading) {
+    return (
+      <SidebarGroup>
+        <div className="p-4 text-center">
+          <Loader className="animate-spin inline-block mr-2" />
+          Loading user...
+        </div>
+      </SidebarGroup>
+    );
+  }
+
+  if (!userUid) {
+    return (
+      <SidebarGroup>
+        <div className="p-4 text-center text-sm text-muted-foreground">
+          Please sign in to view your chat history.
+        </div>
+      </SidebarGroup>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <SidebarGroup>
+        <div className="p-4 text-center">
+          <Loader className="animate-spin inline-block mr-2" />
+          Loading chats...
+        </div>
+      </SidebarGroup>
+    );
+  }
+  
+  if (chatsError) {
+    return (
+      <SidebarGroup>
+        <div className="p-4 text-center text-red-500">
+          Error loading chats.
+        </div>
+      </SidebarGroup>
+    );
+  }
+
+  // Group chats by pinned and unpinned
+  const pinnedChats = fetchedChats.filter(chat => chat.isPinned);
+  const unpinnedChats = fetchedChats.filter(chat => !chat.isPinned);
+
   return (
     <>
-      <SidebarGroup className="!py-0 group-data-[collapsible=icon]:hidden">
-        <SidebarGroupLabel
-          onClick={() => setIsCommandOpen(true)}
-          className="flex items-center justify-between py-0 px-2 rounded-md mt-2 mb-1 border">
-          <span className="ml-0.5">
-            Chats
-          </span>
-          {/* <div className="bg-background/95 hover:bg-background shadow-sm rounded-full size-2.5">
-            <Search
-              onClick={() => setIsCommandOpen(true)}
-              className="hover:text-primary mr-2 size-2 md:mr-0" />
-          </div> */}
-          <Search
-            className="hover:text-primary mr-0.5 size-2 md:mr-0" />
-          {/* <Button
-            variant="outline"
-            size="icon"
-            className="ml-auto size-2"
-            onClick={() => setIsCommandOpen(true)}
-          >
-            <Search className="size-2" />
-          </Button> */}
-        </SidebarGroupLabel>
-        <SidebarMenu>
-          {isLoading ? (
-            <div className="text-muted-foreground flex items-center justify-start px-0.5 text-sm">
-              <Loader className="mr-2 size-4 animate-spin" />
-              <span className="text-sm">Loading...</span>
-            </div>
-          ) : chats.length === 0 ? (
-            <div className="text-muted-foreground flex items-center justify-start px-0.5 text-sm">
-              <span className="text-sm">No chats yet</span>
-            </div>
-          ) : (
-            chats.map((chat: Chat) => { // Added explicit type for chat
-              const isActive = chat.id === currentChatId;
+      <CommandDialog open={isCommandOpen} onOpenChange={setIsCommandOpen}>
+        <CommandInput placeholder="Search chats or type a command..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          {/* You can add command items here if needed */}
+        </CommandList>
+      </CommandDialog>
 
-              return (
-                <SidebarMenuItem key={chat.id}>
-                  <SidebarMenuButton
-                    asChild
-                  >
-                    <a
-                      href={`/chat/${chat.id}`}
-                      title={chat.title}
-                      onMouseEnter={() => prefetchChat(chat.id)}
-                    >
-                      <MessageSquare />
-                      <span className="w-[170px] truncate">{chat.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <SidebarMenuAction showOnHover className="hover:bg-background hover:text-sidebar-accent-foreground group-hover:border group-hover:dark:border-none">
-                        <MoreHorizontal />
-                        <span className="sr-only">More</span>
-                      </SidebarMenuAction>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      className="w-56 rounded-lg"
-                      side={isMobile ? "bottom" : "right"}
-                      align={isMobile ? "end" : "start"}
-                    >
-                      <DropdownMenuItem onClick={() => handleRename(chat.id, chat.title)}>
-                        <Edit2 className="text-muted-foreground" />
-                        <span>Rename</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleTogglePin(chat.id, !!chat.isPinned)}>
-                        {chat.isPinned ? (
-                          <>
-                            <StarOff className="text-muted-foreground" />
-                            <span>Unpin</span>
-                          </>
-                        ) : (
-                          <>
-                            <svg className="text-muted-foreground" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                            </svg>
-                            <span>Pin</span>
-                          </>
-                        )}
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => handleCopyLink(chat.id)}>
-                        <Link className="text-muted-foreground" />
-                        <span>Copy Link</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleOpenNewTab(chat.id)}>
-                        <ArrowUpRight className="text-muted-foreground" />
-                        <span>Open in New Tab</span>
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => handleDelete(chat.id, chat.title)}>
-                        <Trash2 className="text-muted-foreground" />
-                        <span>Delete</span>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </SidebarMenuItem>
-              );
-            })
+      <SidebarGroup>
+        <div className="flex items-center justify-between p-2">
+          <SidebarGroupLabel>Chats</SidebarGroupLabel>
+          <div className="flex items-center gap-1">
+            <Button variant="ghost" size="icon" className="size-7" onClick={() => setIsCommandOpen(true)}>
+              <Search className="size-3.5" />
+            </Button>
+            {/* Add other actions here if needed */}
+          </div>
+        </div>
+        <SidebarMenu>
+          {pinnedChats.length === 0 && unpinnedChats.length === 0 && !isLoading && (
+            <div className="p-4 text-center text-sm text-muted-foreground">
+              No chats yet. Start a new conversation!
+            </div>
+          )}
+
+          {pinnedChats.length > 0 && (
+            <>
+              {/* <SidebarGroupLabel className="text-xs px-2 pt-2 text-muted-foreground">Pinned</SidebarGroupLabel> */}
+              {pinnedChats.map((chat) => (
+                <SidebarMenuItem
+                  key={chat.id}
+                  chatId={chat.id}
+                  href={`/chat/${chat.id}`}
+                  title={chat.title || chat.name || "Untitled Chat"}
+                  emoji={chat.emoji || "💬"}
+                  isActive={currentChatId === chat.id}
+                  isMobile={isMobile}
+                  isPinned={true} // Pass isPinned status
+                  onRename={() => handleRename(chat.id, chat.title || chat.name || "Untitled Chat")}
+                  onDelete={() => handleDelete(chat.id, chat.title || chat.name || "Untitled Chat")}
+                  onCopyLink={() => handleCopyLink(chat.id)}
+                  onOpenNewTab={() => handleOpenNewTab(chat.id)}
+                  onTogglePin={() => handleTogglePin(chat.id, chat.isPinned || false)}
+                />
+              ))}
+            </>
+          )}
+
+          {unpinnedChats.length > 0 && (
+            <>
+              {/* {pinnedChats.length > 0 && <SidebarGroupLabel className="text-xs px-2 pt-3 text-muted-foreground">Recent</SidebarGroupLabel>} */}
+              {unpinnedChats.map((chat) => (
+                <SidebarMenuItem
+                  key={chat.id}
+                  chatId={chat.id}
+                  href={`/chat/${chat.id}`}
+                  title={chat.title || chat.name || "Untitled Chat"}
+                  emoji={chat.emoji || "💬"}
+                  isActive={currentChatId === chat.id}
+                  isMobile={isMobile}
+                  isPinned={false} // Pass isPinned status
+                  onRename={() => handleRename(chat.id, chat.title || chat.name || "Untitled Chat")}
+                  onDelete={() => handleDelete(chat.id, chat.title || chat.name || "Untitled Chat")}
+                  onCopyLink={() => handleCopyLink(chat.id)}
+                  onOpenNewTab={() => handleOpenNewTab(chat.id)}
+                  onTogglePin={() => handleTogglePin(chat.id, chat.isPinned || false)}
+                />
+              ))}
+            </>
           )}
         </SidebarMenu>
       </SidebarGroup>
 
-      <CommandDialog
-        open={isCommandOpen}
-        onOpenChange={setIsCommandOpen}
-      >
-        <DialogHeader>
-          <DialogTitle></DialogTitle>
-        </DialogHeader>
-        <CommandInput placeholder="Search chats..." />
-        <CommandList>
-          <CommandEmpty>No chats found.</CommandEmpty>
-          <CommandGroup>
-            {chats.map((chat: Chat) => ( // Added explicit type for chat
-              <CommandItem
-                key={chat.id}
-                onSelect={() => handleSearch(chat.id)}
-                className="flex items-center"
-              >
-                <MessageSquare className="mr-2 size-4" />
-                {chat.title}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </CommandList>
-      </CommandDialog>
-
+      {/* Rename Dialog */}
       <Dialog open={isRenameOpen} onOpenChange={setIsRenameOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Rename Chat</DialogTitle>
             <DialogDescription>
-              Enter a new name for this chat
+              Enter a new title for &quot;{selectedChat?.title}&quot;.
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Input
-              value={newTitle}
-              onChange={(e: any) => setNewTitle(e.target.value)} // Added explicit any for e
-              placeholder="Enter new title"
-              onKeyDown={(e: any) => { // Added explicit any for e
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  confirmRename();
-                }
-              }}
-              autoFocus
-            />
-          </div>
+          <Input
+            value={newTitle}
+            onChange={(e) => setNewTitle(e.target.value)}
+            placeholder="New chat title"
+          />
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsRenameOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={confirmRename}>Save Changes</Button>
+            <Button variant="outline" onClick={() => setIsRenameOpen(false)}>Cancel</Button>
+            <Button onClick={confirmRename}>Rename</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
+      {/* Delete Confirmation Dialog */}
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>Delete Chat</DialogTitle>
             <DialogDescription>
@@ -494,15 +440,11 @@ export function History() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>
-              Cancel
-            </Button>
-            <Button variant="destructive" onClick={confirmDelete}>
-              Delete
-            </Button>
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)}>Cancel</Button>
+            <Button variant="destructive" onClick={confirmDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }

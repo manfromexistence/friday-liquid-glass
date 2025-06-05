@@ -10,9 +10,10 @@ import type { Message } from "../../types/chat"
 import { cn, lt } from "../../lib/utils"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from "uuid"
-import { doc, setDoc } from "firebase/firestore"
-import { db } from "../../lib/firebase/config"
-import { useAuth } from "../../lib/contexts/auth-context"
+import { authClient } from "@/lib/auth-client"; // Assuming this is your Better Auth client
+import { db } from "@/lib/db"; // Drizzle client
+import { chats as chatsTable } from "@/lib/db/schema"; // Drizzle chats schema
+import { useAuth } from "../../hooks/use-auth"
 import { toast } from "sonner"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useAIModelStore } from "../../store/ai-model-store"
@@ -208,7 +209,7 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
       }
 
       // Store chat data in Firestore
-      await setDoc(doc(db, "chats", chatId), chatData)
+      await db.insert(chatsTable).values(chatData).execute()
 
       // Store the input value and selected AI model in sessionStorage
       sessionStorage.setItem("initialPrompt", trimmedValue)
