@@ -27,16 +27,20 @@ function getLocale(request: NextRequest): string | undefined {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
-  // // If you have one
-  // if (
-  //   [
-  //     '/manifest.json',
-  //     '/favicon.ico',
-  //     // Your other files in `public`
-  //   ].includes(pathname)
-  // )
-  //   return
+  // `/_next/` and `/api/` are ignored by the watcher, but we need to ignore files in `public` manually.
+  // Check if the pathname is for a static asset/public file
+  if (
+    [
+      '/manifest.json',
+      '/favicon.ico',
+      '/favicon-32x32.png',
+      '/favicon-16x16.png',
+      '/opengraph-image.png',
+      '/Doraemon.jpg',
+    ].includes(pathname) || 
+    pathname.match(/\.(ico|png|jpg|jpeg|gif|svg|webp|mp3|mp4|webm|ogg|pdf|css|js)$/)
+  )
+    return
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = i18n.locales.every(
@@ -66,6 +70,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Matcher ignoring `/_next/` and `/api/`
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+  // Matcher ignoring `/_next/`, `/api/` and static files
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|public/).*)"],
 };

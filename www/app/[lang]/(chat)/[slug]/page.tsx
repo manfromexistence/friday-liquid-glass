@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/auth-context";
 import LoadingAnimation from "@/components/chat/loading-animation";
 import { db } from "@/lib/firebase/config";
 import { doc, getDoc, setDoc, onSnapshot, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar";
 import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar";
 import { aiService } from "@/lib/services/ai-service";
@@ -18,6 +18,7 @@ import type { Message } from "@/types/chat";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useAIModelStore } from "@/store/ai-model-store";
+import { useChatInputStore } from "@/store/chat-store";
 import { stripPrefixes } from "@/lib/utils";
 
 const MIN_HEIGHT = 48;
@@ -104,35 +105,30 @@ type Params = {
 export default function ChatPage() {
   const { user } = useAuth();
   const params = useParams<Params>() ?? { slug: "" };
-  const [isValidating, setIsValidating] = useState(true);
   const queryClient = useQueryClient();
   const { statecategorysidebar } = useCategorySidebar();
   const { statesubcategorysidebar } = useSubCategorySidebar();
-
-  // Use Zustand store directly
+  // Use Zustand stores for state management
   const { currentModel, setModel } = useAIModelStore();
+  const { 
+    value, setValue,
+    inputHeight, setInputHeight,
+    showSearch, setShowSearch, toggleSearch,
+    showResearch, setShowResearch, toggleResearch,
+    showThinking, setShowThinking, toggleThinking,
+    imagePreview, setImagePreview,
+    chatState, setChatState
+  } = useChatInputStore();
 
-  const [value, setValue] = useState("");
+  // Local state for session-specific variables
   const messagesEndRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
-  // Remove this line: const [selectedAI, setSelectedAI] = useState(aiService.currentModel);
-  const [sessionId, setSessionId] = useState<string>(params.slug);
-  const [initialResponseGenerated, setInitialResponseGenerated] = useState(false);
+  const [sessionId, setSessionId] = React.useState<string>(params.slug);
+  const [initialResponseGenerated, setInitialResponseGenerated] = React.useState(false);
+  const [isValidating, setIsValidating] = React.useState(true);
 
   const { textareaRef, adjustHeight } = useAutoResizeTextarea({
     minHeight: MIN_HEIGHT,
     maxHeight: MAX_HEIGHT,
-  });
-
-  const [inputHeight, setInputHeight] = useState(MIN_HEIGHT);
-  const [showSearch, setShowSearch] = useState(false);
-  const [showResearch, setShowReSearch] = useState(false);
-  const [showThinking, setShowThinking] = useState(false);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-
-  const [chatState, setChatState] = useState<ChatState>({
-    messages: [],
-    isLoading: false,
-    error: null,
   });
 
   useEffect(() => {
@@ -149,13 +145,14 @@ export default function ChatPage() {
           console.log("Received chat data update:", data);
 
           if (data?.messages) {
-            setChatState((prev) => ({
-              ...prev,
+            // Use Zustand's actions directly
+            useChatInputStore.getState().setChatState({
+              ...chatState,
               messages: data.messages,
-            }));
+            });
           }
 
-          // Update this to use Zustand setModel
+          // Update model if needed
           if (data?.model && currentModel !== data.model) {
             setModel(data.model);
           }
@@ -163,17 +160,15 @@ export default function ChatPage() {
       },
       (error) => {
         console.error("Error listening to chat updates:", error);
-        setChatState((prev) => ({
-          ...prev,
-          error: "Failed to receive message updates",
-          isLoading: false,
-        }));
+        // Use Zustand's actions directly
+        useChatInputStore.getState().setError("Failed to receive message updates");
+        useChatInputStore.getState().setLoading(false);
         toast.error("Failed to receive message updates");
       }
     );
 
     return () => unsubscribe();
-  }, [sessionId, currentModel, setModel]);
+  }, [sessionId, currentModel, chatState, setModel]);
 
   useEffect(() => {
     const shouldGenerateResponse = sessionStorage.getItem("autoSubmit") === "true";
@@ -188,14 +183,15 @@ export default function ChatPage() {
     ) {
       const generateInitialResponse = async () => {
         try {
-          setChatState((prev) => ({ ...prev, isLoading: true }));
+          // Use Zustand's setLoading directly
+          useChatInputStore.getState().setLoading(true);
           sessionStorage.removeItem("autoSubmit");
           sessionStorage.removeItem("initialPrompt");
           setInitialResponseGenerated(true);
 
           const lastMessage = chatState.messages[chatState.messages.length - 1];
           if (lastMessage.role !== "user") {
-            setChatState((prev) => ({ ...prev, isLoading: false }));
+            useChatInputStore.getState().setLoading(false);
             return;
           }
 
@@ -217,7 +213,7 @@ export default function ChatPage() {
           const assistantMessage: Message = {
             ...assistantMessageBase,
             ...(typeof aiResponse !== "string" && aiResponse.image_urls?.length > 0
-              ? { image_urls: aiResponse.image_urls.filter(url => typeof url === "string") } // Changed from image_ids to image_urls
+              ? { image_urls: aiResponse.image_urls.filter(url => typeof url === "string") } 
               : {}),
             ...(typeof aiResponse === "string" && lastMessage.content.includes("reasoning")
               ? { reasoning: { thinking: "Processing...", answer: aiResponse } }
@@ -236,14 +232,13 @@ export default function ChatPage() {
             updatedAt: Timestamp.fromDate(new Date()),
           });
 
-          setChatState((prev) => ({ ...prev, isLoading: false }));
+          // Use Zustand's setLoading directly
+          useChatInputStore.getState().setLoading(false);
         } catch (error) {
           console.error("Error generating initial response:", error);
-          setChatState((prev) => ({
-            ...prev,
-            isLoading: false,
-            error: "Failed to generate AI response",
-          }));
+          // Use Zustand's setLoading and setError actions
+          useChatInputStore.getState().setLoading(false);
+          useChatInputStore.getState().setError("Failed to generate AI response");
           toast.error("Failed to generate initial AI response");
         }
       };
@@ -256,11 +251,9 @@ export default function ChatPage() {
     if (!value.trim() || !sessionId || chatState.isLoading) return;
 
     try {
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: true,
-        error: null,
-      }));
+      // Use Zustand's setLoading and setError actions directly
+      useChatInputStore.getState().setLoading(true);
+      useChatInputStore.getState().setError(null);
 
       // Use the stripPrefixes utility function to clean the input
       const processedValue = stripPrefixes(value.trim());
@@ -285,7 +278,7 @@ export default function ChatPage() {
       const userMessage: Message = {
         id: crypto.randomUUID(),
         role: "user",
-        content: processedValue, // CHANGE HERE: use processedValue instead of value.trim()
+        content: processedValue,
         timestamp: new Date().toISOString(),
       };
 
@@ -332,7 +325,7 @@ export default function ChatPage() {
       }
 
       const startTime = Date.now();
-      const aiResponse: string | AIResponse = await aiService.generateResponse(processedValue); // Use processed value here too
+      const aiResponse: string | AIResponse = await aiService.generateResponse(processedValue);
       console.log("Raw aiResponse (handleSubmit):", aiResponse);
 
       const elapsedTime = Date.now() - startTime;
@@ -349,7 +342,7 @@ export default function ChatPage() {
 
       let image_urls: string[] = [];
       if (typeof aiResponse !== "string" && aiResponse.image_urls?.length > 0) {
-        image_urls = aiResponse.image_urls.filter(url => typeof url === "string"); // Changed from id to url
+        image_urls = aiResponse.image_urls.filter(url => typeof url === "string");
       }
 
       let reasoning = null;
@@ -378,14 +371,13 @@ export default function ChatPage() {
         updatedAt: Timestamp.fromDate(new Date()),
       });
 
-      setChatState((prev) => ({ ...prev, isLoading: false }));
+      // Use Zustand's setLoading directly
+      useChatInputStore.getState().setLoading(false);
     } catch (error) {
       console.error("Error in handleSubmit:", error);
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: error instanceof Error ? error.message : "Failed to get AI response",
-      }));
+      // Use Zustand's setLoading and setError actions
+      useChatInputStore.getState().setLoading(false);
+      useChatInputStore.getState().setError(error instanceof Error ? error.message : "Failed to get AI response");
       toast.error("Failed to get AI response");
     }
   };
@@ -396,11 +388,9 @@ export default function ChatPage() {
     type: string = "url_analysis"
   ): Promise<void> => {
     try {
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: true,
-        error: null,
-      }));
+      // Use Zustand's setLoading and setError actions directly
+      useChatInputStore.getState().setLoading(true);
+      useChatInputStore.getState().setError(null);
 
       const userMessage: Message = {
         id: crypto.randomUUID(),
@@ -459,17 +449,44 @@ export default function ChatPage() {
         updatedAt: Timestamp.fromDate(new Date()),
       });
 
-      setChatState((prev) => ({ ...prev, isLoading: false }));
+      // Use Zustand's setLoading directly
+      useChatInputStore.getState().setLoading(false);
     } catch (error) {
       console.error("Error in URL analysis:", error);
-      setChatState((prev) => ({
-        ...prev,
-        isLoading: false,
-        error: error instanceof Error ? error.message : "Failed to analyze URL content",
-      }));
+      // Use Zustand's setLoading and setError actions
+      useChatInputStore.getState().setLoading(false);
+      useChatInputStore.getState().setError(error instanceof Error ? error.message : "Failed to analyze URL content");
       toast.error("Failed to analyze content");
     }
   };
+
+  // Add AI generation function using the AI service
+  const handleAIGenerate = useCallback(async (prompt: string, messages: any[] = []) => {
+    try {
+      // Use Zustand's setLoading directly
+      useChatInputStore.getState().setLoading(true);
+      
+      // Call AI service to generate response
+      const aiResponse = await aiService.generateResponse(prompt);
+      
+      // Process response
+      const formattedResponse = typeof aiResponse === "string" 
+        ? aiResponse 
+        : aiResponse.text_response;
+      
+      // Use Zustand's setLoading directly
+      useChatInputStore.getState().setLoading(false);
+      
+      return formattedResponse;
+    } catch (error) {
+      console.error("Error generating AI response:", error);
+      // Use Zustand's setLoading and setError actions
+      useChatInputStore.getState().setLoading(false);
+      useChatInputStore.getState().setError("Failed to generate AI response");
+      toast.error("Failed to generate AI response");
+      return null;
+    }
+  }, []);
 
   const handleAdjustHeight = useCallback(
     (reset = false) => {
@@ -477,13 +494,18 @@ export default function ChatPage() {
 
       if (reset) {
         textareaRef.current.style.height = `${MIN_HEIGHT}px`;
+        setInputHeight(MIN_HEIGHT);
         return;
       }
 
       const scrollHeight = textareaRef.current.scrollHeight;
-      textareaRef.current.style.height = `${Math.min(scrollHeight, MAX_HEIGHT)}px`;
+      const newHeight = Math.min(scrollHeight, MAX_HEIGHT);
+      textareaRef.current.style.height = `${newHeight}px`;
+      
+      // Update input height in Zustand store
+      setInputHeight(newHeight);
     },
-    [textareaRef]
+    [textareaRef, setInputHeight]
   );
 
   // if (!user) {
@@ -507,8 +529,7 @@ export default function ChatPage() {
         messagesEndRef={messagesEndRef}
         isThinking={chatState.isLoading}
         selectedAI={currentModel}
-      />
-      <ChatInput
+      />      <ChatInput
         className="absolute bottom-4 left-1/2 z-50 -translate-x-1/2 md:bottom-2"
         value={value}
         chatState={chatState}
@@ -522,12 +543,13 @@ export default function ChatPage() {
         onSubmit={handleSubmit}
         onChange={setValue}
         onHeightChange={handleAdjustHeight}
-        onSearchToggle={() => setShowSearch(!showSearch)}
-        onResearchToggle={() => setShowReSearch(!showResearch)}
-        onThinkingToggle={() => setShowThinking(!showThinking)}
+        onSearchToggle={toggleSearch}
+        onResearchToggle={toggleResearch}
+        onThinkingToggle={toggleThinking}
         onUrlAnalysis={handleURLAnalysis}
-        onImageChange={(file) =>
-          file ? setImagePreview(URL.createObjectURL(file)) : setImagePreview(null)
+        onAIGenerate={handleAIGenerate}
+        onImageChange={(file) => 
+          setImagePreview(file ? URL.createObjectURL(file) : null)
         }
       />
     </div>
