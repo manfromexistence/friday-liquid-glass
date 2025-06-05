@@ -60,8 +60,7 @@ export function SignIn() {
       </CardDescription>
     </CardHeader>
       <CardContent className="py-0">
-        <div className="grid gap-4">          <div className="grid gap-2">
-          <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
+        <div className="grid gap-4">          <div className="grid gap-2">          <Label htmlFor="email" ref={undefined} className={undefined}>Email</Label>
           <Input
             id="email"
             type="email"
@@ -73,8 +72,7 @@ export function SignIn() {
             value={email} />
         </div>
           <div className="grid gap-2">
-            <div className="flex items-center">
-              <Label htmlFor="password" ref={undefined} className={undefined}>Password</Label>
+            <div className="flex items-center">              <Label htmlFor="password" ref={undefined} className={undefined}>Password</Label>
               <Link
                 href="#"
                 className="ml-auto inline-block text-sm underline"
@@ -86,7 +84,7 @@ export function SignIn() {
             <Input
               id="password"
               type="password"
-              placeholder="Password"
+              placeholder={lt("authentication.password-placeholder", "Password")}
               autoComplete="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)} ref={undefined} />

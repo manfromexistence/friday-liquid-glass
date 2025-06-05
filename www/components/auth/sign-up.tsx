@@ -100,8 +100,7 @@ export function SignUp() {
   }
 
   return (
-    <Card className="rounded-md max-w-md">
-      <CardHeader>
+    <Card className="rounded-md max-w-md">      <CardHeader>
         <CardTitle className="text-lg md:text-xl">{lt("authentication.sign-up")}</CardTitle>
         <CardDescription className="text-xs md:text-sm">
           {lt("authentication.enter-signup-details")}
@@ -109,23 +108,20 @@ export function SignUp() {
       </CardHeader>
       <CardContent className="py-0">
         <div className="grid gap-4">          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="first-name">{lt("authentication.first-name")}</Label>
+            <div className="grid gap-2">              <Label htmlFor="first-name">First name</Label>
               <Input
                 id="first-name"
-                placeholder={lt("authentication.first-name-placeholder")}
+                placeholder="First name"
                 required
                 onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
                 value={firstName}
               />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="last-name">{lt("authentication.last-name")}</Label>
+            </div>            <div className="grid gap-2">              <Label htmlFor="last-name">Last name</Label>
               <Input
                 id="last-name"
-                placeholder={lt("authentication.last-name-placeholder")}
+                placeholder="Last name"
                 required
                 onChange={(e) => {
                   setLastName(e.target.value);
@@ -133,50 +129,42 @@ export function SignUp() {
                 value={lastName}
               />
             </div>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">{lt("authentication.email-label")}</Label>
+          </div>          <div className="grid gap-2">            <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               type="email"
-              placeholder={lt("authentication.email-placeholder")}
+              placeholder="Email"
               required
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
               value={email}
             />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">{lt("authentication.password-label")}</Label>
+          </div>          <div className="grid gap-2">            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="new-password"
-              placeholder={lt("authentication.password-placeholder")}
+              placeholder="Password"
             />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">{lt("authentication.confirm-password")}</Label>
+          </div>          <div className="grid gap-2">            <Label htmlFor="password_confirmation">Confirm Password</Label>
             <Input
               id="password_confirmation"
               type="password"
               value={passwordConfirmation}
               onChange={(e) => setPasswordConfirmation(e.target.value)}
               autoComplete="new-password"
-              placeholder={lt("authentication.confirm-password-placeholder")}
+              placeholder="Confirm your password"
             />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="image">{lt("authentication.profile-image-optional")}</Label>
+          </div>          <div className="grid gap-2">            <Label htmlFor="image">Profile Image (optional)</Label>
             <div className="flex items-end gap-4">
               {imagePreview && (
                 <div className="relative w-16 h-16 rounded-sm overflow-hidden">
                   <Image
                     src={imagePreview}
-                    alt={lt("authentication.profile-preview-alt")}
+                    alt="Profile preview"
                     layout="fill"
                     objectFit="cover"
                   />

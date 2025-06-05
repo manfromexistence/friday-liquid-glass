@@ -18,8 +18,7 @@
     "profile": "Profile",
     "dashboard": "Dashboard",
     "analytics": "Analytics"
-  },
-  "authentication": {
+  },  "authentication": {
     "sign-in": "Sign In",
     "sign-up": "Sign Up",
     "forgot-password": "Forgot Password?",
