@@ -71,6 +71,17 @@ const getModelDisplayName = (modelId: string): string => {
   return `${family} ${version}${details ? ` ${details}` : ''}`.trim();
 };
 
+// Add a helper function to get short display name for mobile screens
+const getShortModelDisplayName = (modelId: string): string => {
+  // Get family name (first part) and version
+  const parts = modelId.split('-');
+  const family = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+  const version = parts.length > 1 ? parts[1] : "";
+  
+  // Return abbreviated name like "Gemini 2.5" or "Gemma 3"
+  return `${family} ${version}`;
+};
+
 interface AIModel {
   value: string;
   label: string;
@@ -948,7 +959,7 @@ export function InputActions({
   return (
     <div className="flex h-12 flex-row justify-between rounded-b-xl border-t px-2.5">
       <div className="flex h-full flex-row items-center gap-1.5">
-        <div className="xs:flex hover:bg-primary-foreground hidden h-8 items-center justify-center gap-1 rounded-md border px-1.5">
+        <div className="hover:bg-primary-foreground h-8 items-center justify-center gap-1 rounded-md border px-1.5">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -1006,12 +1017,14 @@ export function InputActions({
               )}
             >
               <div className="px-2 h-full w-full flex items-center justify-center">
-                <Sparkles className="size-3.5 mr-1" />
-                <span className="hidden sm:inline-block max-w-[120px] truncate">
+                <Sparkles className="size-3.5 mr-1 flex-shrink-0" />
+                <span className="hidden sm:inline-block max-w-[100px] truncate overflow-hidden overflow-ellipsis whitespace-nowrap">
                   {getModelDisplayName(localSelectedAI)}
                 </span>
-                <span className="sm:hidden">Model</span>
-                <ChevronDown className="size-3 ml-0.5 mt-0.5 text-muted-foreground" />
+                <span className="sm:hidden max-w-[60px] truncate overflow-hidden overflow-ellipsis whitespace-nowrap">
+                  {getShortModelDisplayName(localSelectedAI)}
+                </span>
+                <ChevronDown className="size-3 ml-0.5 mt-0.5 text-muted-foreground flex-shrink-0" />
               </div>
             </div>
           </DropdownMenuTrigger>
