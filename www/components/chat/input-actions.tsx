@@ -31,7 +31,7 @@ import { personas } from "../../lib/models";
 import { Message, Chat } from "../../types/chat";
 import { generateChatCompletion, generateImage, transcribeAudio } from "../../lib/ai-actions";
 import { bebidasDisponibles, herramientasDisponibles, modelosDisponibles, personasDisponibles } from "../../lib/available-options";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 // Import Zustand stores
 import { useChatInputStore } from "../../store/chat-store";
 import { useAIModelStore } from "../../store/ai-model-store";
