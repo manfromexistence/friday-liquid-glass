@@ -9,3 +9,4 @@ const tursoClient = createClient({
 });
 
 export const db = drizzle(tursoClient, { schema });
+

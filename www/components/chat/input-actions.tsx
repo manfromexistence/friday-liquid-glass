@@ -19,9 +19,7 @@ import { db as drizzleDb } from "@/lib/db"; // Drizzle client
 import { chats as chatsTable, user as userTable } from "@/lib/db/schema"; // Drizzle schemas
 import { eq } from "drizzle-orm";
 import { v4 as uuidv4 } from 'uuid';
-// Firebase imports
-import { db } from "../../lib/firebase";
-import { doc, updateDoc, collection, getDocs, addDoc } from "firebase/firestore";
+
 import ImagePreview from "./image-preview";
 import MarkdownPreview from "./markdown-preview";
 import { modelos } from "../../lib/models";
@@ -641,17 +639,13 @@ export function InputActions({
       onInsertText(`${prefixes["image-gen"]}:`, "image-gen");
     }
 
-    localStorage.setItem("previousModel", currentModel || "gemini-2.0-flash");
-
-    try {
+    localStorage.setItem("previousModel", currentModel || "gemini-2.0-flash");    try {
       const currentChatId = window.location.pathname.split("/").pop();
       if (currentChatId) {
-        const chatRef = doc(db, "chats", currentChatId);
-        await updateDoc(chatRef, { model: imageGenModel });
-        console.log("Firestore model updated to:", imageGenModel);
+        await updateChatModel(currentChatId, imageGenModel);
       }
     } catch (error) {
-      console.error("Failed to update Firestore model:", error);
+      console.error("Failed to update chat model:", error);
     }
 
     toast({
@@ -758,17 +752,13 @@ export function InputActions({
 
       if (onInsertText) {
         onInsertText(`${prefixes["search-mode"]}:`, "search-mode");
-      }
-
-      try {
+      }      try {
         const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
-          const chatRef = doc(db, "chats", currentChatId);
-          await updateDoc(chatRef, { model: searchModel });
-          console.log("Firestore model updated to:", searchModel);
+          await updateChatModel(currentChatId, searchModel);
         }
       } catch (error) {
-        console.error("Failed to update Firestore model:", error);
+        console.error("Failed to update chat model:", error);
       }
 
       toast({
@@ -781,9 +771,7 @@ export function InputActions({
       setLocalSelectedAI(prevModel);
 
       setActiveCommandMode(null);
-      localStorage.removeItem("activeCommand");
-
-      if (value && value.startsWith("Search")) {
+      localStorage.removeItem("activeCommand");      if (value && value.startsWith("Search")) {
         if (onInsertText) {
           onInsertText("", "");
         }
@@ -792,12 +780,10 @@ export function InputActions({
       try {
         const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
-          const chatRef = doc(db, "chats", currentChatId);
-          await updateDoc(chatRef, { model: prevModel });
-          console.log("Firestore model updated to:", prevModel);
+          await updateChatModel(currentChatId, prevModel);
         }
       } catch (error) {
-        console.error("Failed to update Firestore model:", error);
+        console.error("Failed to update chat model:", error);
       }
 
       toast({
@@ -821,17 +807,13 @@ export function InputActions({
 
       if (onInsertText) {
         onInsertText(`${prefixes["research-mode"]}:`, "research-mode");
-      }
-
-      try {
+      }      try {
         const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
-          const chatRef = doc(db, "chats", currentChatId);
-          await updateDoc(chatRef, { model: thinkingModel });
-          console.log("Firestore model updated to:", thinkingModel);
+          await updateChatModel(currentChatId, thinkingModel);
         }
       } catch (error) {
-        console.error("Failed to update Firestore model:", error);
+        console.error("Failed to update chat model:", error);
       }
 
       toast({
@@ -844,9 +826,7 @@ export function InputActions({
       setLocalSelectedAI(prevModel);
 
       setActiveCommandMode(null);
-      localStorage.removeItem("activeCommand");
-
-      if (value && value.startsWith("Research")) {
+      localStorage.removeItem("activeCommand");      if (value && value.startsWith("Research")) {
         if (onInsertText) {
           onInsertText("", "");
         }
@@ -855,12 +835,10 @@ export function InputActions({
       try {
         const currentChatId = window.location.pathname.split("/").pop();
         if (currentChatId) {
-          const chatRef = doc(db, "chats", currentChatId);
-          await updateDoc(chatRef, { model: prevModel });
-          console.log("Firestore model updated to:", prevModel);
+          await updateChatModel(currentChatId, prevModel);
         }
       } catch (error) {
-        console.error("Failed to update Firestore model:", error);
+        console.error("Failed to update chat model:", error);
       }
 
       toast({
@@ -870,6 +848,23 @@ export function InputActions({
       });
     }
   };
+
+  // Helper function to update chat model in database
+  async function updateChatModel(chatId: string, model: string) {
+    try {
+      await drizzleDb
+        .update(chatsTable)
+        .set({ 
+          model,
+          updatedAt: new Date().toISOString()
+        })
+        .where(eq(chatsTable.id, chatId));
+      console.log("Chat model updated to:", model);
+    } catch (error) {
+      console.error("Failed to update chat model:", error);
+      throw error;
+    }
+  }
 
   return (
     <div className="flex h-12 flex-row justify-between rounded-b-xl border-t px-2.5">

@@ -154,3 +154,4 @@ export const chats = sqliteTable("chats", {
 });
 
 export const schema = { user, session, account, verification, passkey, organization, member, invitation, twoFactor, chats };
+
