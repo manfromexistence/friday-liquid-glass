@@ -600,12 +600,10 @@ export function InputActions({
       formattedMessages.push({
         role: 'user',
         parts: [{ text: prompt }]
-      });
-
-      // Use Google GenAI service for streaming response
+      });      // Use Google GenAI service for streaming response
       const response = await googleGenAIService.generateContentStream(
-        formattedMessages,
-        localSelectedAI
+        localSelectedAI,
+        formattedMessages
       );
 
       return response;
