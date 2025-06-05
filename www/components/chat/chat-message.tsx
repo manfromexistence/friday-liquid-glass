@@ -151,9 +151,9 @@ export const ChatMessage = memo(
             <div
               className={cn(
                 "hover:text-primary relative flex w-full items-center font-mono text-sm",
-                { "fade-out": isFadingOut }
+                isFadingOut && "fade-out" // Apply fade-out class conditionally
               )}
-              onTransitionEnd={onTransitionEnd}
+              onTransitionEnd={onTransitionEnd} // Ensure this fires when animation completes
             >
               {message.content === "thinking" ? (
                 <div className="thinking-content">

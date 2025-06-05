@@ -297,6 +297,7 @@ export default function ChatPage() {
     }
   }, [sessionId, chatState.messages, chatState.isLoading, initialResponseGenerated, setModel]);
 
+  // Modify the handleSubmit function to properly manage thinking state
   const handleSubmit = async () => {
     if (!value.trim() || !chatId || chatState.isLoading) return;
     if (!user || !user.user) {
@@ -306,13 +307,16 @@ export default function ChatPage() {
       });
       return;
     }
+    
+    // Set both local and global thinking states
+    setChatState(prevState => ({
+      ...prevState,
+      isLoading: true,
+      error: null
+    }));
+    toggleThinking(true); // Set global thinking state
+    
     try {
-      setChatState(prevState => ({
-        ...prevState,
-        isLoading: true,
-        error: null
-      }));
-      
       const processedValue = stripPrefixes(value.trim());
       const userMessage: Message = {
         id: uuidv4(),
@@ -362,17 +366,29 @@ export default function ChatPage() {
         error: "Failed to send message"
       }));
       toast.error("Failed to send message");
+    } finally {
+      // Clear thinking state if there was an error
+      // (success case is handled in handleAIResponse)
+      if (chatState.error) {
+        setChatState(prevState => ({
+          ...prevState,
+          isLoading: false
+        }));
+        toggleThinking(false); // Clear global thinking state
+      }
     }
   };
 
-  // New function to handle AI response generation
+  // Modify handleAIResponse to properly manage thinking state
   const handleAIResponse = async (userInput: string) => {
     try {
+      // Set both local and global thinking states
       setChatState(prevState => ({
         ...prevState,
         isLoading: true
       }));
-
+      toggleThinking(true); // Ensure global thinking state is set
+      
       // Call AI service with proper typing
       const aiResponse = await aiService.generateResponse(userInput);
       
@@ -414,12 +430,13 @@ export default function ChatPage() {
         })
         .where(eq(chatsTable.id, chatId));
       
-      // Update local state
+      // Update local state and clear thinking state
       setChatState(prevState => ({
         ...prevState,
         messages: updatedMessages,
         isLoading: false
       }));
+      toggleThinking(false); // Clear global thinking state
     } catch (error) {
       console.error("Error generating AI response:", error);
       setChatState(prevState => ({
@@ -428,6 +445,13 @@ export default function ChatPage() {
         error: "Failed to generate AI response"
       }));
       toast.error("Failed to generate AI response");
+    } finally {
+      // Ensure thinking state is cleared even if there's an error
+      toggleThinking(false); // Clear global thinking state
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false
+      }));
     }
   };
 
@@ -437,12 +461,14 @@ export default function ChatPage() {
     type: string = "url_analysis"
   ): Promise<void> => {
     try {
+      // Set both local and global thinking states
       setChatState(prevState => ({
         ...prevState,
         isLoading: true,
         error: null
       }));
-
+      toggleThinking(true); // Set global thinking state
+      
       const userMessage: Message = {
         id: uuidv4(),
         role: "user",
@@ -535,6 +561,7 @@ export default function ChatPage() {
         messages: finalMessages,
         isLoading: false
       }));
+      toggleThinking(false); // Clear global thinking state
     } catch (error) {
       console.error("Error in URL analysis:", error);
       setChatState(prevState => ({
@@ -543,16 +570,21 @@ export default function ChatPage() {
         error: error instanceof Error ? error.message : "Failed to analyze URL content"
       }));
       toast.error("Failed to analyze content");
+    } finally {
+      // Ensure thinking state is cleared even if there's an error
+      toggleThinking(false); // Clear global thinking state
     }
   };
 
-  // Add AI generation function using the AI service
+  // Modify handleAIGenerate to properly manage thinking state
   const handleAIGenerate = useCallback(async (prompt: string, messages: any[] = []) => {
     try {
+      // Set both local and global thinking states
       setChatState(prevState => ({
         ...prevState,
         isLoading: true
       }));
+      toggleThinking(true); // Set global thinking state
       
       // Call AI service to generate response
       const aiResponse = await aiService.generateResponse(prompt);
@@ -566,6 +598,7 @@ export default function ChatPage() {
         ...prevState,
         isLoading: false
       }));
+      toggleThinking(false); // Clear global thinking state
       
       return formattedResponse;
     } catch (error) {
@@ -577,6 +610,9 @@ export default function ChatPage() {
       }));
       toast.error("Failed to generate AI response");
       return null;
+    } finally {
+      // Ensure thinking state is cleared even if there's an error
+      toggleThinking(false); // Clear global thinking state
     }
   }, []);
 
@@ -620,7 +656,7 @@ export default function ChatPage() {
         chatId={sessionId}
         messages={chatState.messages}
         messagesEndRef={messagesEndRef}
-        isThinking={chatState.isLoading}
+        isThinking={chatState.isLoading || showThinking} // Pass both states
         selectedAI={currentModel}
       />
       <ChatInput

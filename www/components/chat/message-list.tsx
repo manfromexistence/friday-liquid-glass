@@ -4,6 +4,7 @@ import { ChatMessage } from "./chat-message";
 import { ChevronDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { Button } from "../ui/button";
+import { useChatInputStore } from "../../store/chat-store";
 
 interface MessageListProps {
   chatId: string | null;
@@ -17,15 +18,18 @@ export function MessageList({
   chatId,
   messages,
   messagesEndRef,
-  isThinking,
+  isThinking = false,
   selectedAI = "",
 }: MessageListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [visibleMessages, setVisibleMessages] = useState<Message[]>(messages);
-  const [showThinking, setShowThinking] = useState(false);
+  const [localShowThinking, setLocalShowThinking] = useState(false);
   const [isFadingOut, setIsFadingOut] = useState(false);
   const previousScrollHeight = useRef<number>(0); // Track the previous scroll height
+  
+  // Access global thinking state from Zustand
+  const { showThinking, setShowThinking } = useChatInputStore();
 
   // Improve the scrollToBottom function to ensure it scrolls all the way
   const scrollToBottom = useCallback(() => {
@@ -44,12 +48,21 @@ export function MessageList({
     }
   }, []);
 
+  // Synchronize local state with prop and global state
   useEffect(() => {
-    if (isThinking) {
-      setShowThinking(true);
+    console.log("isThinking prop changed:", isThinking);
+    console.log("Global showThinking state:", showThinking);
+    
+    // Use either the prop or global state (prioritize the prop if provided)
+    const shouldShowThinking = isThinking || showThinking;
+    
+    if (shouldShowThinking) {
+      setLocalShowThinking(true);
       setIsFadingOut(false);
+      
       const lastMessage = messages[messages.length - 1];
       const needsThinkingIndicator = lastMessage && lastMessage.role === "user";
+      
       if (needsThinkingIndicator) {
         setVisibleMessages([
           ...messages,
@@ -63,25 +76,31 @@ export function MessageList({
       } else {
         setVisibleMessages([...messages]);
       }
-    } else if (showThinking) {
+    } else if (localShowThinking) {
+      // Only trigger fade-out if we were previously showing thinking
       setIsFadingOut(true);
     } else {
+      // Make sure visible messages are up to date
       setVisibleMessages([...messages]);
     }
-  }, [isThinking, messages, showThinking]);
+  }, [isThinking, showThinking, messages, localShowThinking]);
 
   const handleTransitionEnd = useCallback(() => {
     if (isFadingOut) {
-      setShowThinking(false);
+      console.log("Fade-out transition ended, removing thinking indicator");
+      setLocalShowThinking(false);
       setIsFadingOut(false);
       setVisibleMessages([...messages]);
+      
+      // Also update the global state
+      setShowThinking(false);
     }
-  }, [isFadingOut, messages]);
+  }, [isFadingOut, messages, setShowThinking]);
 
-  // Scroll to bottom when visibleMessages or showThinking changes
+  // Scroll to bottom when visibleMessages or thinking state changes
   useLayoutEffect(() => {
     scrollToBottom();
-  }, [visibleMessages, showThinking, scrollToBottom]);
+  }, [visibleMessages, localShowThinking, scrollToBottom]);
 
   // Enhance the ResizeObserver to better handle image loading
   useEffect(() => {

@@ -511,3 +511,9 @@
     scrollbar-color: hsl(var(--border)) transparent;
   }
 }
+
+/* Add this if it's not already defined */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+}
