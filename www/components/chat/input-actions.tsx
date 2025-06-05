@@ -314,10 +314,20 @@ export function InputActions({
     setIsLoadingProjects(true);
     try {
       // Use drizzleDb instead of Firebase collection
-      const projectsList = await drizzleDb
+      const projectsFromDb = await drizzleDb
         .select()
         .from(projectsTable)
         .orderBy(desc(projectsTable.createdAt));
+      
+      // Convert Date objects to timestamp numbers to match the Project interface
+      const projectsList = projectsFromDb.map(project => ({
+        ...project,
+        createdAt: project.createdAt instanceof Date 
+          ? project.createdAt.getTime() 
+          : typeof project.createdAt === 'string'
+            ? new Date(project.createdAt).getTime()
+            : project.createdAt
+      }));
       
       setProjects(projectsList);
     } catch (error) {
@@ -355,18 +365,18 @@ export function InputActions({
       // Get user ID from session or state
       const userId = "current-user-id"; // Replace with actual user ID retrieval
       
-      // Create project using Drizzle ORM
+      // Create project using Drizzle ORM - FIX: Use Date object instead of timestamp
       await drizzleDb.insert(projectsTable).values({
         id: projectId,
         name: newProjectName.trim(),
-        createdAt: new Date().getTime(),
+        createdAt: new Date(), // Changed from new Date().getTime()
         userId: userId
       });
       
       const newProject = {
         id: projectId,
         name: newProjectName.trim(),
-        createdAt: new Date().getTime()
+        createdAt: new Date().getTime() // Keep as timestamp for the UI state object
       };
 
       setProjects(prevProjects => [newProject, ...prevProjects]);
