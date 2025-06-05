@@ -20,15 +20,15 @@ import { chats as chatsTable, user as userTable, projects as projectsTable } fro
 import { eq, desc } from "drizzle-orm"; // Added desc for sorting
 import { v4 as uuidv4 } from 'uuid';
 
-import ImagePreview from "./image-preview";
-import MarkdownPreview from "./markdown-preview";
-import { modelos } from "../../lib/models";
-import { bebidas } from "../../lib/models";
-import { herramientas } from "../../lib/models";
-import { personas } from "../../lib/models";
-import { Message, Chat } from "../../types/chat";
-import { generateChatCompletion, generateImage, transcribeAudio } from "../../lib/ai-actions";
-import { bebidasDisponibles, herramientasDisponibles, modelosDisponibles, personasDisponibles } from "../../lib/available-options";
+// import ImagePreview from "./image-preview";
+// import MarkdownPreview from "./markdown-preview";
+// import { modelos } from "../../lib/models";
+// import { bebidas } from "../../lib/models";
+// import { herramientas } from "../../lib/models";
+// import { personas } from "../../lib/models";
+// import { Message, Chat } from "../../types/chat";
+// import { generateChatCompletion, generateImage, transcribeAudio } from "../../lib/ai-actions";
+// import { bebidasDisponibles, herramientasDisponibles, modelosDisponibles, personasDisponibles } from "../../lib/available-options";
 import { authClient } from "@/lib/auth/auth-client";
 // Import Zustand stores
 import { useChatInputStore } from "../../store/chat-store";
@@ -636,7 +636,7 @@ export function InputActions({
       }
       
       // Convert messages to Google GenAI format
-      const formattedMessages = messages.map(msg => ({
+      const formattedMessages:any = messages.map(msg => ({
         role: msg.role === 'user' ? 'user' : 'model',
         parts: [{ text: msg.content }]
       }));
@@ -646,7 +646,7 @@ export function InputActions({
         role: 'user',
         parts: [{ text: prompt }]
       });      // Use Google GenAI service for streaming response
-      const response = await googleGenAIService.generateContentStream(
+      const response:any = await googleGenAIService.generateContentStream(
         localSelectedAI,
         formattedMessages
       );
@@ -959,7 +959,7 @@ export function InputActions({
   return (
     <div className="flex h-12 flex-row justify-between rounded-b-xl border-t px-2.5">
       <div className="flex h-full flex-row items-center gap-1.5">
-        <div className="hover:bg-primary-foreground h-8 items-center justify-center gap-1 rounded-md border px-1.5">
+        <div className="flex hover:bg-primary-foreground h-8 items-center justify-center gap-1 rounded-md border px-1.5">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -1017,7 +1017,7 @@ export function InputActions({
               )}
             >
               <div className="px-2 h-full w-full flex items-center justify-center">
-                <Sparkles className="size-3.5 mr-1 flex-shrink-0" />
+                {/* <Sparkles className="size-3.5 mr-1 flex-shrink-0" /> */}
                 <span className="hidden sm:inline-block max-w-[100px] truncate overflow-hidden overflow-ellipsis whitespace-nowrap">
                   {getModelDisplayName(localSelectedAI)}
                 </span>
