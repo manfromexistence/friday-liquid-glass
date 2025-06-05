@@ -255,7 +255,7 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
 
       // Convert messages to Google GenAI format
       const formattedMessages = messages.map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'model',
+        role: msg.role === 'user' ? 'user' as const : 'model' as const,
         parts: [{ text: msg.content }]
       }));
 
