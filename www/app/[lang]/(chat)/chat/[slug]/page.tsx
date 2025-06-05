@@ -128,7 +128,7 @@ export default function ChatPage() {
     inputHeight, setInputHeight,
     showSearch, toggleSearch,
     showResearch, toggleResearch,
-    showThinking, toggleThinking,
+    showThinking, setShowThinking, toggleThinking,
     imagePreview, setImagePreview,
   } = useChatInputStore();
 
