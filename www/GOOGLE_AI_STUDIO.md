@@ -1,3 +1,209 @@
+# Input Actions
+```
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild disabled={isLoading}>
+            <div
+              className={cn(
+                "flex h-8 items-center justify-center gap-1.5 rounded-md transition-all text-xs border text-muted-foreground hover:bg-primary-foreground hover:text-primary",
+                isLoading && "cursor-not-allowed opacity-50"
+              )}
+            >
+              {selectedProject ? (
+                <div className={cn(
+                  "bg-primary-foreground text-primary px-2 h-full w-full flex items-center justify-center",
+                  isLoading && "cursor-not-allowed opacity-50"
+                )}>
+                  <FolderCogIcon className="size-3.5" />
+                  {/* <span className="max-w-[100px] truncate">{selectedProject.name}</span> */}
+                </div>
+              ) : (
+                <div className=" px-2 h-full w-full flex items-center justify-center">
+                  <FolderCogIcon className="size-3.5" />
+                  {/* <span>No project selected</span> */}
+                </div>
+              )}
+              {/* <ChevronDown className="size-3 ml-0.5 mt-0.5 text-muted-foreground" /> */}
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="start" className="w-56">
+            {isLoadingProjects ? (
+              <div className="flex items-center justify-center py-4">
+                <div className="size-5 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
+              </div>
+            ) : (
+              <>
+                {projects.length > 0 ? (
+                  <>
+                    <div className="px-2 pt-1 pb-2 text-xs font-medium text-muted-foreground">
+                      Your projects
+                    </div>
+                    {projects.map((project) => (
+                      <DropdownMenuItem
+                        key={project.id}
+                        className="flex items-center gap-2"
+                        onClick={() => handleSelectProject(project)}
+                      >
+                        <FolderCogIcon className="size-4 text-muted-foreground" />
+                        <span className="flex-1 truncate">{project.name}</span>
+                        {selectedProject?.id === project.id && (
+                          <Check className="size-4 text-primary" />
+                        )}
+                      </DropdownMenuItem>
+                    ))}
+                    <div className="h-px my-1 bg-border" />
+                  </>
+                ) : (
+                  <div className="px-2 py-3 text-sm text-muted-foreground text-center">
+                    No projects found
+                  </div>
+                )}
+                <Dialog open={projectDialogOpen} onOpenChange={setProjectDialogOpen}>
+                  <DialogTrigger asChild>
+                    <DropdownMenuItem
+                      className="flex items-center gap-2 focus:bg-primary focus:text-primary-foreground"
+                      onSelect={(e) => e.preventDefault()}
+                    >
+                      <FolderPlus className="size-4" />
+                      <span>Create new project</span>
+                    </DropdownMenuItem>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Create a new project</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={handleCreateProject} className="space-y-4 pt-2">
+                      <Input
+                        placeholder="Project name"
+                        value={newProjectName}
+                        onChange={(e) => setNewProjectName(e.target.value)}
+                        className="w-full"
+                      />
+                      <div className="flex justify-end">
+                        <Button
+                          type="submit"
+                          disabled={isCreatingProject}
+                          className="flex items-center gap-2"
+                        >
+                          {isCreatingProject ? (
+                            <>Creating...</>
+                          ) : (
+                            <>
+                              <Plus className="size-4" />
+                              Create project
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              </>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <motion.button
+                type="button"
+                onClick={handleSearchToggle}
+                disabled={isLoading}
+                className={cn(
+                  "text-muted-foreground hover:text-primary flex h-8 items-center justify-center gap-1.5 rounded-full border transition-all",
+                  showSearch ? "bg-background border px-2" : "border-transparent",
+                  isLoading && "cursor-not-allowed opacity-50"
+                )}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <motion.div
+                  animate={{ rotate: showSearch ? 180 : 0, scale: showSearch ? 1.1 : 1 }}
+                  whileHover={{ rotate: showSearch ? 180 : 15, scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 25 }}
+                >
+                  <Globe
+                    className={cn(
+                      "hover:text-primary size-4",
+                      showSearch ? "text-primary" : "text-muted-foreground",
+                      isLoading && "cursor-not-allowed opacity-50"
+                    )}
+                  />
+                </motion.div>
+                <AnimatePresence>
+                  {showSearch && (
+                    <motion.span
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: "auto", opacity: 1 }}
+                      exit={{ width: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="text-primary shrink-0 overflow-hidden whitespace-nowrap text-[11px]"
+                    >
+                      Search
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Smart Search with Web Access</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild disabled={isLoading}>
+            <div
+              className={cn(
+                "flex items-center justify-center rounded-full p-0",
+                (activeCommandMode === "image-gen" || activeCommandMode === "search-mode" ||
+                  activeCommandMode === "thinking-mode" || activeCommandMode === "canvas-mode") ?
+                  "bg-background text-primary border" : "text-muted-foreground",
+                isLoading && "cursor-not-allowed opacity-50"
+              )}
+            >
+              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+                <PackageOpen
+                  className={cn(
+                    "size-4 transition-colors",
+                    (activeCommandMode === "image-gen" || activeCommandMode === "search-mode" ||
+                      activeCommandMode === "thinking-mode" || activeCommandMode === "canvas-mode") ?
+                      "text-primary" : "text-muted-foreground hover:text-primary"
+                  )}
+                />
+              </motion.div>
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side="top" align="start">
+            <DropdownMenuItem onClick={handleImageSelect}>
+              <Images className={cn("mr-1 size-4", activeCommandMode === "image-gen" && "text-primary")} />
+              Image
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleImageSelect}>
+              <Search className={cn("mr-1 size-4", activeCommandMode === "search-mode" && "text-primary")} />
+              Search
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleThinkingSelect}>
+              <Lightbulb className={cn("mr-1 size-4", activeCommandMode === "thinking-mode" && "text-primary")} />
+              Thinking Mode
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleResearchSelect}>
+              <CircleDotDashed className={cn("mr-1 size-4", activeCommandMode === "research-mode" && "text-primary")} />
+              Research
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleResearchSelect}>
+              <Microscope className={cn("mr-1 size-4", activeCommandMode === "research-mode" && "text-primary")} />
+              Deep Research
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={handleCanvasSelect}>
+              <NotebookPen className={cn("mr-2 size-4", activeCommandMode === "canvas-mode" && "text-primary")} />
+              Canvas
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+```
+
+# Google Ai studio
 ```
 async function main() {
 const model = 'gemma-3n-e4b-it';}

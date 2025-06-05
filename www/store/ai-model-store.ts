@@ -9,7 +9,7 @@ export interface AIModelState {
 export const useAIModelStore = create<AIModelState>()(
   persist(
     (set, get) => ({
-      currentModel: "gemini-2.0-flash",
+      currentModel: "learnlm-2.0-flash-experimental",
       setModel: (model: string) => {
         if (!model) return; // Don't allow empty models
         const modelToSet = model || get().currentModel; // Use current model as fallback
