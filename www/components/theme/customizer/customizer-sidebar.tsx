@@ -480,7 +480,7 @@ export function CustomizerSidebar({
             >
               <Command className="bg-background">
                 <CommandInput className="!h-14" placeholder="Search languages..." />
-                <CommandList className="min-h-[80vh] lg:min-h-[72.5vh]">
+                <CommandList className="min-h-[80vh] lg:min-h-[71.5vh]">
                   <CommandEmpty>No language found.</CommandEmpty>
                   <CommandGroup>
                     {i18n.locales.map((locale) => (
