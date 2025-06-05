@@ -16,8 +16,8 @@ import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon
 import { useEffect, useState } from "react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { db as drizzleDb } from "@/lib/db"; // Drizzle client
-import { chats as chatsTable, user as userTable } from "@/lib/db/schema"; // Drizzle schemas
-import { eq } from "drizzle-orm";
+import { chats as chatsTable, user as userTable, projects as projectsTable } from "@/lib/db/schema"; // Added projects import
+import { eq, desc } from "drizzle-orm"; // Added desc for sorting
 import { v4 as uuidv4 } from 'uuid';
 
 import ImagePreview from "./image-preview";
@@ -268,17 +268,13 @@ export function InputActions({
   const fetchProjects = React.useCallback(async () => {
     setIsLoadingProjects(true);
     try {
-      const projectsCollection = collection(db, "projects");
-      const projectsSnapshot = await getDocs(projectsCollection);
-      const projectsList: Project[] = [];
-      projectsSnapshot.forEach(doc => {
-        projectsList.push({
-          id: doc.id,
-          name: doc.data().name,
-          createdAt: doc.data().createdAt
-        });
-      });
-      setProjects(projectsList.sort((a, b) => b.createdAt - a.createdAt));
+      // Use drizzleDb instead of Firebase collection
+      const projectsList = await drizzleDb
+        .select()
+        .from(projectsTable)
+        .orderBy(desc(projectsTable.createdAt));
+      
+      setProjects(projectsList);
     } catch (error) {
       console.error("Error fetching projects:", error);
       toast({
@@ -309,17 +305,23 @@ export function InputActions({
 
     setIsCreatingProject(true);
     try {
-      const projectData = {
+      const projectId = uuidv4();
+      
+      // Get user ID from session or state
+      const userId = "current-user-id"; // Replace with actual user ID retrieval
+      
+      // Create project using Drizzle ORM
+      await drizzleDb.insert(projectsTable).values({
+        id: projectId,
         name: newProjectName.trim(),
-        createdAt: Date.now(),
-        userId: "current-user-id", // Replace with actual user ID
-      };
-
-      const projectRef = await addDoc(collection(db, "projects"), projectData);
+        createdAt: new Date().getTime(),
+        userId: userId
+      });
+      
       const newProject = {
-        id: projectRef.id,
-        name: projectData.name,
-        createdAt: projectData.createdAt
+        id: projectId,
+        name: newProjectName.trim(),
+        createdAt: new Date().getTime()
       };
 
       setProjects(prevProjects => [newProject, ...prevProjects]);

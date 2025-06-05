@@ -153,4 +153,13 @@ export const chats = sqliteTable("chats", {
   isPinned: integer("is_pinned", { mode: "boolean" }).notNull().$defaultFn(() => false),
 });
 
-export const schema = { user, session, account, verification, passkey, organization, member, invitation, twoFactor, chats };
+export const projects = sqliteTable("projects", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+});
+
+export const schema = { user, session, account, verification, passkey, organization, member, invitation, twoFactor, chats, projects };
