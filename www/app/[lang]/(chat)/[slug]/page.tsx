@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { useParams } from "next/navigation";
-import { useAuth } from "@/contexts/auth-context";
 import LoadingAnimation from "@/components/chat/loading-animation";
 import { db } from "@/lib/db";
 import { chats as chatsTable } from "@/lib/db/schema";
@@ -19,11 +18,14 @@ import { ChatInput } from "@/components/chat/chat-input";
 import { useQueryClient } from "@tanstack/react-query";
 import type { Message } from "@/types/chat";
 import { cn } from "@/lib/utils";
+import { useAIModelStore } from "@/store/ai-model-store";
+import { useChatInputStore } from "@/store/chat-store";
+import { v4 as uuidv4 } from "uuid";
 
 const MIN_HEIGHT = 48;
 const MAX_HEIGHT = 164;
 
-function sanitizeForFirestore(obj: any): any {
+function sanitizeForDrizzle(obj: any): any {
   if (obj === null || obj === undefined) {
     return null;
   }
@@ -35,7 +37,7 @@ function sanitizeForFirestore(obj: any): any {
   if (Array.isArray(obj)) {
     return obj
       .filter(item => item !== undefined && item !== null)
-      .map(item => sanitizeForFirestore(item));
+      .map(item => sanitizeForDrizzle(item));
   }
 
   if (obj instanceof Date) {
@@ -46,7 +48,7 @@ function sanitizeForFirestore(obj: any): any {
     const sanitized: Record<string, any> = {};
     for (const [key, value] of Object.entries(obj)) {
       if (value === undefined) continue;
-      const sanitizedValue = sanitizeForFirestore(value);
+      const sanitizedValue = sanitizeForDrizzle(value);
       if (
         sanitizedValue === null ||
         typeof sanitizedValue === 'string' ||
@@ -72,7 +74,7 @@ function validateMessage(message: Message): boolean {
   if (message.role !== 'user' && message.role !== 'assistant') return false;
   if (typeof message.content !== 'string') return false;
   if (typeof message.timestamp !== 'string') return false;
-  if (message.image_urls) { // Updated from image_ids to image_urls
+  if (message.image_urls) {
     if (!Array.isArray(message.image_urls)) return false;
     for (const url of message.image_urls) {
       if (typeof url !== 'string') return false;
@@ -85,16 +87,16 @@ function validateMessage(message: Message): boolean {
   return true;
 }
 
-interface AIResponse {
-  text_response: string; // Updated to match ImageGenResponse from ai-service.ts
-  image_urls: string[];  // Changed from image_ids to image_urls
-  model_used: string;
+// Helper function to strip prefixes from input
+function stripPrefixes(input: string): string {
+  // Add your prefix stripping logic here if needed
+  return input;
 }
 
-interface ChatState {
-  messages: Message[];
-  isLoading: boolean;
-  error: string | null;
+interface AIResponse {
+  text_response: string;
+  image_urls: string[];
+  model_used: string;
 }
 
 type Params = {
@@ -110,6 +112,7 @@ export default function ChatPage() {
   const queryClient = useQueryClient();
   const { statecategorysidebar } = useCategorySidebar();
   const { statesubcategorysidebar } = useSubCategorySidebar();
+  
   // Use Zustand stores for state management
   const { currentModel, setModel } = useAIModelStore();
   const { 
@@ -133,7 +136,7 @@ export default function ChatPage() {
     maxHeight: MAX_HEIGHT,
   });
 
-  // Fetch user data on mount
+  // Fetch user data on mount using Better Auth
   useEffect(() => {
     const fetchUserData = async () => {
       setIsLoading(true);
@@ -149,7 +152,7 @@ export default function ChatPage() {
     fetchUserData();
   }, []);
 
-  // Fetch chat data from Turso/Drizzle
+  // Fetch chat data from Drizzle/Turso
   useEffect(() => {
     if (!chatId) return;
     const fetchChat = async () => {
@@ -168,13 +171,15 @@ export default function ChatPage() {
         }
       } catch (error) {
         console.error("Error fetching chat:", error);
-        useChatInputStore.getState().setError("Failed to load chat");
+        useChatInputStore.getState().setChatState({
+          ...chatState,
+          error: "Failed to load chat"
+        });
         toast.error("Failed to load chat");
       }
     };
     fetchChat();
-    // Optionally, set up polling for updates or use a subscription if available
-  }, [chatId, currentModel, setModel]);
+  }, [chatId, currentModel, setModel, chatState]);
 
   useEffect(() => {
     const shouldGenerateResponse = sessionStorage.getItem("autoSubmit") === "true";
@@ -189,15 +194,22 @@ export default function ChatPage() {
     ) {
       const generateInitialResponse = async () => {
         try {
-          // Use Zustand's setLoading directly
-          useChatInputStore.getState().setLoading(true);
+          // Use Zustand's state management
+          useChatInputStore.getState().setChatState({
+            ...chatState,
+            isLoading: true,
+            error: null
+          });
           sessionStorage.removeItem("autoSubmit");
           sessionStorage.removeItem("initialPrompt");
           setInitialResponseGenerated(true);
 
           const lastMessage = chatState.messages[chatState.messages.length - 1];
           if (lastMessage.role !== "user") {
-            useChatInputStore.getState().setLoading(false);
+            useChatInputStore.getState().setChatState({
+              ...chatState,
+              isLoading: false
+            });
             return;
           }
 
@@ -210,7 +222,7 @@ export default function ChatPage() {
           console.log("Raw aiResponse (initial):", aiResponse);
 
           const assistantMessageBase = {
-            id: crypto.randomUUID(),
+            id: uuidv4(),
             role: "assistant" as const,
             content: typeof aiResponse === "string" ? aiResponse : aiResponse.text_response,
             timestamp: new Date().toISOString(),
@@ -226,32 +238,49 @@ export default function ChatPage() {
               : {}),
           };
 
-          const sanitizedMessage = sanitizeForFirestore(assistantMessage);
+          const sanitizedMessage = sanitizeForDrizzle(assistantMessage);
           if (!validateMessage(sanitizedMessage)) {
             throw new Error("Invalid assistant message structure");
           }
 
-          const chatRef = doc(db, "chats", sessionId);
-          console.log("Saving initial response:", { messages: arrayUnion(sanitizedMessage), updatedAt: Timestamp.fromDate(new Date()) });
-          await updateDoc(chatRef, {
-            messages: arrayUnion(sanitizedMessage),
-            updatedAt: Timestamp.fromDate(new Date()),
-          });
+          // Fetch current messages from DB
+          const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(sessionId));
+          if (chatRows.length === 0) {
+            throw new Error("Chat not found");
+          }
+          
+          const chat = chatRows[0];
+          const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+          const updatedMessages = [...currentMessages, sanitizedMessage];
+          
+          // Update the chat with new message
+          await db.update(chatsTable)
+            .set({
+              messages: JSON.stringify(updatedMessages),
+              updatedAt: new Date().toISOString(),
+            })
+            .where(chatsTable.id.eq(sessionId));
 
-          // Use Zustand's setLoading directly
-          useChatInputStore.getState().setLoading(false);
+          // Update local state with the new message
+          useChatInputStore.getState().setChatState({
+            ...chatState,
+            messages: updatedMessages,
+            isLoading: false
+          });
         } catch (error) {
           console.error("Error generating initial response:", error);
-          // Use Zustand's setLoading and setError actions
-          useChatInputStore.getState().setLoading(false);
-          useChatInputStore.getState().setError("Failed to generate AI response");
+          useChatInputStore.getState().setChatState({
+            ...chatState,
+            isLoading: false,
+            error: "Failed to generate AI response"
+          });
           toast.error("Failed to generate initial AI response");
         }
       };
 
       generateInitialResponse();
     }
-  }, [sessionId, chatState.messages, initialResponseGenerated, chatState.isLoading, setModel]);
+  }, [sessionId, chatState, initialResponseGenerated, setModel]);
 
   const handleSubmit = async () => {
     if (!value.trim() || !chatId || chatState.isLoading) return;
@@ -263,41 +292,126 @@ export default function ChatPage() {
       return;
     }
     try {
-      useChatInputStore.getState().setLoading(true);
-      useChatInputStore.getState().setError(null);
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: true,
+        error: null
+      });
+      
       const processedValue = stripPrefixes(value.trim());
       const userMessage: Message = {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         role: "user",
         content: processedValue,
         timestamp: new Date().toISOString(),
       };
-      const sanitizedUserMessage = sanitizeForFirestore(userMessage);
+      
+      const sanitizedUserMessage = sanitizeForDrizzle(userMessage);
       if (!validateMessage(sanitizedUserMessage)) {
         throw new Error("Invalid user message structure");
       }
+      
       // Fetch current chat messages
       const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(chatId));
       if (chatRows.length === 0) {
         throw new Error("Chat not found");
       }
+      
       const chat = chatRows[0];
       const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...messages, sanitizedUserMessage];
+      
+      // Update the chat with new message
       await db.update(chatsTable)
         .set({
           messages: JSON.stringify(updatedMessages),
           updatedAt: new Date().toISOString(),
         })
         .where(chatsTable.id.eq(chatId));
+      
+      // Update local state
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        messages: updatedMessages,
+        isLoading: false
+      });
+      
       setValue("");
-      // Optionally, trigger AI response here (see ai-input for pattern)
-      // ...existing code for AI response...
+      
+      // Generate AI response
+      await handleAIResponse(processedValue);
     } catch (error) {
       console.error("Error submitting message:", error);
-      useChatInputStore.getState().setLoading(false);
-      useChatInputStore.getState().setError("Failed to send message");
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: false,
+        error: "Failed to send message"
+      });
       toast.error("Failed to send message");
+    }
+  };
+
+  // New function to handle AI response generation
+  const handleAIResponse = async (userInput: string) => {
+    try {
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: true
+      });
+
+      const aiResponse = await aiService.generateResponse(userInput);
+      
+      const assistantMessageBase = {
+        id: uuidv4(),
+        role: "assistant" as const,
+        content: typeof aiResponse === "string" ? aiResponse : aiResponse.text_response,
+        timestamp: new Date().toISOString(),
+      };
+
+      const assistantMessage: Message = {
+        ...assistantMessageBase,
+        ...(typeof aiResponse !== "string" && aiResponse.image_urls?.length > 0
+          ? { image_urls: aiResponse.image_urls.filter(url => typeof url === "string") } 
+          : {}),
+      };
+
+      const sanitizedMessage = sanitizeForDrizzle(assistantMessage);
+      if (!validateMessage(sanitizedMessage)) {
+        throw new Error("Invalid assistant message structure");
+      }
+
+      // Fetch current messages
+      const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(chatId));
+      if (chatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const chat = chatRows[0];
+      const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+      const updatedMessages = [...messages, sanitizedMessage];
+      
+      // Update chat with AI response
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(updatedMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(chatsTable.id.eq(chatId));
+      
+      // Update local state
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        messages: updatedMessages,
+        isLoading: false
+      });
+    } catch (error) {
+      console.error("Error generating AI response:", error);
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: false,
+        error: "Failed to generate AI response"
+      });
+      toast.error("Failed to generate AI response");
     }
   };
 
@@ -307,29 +421,48 @@ export default function ChatPage() {
     type: string = "url_analysis"
   ): Promise<void> => {
     try {
-      // Use Zustand's setLoading and setError actions directly
-      useChatInputStore.getState().setLoading(true);
-      useChatInputStore.getState().setError(null);
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: true,
+        error: null
+      });
 
       const userMessage: Message = {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         role: "user",
         content: `Analyze this: ${urls.join(", ")} ${prompt ? `\n\n${prompt}` : ""}`,
         timestamp: new Date().toISOString(),
       };
 
-      const sanitizedUserMessage = sanitizeForFirestore(userMessage);
+      const sanitizedUserMessage = sanitizeForDrizzle(userMessage);
       if (!validateMessage(sanitizedUserMessage)) {
         throw new Error("Invalid user message structure for URL analysis");
       }
 
-      const chatRef = doc(db, "chats", sessionId);
-      console.log("Saving user message for URL analysis:", { messages: arrayUnion(sanitizedUserMessage), updatedAt: Timestamp.fromDate(new Date()) });
-      await updateDoc(chatRef, {
-        messages: arrayUnion(sanitizedUserMessage),
-        updatedAt: Timestamp.fromDate(new Date()),
-      });
+      // Fetch current messages
+      const chatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(sessionId));
+      if (chatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const chat = chatRows[0];
+      const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+      const updatedMessages = [...currentMessages, sanitizedUserMessage];
+      
+      // Update chat with user message
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(updatedMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(chatsTable.id.eq(sessionId));
 
+      // Update local state
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        messages: updatedMessages
+      });
+      
       setValue("");
       if (textareaRef.current) {
         textareaRef.current.style.height = `${MIN_HEIGHT}px`;
@@ -351,30 +484,48 @@ export default function ChatPage() {
       const responseData = await response.json();
 
       const assistantMessage: Message = {
-        id: crypto.randomUUID(),
+        id: uuidv4(),
         role: "assistant",
         content: responseData.response || responseData.text || "Analysis complete.",
         timestamp: new Date().toISOString(),
       };
 
-      const sanitizedMessage = sanitizeForFirestore(assistantMessage);
+      const sanitizedMessage = sanitizeForDrizzle(assistantMessage);
       if (!validateMessage(sanitizedMessage)) {
         throw new Error("Invalid assistant message structure for URL analysis");
       }
 
-      console.log("Saving URL analysis message:", { messages: arrayUnion(sanitizedMessage), updatedAt: Timestamp.fromDate(new Date()) });
-      await updateDoc(chatRef, {
-        messages: arrayUnion(sanitizedMessage),
-        updatedAt: Timestamp.fromDate(new Date()),
+      // Get updated messages after user message was added
+      const updatedChatRows = await db.select().from(chatsTable).where(chatsTable.id.eq(sessionId));
+      if (updatedChatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const updatedChat = updatedChatRows[0];
+      const latestMessages = Array.isArray(updatedChat.messages) ? updatedChat.messages : JSON.parse(updatedChat.messages);
+      const finalMessages = [...latestMessages, sanitizedMessage];
+      
+      // Update chat with AI response
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(finalMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(chatsTable.id.eq(sessionId));
+      
+      // Update local state
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        messages: finalMessages,
+        isLoading: false
       });
-
-      // Use Zustand's setLoading directly
-      useChatInputStore.getState().setLoading(false);
     } catch (error) {
       console.error("Error in URL analysis:", error);
-      // Use Zustand's setLoading and setError actions
-      useChatInputStore.getState().setLoading(false);
-      useChatInputStore.getState().setError(error instanceof Error ? error.message : "Failed to analyze URL content");
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: false,
+        error: error instanceof Error ? error.message : "Failed to analyze URL content"
+      });
       toast.error("Failed to analyze content");
     }
   };
@@ -382,8 +533,10 @@ export default function ChatPage() {
   // Add AI generation function using the AI service
   const handleAIGenerate = useCallback(async (prompt: string, messages: any[] = []) => {
     try {
-      // Use Zustand's setLoading directly
-      useChatInputStore.getState().setLoading(true);
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: true
+      });
       
       // Call AI service to generate response
       const aiResponse = await aiService.generateResponse(prompt);
@@ -393,19 +546,23 @@ export default function ChatPage() {
         ? aiResponse 
         : aiResponse.text_response;
       
-      // Use Zustand's setLoading directly
-      useChatInputStore.getState().setLoading(false);
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: false
+      });
       
       return formattedResponse;
     } catch (error) {
       console.error("Error generating AI response:", error);
-      // Use Zustand's setLoading and setError actions
-      useChatInputStore.getState().setLoading(false);
-      useChatInputStore.getState().setError("Failed to generate AI response");
+      useChatInputStore.getState().setChatState({
+        ...chatState,
+        isLoading: false,
+        error: "Failed to generate AI response"
+      });
       toast.error("Failed to generate AI response");
       return null;
     }
-  }, []);
+  }, [chatState]);
 
   const handleAdjustHeight = useCallback(
     (reset = false) => {
@@ -427,9 +584,10 @@ export default function ChatPage() {
     [textareaRef, setInputHeight]
   );
 
-  // if (!user) {
-  //   return <LoadingAnimation />;
-  // }
+  // Loading state while user authentication is in progress
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
 
   return (
     <div
@@ -448,7 +606,8 @@ export default function ChatPage() {
         messagesEndRef={messagesEndRef}
         isThinking={chatState.isLoading}
         selectedAI={currentModel}
-      />      <ChatInput
+      />
+      <ChatInput
         className="absolute bottom-4 left-1/2 z-50 -translate-x-1/2 md:bottom-2"
         value={value}
         chatState={chatState}
