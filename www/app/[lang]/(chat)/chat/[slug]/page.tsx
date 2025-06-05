@@ -174,7 +174,7 @@ export default function ChatPage() {
         // Use eq from drizzle-orm for column comparisons
         const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
         if (chatRows.length > 0) {
-          const chat = chatRows[0];
+          const chat:any = chatRows[0];
           const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
           setChatState(prevState => ({
             ...prevState,
@@ -264,7 +264,7 @@ export default function ChatPage() {
             throw new Error("Chat not found");
           }
           
-          const chat = chatRows[0];
+          const chat:any = chatRows[0];
           const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
           const updatedMessages = [...currentMessages, sanitizedMessage];
           
@@ -332,7 +332,7 @@ export default function ChatPage() {
         throw new Error("Chat not found");
       }
       
-      const chat = chatRows[0];
+      const chat:any = chatRows[0];
       const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...messages, sanitizedUserMessage];
       
@@ -402,7 +402,7 @@ export default function ChatPage() {
         throw new Error("Chat not found");
       }
       
-      const chat = chatRows[0];
+      const chat:any = chatRows[0];
       const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...messages, sanitizedMessage];
       
@@ -461,7 +461,7 @@ export default function ChatPage() {
         throw new Error("Chat not found");
       }
       
-      const chat = chatRows[0];
+      const chat:any = chatRows[0];
       const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
       const updatedMessages = [...currentMessages, sanitizedUserMessage];
       
@@ -517,7 +517,7 @@ export default function ChatPage() {
         throw new Error("Chat not found");
       }
       
-      const updatedChat = updatedChatRows[0];
+      const updatedChat:any = updatedChatRows[0];
       const latestMessages = Array.isArray(updatedChat.messages) ? updatedChat.messages : JSON.parse(updatedChat.messages);
       const finalMessages = [...latestMessages, sanitizedMessage];
       
@@ -628,18 +628,11 @@ export default function ChatPage() {
         value={value}
         chatState={chatState}
         setChatState={setChatState}
-        showSearch={showSearch}
-        showResearch={showResearch}
-        showThinking={showThinking}
-        imagePreview={imagePreview}
         inputHeight={inputHeight}
         textareaRef={textareaRef as React.RefObject<HTMLTextAreaElement>}
         onSubmit={handleSubmit}
         onChange={setValue}
         onHeightChange={handleAdjustHeight}
-        onSearchToggle={toggleSearch}
-        onResearchToggle={toggleResearch}
-        onThinkingToggle={toggleThinking}
         onUrlAnalysis={handleURLAnalysis}
         onAIGenerate={handleAIGenerate}
         onImageChange={(file) => 
