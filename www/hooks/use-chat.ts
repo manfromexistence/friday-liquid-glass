@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useChatInputStore } from '@/store/chat-store'
 import { useAIModelStore } from '@/store/ai-model-store'
+import { googleGenAIService } from '@/lib/services/google-genai-service'
 import { Message } from '@/types/chat'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -53,110 +54,54 @@ export function useChat(options: UseChatOptions = {}) {
       timestamp: new Date().toISOString()
     }
 
-    addMessage(assistantMessage)
-
-    try {
+    addMessage(assistantMessage)    try {
       const messages = [...chatState.messages, userMessage].map(msg => ({
         role: msg.role,
         content: msg.content
       }))
 
+      // Convert messages to Google GenAI format
+      const formattedMessages = googleGenAIService.formatMessagesForAPI(messages)
+
       if (useStreaming) {
         setIsStreaming(true)
         setStreamingMessageId(assistantMessageId)
 
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            messages,
-            selectedModel: currentModel,
-            stream: true
-          })
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const reader = response.body?.getReader()
-        const decoder = new TextDecoder()
+        // Use direct Google GenAI service call for much faster response
         let accumulatedContent = ''
-
-        if (reader) {
-          while (true) {
-            const { done, value } = await reader.read()
-            
-            if (done) break
-
-            const chunk = decoder.decode(value)
-            const lines = chunk.split('\n')
-
-            for (const line of lines) {
-              if (line.startsWith('data: ')) {
-                try {
-                  const data = JSON.parse(line.slice(6))
-                  
-                  if (data.error) {
-                    throw new Error(data.error)
-                  }
-                  
-                  if (data.text) {
-                    accumulatedContent += data.text
-                    updateMessage(assistantMessageId, {
-                      content: accumulatedContent
-                    })
-                  }
-                  
-                  if (data.done) {
-                    break
-                  }
-                } catch (parseError) {
-                  console.warn('Failed to parse streaming data:', parseError)
-                }
-              }
-            }
-          }
-        }
-
-        setIsStreaming(false)
-        setStreamingMessageId(null)
-      } else {
-        // Non-streaming request
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            messages,
-            selectedModel: currentModel,
-            stream: false
-          })
-        })
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
         
-        if (data.error) {
-          throw new Error(data.error)
-        }
+        await googleGenAIService.generateContentStream(
+          currentModel,
+          formattedMessages,
+          (chunk: string) => {
+            // Real-time streaming update
+            accumulatedContent += chunk
+            updateMessage(assistantMessageId, {
+              content: accumulatedContent
+            })
+          }
+        )
+        
+        // Update the final message content
+        assistantMessage.content = accumulatedContent
+      } else {
+        // Non-streaming request - use direct service call
+        const response = await googleGenAIService.generateContent(
+          currentModel,
+          formattedMessages
+        )
 
         updateMessage(assistantMessageId, {
-          content: data.text
+          content: response.text
         })
+        
+        // Update the assistant message content
+        assistantMessage.content = response.text
       }
 
       const finalAssistantMessage = {
         ...assistantMessage,
-        content: useStreaming ? 
-          chatState.messages.find(m => m.id === assistantMessageId)?.content || '' :
-          assistantMessage.content
+        content: assistantMessage.content
       }
       
       onMessageAdded?.(finalAssistantMessage)

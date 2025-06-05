@@ -10,17 +10,16 @@ import type { Message } from "../../types/chat"
 import { cn, lt } from "../../lib/utils"
 import { useRouter } from "next/navigation"
 import { v4 as uuidv4 } from "uuid"
-import { authClient } from "@/lib/auth-client"; // Assuming this is your Better Auth client
-import { db } from "@/lib/db"; // Drizzle client
-import { chats as chatsTable } from "@/lib/db/schema"; // Drizzle chats schema
-import { useAuth } from "../../hooks/use-auth"
+import { authClient } from "@/lib/auth-client"
+import { db } from "@/lib/db"
+import { chats as chatsTable } from "@/lib/db/schema"
 import { toast } from "sonner"
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { useAIModelStore } from "../../store/ai-model-store"
 // Import Zustand stores
 import { useChatInputStore } from "../../store/chat-store"
 // Import Google GenAI service
 import { googleGenAIService } from "../../lib/services/google-genai-service"
+
 
 // Update the ChatState interface to match the one in chat-input.tsx
 interface ChatState {
@@ -45,13 +44,15 @@ const MAX_HEIGHT = 164
 export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
   { onInputChange, onSubmit }, 
   ref
-) {
-  const queryClient = useQueryClient()
+) {  const queryClient = useQueryClient()
   const { statecategorysidebar } = useCategorySidebar()
   const { statesubcategorysidebar } = useSubCategorySidebar()
   const router = useRouter()
   const { currentModel, setModel } = useAIModelStore()
-  const { user } = useAuth()
+  
+  // Better Auth user state management
+  const [user, setUser] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   // Use Zustand stores instead of local state
   const {
@@ -63,9 +64,24 @@ export const AiInput = forwardRef<AiInputRef, AiInputProps>(function AiInput(
     setValue,
     setImagePreview
   } = useChatInputStore()
-
   const [isMaxHeight, setIsMaxHeight] = useState(false)
   const [isLoggingIn, setIsLoggingIn] = useState(false)
+
+  // Fetch user data on component mount
+  useEffect(() => {
+    const fetchUserData = async () => {
+      setIsLoading(true)
+      try {
+        const sessionData = await authClient.getSession()
+        setUser(sessionData?.data)
+      } catch (error) {
+        console.error("Failed to fetch user data:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchUserData()
+  }, [])
 
   // Expose the setValue method through ref
   useImperativeHandle(ref, () => ({
