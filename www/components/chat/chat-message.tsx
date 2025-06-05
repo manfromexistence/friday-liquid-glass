@@ -2,7 +2,7 @@ import { Message } from "../../types/chat";
 import { cn } from "../../lib/utils";
 import { Sparkles, Play, Pause, Volume2, ImageIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 import React, { useState, useEffect, useRef, memo } from "react";
 import AiMessage from "./ai-message-actions";
 import UserMessage from "./user-message-actions";
@@ -30,7 +30,8 @@ export const ChatMessage = memo(
     className,
     isFadingOut,
     onTransitionEnd,
-    selectedAI = "",  }: ChatMessageProps) => {
+    selectedAI = "",
+  }: ChatMessageProps) => {
     const { data: session } = authClient.useSession();
     const user = session?.user;
     const isAssistant = message.role === "assistant";
