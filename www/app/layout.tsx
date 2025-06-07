@@ -7,10 +7,10 @@ import "@/styles/globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Tanvir Hasan Bijoy",
-    template: "%s | Bijoy",
+    default: "Friday",
+    template: "%s | Friday",
   },
-  description: "Portfolio of Tanvir Hasan Bijoy.",
+  description: "Your AI Friend.",
   keywords: [
     "friday",
     "manfromexistence",
@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     },
   ],
   creator: "manfromexistence",
-  metadataBase: new URL("https://tanvir-hasan-bijoy.vercel.app"),
+  metadataBase: new URL("https://themux.vercel.app"),
   openGraph: {
-    title: "Bijoy",
-    description: "Tanvir Hasan Bijoy's Portfolio.",
+    title: "Friday | More than just your AI assistant",
+    description: "Your AI Friend.",
   },
   generator: "Next.js",
 };
