@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { MoonIcon, SunIcon } from "lucide-react"
+import { MoonIcon, SunIcon, ChevronDownIcon } from "lucide-react"
 import { useTheme } from "next-themes"
 import {
   AnimationStart,
@@ -9,6 +9,19 @@ import {
   createAnimation,
 } from "./theme-animations"
 import { cn } from "../../lib/utils"
+import {
+  AllPresetsControl,
+  ControlSection,
+  ControlsSkeleton,
+  RadiusSliderControl,
+  ShadowsControl,
+  SurfaceShadesControl,
+} from "@/components/theme/customizer/customizer-controls"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 interface ThemeToggleAnimationProps {
   variant?: AnimationVariant
@@ -68,12 +81,19 @@ export default function ThemeToggleButton({
   }, [theme, setTheme, start, updateStyles, variant, url])
 
   return (
-    <div
-      onClick={toggleTheme}
-      className={cn("hover:text-primary text-muted-foreground hover:bg-primary-foreground group relative mr-1.5 flex size-8 items-center justify-center rounded-md border", className)}
-    >
-      <SunIcon className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <MoonIcon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+    <div className="flex items-center justify-center space-x-2 border h-10 p-2 rounded-md hover:bg-accent">
+      <button
+        onClick={toggleTheme}
+        className={cn(
+          "hover:text-primary text-muted-foreground group relative flex items-center justify-center rounded-md transition-colors h-full",
+          className
+        )}
+        aria-label="Toggle theme"
+      >
+        <SunIcon className="size-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+        <MoonIcon className="absolute size-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      </button>
+      <AllPresetsControl />
     </div>
   )
 }
