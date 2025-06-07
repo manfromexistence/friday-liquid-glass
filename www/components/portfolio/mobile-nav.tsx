@@ -95,10 +95,10 @@ export function MobileNav() {
       <SheetContent side="left" className="pr-0">
         <MobileLink
           href={getLocalizedPath("/")}
-          className="flex items-center"
+          className="flex items-center mt-2"
           onOpenChange={setOpen}
         >
-          <Image width={50} height={50} src="/portfolio.png" alt="bijoy" className="rounded-full" />
+          <Image width={25} height={25} src="/portfolio.png" alt="bijoy" className="rounded-full ml-4 mr-2 mt-0.5" />
 
           <span className="font-bold">Tanvir Hasan Bijoy</span>
         </MobileLink>

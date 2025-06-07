@@ -226,6 +226,7 @@ export function SiteHeader() {
   const currentLocale = getCurrentLocale();
   const currentLanguageName = languageNames[currentLocale] || currentLocale.toUpperCase();
 
+  
   return (
     <header
       className={cn(
