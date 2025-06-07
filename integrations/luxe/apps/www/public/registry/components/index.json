@@ -1,0 +1,19 @@
+{
+  "components": [
+    "tooltip",
+    "text",
+    "switch",
+    "spinner",
+    "navigation-menu",
+    "multi-step-modal",
+    "input",
+    "dropdown-menu",
+    "dialog",
+    "checkbox",
+    "card",
+    "button",
+    "badge",
+    "animated-tabs",
+    "accordion"
+  ]
+}
