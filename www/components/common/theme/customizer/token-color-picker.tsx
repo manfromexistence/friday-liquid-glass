@@ -7,8 +7,8 @@ import {
   colorFormatter,
   convertToHex,
   convertToOklch,
-} from "@/utility/color-converter";
-import { getOptimalForegroundColor } from "@/utility/color-utils";
+} from "@/lib/theme/color-converter";
+import { getOptimalForegroundColor } from "@/lib/theme/color-utils";
 import { CircleAlert, Pipette } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useState } from "react";
