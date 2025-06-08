@@ -7,8 +7,8 @@ import { basePresetsV4Array, surfaceShadesPresetArray } from "../../../../lib/co
 import { TAILWIND_PALETTE_V4 } from "../../../../lib/palettes";
 import { otherPresetsArray } from "../../../../lib/presets";
 import { getRandomIndex } from "../../../../lib/utils";
-import { RADIUS_VALUES } from "../../../../lib/utils/constants";
-import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../../lib/utils/fonts";
+import { RADIUS_VALUES } from "../../../../constants/constants";
+import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../../constants/fonts";
 import { Shuffle } from "lucide-react";
 import { ComponentProps, useCallback } from "react";
 import { Button } from "../../../ui/button";

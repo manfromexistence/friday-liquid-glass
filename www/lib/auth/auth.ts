@@ -1,7 +1,7 @@
 import { betterAuth } from "manfromexistence-auth";
 import { drizzleAdapter } from "manfromexistence-auth/adapters/drizzle";
-import { db } from "../db/drizzle";
-import { schema } from "../db/schema";
+import { db } from "../../db/drizzle";
+import { schema } from "../../db/schema";
 import {
   username,
   anonymous,

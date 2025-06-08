@@ -3,8 +3,8 @@
 import * as React from "react";
 import { useParams } from "next/navigation";
 import LoadingAnimation from "@/components/chat/loading-animation";
-import { db } from "@/lib/db";
-import { chats as chatsTable } from "@/lib/db/schema";
+import { db } from "@/db";
+import { chats as chatsTable } from "@/db/schema";
 import { authClient } from "@/lib/auth/auth-client";
 import { toast } from "sonner";
 import { useEffect, useRef, useCallback } from "react";

@@ -11,7 +11,7 @@ import {
   useTailwindVersion,
 } from "../../../../store/preferences-store";
 import { TailwindVersion } from "../../../../types/theme";
-import { generateThemeCode } from "../../../../lib/utils/theme-style-generator";
+import { generateThemeCode } from "../../../../constants/theme-style-generator";
 import { Check, Clipboard, Code, Terminal } from "lucide-react";
 import React, { useMemo } from "react";
 import { TooltipWrapper } from "../tooltip-wrapper";

@@ -1,10 +1,10 @@
-import { initialThemeConfig } from "../themes";
+import { initialThemeConfig } from "./themes";
 import {
   ThemeMode,
   ThemeObject,
   ThemeProperties,
   ThemeProperty,
-} from "../../types/theme";
+} from "../types/theme";
 import { colorFormatter } from "./color-converter";
 import { setStyleProperty } from "./set-attribute-to-element";
 

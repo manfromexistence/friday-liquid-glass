@@ -1,5 +1,5 @@
-import { initialThemeConfig } from "../themes";
-import { ThemeObject } from "../../types/theme";
+import { initialThemeConfig } from "./themes";
+import { ThemeObject } from "../types/theme";
 import { merge } from "lodash";
 
 export function mergeThemeObjects(...themeObjects: ThemeObject[]) {

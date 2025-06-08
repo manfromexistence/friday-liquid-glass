@@ -1,5 +1,5 @@
-import { allPresetsArray } from "../colors";
-import { Preset } from "../../types/theme";
+import { allPresetsArray } from "../lib/colors";
+import { Preset } from "../types/theme";
 
 export function getPresetThemeObject(preset: Preset) {
   const themeObject = allPresetsArray.find((p) => p.name === preset);

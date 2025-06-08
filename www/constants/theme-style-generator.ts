@@ -1,4 +1,4 @@
-import { DEFAULT_FONTS } from "../themes";
+import { DEFAULT_FONTS } from "./themes";
 import {
   ColorFormat,
   TailwindVersion,
@@ -6,7 +6,7 @@ import {
   ThemeMode,
   ThemeObject,
   ThemeProperties,
-} from "../../types/theme";
+} from "../types/theme";
 import { colorFormatter } from "./color-converter";
 import { getShadowMap } from "./shadows";
 

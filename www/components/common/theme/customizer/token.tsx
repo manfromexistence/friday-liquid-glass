@@ -4,7 +4,7 @@ import { useCopyToClipboard } from "../../../../hooks/use-copy-to-clipboard";
 import { cn } from "../../../../lib/utils";
 import { useColorFormat } from "../../../../store/preferences-store";
 import { ColorProperty } from "../../../../types/theme";
-import { colorFormatter } from "../../../../lib/utils/color-converter";
+import { colorFormatter } from "../../../../constants/color-converter";
 import { Check, Clipboard } from "lucide-react";
 import { ComponentProps } from "react";
 

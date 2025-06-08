@@ -1,7 +1,7 @@
 import { Label } from "../../../ui/label";
 import { useThemeConfig } from "../../../../hooks/use-theme-config";
 import { cn } from "../../../../lib/utils";
-import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../../lib/utils/fonts";
+import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../../constants/fonts";
 import { Check, Ligature } from "lucide-react";
 import {
   Command,

@@ -1,5 +1,5 @@
-import { basePresetsV4 } from "../colors";
-import { otherPresets } from "../presets";
+import { basePresetsV4 } from "../lib/colors";
+import { otherPresets } from "../lib/presets";
 
 import Color from "color";
 import { parse } from "culori";
