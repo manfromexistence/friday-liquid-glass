@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import type { Message } from "../../types/chat";
-import { AspectRatio } from "../ui/aspect-ratio";
-import { Skeleton } from "../ui/skeleton";
-import { Card, CardContent, CardFooter } from "../ui/card";
+import type { Message } from "@/types/chat";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { AlertCircle } from "lucide-react";
-import { Alert, AlertDescription } from "../ui/alert";
-import { cn } from "../../lib/utils";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { cn } from "@/lib/utils";
 
 // Fallback image (replace with a local placeholder image or a default URL)
 const FALLBACK_IMAGE = "/placeholder-image.png"; // Add a placeholder image in your public folder

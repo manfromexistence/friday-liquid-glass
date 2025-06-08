@@ -2,12 +2,12 @@
 
 import * as React from "react";
 
-import { usePresetSyncUrl } from "../../../hooks/use-preset-sync-url";
-import { useThemeConfig } from "../../../hooks/use-theme-config";
-import { getCssVarsFromThemeObject } from "../../../constants/themes";
-import { ThemeMode, ThemeProperties } from "../../../types/theme";
+import { usePresetSyncUrl } from "@/hooks/use-preset-sync-url";
+import { useThemeConfig } from "@/hooks/use-theme-config";
+import { getCssVarsFromThemeObject } from "@/constants/themes";
+import { ThemeMode, ThemeProperties } from "@/types/theme";
 import { setStyleProperty } from "@/lib/utils";
-import { setShadowVariables } from "../../../constants/shadows";
+import { setShadowVariables } from "@/constants/shadows";
 import { useTheme } from "next-themes";
 
 export function ThemeSync() {

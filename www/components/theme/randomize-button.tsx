@@ -1,8 +1,8 @@
 "use client";
 
-import { useSurfaceShades } from "../../../../hooks/use-surface-shades";
-import { useThemeConfig } from "../../../../hooks/use-theme-config";
-import { useTokens } from "../../../../hooks/use-tokens";
+import { useSurfaceShades } from "@/hooks/use-surface-shades";
+import { useThemeConfig } from "@/hooks/use-theme-config";
+import { useTokens } from "@/hooks/use-tokens";
 import { basePresetsV4Array, surfaceShadesPresetArray } from "@/constants/colors";
 import { TAILWIND_PALETTE_V4 } from "@/constants/palettes";
 import { otherPresetsArray } from "@/constants/presets";
@@ -11,7 +11,7 @@ import { RADIUS_VALUES } from "@/lib/theme/theme-constants";
 import { monoFontsArray, sansFontsArray, serifFontsArray } from "@/lib/theme/fonts";
 import { Shuffle } from "lucide-react";
 import { ComponentProps, useCallback } from "react";
-import { Button } from "../../../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface RandomizeButtonProps extends ComponentProps<typeof Button> {}
 

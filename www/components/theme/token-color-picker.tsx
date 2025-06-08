@@ -1,8 +1,8 @@
 "use client";
 
-import { useThemeConfig } from "../../../../hooks/use-theme-config";
-import { useColorFormat, useModesInSync } from "../../../../store/preferences-store";
-import { ColorProperty, ThemeMode } from "../../../../types/theme";
+import { useThemeConfig } from "@/hooks/use-theme-config";
+import { useColorFormat, useModesInSync } from "@/store/preferences-store";
+import { ColorProperty, ThemeMode } from "@/types/theme";
 import {
   colorFormatter,
   convertToHex,
@@ -13,11 +13,11 @@ import { CircleAlert, Pipette } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useCallback, useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
-import { useDebouncedCallback } from "../../../../hooks/use-debounced-callback";
-import { ComponentErrorBoundary } from "../error-boundary";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
-import { PasteColorControl } from "./customizer-controls";
-import { TokenDisplay, TokenInfo } from "./token";
+import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
+import { ComponentErrorBoundary } from "@/components/theme/error-boundary";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { PasteColorControl } from "@/components/theme/customizer-controls";
+import { TokenDisplay, TokenInfo } from "@/components/theme/token";
 
 interface TokenColorPickerProps {
   colorProperty: ColorProperty;

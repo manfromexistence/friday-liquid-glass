@@ -14,7 +14,7 @@ import {
   goldenGlowPreset,
   volcanicPreset
 } from "./index"
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 
 interface FridayProps {
   className?: string

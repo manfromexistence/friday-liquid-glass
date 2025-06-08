@@ -1,16 +1,16 @@
-import { useContrastChecker } from "../../../../hooks/use-contrast-checker";
-import { useThemeConfig } from "../../../../hooks/use-theme-config";
+import { useContrastChecker } from "@/hooks/use-contrast-checker";
+import { useThemeConfig } from "@/hooks/use-theme-config";
 import { cn } from "@/lib/utils";
-import { ThemeMode, ThemeProperties } from "../../../../types/theme";
+import { ThemeMode, ThemeProperties } from "@/types/theme";
 import { getOptimalForegroundColor } from "@/lib/theme/color-utils";
 import { AlertTriangle, Check, Contrast } from "lucide-react";
 import { useTheme } from "next-themes";
 import React, { useState } from "react";
-import { ExternalLink } from "../external-link";
-import { ModeSwitcher } from "../mode-switcher";
-import { Badge } from "../../../ui/badge";
-import { Button } from "../../../ui/button";
-import { Card, CardContent } from "../../../ui/card";
+// import { ExternalLink } from "../external-link";
+import { ModeSwitcher } from "@/components/theme/mode-switcher";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -26,9 +26,9 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "../../../ui/drawer";
-import { ScrollArea } from "../../../ui/scroll-area";
-import { Separator } from "../../../ui/separator";
+} from "@/components/ui/drawer";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 const MIN_CONTRAST_RATIO = 4.5;
 
@@ -232,13 +232,13 @@ export function ContrastChecker({
             <DrawerDescription className="text-muted-foreground text-xs">
               WCAG 2.0 AA requires a contrast ratio of at least{" "}
               {MIN_CONTRAST_RATIO}:1{" • "}
-              <ExternalLink
+              {/* <ExternalLink
                 showIcon
                 href="https://www.w3.org/TR/WCAG21/"
                 className="text-primary"
               >
                 Learn more
-              </ExternalLink>
+              </ExternalLink> */}
             </DrawerDescription>
           </DrawerHeader>
           <div className="px-4 pb-4">
@@ -280,13 +280,13 @@ export function ContrastChecker({
             <DialogDescription className="text-muted-foreground text-xs">
               WCAG 2.0 AA requires a contrast ratio of at least{" "}
               {MIN_CONTRAST_RATIO}:1{" • "}
-              <ExternalLink
+              {/* <ExternalLink
                 showIcon
                 href="https://www.w3.org/TR/WCAG21/"
                 className="text-primary"
               >
                 Learn more
-              </ExternalLink>
+              </ExternalLink> */}
             </DialogDescription>
           </DialogHeader>
 

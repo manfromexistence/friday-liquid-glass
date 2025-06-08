@@ -1,8 +1,8 @@
 "use client";
 
-import { initialThemeConfig } from "../../../constants/themes";
+import { initialThemeConfig } from "@/constants/themes";
 import { LOCAL_STORAGE_KEYS } from "@/lib/theme/theme-constants";
-import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../constants/fonts";
+import { monoFontsArray, sansFontsArray, serifFontsArray } from "@/constants/fonts";
 import { preconnect } from "react-dom";
 
 export function LoadTheme() {

@@ -8,7 +8,7 @@ import {
   AnimationVariant,
   createAnimation,
 } from "./theme-animations"
-import { cn } from "../../lib/utils"
+import { cn } from "@/lib/utils"
 import {
   AllPresetsControl,
   ControlSection,
@@ -16,7 +16,7 @@ import {
   RadiusSliderControl,
   ShadowsControl,
   SurfaceShadesControl,
-} from "@/components/common/theme/customizer/customizer-controls"
+} from "@/components/theme/customizer-controls"
 import {
   Popover,
   PopoverContent,

@@ -1,21 +1,21 @@
 "use client";
 
-import { useCopyToClipboard } from "../../../../hooks/use-copy-to-clipboard";
-import { useMounted } from "../../../../hooks/use-mounted";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { useMounted } from "@/hooks/use-mounted";
 import { cn } from "@/lib/utils";
-import { ColorFormat } from "../../../../types/theme";
+import { ColorFormat } from "@/types/theme";
 import { colorFormatter } from "@/lib/theme/color-converter";
 import { Check, Clipboard } from "lucide-react";
 import { ComponentProps } from "react";
 import { toast } from "sonner";
-import { Button } from "../../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "../../../ui/context-menu";
-import { Skeleton } from "../../../ui/skeleton";
+} from "@/components/ui/context-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function Color({
   color,

@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "../../../ui/button";
-import { Label } from "../../../ui/label";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../ui/popover";
-import { Separator } from "../../../ui/separator";
-import { Switch } from "../../../ui/switch";
+} from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import {
   useColorFormat,
   useFontVars,
@@ -17,17 +17,17 @@ import {
   useShadowVars,
   useShowTooltips,
   useTailwindVersion,
-} from "../../../../store/preferences-store";
+} from "@/store/preferences-store";
 import { RotateCcw, Settings } from "lucide-react";
 import { ComponentProps } from "react";
-import { ScrollArea } from "../../../ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../ui/select";
+} from "@/components/ui/select";
 
 export function CustomizerSettings({
   className,

@@ -8,9 +8,9 @@ import { v4 as uuidv4 } from 'uuid'
 // import { db } from "@/lib/firebase/config"
 // import { useAuth } from "@/contexts/auth-context"
 import { toast } from "sonner"
-import { useAIModelStore } from "../../store/ai-model-store"
-import { cn } from "../../lib/utils"
-import { ScrollArea } from "../ui/scroll-area"
+import { useAIModelStore } from "@/store/ai-model-store"
+import { cn } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 interface SearchSuggestionProps {
   inputValue: string;

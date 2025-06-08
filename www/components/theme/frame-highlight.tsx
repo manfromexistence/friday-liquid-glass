@@ -1,4 +1,4 @@
-import { cn } from "../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 
 export function FrameHighlight({

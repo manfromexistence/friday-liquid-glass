@@ -1,7 +1,7 @@
 "use client";
 
-import { useThemeConfig } from "../../../hooks/use-theme-config";
-import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../constants/fonts";
+import { useThemeConfig } from "@/hooks/use-theme-config";
+import { monoFontsArray, sansFontsArray, serifFontsArray } from "@/constants/fonts";
 
 export function FontLoader() {
   const { hasLoaded, currentFonts } = useThemeConfig();

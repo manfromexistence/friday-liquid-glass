@@ -1,9 +1,9 @@
 "use client";
 
-import { cn } from "../../../lib/utils";
-import { useShowTooltips } from "../../../store/preferences-store";
+import { cn } from "@/lib/utils";
+import { useShowTooltips } from "@/store/preferences-store";
 import { ComponentProps } from "react";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export function TooltipWrapper({
   label,

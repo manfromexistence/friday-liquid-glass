@@ -1,12 +1,12 @@
 "use client";
 
-import { useTokens } from "../../../../hooks/use-tokens";
+import { useTokens } from "@/hooks/use-tokens";
 import { TAILWIND_PALETTE_V4, TailwindShadeKey } from "@/constants/palettes";
 import { cn } from "@/lib/utils";
 import { convertToOklch } from "@/lib/theme/color-converter";
 import React, { ComponentProps } from "react";
-import { TooltipWrapper } from "../tooltip-wrapper";
-import { Color } from "./color";
+import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
+import { Color } from "@/components/theme/color";
 
 export const MemoizedTailwindV4ColorPalette = React.memo(
   TailwindV4ColorPalette,

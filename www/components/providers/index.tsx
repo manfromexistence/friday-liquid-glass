@@ -2,10 +2,10 @@
 
 import { Toaster as DefaultToaster, Toaster as NewYorkToaster } from "@/components/ui/toaster"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ThemeProvider } from "@/components/common/theme/theme-provider";
+import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Toaster as NewYorkSonner } from "@/components/ui/sonner"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { ThemeSync } from "@/components/common/theme/theme-sync";
+import { ThemeSync } from "@/components/theme/theme-sync";
 import { SiteHeader } from "@/components/common/site-header"
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Provider as JotaiProvider } from "jotai"

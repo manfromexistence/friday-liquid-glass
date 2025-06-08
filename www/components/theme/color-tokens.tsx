@@ -1,11 +1,11 @@
 "use client";
 
-import { useTokens } from "../../../../hooks/use-tokens";
+import { useTokens } from "@/hooks/use-tokens";
 import { cn } from "@/lib/utils";
 import { Palette } from "lucide-react";
-import { Label } from "../../../ui/label";
-import { ControlSection } from "./customizer-controls";
-import { TokenColorPicker } from "./token-color-picker";
+import { Label } from "@/components/ui/label";
+import { ControlSection } from "@/components/theme/customizer-controls";
+import { TokenColorPicker } from "@/components/theme/token-color-picker";
 
 export function ColorTokens({ className }: React.ComponentProps<"div">) {
   return (

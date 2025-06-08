@@ -10,12 +10,12 @@ import {
   PanelLeft, PanelLeftOpen, PanelLeftClose // Added sidebar toggle icons
 } from 'lucide-react'
 import { motion } from "framer-motion"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { useTheme } from "next-themes"
-import { cn } from "../../lib/utils"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import { useToast } from "../../hooks/use-toast"
-import { ToastAction } from "../ui/toast"
+import { cn } from "@/lib/utils"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 
 // Add a proper error boundary
 class ErrorBoundary extends Component<

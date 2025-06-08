@@ -1,9 +1,9 @@
 "use client";
 
-import { useMounted } from "../../../../hooks/use-mounted";
-import { useTokens } from "../../../../hooks/use-tokens";
+import { useMounted } from "@/hooks/use-mounted";
+import { useTokens } from "@/hooks/use-tokens";
 import { TAILWIND_SHADES, TailwindShadeKey } from "@/constants/palettes";
-import { useModesInSync } from "../../../../store/preferences-store";
+import { useModesInSync } from "@/store/preferences-store";
 import {
   ClipboardPaste,
   Paintbrush,
@@ -12,7 +12,7 @@ import {
   Palette, // Added Palette icon
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Label } from "../../../ui/label";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -21,15 +21,15 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../../../ui/select";
-import { Skeleton } from "../../../ui/skeleton";
+} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   AllPresetsControl,
   PasteColorControl,
   RadiusControls,
-} from "./customizer-controls";
-import { MemoizedTailwindV4ColorPalette } from "./tailwind-v4-palette";
-// import { GradientPicker } from "./gradient-picker"; // Import GradientPicker
+} from "@/components/theme/customizer-controls";
+import { MemoizedTailwindV4ColorPalette } from "@/components/theme/tailwind-v4-palette";
+// import { GradientPicker } from "@/components/theme/gradient-picker"; // Import GradientPicker
 // import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes"; // Import gradients
 import React from "react"; // Import React
 

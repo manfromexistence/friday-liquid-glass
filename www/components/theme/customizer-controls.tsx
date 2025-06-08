@@ -1,10 +1,10 @@
 "use client";
 
-import { useDebouncedCallback } from "../../../../hooks/use-debounced-callback";
-import { useMounted } from "../../../../hooks/use-mounted";
-import { useSurfaceShades } from "../../../../hooks/use-surface-shades";
-import { useThemeConfig } from "../../../../hooks/use-theme-config";
-import { useTokens } from "../../../../hooks/use-tokens";
+import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
+import { useMounted } from "@/hooks/use-mounted";
+import { useSurfaceShades } from "@/hooks/use-surface-shades";
+import { useThemeConfig } from "@/hooks/use-theme-config";
+import { useTokens } from "@/hooks/use-tokens";
 import {
   basePresetsV4Array,
   colorfulPresetsArray,
@@ -19,7 +19,7 @@ import {
   SurfaceShadesPreset,
   ThemeMode,
   ThemeProperties,
-} from "../../../../types/theme";
+} from "@/types/theme";
 import { getOptimalForegroundColor, isValidColor } from "@/lib/theme/color-utils";
 import { RADIUS_VALUES } from "@/lib/theme/theme-constants";
 import { Check, ChevronDown, ChevronDownIcon, ChevronUp, SendHorizontal } from "lucide-react";
@@ -32,7 +32,7 @@ import {
   useState,
 } from "react";
 import { toast } from "sonner";
-import { Button } from "../../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -40,15 +40,15 @@ import {
   CommandInput,
   CommandItem,
   CommandSeparator,
-} from "../../../ui/command";
-import { Input } from "../../../ui/input";
-import { Label } from "../../../ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../ui/popover";
-import { ScrollArea } from "../../../ui/scroll-area";
-import { Skeleton } from "../../../ui/skeleton";
-import { Slider } from "../../../ui/slider";
-import { Color } from "./color";
-import { TokenColorPicker } from "./token-color-picker";
+} from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Slider } from "@/components/ui/slider";
+import { Color } from "@/components/theme/color";
+import { TokenColorPicker } from "@/components/theme/token-color-picker";
 
 const PLACEHOLDERS = [
   "oklch(0.685 0.169 237.323)",

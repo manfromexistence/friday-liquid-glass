@@ -1,5 +1,5 @@
-import { Label } from "../../../ui/label";
-import { useThemeConfig } from "../../../../hooks/use-theme-config";
+import { Label } from "@/components/ui/label";
+import { useThemeConfig } from "@/hooks/use-theme-config";
 import { cn } from "@/lib/utils";
 import { monoFontsArray, sansFontsArray, serifFontsArray } from "@/lib/theme/fonts";
 import { Check, Ligature } from "lucide-react";
@@ -10,9 +10,9 @@ import {
   CommandInput,
   CommandItem,
   CommandSeparator,
-} from "../../../ui/command";
-import { ScrollArea } from "../../../ui/scroll-area";
-import { ControlSection } from "./customizer-controls";
+} from "@/components/ui/command";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ControlSection } from "@/components/theme/customizer-controls";
 
 export function Typography({ className }: React.ComponentProps<"div">) {
   const { setConfig, currentFonts } = useThemeConfig();

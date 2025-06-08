@@ -17,9 +17,9 @@ import {
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ActionButtons } from "@/components/common/theme/customizer/action-buttons";
-import { ColorTokens } from "@/components/common/theme/customizer/color-tokens";
-import { ComingSoon } from "@/components/common/theme/customizer/coming-soon";
+import { ActionButtons } from "@/components/theme/action-buttons";
+import { ColorTokens } from "@/components/theme/color-tokens";
+import { ComingSoon } from "@/components/theme/coming-soon";
 import {
   AllPresetsControl,
   ControlSection,
@@ -27,10 +27,10 @@ import {
   RadiusSliderControl,
   ShadowsControl,
   SurfaceShadesControl,
-} from "@/components/common/theme/customizer/customizer-controls";
+} from "@/components/theme/customizer-controls";
 
 
-import { Typography } from "@/components/common/theme/customizer/typography";
+import { Typography } from "@/components/theme/typography";
 import Link from "next/link"
 import {
   AudioWaveform,
@@ -88,7 +88,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { lt } from "@/lib/utils";
-import { NavDesktopActions, NavMobileActions } from "./nav-actions";
+import { NavDesktopActions, NavMobileActions } from "@/components/theme/nav-actions";
 
 // Language names mapping for better UX
 const languageNames: Record<string, string> = {

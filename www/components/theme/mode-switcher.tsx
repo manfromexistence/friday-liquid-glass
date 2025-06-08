@@ -1,16 +1,16 @@
 "use client";
 
-import { META_THEME_COLORS, useMetaColor } from "../../../hooks/use-meta-colors";
+import { META_THEME_COLORS, useMetaColor } from "@/hooks/use-meta-colors";
 import { Check, Monitor, Moon, MoonIcon, Sun, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import * as React from "react";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "../../ui/context-menu";
+} from "@/components/ui/context-menu";
 
 export function ModeSwitcher({
   className,

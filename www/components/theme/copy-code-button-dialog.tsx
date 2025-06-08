@@ -1,7 +1,7 @@
 "use client";
 
-import { useCopyToClipboard } from "../../../../hooks/use-copy-to-clipboard";
-import { useThemeConfig } from "../../../../hooks/use-theme-config";
+import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { useThemeConfig } from "@/hooks/use-theme-config";
 import { cn } from "@/lib/utils";
 import {
   useColorFormat,
@@ -9,14 +9,14 @@ import {
   usePreferencesActions,
   useShadowVars,
   useTailwindVersion,
-} from "../../../../store/preferences-store";
-import { TailwindVersion } from "../../../../types/theme";
+} from "@/store/preferences-store";
+import { TailwindVersion } from "@/types/theme";
 import { generateThemeCode } from "@/lib/theme/theme-style-generator";
 import { Check, Clipboard, Code, Terminal } from "lucide-react";
 import React, { useMemo } from "react";
-import { TooltipWrapper } from "../tooltip-wrapper";
-import { Alert, AlertDescription } from "../../../ui/alert";
-import { Button } from "../../../ui/button";
+import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -32,11 +32,11 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "../../../ui/drawer";
-import { Label } from "../../../ui/label";
-import { ScrollArea, ScrollBar } from "../../../ui/scroll-area";
-import { ToggleGroup, ToggleGroupItem } from "../../../ui/toggle-group";
-// import { CopyThemeCLI } from "./copy-theme-cli";
+} from "@/components/ui/drawer";
+import { Label } from "@/components/ui/label";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+// import { CopyThemeCLI } from "@/components/theme/copy-theme-cli";
 
 export function CopyCodeButtonDialog({
   className,
