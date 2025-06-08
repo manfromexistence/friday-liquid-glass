@@ -1,4 +1,4 @@
-import { ColorFormat, OklchValue, TailwindVersion } from "../types/theme";
+import { ColorFormat, OklchValue, TailwindVersion } from "@/types/theme";
 import * as culori from "culori";
 
 const formatNumber = (num?: number): number => {

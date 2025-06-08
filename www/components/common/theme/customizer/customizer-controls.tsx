@@ -20,8 +20,8 @@ import {
   ThemeMode,
   ThemeProperties,
 } from "../../../../types/theme";
-import { getOptimalForegroundColor, isValidColor } from "@/lib/theme/colors";
-import { RADIUS_VALUES } from "@/lib/theme/constants";
+import { getOptimalForegroundColor, isValidColor } from "@/utility/color-utils";
+import { RADIUS_VALUES } from "@/utility/theme-constants";
 import { Check, ChevronDown, ChevronDownIcon, ChevronUp, SendHorizontal } from "lucide-react";
 import { useTheme } from "next-themes";
 import {

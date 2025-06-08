@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { Locale } from '@/lib/i18n-config';
+import { Locale } from '@/lib/i18n/i18n-config';
 import React from 'react';
 
 // Country to language mapping based on common primary languages

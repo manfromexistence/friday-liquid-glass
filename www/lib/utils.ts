@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 // Locale text utilities
-import { Locale, i18n } from '@/lib/i18n-config';
+import { Locale, i18n } from '@/lib/i18n/i18n-config';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -200,3 +200,124 @@ export function initializeLocale(): void {
     preloadCurrentLocale().catch(console.error);
   }
 }
+
+export const DATA_KEYS = {
+  preset: "data-preset",
+  primary: "data-primary",
+  surface: "data-surface",
+  variant: "data-variant",
+  "font-sans": "data-font-sans",
+  "font-serif": "data-font-serif",
+  "font-mono": "data-font-mono",
+} as const;
+
+export type DataKey = (typeof DATA_KEYS)[keyof typeof DATA_KEYS];
+
+export function setStyleProperty({
+  element,
+  value,
+  key,
+}: {
+  element: HTMLElement;
+  key: string;
+  value: string;
+}) {
+  element.style.setProperty(key, value);
+}
+
+export function setAttributeToElement({
+  element,
+  attribute,
+  value,
+}: {
+  element: HTMLElement;
+  attribute: DataKey | (string & {});
+  value: string;
+}) {
+  if (element) {
+    element.setAttribute(attribute, value);
+  }
+}
+
+export function getAttributeFromElement({
+  element,
+  attribute,
+}: {
+  element: HTMLElement;
+  attribute: DataKey;
+}) {
+  if (element) {
+    return element.getAttribute(attribute);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// import { Locale } from '@/lib/i18n/i18n-config';
+
+// // Type definitions for locale text structure
+// export type LocaleKeys = {
+//   friday?: {
+//     title: string;
+//     welcome: string;
+//     prompt: string;
+//     help: string;
+//   };
+//   navigation?: {
+//     new: string;
+//     home: string;
+//     automations: string;
+//     varients: string;
+//     projects: string;
+//     spaces: string;
+//     library: string;
+//     more: string;
+//     settings: string;
+//     profile: string;
+//     dashboard: string;
+//     analytics: string;
+//   };
+//   [key: string]: any;
+// };
+
+// // Global locale cache
+// let localeCache: Partial<Record<Locale, LocaleKeys>> = {};
+
+// /**
+//  * Load locale data dynamically
+//  */
+// export async function loadLocaleData(locale: Locale): Promise<LocaleKeys> {
+//   if (localeCache[locale]) {
+//     return localeCache[locale]!;
+//   }
+
+//   try {
+//     const localeData = await import(`@/locales/${locale}.json`);
+//     localeCache[locale] = localeData.default;
+//     return localeData.default;
+//   } catch (error) {
+//     console.warn(`Failed to load locale ${locale}, falling back to English`);
+//     // Fallback to English
+//     if (!localeCache.en) {
+//       const fallback = await import('@/locales/en.json');
+//       localeCache.en = fallback.default;
+//     }
+//     return localeCache.en!;
+//   }
+// }
+
+// /**
+//  * Get nested value from object using dot notation
+//  */
+// export function getNestedValue(obj: any, path: string): string {
+//   return path.split('.').reduce((current, key) => {
+//     return current && current[key] !== undefined ? current[key] : undefined;
+//   }, obj);
+// }

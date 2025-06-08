@@ -21,7 +21,7 @@ import { cn, lt, loadLocaleData } from "@/lib/utils";
 import { SiteFooter } from "@/components/common/portfolio/site-footer";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Locale } from "@/lib/i18n-config";
+import { Locale } from "@/lib/i18n/i18n-config";
 
 // Firebase configuration
 const firebaseConfig = {

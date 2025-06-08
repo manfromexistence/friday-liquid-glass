@@ -7,7 +7,7 @@ import { basePresetsV4Array, surfaceShadesPresetArray } from "@/constants/colors
 import { TAILWIND_PALETTE_V4 } from "@/constants/palettes";
 import { otherPresetsArray } from "@/constants/presets";
 import { getRandomIndex } from "@/constants/utils";
-import { RADIUS_VALUES } from "@/lib/theme/constants";
+import { RADIUS_VALUES } from "@/utility/theme-constants";
 import { monoFontsArray, sansFontsArray, serifFontsArray } from "@/lib/theme/fonts";
 import { Shuffle } from "lucide-react";
 import { ComponentProps, useCallback } from "react";

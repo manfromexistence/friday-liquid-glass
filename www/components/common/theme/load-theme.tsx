@@ -1,7 +1,7 @@
 "use client";
 
 import { initialThemeConfig } from "../../../constants/themes";
-import { LOCAL_STORAGE_KEYS } from "@/lib/theme/constants";
+import { LOCAL_STORAGE_KEYS } from "@/utility/theme-constants";
 import { monoFontsArray, sansFontsArray, serifFontsArray } from "../../../constants/fonts";
 import { preconnect } from "react-dom";
 

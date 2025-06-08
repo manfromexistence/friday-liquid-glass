@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 // import { SiteFooter } from "@/components/common/portfolio/site-footer"; 
 import { Skeleton } from "@/components/ui/skeleton";
-import { Locale } from "@/lib/i18n-config";
+import { Locale } from "@/lib/i18n/i18n-config";
 
 // Assuming SocialMedias is a component. If it uses lt(), it might need similar Suspense wrapping or dynamic import.
 // For now, let's define a placeholder if it's not critical for this fix.

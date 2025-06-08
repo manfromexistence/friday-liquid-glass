@@ -3,7 +3,7 @@
 import { useTokens } from "../../../../hooks/use-tokens";
 import { TAILWIND_PALETTE_V4, TailwindShadeKey } from "@/constants/palettes";
 import { cn } from "@/lib/utils";
-import { convertToOklch } from "@/lib/theme/color-converter";
+import { convertToOklch } from "@/utility/color-converter";
 import React, { ComponentProps } from "react";
 import { TooltipWrapper } from "../tooltip-wrapper";
 import { Color } from "./color";

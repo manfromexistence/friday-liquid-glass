@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { GoogleDriveService } from '@/lib/services/google-drive-service';
+import { GoogleDriveService } from '@/services/google-drive-service';
 
 export async function POST(request: Request) {
   try {

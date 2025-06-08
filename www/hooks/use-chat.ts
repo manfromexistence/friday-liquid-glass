@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useChatInputStore } from '@/store/chat-store'
 import { useAIModelStore } from '@/store/ai-model-store'
-import { googleGenAIService } from '@/lib/services/google-genai-service'
+import { googleGenAIService } from '@/services/google-genai-service'
 import { Message } from '@/types/chat'
 import { v4 as uuidv4 } from 'uuid'
 

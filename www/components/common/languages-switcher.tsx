@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Globe, Check } from "lucide-react";
 import { useState } from "react";
-import { i18n, type Locale } from "@/lib/i18n-config";
+import { i18n, type Locale } from "@/lib/i18n/i18n-config";
 import { Button } from "@/components/ui/button";
 import {
   Command,

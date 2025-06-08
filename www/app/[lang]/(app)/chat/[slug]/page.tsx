@@ -11,7 +11,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar";
 import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar";
-import { aiService } from "@/lib/services/ai-service";
+import { aiService } from "@/services/ai-service";
 import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
 import {MessageList} from "@/components/chat/message-list";
 import { ChatInput } from "@/components/chat/chat-input";

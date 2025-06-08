@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from '@/store/locale-store';
-import { Locale } from '@/lib/i18n-config';
+import { Locale } from '@/lib/i18n/i18n-config';
 
 /**
  * Hook that integrates the Zustand locale store with Next.js routing

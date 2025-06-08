@@ -3,7 +3,7 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import { useLocaleStore } from '@/store/locale-store';
-import { Locale, i18n } from '@/lib/i18n-config';
+import { Locale, i18n } from '@/lib/i18n/i18n-config';
 
 // Import the utility functions
 import { loadLocaleData } from '../lib/utils-internal';
