@@ -73,7 +73,7 @@ import { toast } from "sonner"
 import { usePathname } from "next/navigation";
 import { Globe, Check } from "lucide-react";
 import { useState } from "react";
-import { i18n, type Locale } from "@/i18n-config";
+import { i18n, type Locale } from "@/lib/i18n-config";
 import {
   Command,
   CommandEmpty,

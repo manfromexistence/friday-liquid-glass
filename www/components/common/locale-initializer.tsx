@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from 'react';
-import { Locale } from '@/i18n-config';
+import { Locale } from '@/lib/i18n-config';
 
 // Import the internal functions
 async function loadLocaleData(locale: Locale) {

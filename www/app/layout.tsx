@@ -1,4 +1,4 @@
-import { i18n, type Locale } from "@/i18n-config";
+import { i18n, type Locale } from "@/lib/i18n-config";
 import { LoadTheme } from "@/components/common/theme/load-theme";
 import { Providers } from "@/components/providers";
 import { cn } from "@/lib/utils";

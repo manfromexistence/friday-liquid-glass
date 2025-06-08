@@ -2,7 +2,7 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 // Locale text utilities
-import { Locale, i18n } from '@/i18n-config';
+import { Locale, i18n } from '@/lib/i18n-config';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
