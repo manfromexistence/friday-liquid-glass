@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { GoogleDriveService } from '@/lib/googleDrive';
+import { GoogleDriveService } from '@/lib/services/google-drive-service';
 import Busboy from 'busboy';
 import fs from 'fs/promises';
 import { Readable } from 'stream';

@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/common/theme/theme-provider";
 import { Toaster as NewYorkSonner } from "@/components/ui/sonner"
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { ThemeSync } from "@/components/common/theme/theme-sync";
-import { SiteHeader } from "@/components/common/portfolio/site-header"
+import { SiteHeader } from "@/components/common/site-header"
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Provider as JotaiProvider } from "jotai"
 import * as React from "react"

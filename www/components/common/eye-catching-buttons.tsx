@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils';
-import { Button, ButtonProps } from '@/components/common/portfolio/button';
+import { Button } from '@/components/ui/button';
 
 //======================================
-export const EyeCatchingButton_v1 = ({ ...props }: ButtonProps) => {
+export const EyeCatchingButton_v1 = ({ ...props }: any) => {
   return (
     <div className="group relative overflow-hidden rounded-md p-0.5">
       <span className="absolute inset-[-1000%] animate-[spin_5s_linear_infinite_reverse] bg-[conic-gradient(from_90deg_at_50%_50%,theme(colors.foreground)_0%,theme(colors.background)_5%)] group-hover:bg-none dark:bg-[conic-gradient(from_90deg_at_50%_50%,theme(colors.foreground)_0%,theme(colors.background)_7%)]" />
@@ -18,7 +18,7 @@ export const EyeCatchingButton_v1 = ({ ...props }: ButtonProps) => {
 };
 
 //======================================Shiny Background
-export const EyeCatchingButton_v2 = ({ ...props }: ButtonProps) => {
+export const EyeCatchingButton_v2 = ({ ...props }: any) => {
   return (
     <Button
       {...props}
@@ -33,7 +33,7 @@ export const EyeCatchingButton_v2 = ({ ...props }: ButtonProps) => {
 };
 
 //======================================Shiny Text
-export const EyeCatchingButton_v3 = ({ ...props }: ButtonProps) => {
+export const EyeCatchingButton_v3 = ({ ...props }: any) => {
   return (
     <Button
       {...props}
@@ -48,7 +48,7 @@ export const EyeCatchingButton_v3 = ({ ...props }: ButtonProps) => {
 };
 
 //======================================Animated Gradient border
-export const EyeCatchingButton_v4 = ({ ...props }: ButtonProps) => {
+export const EyeCatchingButton_v4 = ({ ...props }: any) => {
   return (
     <div className="group relative inline-block overflow-hidden rounded-xl p-[1.3px]">
       <span className="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#52525B_0%,#D4D4D8_50%,#52525B_100%)] group-hover:animate-none dark:bg-[conic-gradient(from_90deg_at_50%_50%,#FAFAFA_0%,#52525B_50%,#E4E4E7_100%)]" />
@@ -64,7 +64,7 @@ export const EyeCatchingButton_v4 = ({ ...props }: ButtonProps) => {
 };
 
 //======================================Animated Text Gradient
-export const EyeCatchingButton_v5 = ({ ...props }: ButtonProps) => {
+export const EyeCatchingButton_v5 = ({ ...props }: any) => {
   return (
     <Button
       {...props}

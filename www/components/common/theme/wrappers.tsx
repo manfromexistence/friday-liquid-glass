@@ -5,6 +5,7 @@ interface SectionWrapperProps extends ComponentProps<"div"> {
   withCane?: boolean;
 }
 
+
 function SectionWrapper({
   children,
   className,
