@@ -1,4 +1,4 @@
-import { allPresetsArray, surfaceShadesPresets } from "../lib/colors";
+import { allPresetsArray, surfaceShadesPresets } from "@/constants/colors";
 import { initialThemeConfig } from "../constants/themes";
 import {
   ColorProperty,
@@ -8,7 +8,7 @@ import {
   ThemeMode,
   ThemeProperty,
 } from "../types/theme";
-import { getOptimalForegroundColor, isValidColor } from "../constants/colors";
+import { getOptimalForegroundColor, isValidColor } from "@/lib/theme/colors";
 import { useTheme } from "next-themes";
 import { useCallback } from "react";
 import { useThemeConfig } from "./use-theme-config";
