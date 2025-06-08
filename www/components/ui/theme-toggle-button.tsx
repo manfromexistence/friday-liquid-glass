@@ -16,7 +16,7 @@ import {
   RadiusSliderControl,
   ShadowsControl,
   SurfaceShadesControl,
-} from "@/components/theme/customizer/customizer-controls"
+} from "@/components/common/theme/customizer/customizer-controls"
 import {
   Popover,
   PopoverContent,

@@ -8,7 +8,7 @@ import { CircleSlash2, Briefcase, Framer, Dribbble, Code2 } from "lucide-react";
 import { preloadCurrentLocale, lt, loadLocaleData } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { SiteFooter } from "@/components/portfolio/site-footer"; 
+import { SiteFooter } from "@/components/common/portfolio/site-footer"; 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Locale } from "@/i18n-config";
 

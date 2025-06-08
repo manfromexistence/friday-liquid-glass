@@ -18,7 +18,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CircleSlash2, Briefcase, Edit, Trash2, Plus } from "lucide-react";
 import { cn, lt, loadLocaleData } from "@/lib/utils";
-import { SiteFooter } from "@/components/portfolio/site-footer";
+import { SiteFooter } from "@/components/common/portfolio/site-footer";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Locale } from "@/i18n-config";
