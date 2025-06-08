@@ -1,9 +1,9 @@
 "use client";
 
 import { useTokens } from "../../../../hooks/use-tokens";
-import { TAILWIND_PALETTE_V4, TailwindShadeKey } from "../../../../lib/palettes";
-import { cn } from "../../../../lib/utils";
-import { convertToOklch } from "../../../../constants/color-converter";
+import { TAILWIND_PALETTE_V4, TailwindShadeKey } from "@/constants/palettes";
+import { cn } from "@/lib/utils";
+import { convertToOklch } from "@/lib/theme/color-converter";
 import React, { ComponentProps } from "react";
 import { TooltipWrapper } from "../tooltip-wrapper";
 import { Color } from "./color";

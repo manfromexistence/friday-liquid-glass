@@ -1,7 +1,7 @@
 "use client";
 
 import { useTokens } from "../../../../hooks/use-tokens";
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { Palette } from "lucide-react";
 import { Label } from "../../../ui/label";
 import { ControlSection } from "./customizer-controls";

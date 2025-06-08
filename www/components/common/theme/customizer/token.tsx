@@ -1,10 +1,10 @@
 "use client";
 
 import { useCopyToClipboard } from "../../../../hooks/use-copy-to-clipboard";
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { useColorFormat } from "../../../../store/preferences-store";
 import { ColorProperty } from "../../../../types/theme";
-import { colorFormatter } from "../../../../constants/color-converter";
+import { colorFormatter } from "@/lib/theme/color-converter";
 import { Check, Clipboard } from "lucide-react";
 import { ComponentProps } from "react";
 

@@ -1,8 +1,8 @@
 import { useContrastChecker } from "../../../../hooks/use-contrast-checker";
 import { useThemeConfig } from "../../../../hooks/use-theme-config";
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { ThemeMode, ThemeProperties } from "../../../../types/theme";
-import { getOptimalForegroundColor } from "../../../../constants/colors";
+import { getOptimalForegroundColor } from "@/lib/theme/colors";
 import { AlertTriangle, Check, Contrast } from "lucide-react";
 import { useTheme } from "next-themes";
 import React, { useState } from "react";

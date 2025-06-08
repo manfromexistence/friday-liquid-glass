@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { Eye, EyeOff, Info, Settings } from "lucide-react";
 import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";

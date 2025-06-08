@@ -1,4 +1,4 @@
-import { allPresetsArray } from "../lib/colors";
+import { allPresetsArray } from "@/constants/colors";
 import {
   DEFAULT_FONTS,
   DEFAULT_RADIUS,

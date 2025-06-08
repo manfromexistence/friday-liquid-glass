@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 import { ModeSwitcher } from "../mode-switcher";
 import { TooltipWrapper } from "../tooltip-wrapper";

@@ -2,7 +2,7 @@
 
 import { useMounted } from "../../../../hooks/use-mounted";
 import { useTokens } from "../../../../hooks/use-tokens";
-import { TAILWIND_SHADES, TailwindShadeKey } from "../../../../lib/palettes";
+import { TAILWIND_SHADES, TailwindShadeKey } from "@/constants/palettes";
 import { useModesInSync } from "../../../../store/preferences-store";
 import {
   ClipboardPaste,

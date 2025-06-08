@@ -2,7 +2,7 @@
 
 import { useCopyToClipboard } from "../../../../hooks/use-copy-to-clipboard";
 import { useThemeConfig } from "../../../../hooks/use-theme-config";
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import {
   useColorFormat,
   useFontVars,
@@ -11,7 +11,7 @@ import {
   useTailwindVersion,
 } from "../../../../store/preferences-store";
 import { TailwindVersion } from "../../../../types/theme";
-import { generateThemeCode } from "../../../../constants/theme-style-generator";
+import { generateThemeCode } from "@/lib/theme/theme-style-generator";
 import { Check, Clipboard, Code, Terminal } from "lucide-react";
 import React, { useMemo } from "react";
 import { TooltipWrapper } from "../tooltip-wrapper";

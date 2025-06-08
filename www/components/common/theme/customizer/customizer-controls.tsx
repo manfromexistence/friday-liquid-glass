@@ -10,9 +10,9 @@ import {
   colorfulPresetsArray,
   surfaceShadesPresetArray,
   surfaceShadesPresets,
-} from "../../../../lib/colors";
-import { otherPresetsArray } from "../../../../lib/presets";
-import { cn } from "../../../../lib/utils";
+} from "@/constants/colors";
+import { otherPresetsArray } from "@/constants/presets";
+import { cn } from "@/lib/utils";
 import {
   ColorProperty,
   SurfaceShades,
@@ -20,8 +20,8 @@ import {
   ThemeMode,
   ThemeProperties,
 } from "../../../../types/theme";
-import { getOptimalForegroundColor, isValidColor } from "../../../../constants/colors";
-import { RADIUS_VALUES } from "../../../../constants/constants";
+import { getOptimalForegroundColor, isValidColor } from "@/lib/theme/colors";
+import { RADIUS_VALUES } from "@/lib/theme/constants";
 import { Check, ChevronDown, ChevronDownIcon, ChevronUp, SendHorizontal } from "lucide-react";
 import { useTheme } from "next-themes";
 import {

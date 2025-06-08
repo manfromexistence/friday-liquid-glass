@@ -1,7 +1,7 @@
 "use client";
 
 import { useThemeConfig } from "../../../../hooks/use-theme-config";
-import { cn } from "../../../../lib/utils";
+import { cn } from "@/lib/utils";
 import { RotateCcw, Undo } from "lucide-react";
 import { ComponentProps } from "react";
 import { Button } from "../../../ui/button";
