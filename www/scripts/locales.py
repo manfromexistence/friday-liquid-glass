@@ -102,7 +102,7 @@ def translate_and_save_language(lang_code):
     
     # Save the translated JSON
     try:
-        with open(f"{lang_code}.json", "w", encoding="utf-8") as out_file:
+        with open(f"../locales/{lang_code}.json", "w", encoding="utf-8") as out_file:
             json.dump(translated_json_content, out_file, ensure_ascii=False, indent=2)
         return f"Successfully translated and saved {lang_code}.json"
     except Exception as e_save:
