@@ -9,7 +9,7 @@ import UserMessage from "@/components/chat/user-message-actions";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { MarkdownPreview } from "@/components/chat/markdown-preview";
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
-import ImageGen from "../image";
+import ImageGen from "@/components/chat/image";
 import { ReasoningPreview } from "@/components/chat/reasoning-preview";
 
 interface ChatMessageProps {
@@ -23,7 +23,7 @@ interface ChatMessageProps {
 }
 
 export const ChatMessage = memo(
-  ({
+  async ({
     message,
     chatId,
     index,
@@ -32,7 +32,7 @@ export const ChatMessage = memo(
     onTransitionEnd,
     selectedAI = "",
   }: ChatMessageProps) => {
-    const { data: session } = authClient.useSession();
+    const { data: session } = await authClient.useSession();
     const user = session?.user;
     const isAssistant = message.role === "assistant";
     const [isPlaying, setIsPlaying] = useState(false);
