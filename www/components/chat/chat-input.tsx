@@ -1,14 +1,14 @@
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { ChatState } from "@/types/chat"
-import { Textarea } from "../ui/textarea"
+import { Textarea } from "@/components/ui/textarea"
 import { InputActions } from "@/components/chat/input-actions"
 import { ImagePreview } from "@/components/chat/image-preview"
 import { useAIModelStore } from "@/store/ai-model-store"
 import { useToast } from "@/hooks/use-toast"
 import { motion, useAnimationControls } from "framer-motion"
 import { ChevronDown } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "@/components/ui/button"
 import { X } from "lucide-react";
 
 const MotionTextarea = motion.create(Textarea);

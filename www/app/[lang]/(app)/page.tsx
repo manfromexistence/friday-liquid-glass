@@ -1,237 +1,680 @@
 "use client";
 
-import { Suspense, useEffect, useState, SVGProps } from "react";
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import Link from 'next/link';
-import { CircleSlash2, Briefcase, Framer, Dribbble, Code2 } from "lucide-react"; 
-import { preloadCurrentLocale, lt, loadLocaleData } from "@/lib/utils";
+import * as React from "react";
+import { useParams } from "next/navigation";
+import LoadingAnimation from "@/components/chat/loading-animation";
+import { db } from "@/db";
+import { chats as chatsTable } from "@/db/schema";
+import { authClient } from "@/lib/auth/auth-client";
+import { toast } from "sonner";
+import { useEffect, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { useCategorySidebar } from "@/components/layout/sidebar/category-sidebar";
+import { useSubCategorySidebar } from "@/components/layout/sidebar/subcategory-sidebar";
+import { aiService } from "@/services/ai-service";
+import { useAutoResizeTextarea } from "@/hooks/use-auto-resize-textarea";
+import {MessageList} from "@/components/chat/message-list";
+import { ChatInput } from "@/components/chat/chat-input";
+import { useQueryClient } from "@tanstack/react-query";
+import type { Message } from "@/types/chat";
 import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Locale } from "@/lib/i18n/i18n-config";
+import { useAIModelStore } from "@/store/ai-model-store";
+import { useChatInputStore } from "@/store/chat-store";
+import { v4 as uuidv4 } from "uuid";
+import { eq } from "drizzle-orm"; // Import eq from drizzle-orm
 
+// Define ChatState interface to match the one expected by ChatInput
+interface ChatState {
+  messages: Message[];
+  isLoading: boolean;
+  error: string | null;
+}
 
-const Gmail = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 49.4 512 399.42" width="1em" height="1em" {...props}><g fill="none" fillRule="evenodd"><g fillRule="nonzero"><path fill="#4285f4" d="M34.91 448.818h81.454V251L0 163.727V413.91c0 19.287 15.622 34.91 34.91 34.91z" /><path fill="#34a853" d="M395.636 448.818h81.455c19.287 0 34.909-15.622 34.909-34.909V163.727L395.636 251z" /><path fill="#fbbc04" d="M395.636 99.727V251L512 163.727v-46.545c0-43.142-49.25-67.782-83.782-41.891z" /></g><path fill="#ea4335" d="M116.364 251V99.727L256 204.455 395.636 99.727V251L256 355.727z" /><path fill="#c5221f" fillRule="nonzero" d="M0 117.182v46.545L116.364 251V99.727L83.782 75.291C49.25 49.4 0 74.04 0 117.18z" /></g></svg>;
-const LinkedIn = (props: SVGProps<SVGSVGElement>) => <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 256" {...props}><path d="M218.123 218.127h-37.931v-59.403c0-14.165-.253-32.4-19.728-32.4-19.756 0-22.779 15.434-22.779 31.369v60.43h-37.93V95.967h36.413v16.694h.51a39.907 39.907 0 0 1 35.928-19.733c38.445 0 45.533 25.288 45.533 58.186l-.016 67.013ZM56.955 79.27c-12.157.002-22.014-9.852-22.016-22.009-.002-12.157 9.851-22.014 22.008-22.016 12.157-.003 22.014 9.851 22.016 22.008A22.013 22.013 0 0 1 56.955 79.27m18.966 138.858H37.95V95.967h37.97v122.16ZM237.033.018H18.89C8.58-.098.125 8.161-.001 18.471v219.053c.122 10.315 8.576 18.582 18.89 18.474h218.144c10.336.128 18.823-8.139 18.966-18.474V18.454c-.147-10.33-8.635-18.588-18.966-18.453" fill="#0A66C2" /></svg>;
-const Facebook = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" fill="url(#a)" height="1em" width="1em" {...props}><defs><linearGradient x1="50%" x2="50%" y1="97.078%" y2="0%" id="a"><stop offset="0%" stopColor="#0062E0" /><stop offset="100%" stopColor="#19AFFF" /></linearGradient></defs><path d="M15 35.8C6.5 34.3 0 26.9 0 18 0 8.1 8.1 0 18 0s18 8.1 18 18c0 8.9-6.5 16.3-15 17.8l-1-.8h-4l-1 .8z" /><path fill="#FFF" d="m25 23 .8-5H21v-3.5c0-1.4.5-2.5 2.7-2.5H26V7.4c-1.3-.2-2.7-.4-4-.4-4.1 0-7 2.5-7 7v4h-4.5v5H15v12.7c1 .2 2 .3 3 .3s2-.1 3-.3V23h4z" /></svg>;
+const MIN_HEIGHT = 48;
+const MAX_HEIGHT = 164;
 
-const SocialMedias = () => <div aria-label="Social media links placeholder"></div>;
-
-const Icon = ({ className, ...rest }: any) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      width={24}
-      height={24}
-      strokeWidth="1"
-      stroke="currentColor"
-      {...rest}
-      className={cn("absolute z-[100000]  size-6", className)}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-    </svg>
-  );
-};
-
-const LocalizedContent = ({ locale }: { locale: Locale }) => {
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    loadLocaleData(locale).then(() => {
-      setLoaded(true);
-    });
-  }, [locale]);
-
-  if (!loaded) {
-    // This is a basic skeleton, the main loading UI is handled by Suspense fallback for DynamicLocalizedContent
-    return (
-      <>
-        <Skeleton className="h-10 w-3/4 md:h-12 lg:h-14 xl:h-16 mb-4" />
-        <div className="flex w-full flex-col justify-between space-y-4 text-muted-foreground md:flex-row md:space-y-0">
-          <div className="flex flex-col space-y-2 md:max-h-[200px] md:w-3/5">
-            <Skeleton className="h-4 w-full mb-2" />
-            <Skeleton className="h-4 w-5/6 mb-4" />
-            <div className="flex h-full flex-col space-y-2 md:justify-end">
-              <Skeleton className="h-4 w-1/4 mb-1" />
-              <Skeleton className="h-4 w-3/4 mb-2" />
-              <Skeleton className="h-4 w-1/4 mb-1" />
-              <Skeleton className="h-4 w-3/4" />
-            </div>
-          </div>
-        </div>
-      </>
-    );
+function sanitizeForDrizzle(obj: any): any {
+  if (obj === null || obj === undefined) {
+    return null;
   }
 
-  return (
-    <>
-      <span className="text-3xl font-bold md:text-4xl lg:text-5xl xl:text-6xl">
-        {lt("headline", "Welcome", locale)}
-      </span>
-      <div className="flex w-full flex-col justify-between space-y-4 text-muted-foreground md:flex-row md:space-y-0">
-        <div className="flex flex-col space-y-2 md:max-h-[200px] md:w-3/5">
-          <span className="mt-2">
-            {lt("description", "Description", locale)}
-          </span>
-          <div className="flex h-full flex-col space-y-2 md:justify-end">
-            <div className="flex flex-col">
-              <span>{lt("now", "Now", locale)}</span>
-              <div className="flex items-center text-foreground">
-                <CircleSlash2 className="mr-2 size-4" /> 
-                {lt("now-description", "Current activity", locale)}
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span>{lt("previously", "Previously", locale)}</span>
-              <div className="flex items-center text-foreground">
-                <Briefcase className="mr-2 size-4" /> 
-                {lt("previously-description", "Previous activity", locale)}
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* The right-side card with social links is part of the static layout in Home now */}
-      </div>
-    </>
-  );
+  if (typeof obj === 'string' || typeof obj === 'number' || typeof obj === 'boolean') {
+    return obj;
+  }
+
+  if (Array.isArray(obj)) {
+    return obj
+      .filter(item => item !== undefined && item !== null)
+      .map(item => sanitizeForDrizzle(item));
+  }
+
+  if (obj instanceof Date) {
+    return obj.toISOString();
+  }
+
+  if (typeof obj === 'object') {
+    const sanitized: Record<string, any> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (value === undefined) continue;
+      const sanitizedValue = sanitizeForDrizzle(value);
+      if (
+        sanitizedValue === null ||
+        typeof sanitizedValue === 'string' ||
+        typeof sanitizedValue === 'number' ||
+        typeof sanitizedValue === 'boolean' ||
+        Array.isArray(sanitizedValue) ||
+        (typeof sanitizedValue === 'object' && sanitizedValue !== null)
+      ) {
+        sanitized[key] = sanitizedValue;
+      } else {
+        console.warn(`Invalid value type for key ${key}: ${typeof sanitizedValue}. Skipping.`);
+      }
+    }
+    return sanitized;
+  }
+
+  console.error(`Unsupported type: ${typeof obj}. Skipping.`);
+  return null;
+}
+
+function validateMessage(message: Message): boolean {
+  if (typeof message.id !== 'string' || message.id.length === 0) return false;
+  if (message.role !== 'user' && message.role !== 'assistant') return false;
+  if (typeof message.content !== 'string') return false;
+  if (typeof message.timestamp !== 'string') return false;
+  if (message.image_urls) {
+    if (!Array.isArray(message.image_urls)) return false;
+    for (const url of message.image_urls) {
+      if (typeof url !== 'string') return false;
+    }
+  }
+  if (message.reasoning) {
+    if (typeof message.reasoning !== 'object' || message.reasoning === null) return false;
+    if (typeof message.reasoning.thinking !== 'string' || typeof message.reasoning.answer !== 'string') return false;
+  }
+  return true;
+}
+
+// Helper function to strip prefixes from input
+function stripPrefixes(input: string): string {
+  // Add your prefix stripping logic here if needed
+  return input;
+}
+
+interface AIResponse {
+  text_response: string;
+  image_urls: string[];
+  model_used: string;
+}
+
+type Params = {
+  slug: string;
 };
 
-const DynamicLocalizedContent = ({ locale }: { locale: Locale }) => {
-  const Component = dynamic(() => Promise.resolve(({ locale: l }: { locale: Locale }) => <LocalizedContent locale={l} />), {
-    ssr: false,
-    loading: () => ( // Fallback shown while the LocalizedContent component itself is loading
-      <div className="mt-4 w-full space-y-8">
-        <Skeleton className="h-10 w-3/4 md:h-12 lg:h-14 xl:h-16 mb-4" />
-        <div className="flex w-full flex-col justify-between space-y-4 text-muted-foreground md:flex-row md:space-y-0">
-          <div className="flex flex-col space-y-2 md:max-h-[200px] md:w-3/5">
-            <Skeleton className="h-4 w-full mb-2" />
-            <Skeleton className="h-4 w-5/6 mb-4" />
-            <div className="flex h-full flex-col space-y-2 md:justify-end">
-              <Skeleton className="h-4 w-1/4 mb-1" />
-              <Skeleton className="h-4 w-3/4 mb-2" />
-              <Skeleton className="h-4 w-1/4 mb-1" />
-              <Skeleton className="h-4 w-3/4" />
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-  });
+export default function ChatPage() {
+  const router = useRouter();
+  const [user, setUser] = React.useState<any>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const params = useParams<Params>() ?? { slug: "" };
+  const chatId = params.slug;
+  const queryClient = useQueryClient();
+  const { statecategorysidebar } = useCategorySidebar();
+  const { statesubcategorysidebar } = useSubCategorySidebar();
   
-  return <Component locale={locale} />;
-};
+  // Use Zustand stores for state management
+  const { currentModel, setModel } = useAIModelStore();
+  const { 
+    value, setValue,
+    inputHeight, setInputHeight,
+    showSearch, toggleSearch,
+    showResearch, toggleResearch,
+    showThinking, setShowThinking, toggleThinking,
+    imagePreview, setImagePreview,
+  } = useChatInputStore();
 
-export default function Home(props: {
-  params: Promise<{ lang: Locale }>;
-}) {
-  const [locale, setLocale] = useState<Locale | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Local state for chat state management with proper React setState
+  const [chatState, setChatState] = React.useState<ChatState>({
+    messages: [],
+    isLoading: false,
+    error: null
+  });
 
+  // Local state for session-specific variables
+  const messagesEndRef = useRef<HTMLDivElement>(null as unknown as HTMLDivElement);
+  const [sessionId, setSessionId] = React.useState<string>(params.slug);
+  const [initialResponseGenerated, setInitialResponseGenerated] = React.useState(false);
+  const [isValidating, setIsValidating] = React.useState(true);
+
+  const { textareaRef, adjustHeight } = useAutoResizeTextarea({
+    minHeight: MIN_HEIGHT,
+    maxHeight: MAX_HEIGHT,
+  });
+
+  // Fetch user data on mount using Better Auth
   useEffect(() => {
-    const loadParams = async () => {
+    const fetchUserData = async () => {
+      setIsLoading(true);
       try {
-        const params = await props.params;
-        setLocale(params.lang);
+        const sessionData = await authClient.getSession();
+        setUser(sessionData?.data);
       } catch (error) {
-        console.error("Failed to load language parameters:", error);
+        console.error("Failed to fetch user data:", error);
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
+    fetchUserData();
+  }, []);
 
-    loadParams();
-  }, [props.params]);
+  // Fetch chat data from Drizzle/Turso
+  useEffect(() => {
+    if (!chatId) return;
+    const fetchChat = async () => {
+      try {
+        // Use eq from drizzle-orm for column comparisons
+        const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
+        if (chatRows.length > 0) {
+          const chat:any = chatRows[0];
+          const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+          setChatState(prevState => ({
+            ...prevState,
+            messages,
+          }));
+          if (chat.model && currentModel !== chat.model) {
+            setModel(chat.model);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching chat:", error);
+        setChatState(prevState => ({
+          ...prevState,
+          error: "Failed to load chat"
+        }));
+        toast.error("Failed to load chat");
+      }
+    };
+    fetchChat();
+  }, [chatId, currentModel, setModel]);
 
-  // Show loading state while params are being fetched
-  if (loading || !locale) {
-    return (
-      <div className="container flex max-w-screen-xl flex-col items-center space-y-8 pb-[75px] mx-auto">
-        <div className="mt-4 w-full space-y-8">
-          {/* Fallback content while loading */}
-          <div className="mt-4 w-full space-y-8">
-            <Skeleton className="h-10 w-3/4 md:h-12 lg:h-14 xl:h-16 mb-4" />
-            <div className="flex w-full flex-col justify-between space-y-4 text-muted-foreground md:flex-row md:space-y-0">
-              <div className="flex flex-col space-y-2 md:max-h-[200px] md:w-3/5">
-                <Skeleton className="h-4 w-full mb-2" />
-                <Skeleton className="h-4 w-5/6 mb-4" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const shouldGenerateResponse = sessionStorage.getItem("autoSubmit") === "true";
+    const storedModel = sessionStorage.getItem("selectedAI");
 
-  // Define pageSuspenseFallback within the component
-  const pageSuspenseFallback = (
-    <div className="mt-4 w-full space-y-8">
-      <Skeleton className="h-10 w-3/4 md:h-12 lg:h-14 xl:h-16 mb-4" />
-      <div className="flex w-full flex-col justify-between space-y-4 text-muted-foreground md:flex-row md:space-y-0">
-        <div className="flex flex-col space-y-2 md:max-h-[200px] md:w-3/5">
-          <Skeleton className="h-4 w-full mb-2" />
-          <Skeleton className="h-4 w-5/6 mb-4" />
-        </div>
-      </div>
-    </div>
+    if (
+      shouldGenerateResponse &&
+      sessionId &&
+      chatState.messages.length > 0 &&
+      !initialResponseGenerated &&
+      !chatState.isLoading
+    ) {
+      const generateInitialResponse = async () => {
+        try {
+          // Use React's setState with function form
+          setChatState(prevState => ({
+            ...prevState,
+            isLoading: true,
+            error: null
+          }));
+          sessionStorage.removeItem("autoSubmit");
+          sessionStorage.removeItem("initialPrompt");
+          setInitialResponseGenerated(true);
+
+          const lastMessage = chatState.messages[chatState.messages.length - 1];
+          if (lastMessage.role !== "user") {
+            setChatState(prevState => ({
+              ...prevState,
+              isLoading: false
+            }));
+            return;
+          }
+
+          // Update to use Zustand setModel
+          if (storedModel) {
+            setModel(storedModel);
+          }
+
+          const aiResponse = await aiService.generateResponse(lastMessage.content);
+          console.log("Raw aiResponse (initial):", aiResponse);
+
+          const assistantMessageBase = {
+            id: uuidv4(),
+            role: "assistant" as const,
+            content: typeof aiResponse === "string" ? aiResponse : aiResponse.text_response,
+            timestamp: new Date().toISOString(),
+          };
+
+          const assistantMessage: Message = {
+            ...assistantMessageBase,
+            ...(typeof aiResponse !== "string" && aiResponse.image_urls?.length > 0
+              ? { image_urls: aiResponse.image_urls.filter(url => typeof url === "string") } 
+              : {}),
+            ...(typeof aiResponse === "string" && lastMessage.content.includes("reasoning")
+              ? { reasoning: { thinking: "Processing...", answer: aiResponse } }
+              : {}),
+          };
+
+          const sanitizedMessage = sanitizeForDrizzle(assistantMessage);
+          if (!validateMessage(sanitizedMessage)) {
+            throw new Error("Invalid assistant message structure");
+          }
+
+          // Fetch current messages from DB using eq
+          const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, sessionId));
+          if (chatRows.length === 0) {
+            throw new Error("Chat not found");
+          }
+          
+          const chat:any = chatRows[0];
+          const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+          const updatedMessages = [...currentMessages, sanitizedMessage];
+          
+          // Update the chat with new message using eq
+          await db.update(chatsTable)
+            .set({
+              messages: JSON.stringify(updatedMessages),
+              updatedAt: new Date().toISOString(),
+            })
+            .where(eq(chatsTable.id, sessionId));
+
+          // Update local state with the new message
+          setChatState(prevState => ({
+            ...prevState,
+            messages: updatedMessages,
+            isLoading: false
+          }));
+        } catch (error) {
+          console.error("Error generating initial response:", error);
+          setChatState(prevState => ({
+            ...prevState,
+            isLoading: false,
+            error: "Failed to generate AI response"
+          }));
+          toast.error("Failed to generate initial AI response");
+        }
+      };
+
+      generateInitialResponse();
+    }
+  }, [sessionId, chatState.messages, chatState.isLoading, initialResponseGenerated, setModel]);
+
+  // Modify the handleSubmit function to properly manage thinking state
+  const handleSubmit = async () => {
+    if (!value.trim() || !chatId || chatState.isLoading) return;
+    if (!user || !user.user) {
+      toast.error("Authentication required", {
+        description: "Please sign in to chat with Friday AI",
+        duration: 5000,
+      });
+      return;
+    }
+    
+    // Set both local and global thinking states
+    setChatState(prevState => ({
+      ...prevState,
+      isLoading: true,
+      error: null
+    }));
+    setShowThinking(true); // Use setShowThinking instead of toggleThinking
+    
+    try {
+      const processedValue = stripPrefixes(value.trim());
+      const userMessage: Message = {
+        id: uuidv4(),
+        role: "user",
+        content: processedValue,
+        timestamp: new Date().toISOString(),
+      };
+      
+      const sanitizedUserMessage = sanitizeForDrizzle(userMessage);
+      if (!validateMessage(sanitizedUserMessage)) {
+        throw new Error("Invalid user message structure");
+      }
+      
+      // Fetch current chat messages using eq
+      const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
+      if (chatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const chat:any = chatRows[0];
+      const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+      const updatedMessages = [...messages, sanitizedUserMessage];
+      
+      // Update the chat with new message using eq
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(updatedMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(eq(chatsTable.id, chatId));
+      
+      // Update local state
+      setChatState(prevState => ({
+        ...prevState,
+        messages: updatedMessages
+      }));
+      
+      setValue("");
+      
+      // Generate AI response
+      await handleAIResponse(processedValue);
+    } catch (error) {
+      console.error("Error submitting message:", error);
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false,
+        error: "Failed to send message"
+      }));
+      toast.error("Failed to send message");
+    } finally {
+      // Clear thinking state if there was an error
+      // (success case is handled in handleAIResponse)
+      if (chatState.error) {
+        setChatState(prevState => ({
+          ...prevState,
+          isLoading: false
+        }));
+        setShowThinking(false); // Use setShowThinking instead of toggleThinking
+      }
+    }
+  };
+
+  // Modify handleAIResponse to properly manage thinking state
+  const handleAIResponse = async (userInput: string) => {
+    try {
+      // Set both local and global thinking states
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: true
+      }));
+      setShowThinking(true); // Use setShowThinking instead of toggleThinking
+      
+      // Call AI service with proper typing
+      const aiResponse = await aiService.generateResponse(userInput);
+      
+      // Create assistant message from response
+      const assistantMessageBase = {
+        id: uuidv4(),
+        role: "assistant" as const,
+        content: typeof aiResponse === "string" ? aiResponse : aiResponse.text_response,
+        timestamp: new Date().toISOString(),
+      };
+
+      const assistantMessage: Message = {
+        ...assistantMessageBase,
+        ...(typeof aiResponse !== "string" && aiResponse.image_urls?.length > 0
+          ? { image_urls: aiResponse.image_urls.filter(url => typeof url === "string") } 
+          : {}),
+      };
+
+      const sanitizedMessage = sanitizeForDrizzle(assistantMessage);
+      if (!validateMessage(sanitizedMessage)) {
+        throw new Error("Invalid assistant message structure");
+      }
+
+      // Fetch current messages using eq
+      const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, chatId));
+      if (chatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const chat:any = chatRows[0];
+      const messages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+      const updatedMessages = [...messages, sanitizedMessage];
+      
+      // Update chat with AI response using eq
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(updatedMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(eq(chatsTable.id, chatId));
+      
+      // Update local state and clear thinking state
+      setChatState(prevState => ({
+        ...prevState,
+        messages: updatedMessages,
+        isLoading: false
+      }));
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
+    } catch (error) {
+      console.error("Error generating AI response:", error);
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false,
+        error: "Failed to generate AI response"
+      }));
+      toast.error("Failed to generate AI response");
+    } finally {
+      // Ensure thinking state is cleared even if there's an error
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false
+      }));
+    }
+  };
+
+  const handleURLAnalysis = async (
+    urls: string[],
+    prompt: string,
+    type: string = "url_analysis"
+  ): Promise<void> => {
+    try {
+      // Set both local and global thinking states
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: true,
+        error: null
+      }));
+      setShowThinking(true); // Use setShowThinking instead of toggleThinking
+      
+      const userMessage: Message = {
+        id: uuidv4(),
+        role: "user",
+        content: `Analyze this: ${urls.join(", ")} ${prompt ? `\n\n${prompt}` : ""}`,
+        timestamp: new Date().toISOString(),
+      };
+
+      const sanitizedUserMessage = sanitizeForDrizzle(userMessage);
+      if (!validateMessage(sanitizedUserMessage)) {
+        throw new Error("Invalid user message structure for URL analysis");
+      }
+
+      // Fetch current messages using eq
+      const chatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, sessionId));
+      if (chatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const chat:any = chatRows[0];
+      const currentMessages = Array.isArray(chat.messages) ? chat.messages : JSON.parse(chat.messages);
+      const updatedMessages = [...currentMessages, sanitizedUserMessage];
+      
+      // Update chat with user message using eq
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(updatedMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(eq(chatsTable.id, sessionId));
+
+      // Update local state
+      setChatState(prevState => ({
+        ...prevState,
+        messages: updatedMessages
+      }));
+      
+      setValue("");
+      if (textareaRef.current) {
+        textareaRef.current.style.height = `${MIN_HEIGHT}px`;
+      }
+
+      const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/analyze_media_from_url`;
+      const payload = { urls, prompt };
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server responded with ${response.status}`);
+      }
+
+      const responseData = await response.json();
+
+      const assistantMessage: Message = {
+        id: uuidv4(),
+        role: "assistant",
+        content: responseData.response || responseData.text || "Analysis complete.",
+        timestamp: new Date().toISOString(),
+      };
+
+      const sanitizedMessage = sanitizeForDrizzle(assistantMessage);
+      if (!validateMessage(sanitizedMessage)) {
+        throw new Error("Invalid assistant message structure for URL analysis");
+      }
+
+      // Get updated messages after user message was added using eq
+      const updatedChatRows = await db.select().from(chatsTable).where(eq(chatsTable.id, sessionId));
+      if (updatedChatRows.length === 0) {
+        throw new Error("Chat not found");
+      }
+      
+      const updatedChat:any = updatedChatRows[0];
+      const latestMessages = Array.isArray(updatedChat.messages) ? updatedChat.messages : JSON.parse(updatedChat.messages);
+      const finalMessages = [...latestMessages, sanitizedMessage];
+      
+      // Update chat with AI response using eq
+      await db.update(chatsTable)
+        .set({
+          messages: JSON.stringify(finalMessages),
+          updatedAt: new Date().toISOString(),
+        })
+        .where(eq(chatsTable.id, sessionId));
+      
+      // Update local state
+      setChatState(prevState => ({
+        ...prevState,
+        messages: finalMessages,
+        isLoading: false
+      }));
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
+    } catch (error) {
+      console.error("Error in URL analysis:", error);
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false,
+        error: error instanceof Error ? error.message : "Failed to analyze URL content"
+      }));
+      toast.error("Failed to analyze content");
+    } finally {
+      // Ensure thinking state is cleared even if there's an error
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
+    }
+  };
+
+  // Modify handleAIGenerate to properly manage thinking state
+  const handleAIGenerate = useCallback(async (prompt: string, messages: any[] = []) => {
+    try {
+      // Set both local and global thinking states
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: true
+      }));
+      setShowThinking(true); // Use setShowThinking instead of toggleThinking
+      
+      // Call AI service to generate response
+      const aiResponse = await aiService.generateResponse(prompt);
+      
+      // Process response
+      const formattedResponse = typeof aiResponse === "string" 
+        ? aiResponse 
+        : aiResponse.text_response;
+      
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false
+      }));
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
+      
+      return formattedResponse;
+    } catch (error) {
+      console.error("Error generating AI response:", error);
+      setChatState(prevState => ({
+        ...prevState,
+        isLoading: false,
+        error: "Failed to generate AI response"
+      }));
+      toast.error("Failed to generate AI response");
+      return null;
+    } finally {
+      // Ensure thinking state is cleared even if there's an error
+      setShowThinking(false); // Use setShowThinking instead of toggleThinking
+    }
+  }, []);
+
+  const handleAdjustHeight = useCallback(
+    (reset = false) => {
+      if (!textareaRef.current) return;
+
+      if (reset) {
+        textareaRef.current.style.height = `${MIN_HEIGHT}px`;
+        setInputHeight(MIN_HEIGHT);
+        return;
+      }
+
+      const scrollHeight = textareaRef.current.scrollHeight;
+      const newHeight = Math.min(scrollHeight, MAX_HEIGHT);
+      textareaRef.current.style.height = `${newHeight}px`;
+      
+      // Update input height in Zustand store
+      setInputHeight(newHeight);
+    },
+    [textareaRef, setInputHeight]
   );
 
+  // Loading state while user authentication is in progress
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
+
   return (
-    <div className="container flex max-w-screen-xl flex-col items-center space-y-4 pb-[75px] mx-auto">
-      <div className="mt-4 w-full space-y-8">
-        {/* Left part of the layout: Localized text content */}
-        <Suspense fallback={pageSuspenseFallback}>
-          <DynamicLocalizedContent locale={locale} />
-        </Suspense>
-        
-        {/* Right part of the layout: Static card with social links */}
-        <div className="w-full md:w-2/5 md:max-w-[400px]">
-          <div className="relative min-h-[150px] border border-dashed">
-            <Icon className="-left-3 -top-3" />
-            <Icon className="-right-3 -top-3" />
-            <Icon className="-bottom-3 -left-3" />
-            <Icon className="-bottom-3 -right-3" />
-            <div className={cn("flex flex-col p-4")}>
-              <div className="flex w-full items-center justify-center space-x-4 rounded-md p-2 px-0 hover:bg-card hover:text-primary md:justify-evenly">
-                <Image width={50} height={50} src="/portfolio.png" alt="bijoy" className="rounded-full" />
-                <div className="flex flex-col">
-                  {/* Static text or non-localized content here */}
-                  <span className="font-semibold">Tanvir Hasan Bijoy</span>
-                  <span className="text-sm text-muted-foreground">Brand Identity Designer</span>
-                </div>
-                <div className="flex size-10 items-center justify-center rounded-full border p-1">
-                  ❤
-                </div>
-              </div>
-              <Separator className="my-4" />
-              <div className="flex items-center justify-center space-x-2">
-                <Link href={"https://www.facebook.com/tanvirhasan.bijoy.16"} className="flex size-12 items-center justify-center rounded-full hover:bg-card hover:text-primary">
-                  <Facebook />
-                </Link>
-                <Link href={"https://www.linkedin.com/in/tanvirhasan002/"} className="flex size-12 items-center justify-center rounded-full hover:bg-card hover:text-primary">
-                  <LinkedIn />
-                </Link>
-                <Link target="_blank" href={"mailto:tanvirdesigner00202@gmail.com"} className="flex size-12 items-center justify-center rounded-full hover:bg-card hover:text-primary">
-                  <Gmail />
-                </Link>
-                <Link href={"https://www.behance.net/tanvirhasan00"} className="flex size-12 items-center justify-center rounded-full hover:bg-card hover:text-primary">
-                  <Framer className="size-4" />
-                </Link>
-                <Link href={"https://dribbble.com/Tanvirhasan00"} className="flex size-12 items-center justify-center rounded-full hover:bg-card hover:text-primary">
-                  <Dribbble className="size-4" />
-                </Link>
-                <Link href={"https://manfromexistence.vercel.app"} className="flex size-12 items-center justify-center rounded-full hover:bg-card hover:text-primary">
-                  <Code2 className="size-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
+    <div
+      className={cn(
+        "relative flex min-h-full w-full flex-col transition-all duration-200 ease-linear"
+      )}
+    >
+      {chatState.error && (
+        <div className="bg-destructive/90 absolute inset-x-0 top-0 z-50 p-2 text-center text-sm">
+          {chatState.error}
         </div>
-      </div>
-      <SocialMedias />
-      {/* <SiteFooter /> */}
+      )}
+      <MessageList
+        chatId={sessionId}
+        messages={chatState.messages}
+        messagesEndRef={messagesEndRef}
+        isThinking={chatState.isLoading || showThinking} // Pass both states
+        selectedAI={currentModel}
+      />
+      <ChatInput
+        className="absolute bottom-4 left-1/2 z-50 -translate-x-1/2 md:bottom-2"
+        value={value}
+        chatState={chatState}
+        setChatState={setChatState}
+        inputHeight={inputHeight}
+        textareaRef={textareaRef as React.RefObject<HTMLTextAreaElement>}
+        onSubmit={handleSubmit}
+        onChange={setValue}
+        onHeightChange={handleAdjustHeight}
+        onUrlAnalysis={handleURLAnalysis}
+        onAIGenerate={handleAIGenerate}
+        onImageChange={(file) => 
+          setImagePreview(file ? URL.createObjectURL(file) : null)
+        }
+      />
     </div>
   );
 }

@@ -15,10 +15,10 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "../ui/table"
-import { Card } from "../ui/card"
-import { Alert, AlertDescription } from "../ui/alert"
-import { ScrollArea } from "../ui/scroll-area"
+} from "@/components/ui/table"
+import { Card } from "@/components/ui/card"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import "katex/dist/katex.min.css"
 import type { Components } from "react-markdown"
 

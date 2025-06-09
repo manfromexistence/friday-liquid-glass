@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 import { MoreActions } from "@/components/chat/chat-more-options";
-import { Progress } from "../ui/progress";
+import { Progress } from "@/components/ui/progress";
 
 interface AiMessageProps {
   content: string;

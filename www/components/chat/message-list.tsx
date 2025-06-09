@@ -3,7 +3,7 @@ import { Message } from "@/types/chat";
 import { ChatMessage } from "@/components/chat/chat-message";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { useChatInputStore } from "@/store/chat-store";
 
 interface MessageListProps {

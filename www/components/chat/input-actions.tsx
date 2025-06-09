@@ -2,21 +2,21 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { aiService } from "@/services/ai-service";
 import { googleGenAIService } from "@/services/google-genai-service";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Radio, Globe, Paperclip, ArrowUp, CircleDotDashed, Lightbulb, ImageIcon, ChevronDown, Check, YoutubeIcon, FolderCogIcon, Upload, Link2, PackageOpen, NotebookPen, Sparkles, X, File, FolderPlus, Plus, Play, StopCircle, Search, Microscope, Pen, PenTool, Images, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { db as drizzleDb } from "@/lib/db"; // Drizzle client
-import { chats as chatsTable, user as userTable, projects as projectsTable } from "@/lib/db/schema"; // Added projects import
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { db as drizzleDb } from "@/db"; // Drizzle client
+import { chats as chatsTable, user as userTable, projects as projectsTable } from "@/db/schema"; // Added projects import
 import { eq, desc } from "drizzle-orm"; // Added desc for sorting
 import { v4 as uuidv4 } from 'uuid';
 

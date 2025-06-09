@@ -1,2 +1,0 @@
-# Friday
-Your ai friend!

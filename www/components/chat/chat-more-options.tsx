@@ -11,7 +11,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../ui/popover"
+} from "@/components/ui/popover"
 import {
   Sidebar,
   SidebarContent,

@@ -15,16 +15,16 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "../ui/table"
-import { Card } from "../ui/card"
-import { Alert, AlertDescription } from "../ui/alert"
-import { ScrollArea } from "../ui/scroll-area"
+} from "@/components/ui/table"
+import { Card } from "@/components/ui/card"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger
-} from "../ui/collapsible"
-import { Button } from "../ui/button"
+} from "@/components/ui/collapsible"
+import { Button } from "@/components/ui/button"
 import "katex/dist/katex.min.css"
 import type { Components } from "react-markdown"
 

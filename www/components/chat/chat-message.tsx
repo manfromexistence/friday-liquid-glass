@@ -1,14 +1,14 @@
 import { Message } from "@/types/chat";
 import { cn } from "@/lib/utils";
 import { Sparkles, Play, Pause, Volume2, ImageIcon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { authClient } from "@/lib/auth/auth-client";
 import React, { useState, useEffect, useRef, memo } from "react";
 import AiMessage from "@/components/chat/ai-message-actions";
 import UserMessage from "@/components/chat/user-message-actions";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { MarkdownPreview } from "@/components/chat/markdown-preview";
-import AnimatedGradientText from "../ui/animated-gradient-text";
+import AnimatedGradientText from "@/components/ui/animated-gradient-text";
 import ImageGen from "../image";
 import { ReasoningPreview } from "@/components/chat/reasoning-preview";
 
