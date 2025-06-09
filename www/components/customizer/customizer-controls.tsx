@@ -47,8 +47,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Slider } from "@/components/ui/slider";
-import { Color } from "@/components/theme/color";
-import { TokenColorPicker } from "@/components/theme/token-color-picker";
+import { Color } from "@/components/customizer/color";
+import { TokenColorPicker } from "@/components/customizer/token-color-picker";
 
 const PLACEHOLDERS = [
   "oklch(0.685 0.169 237.323)",

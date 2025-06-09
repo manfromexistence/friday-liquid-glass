@@ -27,9 +27,9 @@ import {
   AllPresetsControl,
   PasteColorControl,
   RadiusControls,
-} from "@/components/theme/customizer-controls";
-import { MemoizedTailwindV4ColorPalette } from "@/components/theme/tailwind-v4-palette";
-// import { GradientPicker } from "@/components/theme/gradient-picker"; // Import GradientPicker
+} from "@/components/customizer/customizer-controls";
+import { MemoizedTailwindV4ColorPalette } from "@/components/customizer/tailwind-v4-palette";
+// import { GradientPicker } from "@/components/customizer/gradient-picker"; // Import GradientPicker
 // import { PREDEFINED_GRADIENTS } from "@/lib/gradient-palettes"; // Import gradients
 import React from "react"; // Import React
 

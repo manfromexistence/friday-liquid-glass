@@ -7,7 +7,7 @@ import { AlertTriangle, Check, Contrast } from "lucide-react";
 import { useTheme } from "next-themes";
 import React, { useState } from "react";
 // import { ExternalLink } from "../external-link";
-import { ModeSwitcher } from "@/components/theme/mode-switcher";
+import { ModeSwitcher } from "@/components/customizer/mode-switcher";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

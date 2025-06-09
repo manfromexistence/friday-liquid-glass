@@ -10,6 +10,7 @@
     pkgs.nodePackages.pnpm
     pkgs.bun
     pkgs.python3 # Added Python 3
+    pkgs.busybox
   ];
   # Sets environment variables in the workspace
   env = { };

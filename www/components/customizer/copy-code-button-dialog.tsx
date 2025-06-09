@@ -14,7 +14,7 @@ import { TailwindVersion } from "@/types/theme";
 import { generateThemeCode } from "@/lib/theme/theme-style-generator";
 import { Check, Clipboard, Code, Terminal } from "lucide-react";
 import React, { useMemo } from "react";
-import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
+import { TooltipWrapper } from "@/components/common/tooltip-wrapper";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,7 +36,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-// import { CopyThemeCLI } from "@/components/theme/copy-theme-cli";
+// import { CopyThemeCLI } from "@/components/customizer/copy-theme-cli";
 
 export function CopyCodeButtonDialog({
   className,

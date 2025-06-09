@@ -1,6 +1,6 @@
 import { i18n, type Locale } from "@/lib/i18n/i18n-config";
-import { LoadTheme } from "@/components/theme/load-theme";
-import { Providers } from "@/components/providers";
+import { LoadTheme } from "@/providers/load-theme";
+import { Providers } from "@/providers";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import "@/styles/globals.css";

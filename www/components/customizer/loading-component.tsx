@@ -1,4 +1,4 @@
-import { FrameHighlight } from "@/components/theme/frame-highlight";
+import { FrameHighlight } from "@/components/customizer/frame-highlight";
 
 export function LoadingComponent() {
   return (

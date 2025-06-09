@@ -2,14 +2,14 @@
 
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
-import { ModeSwitcher } from "@/components/theme/mode-switcher";
-import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
+import { ModeSwitcher } from "@/components/customizer/mode-switcher";
+import { TooltipWrapper } from "@/components/common/tooltip-wrapper";
 import { Separator } from "@/components/ui/separator";
-import { ContrastChecker } from "@/components/theme/contrast-checker";
-import { CopyCodeButtonDialog } from "@/components/theme/copy-code-button-dialog";
-// import { CopyThemeCLI } from "@/components/theme/copy-theme-cli";
-import { CustomizerSettings } from "@/components/theme/customizer-settings";
-import { ResetButton } from "@/components/theme/reset-button";
+import { ContrastChecker } from "@/components/customizer/contrast-checker";
+import { CopyCodeButtonDialog } from "@/components/customizer/copy-code-button-dialog";
+// import { CopyThemeCLI } from "@/components/customizer/copy-theme-cli";
+import { CustomizerSettings } from "@/components/customizer/customizer-settings";
+import { ResetButton } from "@/components/customizer/reset-button";
 
 interface ActionButtonsProps extends ComponentProps<"section"> {
   className?: string;

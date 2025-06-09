@@ -4,8 +4,8 @@ import { useTokens } from "@/hooks/use-tokens";
 import { cn } from "@/lib/utils";
 import { Palette } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { ControlSection } from "@/components/theme/customizer-controls";
-import { TokenColorPicker } from "@/components/theme/token-color-picker";
+import { ControlSection } from "@/components/customizer/customizer-controls";
+import { TokenColorPicker } from "@/components/customizer/token-color-picker";
 
 export function ColorTokens({ className }: React.ComponentProps<"div">) {
   return (

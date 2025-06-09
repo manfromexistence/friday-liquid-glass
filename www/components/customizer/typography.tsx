@@ -12,7 +12,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ControlSection } from "@/components/theme/customizer-controls";
+import { ControlSection } from "@/components/customizer/customizer-controls";
 
 export function Typography({ className }: React.ComponentProps<"div">) {
   const { setConfig, currentFonts } = useThemeConfig();

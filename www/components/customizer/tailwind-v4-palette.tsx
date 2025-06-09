@@ -5,8 +5,8 @@ import { TAILWIND_PALETTE_V4, TailwindShadeKey } from "@/constants/palettes";
 import { cn } from "@/lib/utils";
 import { convertToOklch } from "@/lib/theme/color-converter";
 import React, { ComponentProps } from "react";
-import { TooltipWrapper } from "@/components/theme/tooltip-wrapper";
-import { Color } from "@/components/theme/color";
+import { TooltipWrapper } from "@/components/common/tooltip-wrapper";
+import { Color } from "@/components/customizer/color";
 
 export const MemoizedTailwindV4ColorPalette = React.memo(
   TailwindV4ColorPalette,

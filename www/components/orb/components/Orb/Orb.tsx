@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import "./styles.css";
-import { SvgElements } from "@/friday/components/SvgElements/SvgElements";
-import { colorPalettes } from "@/friday/palette/colorPalettes";
+import { SvgElements } from "@/components/orb/components/SvgElements/SvgElements";
+import { colorPalettes } from "@/components/orb/palette/colorPalettes";
 import {
   defaultBaseOrbSize,
   defaultBaseShapeSize,
@@ -13,8 +13,8 @@ import {
   defaultMainOrbHueAnimation,
   defaultNoShadowValue,
   defaultSize,
-} from "@/friday/constants";
-import { ReactAIOrbProps } from "@/friday/types";
+} from "@/components/orb/constants";
+import { ReactAIOrbProps } from "@/components/orb/types";
 import { cn } from "@/lib/utils";
 
 export const Orb = ({

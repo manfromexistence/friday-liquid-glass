@@ -14,10 +14,10 @@ import { useTheme } from "next-themes";
 import { useCallback, useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
-import { ComponentErrorBoundary } from "@/components/theme/error-boundary";
+import { ComponentErrorBoundary } from "@/providers/error-boundary";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { PasteColorControl } from "@/components/theme/customizer-controls";
-import { TokenDisplay, TokenInfo } from "@/components/theme/token";
+import { PasteColorControl } from "@/components/customizer/customizer-controls";
+import { TokenDisplay, TokenInfo } from "@/components/customizer/token";
 
 interface TokenColorPickerProps {
   colorProperty: ColorProperty;
