@@ -1,7 +1,7 @@
 import { betterAuth } from "manfromexistence-auth";
 import { drizzleAdapter } from "manfromexistence-auth/adapters/drizzle";
-import { db } from "../../db/drizzle";
-import { schema } from "../../db/schema";
+import { db } from "@/db/drizzle";
+import { schema } from "@/db/schema";
 import {
   username,
   anonymous,
@@ -23,9 +23,9 @@ import {
 } from "manfromexistence-auth/plugins"
 import { passkey } from "manfromexistence-auth/plugins/passkey";
 import { nextCookies } from "manfromexistence-auth/next-js";
-import { reactInvitationEmail } from "../email/invitation";
-import { reactResetPasswordEmail } from "../email/reset-password";
-import { resend } from "../email/resend";
+// import { reactInvitationEmail } from "../email/invitation";
+// import { reactResetPasswordEmail } from "../email/reset-password";
+// import { resend } from "../email/resend";
 // import { stripe } from "better-auth/stripe";
 // import { Stripe } from "stripe";
 
@@ -81,39 +81,39 @@ export const auth = betterAuth({
     // mcp({
     //   loginPage: "/sign-in",
     // }),
-    organization({
-      async sendInvitationEmail(data) {
-        await resend.emails.send({
-          from,
-          to: data.email,
-          subject: "You've been invited to join an organization",
-          react: reactInvitationEmail({
-            username: data.email,
-            invitedByUsername: data.inviter.user.name,
-            invitedByEmail: data.inviter.user.email,
-            teamName: data.organization.name,
-            inviteLink:
-              process.env.NODE_ENV === "development"
-                ? `http://localhost:3000/accept-invitation/${data.id}`
-                : `${process.env.BETTER_AUTH_URL ||
-                "https://demo.better-auth.com"
-                }/accept-invitation/${data.id}`,
-          }),
-        });
-      },
-    }),
-    twoFactor({
-      otpOptions: {
-        async sendOTP({ user, otp }) {
-          await resend.emails.send({
-            from,
-            to: user.email,
-            subject: "Your OTP",
-            html: `Your OTP is ${otp}`,
-          });
-        },
-      },
-    }),
+    // organization({
+    //   async sendInvitationEmail(data) {
+    //     await resend.emails.send({
+    //       from,
+    //       to: data.email,
+    //       subject: "You've been invited to join an organization",
+    //       react: reactInvitationEmail({
+    //         username: data.email,
+    //         invitedByUsername: data.inviter.user.name,
+    //         invitedByEmail: data.inviter.user.email,
+    //         teamName: data.organization.name,
+    //         inviteLink:
+    //           process.env.NODE_ENV === "development"
+    //             ? `http://localhost:3000/accept-invitation/${data.id}`
+    //             : `${process.env.BETTER_AUTH_URL ||
+    //             "https://demo.better-auth.com"
+    //             }/accept-invitation/${data.id}`,
+    //       }),
+    //     });
+    //   },
+    // }),
+    // twoFactor({
+    //   otpOptions: {
+    //     async sendOTP({ user, otp }) {
+    //       await resend.emails.send({
+    //         from,
+    //         to: user.email,
+    //         subject: "Your OTP",
+    //         html: `Your OTP is ${otp}`,
+    //       });
+    //     },
+    //   },
+    // }),
     customSession(async (session) => {
       return {
         ...session,
@@ -155,31 +155,31 @@ export const auth = betterAuth({
       trustedProviders: ["google", "github", "twitter", "tiktok", "gitlab", "facebook", "discord,", "zoom", "reddit", "spotify", "kick"],
     }
   },
-  emailAndPassword: {
-    enabled: true,
-    async sendResetPassword({ user, url }) {
-      await resend.emails.send({
-        from,
-        to: user.email,
-        subject: "Reset your password",
-        react: reactResetPasswordEmail({
-          username: user.email,
-          resetLink: url,
-        }),
-      });
-    },
-  },
-  emailVerification: {
-    async sendVerificationEmail({ user, url }) {
-      const res = await resend.emails.send({
-        from,
-        to: to || user.email,
-        subject: "Verify your email address",
-        html: `<a href="${url}">Verify your email address</a>`,
-      });
-      console.log(res, user.email);
-    },
-  },
+  // emailAndPassword: {
+  //   enabled: true,
+  //   async sendResetPassword({ user, url }) {
+  //     await resend.emails.send({
+  //       from,
+  //       to: user.email,
+  //       subject: "Reset your password",
+  //       react: reactResetPasswordEmail({
+  //         username: user.email,
+  //         resetLink: url,
+  //       }),
+  //     });
+  //   },
+  // },
+  // emailVerification: {
+  //   async sendVerificationEmail({ user, url }) {
+  //     const res = await resend.emails.send({
+  //       from,
+  //       to: to || user.email,
+  //       subject: "Verify your email address",
+  //       html: `<a href="${url}">Verify your email address</a>`,
+  //     });
+  //     console.log(res, user.email);
+  //   },
+  // },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID!,
